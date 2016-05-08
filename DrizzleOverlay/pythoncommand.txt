@@ -1,0 +1,707 @@
+#
+#    Drizzle - A general Myst tool.
+#    Copyright (C) 2008  Dustin Bernard.
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# 
+
+
+commandnum = -1       # Set this to a higher number each time you want it to execute. It can be reset to zero each time you run the game.  Set it to -1 to disable it.
+
+
+#functions defs must come before their use.
+
+
+class command:
+
+    caller = None;
+    source = None;
+    flag = None;
+    value = None;
+
+    def execute(self):
+        #Place your commands here.
+        self.msg("executing...");
+        #self.dostartupwork()
+
+
+        #PtConsole("Game.KIOpenYeeshaBook"); #works!
+        #keymap = ptKeyMap();
+        #key=keymap.convertVKeyToChar(50,0);
+        #key2=keymap.convertCharToControlCode("Jump Key");
+        #key3=keymap.convertCharToFlags("");
+        #key4=keymap.convertCharToVKey("2");
+        #key5=keymap.convertControlCodeToString(75);
+        #keymap.bindKey("2","(unmapped)","Jump Key"); #works!
+        #keymap.bindKey("3","(unmapped)","Toggle Physical");
+        #flags is an int describing if control is pressed or something. control code is int for type of action to perform, vkey is virtual key(like ascii) for the keystroke.
+        #PtPrintToScreen("key="+str(key5));
+        #for i in range(0,120):
+        #    cc=keymap.convertControlCodeToString(i);
+        #    self.msg("key "+str(i)+" is: "+str(cc));
+        #keymap.bindKeyToConsoleCommand("4","Game.KIOpenYeeshaBook2"); #works!
+        #keymap.bindKeyToConsoleCommand("0", "Game.SetChatFadeDelay 424200.0")
+        #a=ptColor(0.8,0.5,0.5)
+        #a=ptColor(0,0,0)
+        #PtFogSetDefColor(a)
+        #PtFogSetDefLinear(0.5,0.5,0.5)
+        #PtFogSetDefExp2(250,1)
+        #PtSetPythonLoggingLevel(5)
+        #PtSetClearColor(0,0,0)
+        #PtPageOutNode('minkExteriorDay') #works even while player is in age!
+        #PtPageInNode('minkExteriorDay') #works even while player is in age!
+        #PtFakeLinkAvatarToObject(PtFindSceneobject("Ramp0","Jalak"))
+        #self.moveto(0,0,0)
+        #self.movetoobj("Urwin_Head") #works!
+        #self.movetoobj("2Tails_Head") #works!
+        #self.movetoobj("SoccerBall")
+        #self.movetoobj("Sphere0")
+
+        #ptp = ptPhysics()
+        #self.msg(`dir(ptp)`)
+
+        #PtPrintToScreen("dnitime="+str(PtGetDniTime()))
+        #PtPrintToScreen("servertime="+str(PtGetServerTime()))
+        #PtPrintToScreen("agetime%="+str(PtGetAgeTimeOfDayPercent()))
+        #PtPrintToScreen("agetime="+str(PtGetAgeTime()))
+
+        return
+
+    def negilahnbugfix1(self):
+        #negilahn book shows up, because SinglePlayerMode saves all links to your owned list, and negilahn was partially implemented in pots.
+        vault = ptVault()
+        self.msg("uruutils: looking for negilahn link.")
+        pal = vault.getAgesIOwnFolder()
+        if(pal):
+            contents = pal.getChildNodeRefList()
+            for content in contents:
+                
+                link = content.getChild().upcastToAgeLinkNode()
+                info = link.getAgeInfo()
+                if (info):
+                    agename = info.getAgeFilename()
+                    if(agename=="Negilahn"):
+                        self.msg("uruutils: found negilahn link, deleting...")
+                        pal.removeNode(link)
+                        #pal.save()
+
+
+    def jalakcommand(self, command):
+        obj = PtFindSceneobject('JalakDONOTTOUCH', 'Jalak')
+        pythonscripts = obj.getPythonMods()
+        for script in pythonscripts:
+            if(script.getName()=='cPythField'):
+                jalakscript = script
+        #jalakscript is a ptKey
+        def dummy(self, ptvector):
+            #PtPrintToScreen("dum")
+            pass
+        ptPhysics.setLinearVelocity = dummy
+        ptPhysics.setAngularVelocity = dummy
+        note = ptNotify(jalakscript)
+        note.clearReceivers()
+        note.addReceiver(jalakscript)
+        note.netPropagate(0)
+        note.netForce(0)
+        note.setActivate(1.0)
+        note.addVarNumber(command, 1.0)
+        note.send()
+
+    def jalakbugfix2(self ,reverseWall=false):
+        #bugfix: wall physics were staying on.
+        #self.jalakcommand("for direc in ['N','E','S','W']: PtFindSceneobject('FieldBounds'+direc,'Jalak').physics.suppress(boolWall)") #works!
+        #note.addVarNumber("PtPrintToScreen('hi')\nPtPrintToScreen('ho')", 1.0) #works!
+        doSuppress = not self.getsdl("jlakForceField")
+        if reverseWall:
+            doSuppress = not doSuppress
+        for direc in ['N','E','S','W']:
+            PtFindSceneobject('FieldBounds'+direc,'Jalak').physics.suppress(doSuppress)
+
+    def jalakbugfix1(self):
+        #bugfix: spheres and ramps were getting stuck.
+        #for type in ["Sphere", "LilBox", "BigBox", "Rect", "Ramp"]:
+        for type in ["Sphere", "Ramp"]:
+            for i in range(0,5):
+                obj = PtFindSceneobject(type+str(i), 'Jalak')
+                obj.physics.suppress(0)
+
+
+
+    def movetoobj(self, objname):
+        age = self.getAgeFilename()
+        #avatar = PtGetLocalAvatar()
+        obj = PtFindSceneobject(objname,age)
+        objpos = obj.position() #ptPoint3
+        #PtPrintToScreen(`objpos`)
+        #curposmat = avatar.
+        #avatar.physics.warp(objpos)
+        self.moveto(objpos.getX(),objpos.getY(),objpos.getZ())
+
+    def moveto(self, x, y, z):
+        avatar = PtGetLocalAvatar()
+        ltw = avatar.getLocalToWorld()
+        transvect = ptVector3(x,y,z)
+        translation = avatar.getLocalToWorld()
+        translation.makeTranslateMat(transvect)
+        finalmatrix = translation #ltw*translation
+        avatar.physics.warp(finalmatrix)
+
+    #def bindkey(self, keyname, num):
+    #    keymap = ptKeyMap()
+    #    keymap.bindKeyToConsoleCommand(keyname, "Game.SetChatFadeDelay "+str(num + 424200.0))
+
+    def dostartupwork(self):
+        self.caller.timeBetweenChecks = 100000000; #set the timer with which this file is called. Really high effectively disables it.
+        self.caller.defaultRotationSpeed = 0.05
+        self.caller.defaultRotationSpeedRun = 0.08
+        self.caller.defaultRotationAccel = 0
+        keymap = ptKeyMap()
+        #keymap.bindKeyToConsoleCommand("Q", "Game.SetChatFadeDelay 424200.0")
+        letters = "QWERTYUIOPASDFGHJKLZXCVBNM"
+        i=0
+        for letter in letters:
+            keymap.bindKeyToConsoleCommand(letter, "Game.SetChatFadeDelay "+str(i + 424200.0))
+            i=i+1
+        for letter in letters:
+            keymap.bindKeyToConsoleCommand(letter+"_S", "Game.SetChatFadeDelay "+str(i + 424200.0)) #shift
+            i=i+1
+        for letter in letters:
+            keymap.bindKeyToConsoleCommand(letter+"_C", "Game.SetChatFadeDelay "+str(i + 424200.0)) #ctrl
+            i=i+1
+        keymap.bindKeyToConsoleCommand("Tilde", "Game.SetChatFadeDelay "+str(i+424200.0))
+        i=i+1
+        keymap.bindKeyToConsoleCommand("Plus", "Game.SetChatFadeDelay "+str(i+424200.0)) # that's the + on German keyboards
+        i=i+1
+        keymap.bindKeyToConsoleCommand("RightBracket", "Game.SetChatFadeDelay "+str(i+424200.0)) # that's the + on German keyboards when using wine
+        i=i+1
+        
+    def handleKeystroke(self, keystroke):
+        if keystroke >= 0 and keystroke < 26:
+            self.setstate(keystroke)
+        if keystroke >= 26 and keystroke < 52:
+            self.link(keystroke-26)
+        if keystroke==52+0:
+            self.showJournal("JalakJournal")
+        elif keystroke==52+1:
+            self.showJournal("MinkataQuestJournal")
+        elif keystroke==52+2:
+            self.showJournal("Negilahn")
+        elif keystroke==52+3:
+            self.showJournal("GahreesenWallHelp")
+        elif keystroke==52+4:
+            self.showJournal("KINexusFAQ")
+        elif keystroke==52+5:
+            self.showJournal("Poetry1")
+        elif keystroke==78+0 or keystroke==78+1 or keystroke==78+2:
+            #PtPrintToScreen("tilde")
+            self.caller.isExitMode = 1
+
+    def handleAgeLink(self):
+        age = self.getAgeFilename().lower()
+        self.msg("uruutils: linked to age: "+age)
+        #import PlasmaControlKeys
+        #if age in self.unstableAges:
+        #    if not self.caller.isSpecialMode:
+        #        #self.caller.OnControlKeyEvent(None, PlasmaControlKeys.kKeyExitMode, 1)
+        #        self.caller.isExitMode = 1
+        #    else: #we need to exit then reenter flymode.
+        #        self.caller.isSpecialMode = 0
+        #        #self.caller.OnControlKeyEvent(None, PlasmaControlKeys.kKeyExitMode, 1)
+        #        self.caller.isExitMode = 1
+        #else:
+        #    if self.caller.isSpecialMode:
+        #        #self.caller.isSpecialMode = 0
+        #        self.caller.OnControlKeyEvent(None, PlasmaControlKeys.kKeyExitMode, 1)
+        if self.caller.isSpecialMode:
+            self.caller.isExitMode = 1
+
+        if age in self.guildpubAges:
+            #self.showhideobj("ImagerCentral", 0);
+            #self.showhideobj("ImagerTextPlane", 0);
+            pass
+        if age=="ederdelin":
+            self.setsdl("dlnYeeshaPage21Vis", 1);
+            self.setsdl("dlnYeeshaPageBenchVis", 1);
+            #self.showhideobj("LightCone15",0)
+            #self.showhideobj("FountainWater",0)
+            #self.showhideobj("FountainPool",0)
+            #self.showhideobj("FountainPool01",0)
+        if age=="livebahrocaves":
+            #self.showhideobj("FireGlare", 0);
+            #self.showhideobj("FireGlare01", 0);
+            #self.showhideobj("FireGlare02", 0);
+            #self.showhideobj("FireGlare03", 0);
+            #self.showhideobj("FireGlare04", 0);
+            #self.showhideobj("FireGlareRed01", 0);
+            #self.showhideobj("FireGlareRed02", 0);
+            #self.showhideobj("FireGlareRed03", 0);
+            #self.showhideobj("FireGlareRed04", 0);
+            #self.showhideobj("FireGlareRed05", 0);
+            pass
+        if age=="minkata":
+            self.setsdl("minkHikingBootsVis",1);
+        if age=="jalak":
+            #slow!
+            #self.showhideobj("WallFlashTop",0)
+            #for i in range(9):
+            #    self.showhideobj("WallFlash0"+str(i+1),0)
+            #for i in range(119):
+            #    self.showhideobj("WallFlash"+str(i+10),0)
+            self.jalakbugfix2()
+            pass
+        if age=="dereno":
+            #self.showhideobj("WindowGlass1",0)
+            #self.showhideobj("WindowGlass2",0)
+            #self.showhideobj("WindowGlass3",0)
+            #self.showhideobj("WindowGlass4",0)
+            #self.showhideobj("WindowGlass5",0)
+            #self.showhideobj("SpotLightBeam01",0)
+            #self.showhideobj("SpotLightBeam02",0)
+            #self.showhideobj("UnderWaterLight",0)
+            pass
+        if age=="payiferen":
+            #self.showhideobj("WindowGlass1",0)
+            #self.showhideobj("WindowGlass2",0)
+            #self.showhideobj("WindowGlass3",0)
+            #self.showhideobj("WindowGlass4",0)
+            #self.showhideobj("WindowGlass5",0)
+            #self.showhideobj("Plane02",0)
+            #self.showhideobj("Plane03",0)
+            #self.showhideobj("Plane04",0)
+            #self.showhideobj("Plane05",0)
+            #self.showhideobj("ExterLightBeam01",0)
+            #self.showhideobj("ExterLightBeam02",0)
+            #self.showhideobj("ExterLightBeam03",0)
+            #self.showhideobj("HoleGlow01",0)
+            #self.showhideobj("HoleGlow02",0)
+            #self.showhideobj("HoleGlow03",0)
+            #self.showhideobj("HoleGlow04",0)
+            pass
+        if age=="negilahn":
+            self.setsdl("nglnYeeshaPageLushVis",1)
+            #self.negilahnbugfix1()
+            self.setTimer(0.0,0) #bugfix
+            #self.showhideobj("WindowGlass1",0)
+            #self.showhideobj("WindowGlass2",0)
+            #self.showhideobj("WindowGlass3",0)
+            #self.showhideobj("WindowGlass4",0)
+            #self.showhideobj("WindowGlass5",0)
+        if age=="personal":
+            #self.negilahnbugfix1()
+            pass
+        if age=="edertsogal":
+            self.setsdl("tsoYeeshaPageGrassVis",1)
+            #self.showhideobj("LightCone01",0)
+            #self.showhideobj("LightCone03",0)
+            #self.showhideobj("LightCone06",0)
+            #self.showhideobj("LightCone10",0)
+            #self.showhideobj("LightCone11",0)
+            #self.showhideobj("LightCone12",0)
+            #self.showhideobj("LightCone13",0)
+            #self.showhideobj("FountainPool01",0)
+            #self.showhideobj("FountainWater",0)
+            #for i in range(6):
+            #    if i==0:
+            #        si1 = ""
+            #    else:
+            #        si1 = "0"+str(i)
+            #    if i<4:
+            #        si2 = "0"+str(i+6)
+            #    else:
+            #        si2 = str(i+6)
+            #    self.showhideobj("RippleTorus"+si1,0)
+            #    self.showhideobj("RippleTorusMED"+si1,0)
+            #    self.showhideobj("RippleTorusSmll"+si1,0)
+            #    self.showhideobj("RippleTorusUP"+si2,0)
+            #    self.showhideobj("RippleTorusUPMED"+si2,0)
+            #    self.showhideobj("RippleTorusSmllUP"+si2,0)
+
+
+
+
+
+
+    def msg(self, str):
+        PtDebugPrint(str);
+        #PtPrintToScreen(str);
+        self.output(str);
+
+    def setstate(self, num):
+        age = self.getAgeFilename().lower();
+        if num==25:
+            self.execute()
+        if(age=="kadish"):
+            pass;
+        elif age=="cleft":
+            if num==0:
+                import xSndLogTracks
+                xSndLogTracks.SetLogMode()
+        elif(age=="negilahn"):
+            if num==0:
+                self.setsdl('UrwinSpawnTimes', PtGetDniTime()+2)
+            elif num==1:
+                self.setsdl('MonkeySpawnTimes', PtGetDniTime()+2)
+        elif(age=="payiferen"):
+            if num==0:
+                self.setsdl('UrwinSpawnTimes', PtGetDniTime()+2)
+        elif(age=="ederdelin"):
+            if(num==0):
+                self.setsdl("dlnWinterVis", 0);
+            elif(num==1):
+                self.setsdl("dlnWinterVis", 1);
+            elif(num==2):
+                self.setsdl("dlnYeeshaPage21Vis", 0);
+            elif(num==3):
+                self.setsdl("dlnYeeshaPage21Vis", 1);
+            elif(num==4):
+                self.setsdl("dlnYeeshaPageBenchVis", 0);
+            elif(num==5):
+                self.setsdl("dlnYeeshaPageBenchVis", 1);
+        elif(age=="guildpub-cartographers" or age=="guildpub-greeters" or age=="guildpub-maintainers" or age=="guildpub-messengers" or age=="guildpub-writers"):
+            if num==0:
+                self.showhideobj("ImagerCentral", 0);
+                self.showhideobj("ImagerTextPlane", 0);
+            elif num==1:
+                self.showhideobj("ImagerCentral", 1);
+                self.showhideobj("ImagerTextPlane", 1);
+            #if(num==0):
+            #    self.setsdl("grtpBallHallDoorVis", 0);
+            #elif(num==1):
+            #    self.setsdl("grtpBallHallDoorVis", 1);
+            #elif(num==2):
+            #    self.showhideobj("ImagerCentral", 0);
+            #elif(num==3):
+            #    self.showhideobj("ImagerCentral", 1);
+            #elif(num==4):
+            #    self.showhideobj("ImagerTextPlane", 0);
+            #elif(num==5):
+            #    self.showhideobj("ImagerTextPlane", 1);
+            #elif num==6:
+            #    self.setsdl("grtpDeadBahroVis",1)
+            #elif num==7:
+            #    self.setsdl("grtpErcanaLinkingBookVis",1)
+            #elif num==8:
+            #    self.setsdl("grtpAhnonayLinkingBookVIs",1)
+            #elif num==9:
+            #    self.setsdl("grtpDRCWatchersJournalVis",1)
+            #elif num==10:
+            #    self.setsdl("grtpWatchersJournalsVis",1)
+            #elif num==11:
+            #    self.setsdl("islmGZBeamVis",1)
+        elif age=="livebahrocaves":
+            pass
+        elif age=="tetsonot":
+            if num==0:
+                self.setsdl("tetsPodLights",1);
+            if num==1:
+                self.setsdl("tetsSpotlight01",1);
+            if num==2:
+                self.setsdl("tetsSpotlight02",1);
+            if num==3:
+                self.setsdl("tetsSpotlight03",1);
+        elif age=="minkata":
+            #if num==0:
+            #    self.setsdl("minkHikingBootsVis",0);
+            #if num==1:
+            #    self.setsdl("minkHikingBootsVis",1);
+            #if num==0:
+            #    self.setsdl("minkIsDayTime",0);
+            #if num==1:
+            #    self.setsdl("minkIsDayTime",1);
+            #if num==4:
+            #    self.setsdl("minkSymbolPart01",1);
+            #if num==5:
+            #    self.setsdl("minkSymbolShow01",1);
+            #if num==6:
+            #    self.setsdl("minkSymbolTouch01",1);
+            #if num==7:
+            #    self.setsdl("minkCalendarSpark06",0);
+            if num==8:
+                self.setsdl("minkCalendarSpark06",1);
+        elif age=="jalak":
+            #if num==0:
+            #    self.showhideobj("VisibleForceField01",0)
+            #    self.showhideobj("VisibleForceFieldLightRay",0)
+            #elif num==1:
+            #    self.showhideobj("VisibleForceField01",1)
+            #    self.showhideobj("VisibleForceFieldLightRay",1)
+            #if num==0:
+            #    self.setsdl("jlakForceField", 0)
+            #if num==1:
+            #    self.setsdl("jlakForceField", 1)
+            if num==0:
+                 self.jalakcommand('self.AutoColumns(0)')
+            elif num==1:
+                 self.jalakcommand('self.AutoColumns(1)')
+            elif num==2:
+                 self.jalakcommand('self.AutoColumns(2)')
+            elif num==3:
+                 self.jalakcommand('self.AutoColumns(3)')
+            elif num==4:
+                 self.jalakcommand('self.AutoColumns(4)')
+            elif num==5:
+                 self.jalakcommand('self.ToggleWall()')
+                 self.jalakbugfix2(true)
+            elif num==6:
+                 self.jalakcommand('self.DropWidget("Sphere")')
+                 self.jalakbugfix1()
+            elif num==7:
+                 self.jalakcommand('self.DropWidget("LilBox")')
+            elif num==8:
+                 self.jalakcommand('self.DropWidget("BigBox")')
+            elif num==9:
+                 self.jalakcommand('self.DropWidget("Rect")')
+            elif num==10:
+                 self.jalakcommand('self.DropWidget("Ramp")')
+                 self.jalakbugfix1()
+            elif num==11:
+                 self.jalakcommand('self.ResetWidgets()')
+            elif num==12:
+                 self.jalakcommand('self.SaveColumns("JalakColumns.txt")')
+            elif num==13:
+                 self.jalakcommand('self.LoadColumns("JalakColumns.txt")')
+            elif num==14:
+                 self.jalakcommand('self.MoveColumn(0,4)') #columnnum, position
+
+
+    def togglesdl(self, varname):
+        enabled = self.getsdl(varname);
+        if(enabled):
+            self.setsdl(varname,0);
+        else:
+            self.setsdl(varname,1);
+
+    def showhideobj(self, sceneobjectname, visibility):
+        obj = PtFindSceneobject(sceneobjectname,self.getAgeFilename());
+        if(visibility):
+            obj.draw.enable();
+        else:
+            obj.draw.disable();
+
+    def getAgeFilename(self):
+        ageinfo = PtGetAgeInfo();
+        return ageinfo.getAgeFilename();
+
+    def link(self, num):
+        if num==0:
+            self.linkToAge("Kadish","LinkInPointGlowRmBalcony");
+        elif num==1:
+            self.linkToAge("EderDelin","StartPointDefault");
+        elif num==2:
+            self.linkToAge("LiveBahroCaves","LinkInPointDelin");
+        #elif num==8:
+        #    self.linkToAge("LiveBahroCaves","LinkInPointTsogal");
+        #elif num==9:
+        #    self.linkToAge("LiveBahroCaves","LinkInPointMinkata");
+        #elif num==10:
+        #    self.linkToAge("LiveBahroCaves","LinkInPointDereno");
+        #elif num==11:
+        #    self.linkToAge("LiveBahroCaves","LinkInPointNegilahn");
+        #elif num==12:
+        #    self.linkToAge("LiveBahroCaves","LinkInPointPayiferen");
+        #elif num==13:
+        #    self.linkToAge("LiveBahroCaves","LinkInPointTetsonot");
+        #elif num==14:
+        #    self.linkToAge("LiveBahroCaves","LinkInPointAhnonay");
+        #elif num==15:
+        #    self.linkToAge("LiveBahroCaves","LinkInPointErcana");
+        elif num==3:
+            self.linkToAge("EderTsogal","LinkInPointDefault");
+        elif num==4:
+            self.linkToAge("Negilahn","LinkInPoint");
+        elif num==5:
+            self.linkToAge("Dereno","LinkInPointDefault");
+        elif num==6:
+            self.linkToAge("Payiferen","LinkInPoint");
+        elif num==7:
+            self.linkToAge("Tetsonot","LinkInPoint");
+        #elif num==17:
+        #    self.linkToAge("Minkata","LinkInPointCageInterior");
+        #elif num==18:
+        #    self.linkToAge("Minkata","LinkInPointCave01");
+        #elif num==19:
+        #    self.linkToAge("Minkata","LinkInPointCave02");
+        #elif num==20:
+        #    self.linkToAge("Minkata","LinkInPointCave03");
+        #elif num==21:
+        #    self.linkToAge("Minkata","LinkInPointCave04");
+        #elif num==22:
+        #    self.linkToAge("Minkata","LinkInPointCave05");
+        elif num==8:
+            self.linkToAge("Minkata","LinkInPointDefault");
+        elif num==9:
+            self.linkToAge("Jalak","LinkInPointDefault");
+        elif num==10:
+            self.linkToAge("GuildPub-Cartographers","StartPoint");
+        elif num==11:
+            self.linkToAge("GuildPub-Greeters","StartPoint");
+        elif num==12:
+            self.linkToAge("GuildPub-Maintainers","StartPoint");
+        elif num==13:
+            self.linkToAge("GuildPub-Messengers","StartPoint");
+        elif num==14:
+            self.linkToAge("GuildPub-Writers","StartPoint");
+        elif num==15:
+            self.linkToAge("Garrison","LinkInPointDefaultWhite");
+        elif num==16:
+            self.linkToAge("Garrison","Black_LinkInPointDefaultBlack");
+
+    def output(self, *messages):
+        outputfilename = 'uruutilsoutput.txt';
+        message = ''
+        i = 0
+        while (i < len(messages)):
+            message = (message + str(messages[i]))
+            i = (i + 1)
+
+        import os;
+        if os.path.exists(outputfilename):
+            try:
+                f = file(outputfilename,'a');
+                f.write((str(message) + '\n'))
+                f.flush()
+                f.close();
+            except:
+                PtDebugPrint("exception in uruutils.output");
+        else:
+            try:
+                f = file(outputfilename, 'w')
+                #f.write((('Uru Age Manager output file.  Date: ' + time.asctime()) + '\n'))
+                f.write((str(message) + '\n'))
+                f.flush()
+                f.close()
+            except:
+                PtDebugPrint("exception in uruutils.output");
+
+    def objectToString(self, obj):
+        return `obj`;
+
+    def getsdl(self, varname, index=0):
+        sdl = PtGetAgeSDL();
+        return sdl[varname][index];
+
+    def setsdl(self, varname, value, index=0):
+        #global source;
+        sdl = PtGetAgeSDL();
+        sdl.setFlags(varname,1,1);
+        sdl.sendToClients(varname);
+        sdl.setNotify(self.source.key,varname,0.0); #notify of changes, we need a ptResponder or ptModifier key, I think.
+        sdl.setIndex(varname,index,value);
+
+    def showNotebook(self, contents):
+        b = ptBook(contents, self.source.key)
+        b.setSize(1.0, 1.0)
+        b.setGUI("bkNotebook")
+        b.allowPageTurning(true)
+        if (contents.find("<cover") > 0):
+            b.show(0)
+        else:
+            b.show(1)
+        self.caller.curBook = b; #a reference must be kept, or the book will be garbage collected.
+
+    def showBook(self, contents):
+        b = ptBook(contents, self.source.key)
+        b.setSize(1.0, 1.0)
+        b.setGUI("BkBook")
+        b.allowPageTurning(true)
+        if (contents.find("<cover") > 0):
+            b.show(0)
+        else:
+            b.show(1)
+        self.caller.curBook = b; #a reference must be kept, or the book will be garbage collected.
+
+    def OnTimer(self, value):
+        if value==0:
+            self.negilahnbugfix1()
+
+    def setTimer(self, time, id):
+        self.msg("setting timer")
+        PtAtTimeCallback(self.source.key, time, id+2800)
+
+    def linkToAge(self, ageName, spawnPoint):
+        import PlasmaNetConstants;
+        print 'Dustin: UAM: Linking to Age:',
+        print ageName,
+        print spawnPoint
+        als = ptAgeLinkStruct()
+        ainfo = ptAgeInfoStruct()
+        ainfo.setAgeFilename(ageName)
+        als.setAgeInfo(ainfo)
+        als.setLinkingRules(PlasmaNetConstants.PtLinkingRules.kBasicLink)
+        #als.setLinkingRules(PlasmaNetConstants.PtLinkingRules.kVisitBook)
+        spTitle = (('linkname' + ageName) + spawnPoint)
+        spnpnt = ptSpawnPointInfo(spTitle, spawnPoint)
+        als.setSpawnPoint(spnpnt)
+        linkMgr = ptNetLinkingMgr()
+        linkMgr.linkToAge(als)
+
+    def showJournal(self, journal):
+        try:
+            f = open("journals.txt", "r")
+            filecontents = f.read()
+            f.close()
+            exec(filecontents)
+            
+            if(journal=="JalakJournal"):
+                self.showNotebook(JalakJournal);
+            elif(journal=="MinkataQuestJournal"):
+                self.showNotebook(MinkataQuestJournal);
+            elif(journal=="Negilahn"):
+                self.showNotebook(Negilahn);
+            elif(journal=="GahreesenWallHelp"):
+                self.showNotebook(GahreesenWallHelp);
+            elif(journal=="KINexusFAQ"):
+                self.showNotebook(KINexusFAQ);
+            elif(journal=="Poetry1"):
+                self.showNotebook(Poetry1);
+        except:
+            self.showNotebook("Unable to find journals.txt or error while reading it.")
+
+    unstableAges = [ ]
+    #"ederdelin", "guildpub-cartographers", "guildpub-greeters", "guildpub-maintainers", "guildpub-messengers","guildpub-writers", "livebahrocaves", "payiferen", "dereno", "negilahn",  "tetsonot", "minkata", "jalak", "edertsogal"
+    guildpubAges = ["guildpub-cartographers", "guildpub-greeters", "guildpub-maintainers", "guildpub-messengers", "guildpub-writers" ]
+
+
+c = command();
+c.source = self.source;
+c.caller = self;
+c.flag = flag;
+c.value = value;
+
+
+if(c.flag==0):
+    c.msg("seeing if there is a new command...");
+    if commandnum > c.caller.lastCommand:
+        c.msg("Executing command number: " + str(commandnum));
+        c.caller.lastCommand = commandnum;
+        c.execute();
+elif(c.flag==1):
+    #keystroke = int(c.value - 424200.0)
+    c.msg("uruutils: hotkey pressed: "+str(c.value))
+    c.handleKeystroke(c.value)
+elif(c.flag==2):
+    c.handleAgeLink()
+elif(c.flag==3):
+    c.msg("uruutils: starting up")
+    c.dostartupwork()
+elif(c.flag==4):
+    c.msg("uruutils: ontimer")
+    c.OnTimer(c.value)
+
+
+
+
+
+
+#There should be a newline after this, Python expects it.

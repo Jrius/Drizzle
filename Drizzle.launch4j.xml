@@ -1,0 +1,23 @@
+<launch4jConfig>
+  <dontWrapJar>true</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>.\Drizzle.jar</jar>
+  <outfile>C:\Documents and Settings\user\Desktop\drizzle\Drizzle.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir></chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <customProcName>true</customProcName>
+  <stayAlive>false</stayAlive>
+  <manifest></manifest>
+  <icon>C:\Documents and Settings\user\Desktop\drizzle\DrizzlePrp\src\gui\Pterosaur2b4-opaque.ico</icon>
+  <jre>
+    <path></path>
+    <minVersion>1.6.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <opt>-Xmx800m</opt>
+  </jre>
+</launch4jConfig>

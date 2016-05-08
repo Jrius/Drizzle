@@ -1,0 +1,6 @@
+In order to not conflict with Myst5, I've made a hack to only change kveer's sequence prefix when the readversion is 6.
+the horses in crowthistle probably don't move because of the lack of plRelativeMatrixChannelApplicator.  I could convert it to a MatrixChannelApplicator perhaps.
+the .sgt files in the /sfx folder are microsoft directmusic "segments". they seem to be used for timing? since the translated speeches are different lengths.
+The drawinterfaces stopped crashing Uru when I included PlLayerBink!
+the image on the bubble momentarily inverts as you leave it, but this occurs in MystV as well.
+should I change K'veer's name for compatibility?

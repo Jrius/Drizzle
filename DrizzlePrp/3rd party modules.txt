@@ -1,0 +1,13 @@
+bouncycastle:
+  org.bouncycastle (only some parts)
+jetty:
+  modules(don't forget to copy the resources over as well, as if they were source files):
+    jetty (org.mortbay.io, org.mortbay.jetty, org.mortbay.resource, org.mortbay.servlet, org.mortbay.xml)
+    servlet-api-2.5 (javax.servlet, javax.servlet.http)
+    util(org.mortbay.component,org.mortbay.log,org.mortbay.servlet(again),org.mortbay.thread,org.mortbay.util)
+apache commons-math:
+  org.apache.commons.math.linear (I commented out the lines that used MathUtils, since it was only used for hashing)
+j7zip:
+  SevenZip*: Needed a hack: in ArchiveExtractCallback.java to choose the extraction folder:
+    add the field:  public static String root = "";
+    change "_filePath = item.getName();" to    _filePath = root + item.getName();

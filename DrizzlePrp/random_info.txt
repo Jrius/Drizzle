@@ -1,0 +1,87 @@
+******************** Quabs **************
+quabObjects contains all the quab spawns in the prp file (there's 23)
+SDLQuabs is the string name of the SDL var that counts the number of quabs not sunk.(default=20)
+
+quabList has all the quabObjects appended at OnFirstUpdate
+byteQuabs is the local value of the SDL var, and it's always kept in sync
+
+OnServerInitComplete calls the timer which registers for SDL notification & byteQuabs is initially set to the SDL value.
+  the SDL var defaults to 20
+  if there are some number of quabs, calls ISPawnQuabs, which randomly loads only byteQuabs quabs from quabList
+    it gets the quab's key, calls PtLoadAvatarModel on it, and saves the key to quabKeyList.
+
+Whenever the SDL changes, it just updates the local value of byteQuabs but doesn't do anything else.
+
+when the age unloads, it calls PtUnloadAvatarModel on each key in quabKeyList
+
+if a quab collides with the deadzone object, we set the SDL to byteQuabs-1.
+
+Summary: Get SDL number of quabs(default 20) and randomly loads that number.  Reduce SDL number of quabs when one is sunk.  When you quit, unload the ones you loaded.
+
+Problem: other players may have loaded some, And you'll see those too, and everyone's who came before you.  But you won't see anyone's who come after you.
+
+Solution: Don't load any quabs if the Age is already running.  Perhaps we could check to see if there's any other avatars(quabs included) before loading ours.
+  Use len(PtGetPlayerList()) to find out if you're alone.  0 means you're alone.
+
+
+****************************Events********************
+Known Startup Order:
+__init__
+OnInit
+OnPageLoad //not just at startup.
+OnFirstUpdate
+OnServerInitComplete
+OnAvatarSpawn //not just at startup, I would think.
+
+Untested:
+BeginAgeUnload
+AvatarPage
+__del__
+OnTimer
+OnMovieEvent
+OnNotify
+OnGUINotify
+OnDefaultKeyCaught
+OnSDLNotify
+OnControlKeyEvent
+Load (?)
+Save (?)
+OnUpdate
+OnClothingUpdate
+OnKIMsg
+OnMemberUpdate
+OnRemoteAvatarInfo
+OnRTChat
+OnVaultEvent
+OnOwnershipChanged
+OnAgeVaultEvent
+OnCCRMsg
+OnVaultNotify
+OnBackdoorMsg
+OnNetPythonMsg
+OnBehaviorNotify
+OnLOSNotify
+BeginAgeUnLoad
+OnScreenCaptureDone
+OnClimbingWallEvent
+OnClimbingWallInit
+OnClimbingBlockerEvent
+
+Kirel cone problem info:
+------------------------
+moul
+mass=8
+rc=1
+el=0
+pos= ~ 426,-802,9
+orient = 0,0,0,1
+
+pots
+pos= ~ 426,-802,9
+orient= 1,0,0,0
+mass=15
+rc=1
+el=0
+
+Changing the quat around didn't seem to fix it.
+Perhaps it's a difference between havok and physx, and the cones were changed to cut down on network traffic.

@@ -1,0 +1,39 @@
+0a1,6
+> #Drizzle
+> #  This file is a decompiled version of material copyright Cyan Worlds Inc.
+> #  It is included only for convienience, and you must not use code from this file elsewhere.
+> #  It could be replaced in principle by a depacker->decompiler->patcher->compiler->packer.
+> #  All hooks and changes appear within #Drizzle and #/Drizzle tags.
+> #/Drizzle
+21a28,30
+> #Drizzle
+> from ModuleDrizzle import *
+> #/Drizzle
+403a413,415
+>         #Drizzle
+>         drizzle.OnInit(self);
+>         #/Drizzle
+405a418,430
+>     #Drizzle
+> 
+>     def OnControlKeyEvent(self, controlKey, activeFlag):
+>         drizzle.OnControlKeyEvent(self,controlKey,activeFlag);
+> 
+>     def OnServerInitComplete(self):
+>         drizzle.OnServerInitComplete(self);
+> 
+>     #def OnAvatarSpawn(self):
+>     #    drizzle.OnAvatarSpawn(self);
+> 
+>     #/Drizzle
+> 
+956a982,986
+>             #Drizzle
+>             #we're intercepting this since it has a parameter we can use for keybinding purposes.
+>             if drizzle.OnKIMsg(self, command, value):
+>                 return;  #don't execute this if we have intercepted it.
+>             #/Drizzle
+1438a1469,1471
+>         #Drizzle
+>         drizzle.OnTimer(self,id);
+>         #/Drizzle

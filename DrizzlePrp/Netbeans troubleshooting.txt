@@ -1,0 +1,7 @@
+
+"Uncompilable source code" runtime exception:
+-Try going to the program settings, and de-select "compile on save".
+-It could also be that a class's static constructors are throwing an exception.
+
+Breakpoints are acting as though they did not exist
+-Go to Window->Debugging->Breakpoints and disable a bunch of breakpoints.

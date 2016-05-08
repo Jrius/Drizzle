@@ -1,0 +1,19 @@
+
+
+-- Done by Dustin -- v
+
+//Fix the Myst5 problem with CubicEnvironMaps.  They are currently all inverted, but we only want to do the ones on the interior of the sphere, and we are getting an inverted Direbo CubicEnvironMap too.  Solution: move the inversion into ProcessPrp rather than in the reader for CubicEnvironMap.
+
+//Change KveerMOUL link from Myst to MystMystV
+//Delin pythonfilemod change page from 15 to 18.
+//Change KveerMOUL texture image from 
+
+//Make text output window scroll down? can be changed back with var in shared.m
+//Uam: keep selection even after refresh.
+//Uam: fix problem with config generation where multiple versions have the same name.  Perhaps just rename them on the server.
+//Uam: enable/disable download&delete buttons when proper.
+//Uam: make it so you have to click to change the server and pots folders?
+//Uam: cache the list file.
+//Uam: make it so you don't need the server to delete ages from .7zs
+//Uam: make it so you don't need the server to install ages from .7zs
+

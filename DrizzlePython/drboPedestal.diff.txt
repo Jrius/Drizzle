@@ -1,0 +1,12 @@
+5c5
+< sdlActivePedestals = ptAttribGlobalSDLVar(1, 'Active pedestals var')
+---
+> sdlActivePedestals = ptAttribString(1, 'Active pedestals var')
+34a35,37
+>     def OnServerInitComplete(self):
+>         import dustutils
+>         dustutils.drboPedestal_OnServerInitComplete(self, respSymbolGlow)
+50a54,56
+>         import dustutils
+>         dustutils.drboPedestal_OnNotify(state, id, events, sdlActivePedestals)
+>         return

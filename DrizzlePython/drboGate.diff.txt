@@ -1,0 +1,8 @@
+4c4
+< sdlGateVar = ptAttribGlobalSDLVar(1, 'Gate opened var')
+---
+> sdlGateVar = ptAttribString(1, 'Gate opened var')
+17a18,20
+>     def OnServerInitComplete(self):
+>         import dustutils
+>         dustutils.drboGate_OnServerInitComplete(self, respOpenGate)

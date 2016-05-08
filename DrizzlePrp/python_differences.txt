@@ -1,0 +1,29 @@
+Myst5/Crowthistle seem to have a number of differences with Python, compared to Pots/Moul.
+the top part is the same.
+the glue part is the same.
+
+OnAgeDataInitialized(self) -> OnFirstUpdate(self) (this should probably be OnServerInitComplete, since Myst5 also has OnFirstUpdate).
+There is no OnServerInitComplete in Myst5, as there's no server.
+OnPlayerSpawned(self) -> OnAvatarSpawn(self, null) (check that it's the local avatar.)
+OnEventCallback(self, event, userData) doesn't seem to be in Pots.
+OnTimer(self, id) is the same
+OnNotify(self, state, id, events) is the same
+OnSDLNotify(self, notifierVar, changedVar, changeType) has another argument in Pots: the playerID
+OnDefaultKeyCaught(self, keycode, keydown, param3, param4, param5) doesn't appear to be in Pots. (used by xCamToggler, so it probably doesn't matter.)
+OnPythonNotifyMsg(self, data, target, senderKey) doesn't seem to be in Pots. (used by xCamToggler, for example).
+OnBackdoorMsg(self, target, param) is the same.
+
+//some more from Myst5 that I haven't gone through.
+OnLinkFX(self, linkingIn, starting) (e.g. dsntquake.py)
+OnFirstUpdate(self) is the same.
+OnGUINotify(self, id, control, event, extraData)
+OnControlKeyEvent(self, controlKey, activeFlag)
+OnInit(self)
+OnAgeDataLoaded(self) (e.g. lakicreates)
+OnPlayerisBirdSpawned(self) (e.g. lakicreatures)
+OnPageLoad(self, what, who)
+OnReload(self)
+OnVerifyCondition(self, key)
+OnMovieEvent(self, movie, reason)
+OnScreenCaptureDone(self, image)
+

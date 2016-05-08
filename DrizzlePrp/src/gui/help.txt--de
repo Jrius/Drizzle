@@ -1,0 +1,81 @@
+Willkommen in Drizzle!
+
+Aktuelle und detailliertere Hilfe gibt es bei http://myst.dustbird.net/wiki/Drizzle
+
+
+Um UAM (UruAgeManager) zu benutzen:
+-----------------------------------
+1) Gib als "Pots Verzeichnis" das Verzeichnis an, welches du für die Installation von ThePathOfTheShell oder CompleteChronicles verwendet hast. (Standardmässig ist das Verzeichnis unter "C:\Programme\Ubi Soft\Cyan Worlds\Uru - Ages Beyond Myst" oder "C:\Programme\Ubi Soft\Cyan Worlds\Myst Uru Complete Chronicles" zu finden.)
+2) Klicke auf "Lade neueste Liste herunter", um eine Liste von den Zeitaltern zu bekommen, die du herunterladen kannst.
+3) Wähle die Welt aus, die du haben möchtest, und die neueste Version sowie der Mirror werden für dich ausgewählt.
+4) Klicke auf "Download", um die Welt herunterzuladen und zu installieren!
+5) Stelle sicher, dass eines der Zeitalter, die du installierst, die "Offline-KI" ist, da diese dich zu anderen Welten linken lässt.
+6) Optional: Du kannst auch Welten löschen, aber du solltest dies nie benötigen.
+
+
+Um Myst5/Moul/Crowthistle Welten einfach zu konvertieren:
+---------------------------------------------------------
+1) Gehe zur Registerkarte "Konvertierung".
+2) Wähle das Verzeichnis, in dem du PathOfTheShell/CompleteChronicles installiert hast. (Standardpfad: "C:\Programme\Ubi Soft\Cyan Worlds\Uru - Ages Beyond Myst" oder "C:\Programme\Ubi Soft\Cyan Worlds\Myst Uru Complete Chronicles".)
+3) Wähle das Verzeichnis, in dem du Myst 5 (oder welches Spiel du auch immer konvertieren möchtest) installiert hast (Standardpfad: "C:\Programme\Ubisoft\Cyan Worlds\Myst V End Of Ages".)
+4) Benutze die "Starten..." Schaltfläche und die Welten werden konvertiert. (Das könnte sehr lange dauern.)
+5) (optionell) When du die Musik des Spiels in deiner Relto Musikbox haben willst, klicke auf die Schaltfläche "Musik" hinter dem betreffenden Pfad, den du angeben musst, um die Welten zu konvertieren.
+6) Führe im PathOfTheShell/CompleteChronicles Verzeichnis SoundDecompress.exe aus (SoundDecompress.exe könnte abstürzen, falls du Uru nicht zumindest einmal vorher gestartet hast.)
+
+
+Erinnerungen:
+-------------
+1) Das Quellverzeichnis unterscheidet sich je nach dem, ob du Pots(offline) oder Alcugs(online) benutzt:
+  a) Pots: Das Quellverzeichnis sollte den Ordner, der vault.dat enthält, angeben. Diese Datei befindet sich unter Uru, dann "sav", dann der Ordner deines Avatars (der mit der hex-Version des Avatars benannt ist) und dann 'current'.
+  b) Alcugs: Das Quellverzeichnis sollte den Ordner, der ein paar .v Dateien enthält, angeben. Diese befinden sich unter Uru, dann 'Vnode_cache', dann der Ordner deines Avatars (der mit der hex-Version des Avatars benannt ist).
+2) Das Zielverzeichnis gibt den Ort an, an dem du die Dateien speichern willst. (Falls du einen auswählst, den du zuvor schon benutzt hast, so werden die Dateien zusammengefügt.)
+3) Benutze die "Starten" Schaltfläche.
+4) Im Zielverzeichnis wird sich eine Datei namens "memories.xml" befinden. Öffne sie mit dem Internet Explorer oder Firefox, um sie sich anzusehen! (Getestet mit IE7, IE6, FF3 und Opera9.)
+
+
+Um DeepView zu benutzen:
+------------------------
+1) Gib in der ersten Box den Namen der Quelldatei an. Benutze ein * um alle prp-Dateien einer Welt miteinzubeziehen. Zum Beispiel "C:\Pots\dat\Negilahn*" wäre zulässig.
+2) Klicke auf die "Lesen" Schaltfläche, damit die Datei von Drizzle gelesen und dir eine Liste aller Prp-Objekte, die gefunden wurden, angezeigt wird.
+3) Viel Spaß beim Erforschen!
+4) Optional: Wenn du alle momentan geladenen Dateien löschen möchtest, klicke auf "leeren".
+5) Optional: Wenn du deine Einstellungen speichern möchtest, wähle ein Verzeichnis im zweiten Feld aus und klicke dann auf "Änderungen speichern".
+
+
+Um den Proxy Server zu starten:
+-------------------------------
+1) Stecke alle zip-Dateien (oder Ordner, je nachdem, was du benutzt), einschließlich "index.net.zip", in einen Ordner.
+2) Starte Drizzle und wähle die Proxy-Registerkarte aus.
+3) Gib als Basis-Verzeichnis den Ordner an, in den du alle zip-Dateien verschoben hast.
+4) Optional: wähle einen Port (Standard: 8012) und ob du dies überhaupt möchtest aus, damit aufgezeichnet wird, wenn eine Datei erfolgreich gelesen wurde. 
+5) Klicke auf "Starten".
+6) Setze den Proxy in deinem Browser auf 127.0.0.1:8012 (In Firefox 3 kannst du dies unter Extras->Einstellungen->Erweitert->Netzwerk->Verbindung->Einstellungen einrichten. Wähle Manuelle Proxy-Konfiguration und versehe "Für alle Protokolle diesen Proxy-Server verwenden" mit einem Häkchen. Wähle für "HTTP-Proxy" "127.0.0.1" und für "Port" "8012".)
+7) Optional: Installiere QuickProxy, ähnlich einer Erweiterung, in Firefox, um schnell zwischen Proxy-Modus und Normalmodus hin- und herschalten zu können.
+8) Gehe auf http://index.net um zu browsen.
+
+Wiki spider:
+------------
+Dieses Programm ermöglicht es dir, die Quellseiten einer Wiki zu speichern.
+1) Setze als URL den Ort der Wiki ein, aber nicht die eigentlichen Seiten. Zum Beispiel ginge "http://en.wikipedia.org/wiki/", aber *nicht* "http://en.wikipedia.org/wiki/Main_Page". (Notiz am Rande: Versuch nicht wirklich, Wikipedia abzuspeichern :P)
+2) Stelle als Zielordner denjenigen ein, in dem du die Dateien abspeichern möchtest.
+3) Klicke auf "Start"!
+
+
+Weltenreport:
+-------------
+Dies stellt dir Informationen über ein oder mehrere Zeitalter zur Verfügung.
+1) Stelle das Verzeichnis mit den Dateien ein, über die du Informationen erhalten möchtest.
+2) Klicke auf "Berichten"!
+
+
+Projekt Info:
+-------------
+Lizenz: GPLv3, oder irgendeine spätere Version, wenn du möchtest.
+SVN: http://sourceforge.net/p/drizzle/code/
+Sourceforge: http://sourceforge.net/projects/drizzle/
+Mitwirkende (keine komplette Liste):
+  Dustin(aka ddb174): Konvertierung
+  L.K.: Übersetzung ins Deutsche
+  Chacal: Übersetzung ins Französische
+  Wodan,Erik: Übersetzung ins Holländisch
+  

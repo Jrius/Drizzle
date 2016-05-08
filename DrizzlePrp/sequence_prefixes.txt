@@ -1,0 +1,29 @@
+This file contains a list of sequence prefixes used by the converted MOUL ages (which is, unless stated otherwise, the one also used in MOUL)
+- EderDelin: 19
+- Negilahn: 27
+- Tetsonot: 29
+- Dereno: 30
+- LiveBahroCaves: 34
+- Minkata: 42
+- Jalak: 43
+- GuildPub-Writers: 45
+- GuildPub-Maintainers: 46
+- GuildPub-Catrographers: 47
+- GuildPub-Greeters: 48
+- GuildPub-Messengers: 49
+- KirelMOUL: 86 (Neighborhood02, 10 in MOUL, but that's already used for the old Kirel in TPOTS)
+- EderTsogal: 97 (12 in MOUL, but that's already used for Personal02 in TPOTS)
+- KveerMOUL: 98 (Kveer, 41 in MOUL, but that's already used for DniCityX2Finale in TPOTS)
+- Payiferen: 99 (31 in MOUL, but that's already used for the old Kveer in TPOTS)
+Other prefixes used by Drizzle:
+- MarshScene: 96 (10 in Crowthistle)
+- MountainScene: 95 (6 in Crowthistle)
+- Descent: 94 (2 in MystV)
+- Direbo: 93 (7 in MystV)
+- Kveer: 92 (4 in MystV)
+- Laki: 91 (5 in MystV)
+- Myst: 90 (1 in MystV)
+- Siralehn: 89 (3 in MystV)
+- Tahgira: 88 (18 in MystV)
+- Todelmer: 87 (8 in MystV)
+

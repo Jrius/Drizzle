@@ -1,0 +1,431 @@
+//Laura's German translation; okay changes to this file with her first.
+
+//This section is untranslated stuff to be ignored for now.
+English{->}English
+Deutsch{->}Deutsch
+Nederlands{->}Nederlands
+Minkata{->}Minkata
+Pods{->}Pods
+PtGetDniTime{->}PtGetDniTime
+uam.status.xml{->}uam.status.xml
+Url:{->}Url:
+Wiki spider{->}Wiki spider
+jButton74{->}jButton74
+jButton75{->}jButton75
+jButton76{->}jButton76
+Copy all text to clipboard{->}Copy all text to clipboard
+copy from main output{->}copy from main output
+remove all that don't start with prefix{->}remove all that don't start with prefix
+delete marked entities{->}delete marked entities
+clear all marks{->}clear all marks
+mark links{->}mark links
+mark links from selected{->}mark links from selected
+mark all that start with STRING{->}mark all that start with STRING
+load{->}load
+mark links to selected{->}mark links to selected
+... end with STRING{->}... end with STRING
+Make prp report{->}Make prp report
+Recompile prp{->}Recompile prp
+create .sum file{->}create .sum file
+Dump some objects{->}Dump some objects
+Dump All Objects{->}Dump All Objects
+Find Objects of a certain type{->}Find Objects of a certain type
+convert from xml escaped text (TEXT:){->}convert from xml escaped text (TEXT:)
+convert to escaped double quotes (TEXT:){->}convert to escaped double quotes (TEXT:)
+Use these to convert text from .loc files to an escaped string that can be used by Python:{->}Use these to convert text from .loc files to an escaped string that can be used by Python:
+jButton143{->}jButton143
+Chat{->}Chat
+Check(url,timer,search){->}Check(url,timer,search)
+url:{->}url:
+timer(s){->}timer(s)
+Start saving(url,timer,outfolder){->}Start saving(url,timer,outfolder)
+Cancel All{->}Cancel All
+outfolder{->}outfolder
+search{->}search
+date & time:{->}date & time:
+Save at time(url, outfolder, date&time){->}Save at time(url, outfolder, date&time)
+Run Code Validation{->}Run Code Validation
+test!!!{->}test!!!
+list all strings{->}list all strings
+test current language{->}test current language
+as float{->}as float
+Create Distillation Profiles{->}Create Distillation Profiles
+Decrypt notthedroids{->}Decrypt notthedroids
+Encrypt notthedroids{->}Encrypt notthedroids
+Detect Type{->}Detect Type
+Decrypt whatdoyousee{->}Decrypt whatdoyousee
+Decrypt eoa{->}Decrypt eoa
+Decrypt elf{->}Decrypt elf
+Calculate md5{->}Calculate md5
+Caclulate Sha1{->}Caclulate Sha1
+Calculate Whirlpool{->}Calculate Whirlpool
+Encrypt eoa{->}Encrypt eoa
+Encrypt elf{->}Encrypt elf
+Encrypt whatdoyousee{->}Encrypt whatdoyousee
+Depack{->}Depack
+in file:{->}in file:
+out folder:{->}out folder:
+Attempt to read.{->}Attempt to read.
+File:{->}File:
+sdb test{->}sdb test
+mdb test{->}mdb test
+hsm test{->}hsm test
+string search{->}string search
+full test{->}full test
+jButton50{->}jButton50
+Include general files{->}Include general files
+Include Pots Ages{->}Include Pots Ages
+Include agelist.txt Ages{->}Include agelist.txt Ages
+Include AvailableLinks.inf Ages{->}Include AvailableLinks.inf Ages
+Save folder:{->}Save folder:
+Include Custom Ages:{->}Include Custom Ages:
+Uru folder to use:{->}Uru folder to use:
+Create data files{->}Create data files
+Start{->}Start
+DataserverMirror{->}DataserverMirror
+DataserverGenerator{->}DataserverGenerator
+command:{->}command:
+arg1:{->}arg1:
+arg2:{->}arg2:
+arg3:{->}arg3:
+Call...{->}Call...
+arg4:{->}arg4:
+Strings{->}Strings
+Refs{->}Refs
+Read All Prps from All Games...{->}Read All Prps from All Games...
+Read from Pots{->}Read from Pots
+Read from Crowthistle{->}Read from Crowthistle
+Read from MystV{->}Read from MystV
+Read from Moul{->}Read from Moul
+Read all prp files...{->}Read all prp files...
+Read selected files.{->}Read selected files.
+city_District_islmPodMapGUI.prp{->}city_District_islmPodMapGUI.prp
+Process a bunch of files...{->}Process a bunch of files...
+Process a single file...{->}Process a single file...
+Report the ogg files seen.{->}Report the ogg files seen.
+Report the avi files seen.{->}Report the avi files seen.
+Report PlEAXSourceSettings info.{->}Report PlEAXSourceSettings info.
+Report Physics settings.{->}Report Physics settings.
+Report suffixes written(including forced changes) and changed Age names.{->}Report suffixes written(including forced changes) and changed Age names.
+Report prp files processed.{->}Report prp files processed.
+Report PythonFileMod info.{->}Report PythonFileMod info.
+Report Decryption info.{->}Report Decryption info.
+Report all object name & types.{->}Report all object name & types.
+Create BuiltIn District prp (Agename, Output){->}Create BuiltIn District prp (Agename, Output)
+List Spawnpoint Sceneobjects (File){->}List Spawnpoint Sceneobjects (File)
+Sound test{->}Sound test
+Pots:{->}Pots:
+AutoMod{->}AutoMod
+Create All Profiles{->}Create All Profiles
+jLabel5{->}jLabel5
+jButton39{->}jButton39
+Quaternion Compression Test{->}Quaternion Compression Test
+Include new content (currently does nothing).{->}Include new content (currently does nothing).
+Do automated work on Myst5(PythonFileMods, etc){->}Do automated work on Myst5(PythonFileMods, etc)
+Remove plLogicModifiers that reference plLadderModifiers.{->}Remove plLogicModifiers that reference plLadderModifiers.
+Translate avatar away from smartseeks. (Warning: looks kind-of bad){->}Translate avatar away from smartseeks. (Warning: looks kind-of bad)
+When renaming Ages, changes the VeryVerySpecialPythonFileMod too.{->}When renaming Ages, changes the VeryVerySpecialPythonFileMod too.
+Make all PlLayers wireframe!{->}Make all PlLayers wireframe!
+Remove PlDynamicCamMap references from Materials(removes frostiness, makes it transparent instead){->}Remove PlDynamicCamMap references from Materials(removes frostiness, makes it transparent instead)
+Skip physics with unhandled flags.{->}Skip physics with unhandled flags.
+Use xyzw for PlPXPhysical orientation.{->}Use xyzw for PlPXPhysical orientation.
+Server{->}Server
+CommandLine{->}CommandLine
+...{->}...
+3dsmax->Pots{->}3dsmax->Pots
+restStop4.bik{->}restStop4.bik
+de{->}de
+tab1{->}tab1
+test{->}test
+MagiQuestOnline{->}MagiQuestOnline
+
+
+Warning: {->}Warnung: 
+Ignoring: {->}Ignoriere: 
+Get Latest List{->}Lade neueste Liste herunter
+( Help can be found under the "Help" tab, or detailed help can be found at http://alcugs.almlys.org/Drizzle  ){->}( Hilfe kann im "Hilfe" Bereich oder in detaillierterer Weise unter http://myst.dustbird.net/wiki/Drizzle gefunden werden. )
+Ages:{->}Zeitalter:
+Versions:{->}Versionen:
+Download{->}Download
+//Alternate version of Download: Zum Herunterladen
+Delete{->}Löschen
+Mirrors:{->}Spiegel-server:
+Server:{->}Server:
+Select...{->}Durchsuchen...
+select...{->}Durchsuchen...
+//select{->auswählen
+//Select....{->Auswählen....
+select{->}Durchsuchen...
+Select....{->}Durchsuchen...
+Pots folder:{->}Pots Verzeichnis:
+Change server...{->}Den Server wechseln...
+UAM Settings{->}UAM Einstellungen
+Launch Uru{->}Uru starten
+You have the latest version.{->}Du hast die neueste Version.
+You have a version, but not the latest.{->}Du hast eine Version, aber nicht die neueste.
+You don't have this Age installed.{->}Dieses Zeitalter ist bei dir nicht installiert.
+You have this Age, but its version is unknown.{->}Du hast dieses Zeitalter, aber seine Version ist unbekannt.
+Legend{->}Legende
+Do not load Age list at startup.{->}Weltenliste beim Starten nicht laden.
+Load last saved Age list at startup.{->}Weltenliste beim Starten laden.
+Download most recent Age list at startup.{->}Die aktuellste Weltenliste beim Starten herunterladen.
+Automatically download list?{->}Automatisch Liste herunterladen?
+Info:{->}Info:
+<html>This area is for converting MystV/Moul/Crowthistle files for play in Uru.  See the Help tab or http://alcugs.almlys.org/Drizzle</html>{->}<html>Dieser Bereich dient dem Konvertieren von MystV/Moul/Crowthistle Dateien, um deren Welten in Uru zu spielen.  Sieh dir die Registerkarte Hilfe oder http://myst.dustbird.net/wiki/Drizzle an.</html>
+SoundDecompress (When conversion is done, it will ask you to run this.){->}SoundDecompress (wenn die Konvertierung erfolgt ist, wird Drizzle dich bitten, dies zu starten.)
+Start...{->}Starten...
+Moul folder:{->}Moul Verzeichnis:
+//select...{->Auswählen...
+Myst 5 Folder:{->}Myst 5 Verzeichnis:
+Pots Folder:{->}Pots Verzeichnis:
+Crowthistle folder:{->}Crowthistle Verzeichnis:
+<html>Fill out the info in the MystV, Moul, and Crowthistle tabs, then click these buttons to put their music in your Relto's musicbox.</html>{->}<html>Gib das Verzeichnis in den MystV, Moul und Crowthistle Registerkarten an und klicke dann auf diese Knöpfe, um ihre Musik in die Musikbox deines Reltos zu kopieren.</html>
+MystV music...{->}MystV Musik...
+Moul music...{->}Moul Musik...
+Crowthistle music...{->}Crowthistle Musik...
+Pots music...{->}Pots Musik...
+(Make sure you fill out the 'Pots Folder' on the Moul tab for this one.){->}(Stelle sicher, dass du das 'Pots Verzeichnis' im Moul Bereich angegeben hast, um diese Musik zu bekommen.)
+Instructions can be found on the Help tab or at  http://alcugs.almlys.org/Drizzle{->}Eine Anleitung kann unter der 'Hilfe' Registerkarte oder unter http://myst.dustbird.net/wiki/Drizzle gefunden werden.
+infolder:{->}Quellverzeichnis
+outfolder:{->}Zielverzeichnis
+Memories: this area is for extracting images, notes, etc. from Uru (either offline or online){->}Erinnerungen: Dieser Bereich dient dem Extrahieren von Bildern, Notizen etc. aus Uru (sowohl offline als auch online)
+Enter a list of angles(20=full circle) and distances.  They will be summed as vectors.{->}Gib eine Liste von Winkeln (20= ein voller Kreis) und Abständen an. Sie werden als Vektoren addiert.
+sum...{->}Betrag /Summe
+Predict Pod events{->}Symbolvorhersage für die Pods / Podtorvorhersage 
+Notes:{->}Notizen:
+Start Server{->}Starte den Server
+base folder:{->}Basis Verzeichnis:
+port:{->}Port:
+Stop Server{->}Beende den Server
+Indicate in the log when files are read?{->}Soll im Verlauf angegeben werden, dass die Dateien gelesen wurden?
+You have to stop and start the server for settings changes to take effect.{->}Du musst den Server einmal beenden und neu starten, damit die Veränderungen bei den Einstellungen wirksam werden.
+This proxy server is for viewing old archived web sites.  Details on the help tab or  http://alcugs.almlys.org/Drizzle{->}Dieser Proxy server dient dem Anschauen von alten archivierten Websites. Details gibt es im 'Hilfe' Bereich oder unter http://myst.dustbird.net/wiki/Drizzle
+List Available Ages...{->}Vorhandene Welten auflisten...
+Get Offline list.{->}Offline Liste laden.
+Run Tests...{->}Testlauf...
+ignore known overrides{->}bekannte Probleme ignorieren
+Sanity check{->}Gesundheitsüberprüfung
+Name a random Age!{->}Würfle dir ein zufälliges Zeitalter!
+Report{->}Berichte
+Agename:{->}Name der Welt:
+Age reports{->}Berichte über Welten
+Everything here uses the Pots folder from the UAM tab.{->}Alles hier benutzt das Pots Verzeichnis aus dem UAM Bereich.
+UAM Advanced{->}UAM Erweitert
+start{->}starten
+Prefix:{->}Präfix:
+file:{->}Datei:
+Language{->}Sprache
+Read file.{->}Datei lesen.
+Read{->}Lesen
+Clear{->}Leeren
+Save changes.{->}Änderungen speichern.
+MystV folder:{->}MystV Verzeichnis:
+Output folder:{->}Zielverzeichnis:
+Select All{->}Alle auswählen
+Select None{->}Nichts auswählen
+read all...{->}alles lesen...
+Files to process:{->}Dateien, die bearbeitet werden:
+start...{->}starten...
+Select all{->}Alle auswählen
+Select none{->}Nichts auswählen
+Output:{->}Ausgabe:
+Translation:{->}Übersetzung:
+Remove dupes.{->}Doppeltes löschen. 
+Clear log.{->}Verlauf leeren.
+Alphabetise.{->}Alphabetisieren.
+Log{->}Verlauf
+Save settings now{->}Einstellungen jetzt speichern.
+//Alternate Save settings now: Einstellungen speichern.
+Delete settings and exit{->}Einstellungen löschen und beenden
+Save settings on exit.{->}<html>Einstellungen beim Verlassen speichern.</html>
+Settings{->}Einstellungen
+Setting language to {->}Als Sprache auswählen: 
+Current GMT time is: {->}Aktuelle GMT Zeit: 
+Current local time is: {->}Aktuelle Lokalzeit: 
+
+//Time of gmttime: {->
+//Time of localtime: {->
+//Time of cur day: {->
+//Time of next day: {->
+
+Time of today's {->}Ankunft des heutigen 
+ symbol: {->} Symbols: 
+Time of tomorrow's {->}Ankunft des morgigen 
+Not parsing final table in vault.dat{->}Keine Durchsuchung des letzten Teils in Vault.dat
+Getting data...{->}Erhalte Daten...
+In the output folder, there will be a file called 'memories.xml'; open it with your web-browser to view the memories.{->}Im Zielordner wird eine Datei namens 'memories.xml' sein; öffne sie mit deinem Webbrowser, um dir die Erinnerungen anzusehen.
+Finished creating Memories files!{->}Fertig mit dem Erstellen der Erinnerungsdaten!
+Error: {->}Fehler: 
+You must select an output folder that already exists.{->}Du musst ein Zielverzeichnis angeben, das schon existiert.
+Folder doesn't exist.{->}Verzeichnis existiert nicht.
+The input folder must have either 'vault.dat' or some number of '.v' files.{->}Das Quellverzeichnis muss entweder 'vault.dat' oder eine Anzahl von '.v'-Dateien enthalten.
+Ages not installed: {->}Nicht installierte Zeitalter: 
+ launched!{->} wurde gestartet!
+Cleaning up any previous version...{->}Räume jede vorherige Version auf...
+This Age is listed as not being safely deletable; performing upgrade only.{->}Diese Welt kann nicht sicher gelöscht werden; nur ein Upgrade ist möglich. 
+Checking to see if we already have this version in the cache...{->}Überprüfe, ob wir diese Version schon im Zwischenspeicher haben...
+Using cached version of Age: {->}Benutze die Version des Zeitalters im Zwischenspeicher: 
+, Version: {->}, Version: 
+Checking integrity...{->}Überprüfe Integrität...
+File integrity is good!{->}Datei ist korrekt!
+Extracting {->}Extrahiere 
+Age installed!{->}Zeitalter ist installiert!
+Ages updatable: {->}Zeitalter kann geupdatet werden: 
+Deleting {->}Lösche 
+Attempting to download Age: {->}Versuche das Zeitalter herunterzuladen: 
+, Mirror: {->}, Spiegel-Server: 
+The PathOfTheShell/CompleteChronicles folder you selected doesn't exist.{->}Das von dir ausgewählte PathOfTheShell/CompleteChronicles-Verzeichnis existiert nicht.
+Checking the folders you gave...{->}Überprüfe die eingegebenen Verzeichnisse...
+The Myst5 folder you selected doesn't exist.{->}Das von dir ausgewählte Myst5-Verzeichnis existiert nicht.
+The Crowthistle folder you selected doesn't exist.{->}Das von dir ausgewählte Crowthistle-Verzeichnis existiert nicht.
+The MOUL folder you selected doesn't exist.{->}Das von dir ausgewählte MOUL-Verzeichnis existiert nicht.
+Unable to launch program: {->}Es ist nicht möglich, folgendes Programm zu starten: 
+ because it doesn't exist.{->} weil es nicht existiert.
+Starting conversion...{->}Starte Konvertierung...
+Dont forget to run SoundDecompress.exe in your Pots folder, in order to get the sounds working!  (You can also click the SoundDecompress button on the form if you prefer.) (If SoundDecompress crashes, it means you have to log into Uru, quit, then try again.){->}Vergiss nicht SoundDecompress.exe in deinem Pots Verzeichnis auszuführen, damit die Geräusche funktionieren! (Du kannst auch den SoundDecompress Knopf auf der Benutzeroberfläche klicken, wenn du das vorziehst.) (Falls SoundDecompress abstürzt solltest du dich in Uru einloggen, Uru beenden und es erneut probieren.)
+Conversion completed!{->}Konvertierung vollendet!
+
+//Tabs:
+Moul{->}Moul
+MystV{->}MystV
+Crowthistle{->}Crowthistle
+Music{->}Musik
+tab3{->}Registerkarte3
+Pots{->}Pots
+Reports{->}Berichte
+Settings{->}Einstellungen
+SpecialMods{->}Spezielle Modifikationen
+HexIsle{->}HexIsle
+List Analysis{->}Verlaufsanalyse 
+CrossRefTool{->}CrossRefTool
+Old{->}Alt
+Misc{->}Sonstiges
+Encryption{->}Chiffrierung
+realMyst{->}realMyst
+Riven{->}Riven
+Legacy{->}Alte Dinge
+DeepView{->}DeepView
+Manual Conversion{->}Manuelle Konvertierung
+UruAgeManager(UAM){->}UruAgeManager(UAM)
+Conversion(Simplicity){->}Konvertierung
+Memories{->}Erinnerungen
+GameHelp{->}SpielHilfe
+Proxy{->}Proxy
+Advanced{->}Erweitert
+Help{->}Hilfe
+
+//UAM downloader:
+Only use "Unsafe Cancel" if "Cancel" doesn't work after 30 seconds.{->}<html>Benutze "Unsicherer Abbruch" nur, wenn "Abbruch" nach 30 Sekunden nicht funktioniert.</html>
+Pause/Resume{->}Pause/weiter
+Cancel{->}Abbruch
+Unsafe Cancel{->}Unsicherer Abbruch
+UAM Downloading...{->}UAM Download...
+
+//misc
+(Select an Age, or click "Get Latest List" to get the latest list of Ages.){->}(Wähle eine Welt aus oder klicke auf "Lade neueste Liste herunter", um die aktuellste Liste der Welten zu bekommen.)
+//<html>(Select an Age, or click "Get Latest List" to get the latest list of Ages.)</html>{-><html>(Wähle eine Welt aus oder klicke auf "Lade neueste Liste herunter", um die aktuellste Liste der Welten zu bekommen.)</html>
+Save Missing Translations{->}Fehlende Übersetzungen speichern
+How rainy of a day is it?{->}Wie regnerisch sieht dein Tag heute aus?
+archive folder:{->}Archivverzeichnis:
+Generate uam.status.txt{->}Generiere uam.status.txt
+Error reading config file.{->}Es ist ein Fehler beim lesen der config Datei aufgetreten.
+You need to load the Age List in the UAM tab first.{->}Du musst zuerst die Weltenliste im UAM Bereich laden.
+Click the select button to pick a folder.{->}Klicke auf "Durchsuchen...", um ein Verzeichnis auszuwählen.
+
+//file select form
+Enter path or folder name:{->}Gib den Pfad oder das Verzeichnis an:
+Filter{->}Filter
+Folders{->}Ordner
+null{->}leer
+Files{->}Dateien
+Enter file name:{->}Gib einen Dateinamen an:
+OK{->}OK
+Update{->}Aktualisierung
+Create Folder{->}Ordner anlegen
+
+//misc dialogs
+Enter a server.{->}Gib einen Server an.
+Enter the server you want to use.{->}Gib den Server an, den du benutzen möchtest.
+Folder Name:{->}Name des Verzeichnisses:
+
+//Drizzle22 (also updated conversion paragraph in help.txt)
+Done copying {->}Fertig mit Kopieren 
+ music!{->} der Musik!
+//HexIsle folder:{->}HexIsle Ordner:
+HexIsle folder:{->}HexIsle Verzeichnis:
+HexIsle music...{->}HexIsle Musik...
+
+//Drizzle23
+Working...{->}Vorgang läuft...
+Starting conversion of {->}Starte Konvertierung von 
+Installed Version: {->}Installierte Version: 
+Clearing all .sum files...{->}Leere alle .sum Dateien...
+Done!{->}Fertig!
+Are you sure you want to delete the old archives?{->}Bist du sicher, dass du die alten Archive löschen möchtest?
+Delete the archives?{->}Archive löschen?
+Ages with unknown installation status: {->}Welten mit unbekanntem Installationsstatus: 
+Detecting which versions are installed...{->}Ermittle die installierten Versionen...
+Unable to detect installed version, so keeping archives for Age: {->}Eine installierte Version wurde nicht gefunden; die Archive werden behalten für die Welt: 
+Start DrizzleDeepview{->}Starte DrizzleDeepView
+Delete old archives...{->}Lösche alte Archive...
+Clear .sum files.{->}Leere .sum Dateien.
+//Version?{->}Version Nummer?
+Version?{->}Version?
+
+//Drizzle24
+Convert{->}Konvertieren
+3dsmax's output folder (set in PlasmaMax2.ini):{->}3dsmax Zielverzeichnis (wie in PlasmaMax2.ini angegeben):
+(The created files will be placed in the Pots folder given on the UAM tab.){->}(Die erstellten Dateien werden in dem Pots Ordner platziert, der in der UAM Registerkarte angegeben ist.)
+This area is for things related to the writing of Ages.{->}Dieser Bereich ist für Alles rund um das Schreiben von Zeitaltern vorgesehen.
+Pyc or Pak file:{->}Pyc oder Pak Datei:
+Decompile{->}Dekompilieren
+Unpack{->}Entpacken
+Gamename (for a list, go to Misc->ListGamenames):{->}Spielname (um die Liste zu erhalten, gehe zu Sonstiges->Spielenamen auflisten):
+//The Art{->} Die Kunst (Welten zu schreiben)
+The Art{->}Die Kunst
+Unpacking pak file...{->}Entpacke pak Datei...
+Done unpacking!{->}Fertig mit Entpacken!
+Decompiling pak file...{->}Dekompiliere pak Datei...
+Done decompiling!{->}Fertig mit Dekompilieren!
+Converting Age: {->}Konvertiere das Zeitalter: 
+Unknown encryption type; assuming it is unencrypted.{->}Unbekannte Verschlüsselung; es wird angenommen, die Datei sei unverschlüsselt.
+Converting Prp: {->}Konvertiere Prp: 
+Process All was successful!{->}Das Konvertieren der Prp-Dateien war erfolgreich!
+Recompilated completed!{->}Fertig mit Rekompilieren!
+Done converting Age!: {->}Fertig mit Konvertieren des Zeitalters!: 
+Decompiling pyc file...{->}Dekompiliere pyc Datei...
+List Gamenames{->}Spielenamen auflisten
+
+//Drizzle25
+Magiquest folder:{->}Magiquest Ordner:
+Magiquest music...{->}Magiquest Musik...
+Launch Uru after converting{->}Starte Uru nach der Konvertierung
+Options{->}Einstellungen
+Merge this Jar with Libs{->}Vereinige dieses Jar mit den Libs
+OldLegacy{->}Altes Erbe
+Error while updating Drizzle. It seems Drizzle.jar did not close.{->}Es ist ein Fehler beim Aktualisieren von Drizzle aufgetreten. Es scheint, als ob Drizzle.jar nicht geschlossen wurde.
+Please make sure there are no other copies of Drizzle running, and hit OK to try again.{->}Bitte stelle sicher, dass keine anderen Versionen von Drizzle aktiv sind und drücke auf OK um es erneut zu versuchen.
+Problem updating{->}Es gab ein Problem beim Aktualisieren.
+Restarting to update Drizzle...{->}Starte Drizzle neu zum Aktualisieren...
+Drizzle is about to restart, in order to update itself.  You should use the Drizzle.exe (or less preferably, Drizzle.jar) file in the 'Drizzle' subfolder of Uru to start it.  Please don't get confused and use copies elsewhere, and think they are updated; you can always see which version you're using at the top of Drizzle.  And don't forget to have fun :D{->}Drizzle ist im Begriff neu zu starten um sich zu aktualisieren. Du solltest Drizzle.exe (oder, weniger wünschenswert, Drizzle.jar) im 'Drizzle'-Unterordner von Uru benutzen, um es zu starten. Bitte verwirre dich nicht und benutze andere Kopien woanders und denke, dass sie aktualisiert sind; du kannst immer am Namen erkennen, welche Version du gerade benutzt. Und vergiss nicht, viel Spaß :D
+You have a newer version of Drizzle installed.  Perhaps you want to use that?  It's located at: {->}Du hast eine neuere Version von Drizzle installiert. Vielleicht möchtest du diese benutzen? Sie befindet sich hier: 
+
+//Drizzle26
+account name:{->}Account Name:
+password:{->}Passwort:
+avatar name:{->}Name des Avatars:
+
+//Drizzle28
+There is a privacy/security/persistency risk.  It is strongly recommended that you either: a) install the 'Network Access' with version '(disabled)', or b) manually delete the following file: {->}Es besteht ein Risiko der Verletzung der Privatsphäre/Sicherheit und der Beständigkeit von Welten. Es wird dringend dazu geraten, a) den "Network Access" als '(disabled)' zu installieren, oder b) manuell folgende Datei zu löschen: 
+ Either way, this warning should not be displayed afterwards.{->} In beiden Fällen sollte diese Warnung nachher nicht (mehr) angezeigt werden.
+
+//Drizzle29
+Partial Age (i.e. no separate texture prp, and no .age file){->}Teilwelt (meint, dass es keine separate Textur prp und .age Datei gibt)
+Woah there!  You probably meant to have the 'Partial Age' option set when making a Relto page or AhraPahts shell.{->}Whoa! Du wolltest wahrscheinlich die 'Teilwelt' Option beim Erstellen einer Reltoseite oder AhraPahts shell aktivieren oder nicht?
+Conversion is set to 'Partial Age', but no Textures prp was found.  If your Age has no textures then this is normal, otherwise you should re-export with 3dsmax.{->}Die Konvertierung ist auf 'Teilwelt' gesetzt, aber es wurde keine Textur prp Datei gefunden. Wenn deine Welt keine Texturen hat, ist dies normal, anderenfalls solltest du sie erneut mit 3dsmax exportieren.
+
+//Drizzle30
+You appear to be running Windows Vista or Windows Seven.  Uru has a bug that will require a workaround, see http://myst.dustbird.net/wiki/Drizzle#Vista_and_above for details.{->}Dein Computer scheint mit Windows Vista oder Windows 7 zu laufen. Uru hat ein Problem damit, welches umgangen werden muss. Mehr Details auf http://myst.dustbird.net/wiki/Drizzle#Vista_and_above .
+//Fehl: Warn:
+Errors:{->}Fehler:
+Warnings:{->}Warnungen:

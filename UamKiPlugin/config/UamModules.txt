@@ -1,0 +1,34 @@
+# You can put a '#' in front of lines to disable modules.
+
+#Selecting which sort of game this is. This part should stay above the others.
+_UamMod_Pots
+#_UamMod_UntilUru
+#_UamMod_Moulagain
+
+#Shard specific things:
+#_UamMod_UamShard
+
+#Commands for help relating to the Uam KI plugin:
+_UamMod_Help
+
+#Commands for debugging.  (Shards probably will want this disabled)
+_UamMod_Debug
+
+#The ability to customize your Relto bookshelf:
+_UamMod_Bookshelf
+
+#The ability to reset fan Ages:
+_UamMod_Reset
+
+#The ability to have fan-made Relto pages from UAM:
+_UamMod_ReltoPages
+
+#Some cheats to get started quickly.  (Shards may want this disabled)
+_UamMod_Cheats
+
+#Some fixes for various game problems.
+_UamMod_GameFixes
+
+
+
+

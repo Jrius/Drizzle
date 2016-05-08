@@ -1,0 +1,73 @@
+Welkom bij Drizzle!
+
+Uitgebreidere en up-to-date uitleg is beschikbaar op http://myst.dustbird.net/wiki/Drizzle
+
+Om UAM (UruAgeManager) te gebruiken:
+------------------------------------
+1) Stel de "POTS-map" in op de plek waar je PathOfTheShell of CompleteChronicles hebt geïnstalleerd. (Dit is standaard "C:\Program Files\Ubi Soft\Cyan Worlds\Uru - Ages Beyond Myst" of "C:\Program Files\Ubi Soft\Cyan Worlds\Myst Uru Complete Chronicles".)
+2) Klik op de knop "Haal de nieuwste lijst" om een lijst te krijgen van de Werelden die je kunt downloaden.
+3) Selecteer de Wereld die je wilt, en de nieuwste versie en spiegelserver zullen voor je worden gekozen.
+4) Klik op "Download" om de Wereld te downloaden en te installeren!
+5) Let erop dat één van de Werelden die je installeert de "Offline-KI" is, aangezien die je naar andere Werelden laat linken.
+6) Eventueel kun je ook Werelden verwijderen, maar dat zou niet nodig hoeven zijn.
+
+Om Werelden van Myst5/MOUL/Crowthistle/Hexisle eenvoudig om te zetten:
+------------------------------------------------------------
+1) Ga naar het tabblad "Omzetten (Eenvoudig)".
+2) Selecteer de map waar je PathOfTheShell/CompleteChronicles hebt geïnstalleerd. standaard is dit "C:\Program Files\Ubi Soft\Cyan Worlds\Uru - Ages Beyond Myst" of "C:\Program Files\Ubi Soft\Cyan Worlds\Myst Uru Complete Chronicles".
+3) Selecteer de map waar je Myst 5 hebt geïnstalleerd (of welk ander Spel je wilt omzetten), standaard is dit "C:\Program Files\Ubi Soft\Cyan Worlds\Myst V End Of Ages".
+4) Klik op de knop "Starten..., en de Werelden worden omgezet (Dit kan een tijdje duren).
+5) (Optioneel) Als je de muziek van het spel wilt horen op je Relto muziekafspeler, klik dan op de Muziekknop bij het betreffende spel.
+6) In de map PathOfTheShell/CompleteChronicles, klik op SoundDecompress.exe, (SoundDecompress.exe kan crashen als je Uru nooit hebt gestart)  
+
+Herinneringen:
+--------------
+1) De invoermap wordt verschillend ingesteld, afhankelijk van of je Pots (offline) of Alcugs (online) gebruikt:
+   a) Pots: De invoermap moet worden ingesteld op de map met vault.dat. Dit is in Uru's map, dan 'sav', dan je avatars map (waarvoor de hexadecimale versie van je avatars naam wordt gebruikt), en dan 'current'.
+   b) Alcugs: De invoermap moet worden ingesteld op de map met een hoop .v-bestanden. Dit is in Uru's map, dan 'vnode_cache', en dan je avatars map (waarvoor de hexadecimale versie van je avatars naam wordt gebruikt).
+2) De uitvoermap moet worden ingesteld op waar je de bestanden wilt opslaan. (Als je een locatie kiest waar je dit al eerder hebt gedaan, zullen ze worden samengevoegd.)
+3) Klik op de knop "Starten".
+4) In de uitvoermap zal een bestand genaamd "memories.xml" zijn. Open het met Internet Explorer of Firefox en bekijk het! (Getest met IE7, IE6, FF3 en Opera9.)
+
+Om DeepView te gebruiken:
+-------------------------
+1) Vul de bestandsnaam van de invoer in in het eerste vakje. Gebruik een * om alle prp-bestanden van een Wereld te gebruiken. Bijv.: "C:\Pots\dat\Negilahn*"
+2) Klik op de knop "Lezen" om de bestanden te lezen en je krijgt een lijst met alle Prp-objecttypes die zijn gevonden.
+3) Onderzoek daarvanuit!
+4) Eventueel: Als je alle geladen bestanden wilt weghalen, klik dan op de knop "Legen".
+5) Eventueel: Als je je wijzigingen wilt opslaan, selecteer dan de map waar je ze wilt opslaan in het tweede vakje. Klik dan op de knop "Wijzigingen opslaan".
+
+Om de proxyserver te starten:
+-----------------------------
+1) Plaats alle zipbestanden (of mappen, als je dat gebruikt) samen in een map, inclusief "index.net.zip".
+2) Start Drizzle en ga naar het tabblad Proxy.
+3) Stel de hoofdmap in op de map waar je alle zipbestanden hebt geplaatst.
+4) Eventueel: stel de poort in (standaard 8012) en of het gelogd moet worden als een bestand wordt gelezen.
+5) Klik op de startknop.
+6) Stel de proxy van je browser in op 127.0.0.1:8012 (In Firefox 3 ga je naar Extra->Opties->Geavanceerd->Netwerk->Verbinding->Instellingen. Selecteer "Handmatige proxyconfiguratie" en vink "Deze proxyserver voor alle protocollen gebruiken" aan. Stel "HTTP proxy" in op "127.0.0.1" en "Poort" op "8012".)
+7) Eventueel: installeer een add-on zoals QuickProxy voor Firefox, zodat je snel kunt wisselen tussen met of zonder proxy.
+8) Ga naar http://index.net om te beginnen met browsen.
+
+Wikispin:
+---------
+Hiermee haal je alle bronnen op van een wiki.
+1) Stel de Url in op de locatie van de wiki, maar niet één van de daadwerkelijke pagina's. Bijv.: http://en.wikipedia.org/wiki/", *niet* "http://en.wikipedia.org/wiki/Main_Page". (NB: probeer niet om echt Wikipedia te doorzoeken :P)
+2) Stel de uitvoermap in op waar je de bestanden wilt opslaan.
+3) Klik op Start!
+
+Wereldrapporten:
+--------------
+Dit geeft wat informatie over een Wereld of Werelden.
+1) Stel de map in op de plek met alle bestanden waar je een rapport van wilt.
+2) Klik op Rapport!
+
+Projectinformatie:
+------------------
+Licentie: GPLv3, of een latere versie indien gewenst
+SVN: http://sourceforge.net/p/drizzle/code/
+Sourceforge: http://sourceforge.net/projects/drizzle/
+Bijdragers (geen complete lijst):
+  Dustin(alias ddb174): omzetten
+  L.K.: Duitse vertaling
+  Chacal: Franse vertaling
+  Wodan,Erik: Nederlandse vertaling

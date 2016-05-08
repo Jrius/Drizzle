@@ -1,0 +1,44 @@
+notes:
+Perhaps the sdb file structure just needs U1, and the object after it to read up to the number 8.  Then we read 5 vectors of a preknown type.
+
+5442a0:
+
+(base is the same as base2 functionally)
+
+1: layerState(base)
+2: animLayerState(layerState)
+3: aviLayerState(layerState)
+5: binkLayerState(layerState) no reader?  Or just broken decompilation?
+4: qtLayerState(layerState)
+6: unnamed(base)
+7: xformState(base)
+8: portalState(base)
+9: sceneobjectState(base)
+10: physSceneobjectState(sceneobjectState)
+11: plCharacterSaveState(physSceneobjectState)
+23: detectorSaveState(base)
+24: actorInstanceSaveState(base)
+25: (just a base)
+29: (just a base)
+26: counterConditionState(base)
+27: oneTimeConditionState(base)
+28: activateTimeConditionState(base)
+21: behaviorState(base) 656
+19: animatorState(base)
+22: simpleAnimObjectState(sceneobjectState) 684
+17: plPersonalMgrSaveState(base)
+18: (just a base)
+12: brainState(base)
+14: climbBrainState(brainState)
+15: swimBrainState(brainState)
+16: playerBrainState(brainState)
+30: eventMgrState(base)
+
+
+header
+directoryinfo
+fileinfo
+nameinfo
+data
+
+.hsb files are mentioned as being deprecated, so they're an older version.

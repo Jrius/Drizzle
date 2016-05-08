@@ -1,0 +1,288 @@
+// Dutch translation by Wodan and Erik.
+
+Warning: {->}Waarschuwing: 
+Ignoring: {->}Genegeerd: 
+//Get Latest List{->}Haal de nieuwste lijst
+Get Latest List{->}Ververs lijst
+( Help can be found under the "Help" tab, or detailed help can be found at http://alcugs.almlys.org/Drizzle  ){->}( Hulp is te vinden onder het tabblad "Help", of uitgebreide hulp is te vinden op http://myst.dustbird.net/wiki/Drizzle )
+Ages:{->}Werelden:
+Versions:{->}Versies:
+Download{->}Downloaden
+Delete{->}Verwijderen
+Mirrors:{->}Spiegelservers:
+Server:{->}Server:
+Select...{->}Bladeren...
+select...{->}Bladeren...
+//select{->Bladeren
+//Select....{->Bladeren....
+select{->}Bladeren...
+Select....{->}Bladeren...
+Pots folder:{->}POTS-map:
+Change server...{->}Server wijzigen...
+UAM Settings{->}UAM-instellingen
+Launch Uru{->}Uru starten
+You have the latest version.{->}Je hebt de nieuwste versie.
+You have a version, but not the latest.{->}Je hebt een versie, maar niet de nieuwste.
+You don't have this Age installed.{->}Je hebt deze Wereld niet geïnstalleerd.
+You have this Age, but its version is unknown.{->}Je hebt deze Wereld, maar de versie is onbekend.
+Legend{->}Legenda
+Do not load Age list at startup.{->}De lijst met Werelden niet laden bij opstarten.
+Load last saved Age list at startup.{->}Laatst opgeslagen lijst met Werelden laden bij opstarten.
+Download most recent Age list at startup.{->}Recentste lijst met Werelden downloaden bij opstarten.
+Automatically download list?{->}Lijst automatisch downloaden?
+Info:{->}Info:
+<html>This area is for converting MystV/Moul/Crowthistle files for play in Uru.  See the Help tab or http://alcugs.almlys.org/Drizzle</html>{->}<html>Dit gedeelte is voor het omzetten van MystV-/MOUL-/Crowthistle-bestanden om te spelen in Uru. Zie het tabblad Help of http://myst.dustbird.net/wiki/Drizzle</html>
+SoundDecompress (When conversion is done, it will ask you to run this.){->}SoundDecompress (Als het omzetten klaar is, word je gevraagd dit uit te voeren)
+Start...{->}Starten...
+Moul folder:{->}MOUL-map:
+//select...{->Bladeren...
+Myst 5 Folder:{->}Myst5-map:
+Pots Folder:{->}POTS-map:
+Crowthistle folder:{->}Crowthistle-map:
+<html>Fill out the info in the MystV, Moul, and Crowthistle tabs, then click these buttons to put their music in your Relto's musicbox.</html>{->}<html>Vul de gegevens in op de MystV-, MOUL- en Crowthistle-tabbladen en klik dan op deze knoppen om de muziek daarvan op de muziekspeler van je Relto te plaatsen.</html>
+MystV music...{->}Muziek van MystV...
+Moul music...{->}Muziek van MOUL...
+Crowthistle music...{->}Muziek van Crowthistle...
+Pots music...{->}Muziek van POTS...
+(Make sure you fill out the 'Pots Folder' on the Moul tab for this one.){->}(Let erop dat je hiervoor de POTS-map op het tabblad MOUL invult.)
+Instructions can be found on the Help tab or at  http://alcugs.almlys.org/Drizzle{->}Instructies zijn te vinden op het tabblad Help of op http://myst.dustbird.net/wiki/Drizzle
+infolder:{->}Invoermap
+outfolder:{->}Uitvoermap
+Memories: this area is for extracting images, notes, etc. from Uru (either offline or online){->}Herinneringen: dit gedeelte is voor het uitlezen van afbeeldingen, notities, etc. van Uru (hetzij offline hetzij online)
+Enter a list of angles(20=full circle) and distances.  They will be summed as vectors.{->}Voer een lijst van hoeken (20=hele cirkel) en afstanden in. Ze zullen worden opgeteld als vectoren.
+sum...{->}Som...
+Predict Pod events{->}De gebeurtenissen in de observatieposten voorspellen 
+Notes:{->}Notities:
+Start Server{->}De server starten
+base folder:{->}De hoofdmap:
+port:{->}Poort:
+Stop Server{->}De server stoppen
+Indicate in the log when files are read?{->}In het logboek aangeven wanneer er bestanden worden gelezen?
+You have to stop and start the server for settings changes to take effect.{->}Je moet de server stoppen en starten om de gewijzigde instellingen te laten werken.
+This proxy server is for viewing old archived web sites.  Details on the help tab or  http://alcugs.almlys.org/Drizzle{->}Deze proxyserver is voor het bekijken van oude, gearchiveerde websites. Meer informatie op het tabblad Help of op http://myst.dustbird.net/wiki/Drizzle
+List Available Ages...{->}De beschikbare Werelden opsommen
+Get Offline list.{->}Offline lijst laden.
+Run Tests...{->}Tests uitvoeren...
+ignore known overrides{->}bekende problemen negeren
+Sanity check{->}Gezondheidscontrole
+Name a random Age!{->}Noem een willekeurige Wereld!
+Report{->}Rapport
+Agename:{->}Wereldnaam:
+Age reports{->}Wereldrapporten
+Everything here uses the Pots folder from the UAM tab.{->}Alles hier gebruikt de POTS-map van het tabblad UAM.
+UAM Advanced{->}UAM Gevorderd
+start{->}starten
+Prefix:{->}Voorvoegsel:
+file:{->}Bestand:
+Language{->}Taal
+Read file.{->}Bestand lezen
+Read{->}Lezen
+Clear{->}Legen
+Save changes.{->}Wijzigingen opslaan.
+MystV folder:{->}MystV-map:
+Output folder:{->}Uitvoermap:
+Select All{->}Alles selecteren
+Select None{->}Alles deselecteren
+read all...{->}Alles lezen...
+Files to process:{->}Bestanden om te verwerken:
+start...{->}Starten...
+Select all{->}Alles selecteren
+Select none{->}Alles deselecteren
+Output:{->}Uitvoer:
+Translation:{->}Vertaling:
+//Remove dupes.{->}Dubbelen verwijderen.
+Remove dupes.{->}Verwijder dubbel.
+Clear log.{->}Logboek legen.
+Alphabetise.{->}Alfabetiseren.
+Log{->}Logboek
+Save settings now{->}Instellingen nu opslaan
+//Delete settings and exit{->}Instellingen verwijderen en afsluiten.
+Delete settings and exit{->}Verwijder instellingen en sluit af
+Save settings on exit.{->}<html>Instellingen opslaan bij het afsluiten.</html>
+Settings{->}Instellingen
+Setting language to {->}De taal wordt ingesteld op 
+Current GMT time is: {->}Huidige GMT-tijd is:
+Current local time is: {->}Huidige lokale tijd is:
+
+//Time of gmttime: {->
+//Time of localtime: {->
+//Time of cur day: {->
+//Time of next day: {->
+
+Time of today's {->}Tijd van vandaags
+ symbol: {->} symbool: 
+Time of tomorrow's {->}Tijd van morgens
+Not parsing final table in vault.dat{->}De laatste tabel in vault.dat wordt niet verwerkt
+Getting data...{->}Gegevens verkrijgen...
+In the output folder, there will be a file called 'memories.xml'; open it with your web-browser to view the memories.{->}In de uitvoermap zal een bestand 'memories.xml' komen; open het met je webbrowser om de herinneringen te zien.
+Finished creating Memories files!{->}Klaar met het maken van herinneringsbestanden.
+Error: {->}Fout: 
+You must select an output folder that already exists.{->}Je moet een uitvoermap opgeven die al bestaat.
+Folder doesn't exist.{->}De map bestaat niet.
+The input folder must have either 'vault.dat' or some number of '.v' files.{->}De invoermap moet een 'vault.dat' of een aantal '.v'-bestanden bevatten.
+Ages not installed: {->}Niet geïnstalleerde Werelden: 
+ launched!{->} gestart!
+Cleaning up any previous version...{->}Eventuele vorige versie opruimen...
+This Age is listed as not being safely deletable; performing upgrade only.{->}Van deze Wereld is vermeld dat hij niet veilig te verwijderen is; alleen een upgrade wordt uitgevoerd.
+Checking to see if we already have this version in the cache...{->}Controleren of we deze versie al opgeslagen hebben...
+Using cached version of Age: {->}Opgeslagen versie wordt gebruikt van de Wereld: 
+, Version: {->}, Versie: 
+Checking integrity...{->}Integriteit controleren...
+File integrity is good!{->}Bestandsitegriteit is in orde!
+Extracting {->}Uitlezen van 
+Age installed!{->}Wereld geïnstalleerd!
+Ages updatable: {->}Werelden die bijgewerkt kunnen worden: 
+Deleting {->}Verwijderen van 
+Attempting to download Age: {->}Aan het proberen deze Wereld te downloaden: 
+, Mirror: {->}, Spiegelserver: 
+The PathOfTheShell/CompleteChronicles folder you selected doesn't exist.{->}De PathOfTheShell-/CompleteChronicles-map die je hebt geselecteerd bestaat niet.
+Checking the folders you gave...{->}De opgegeven mappen controleren...
+The Myst5 folder you selected doesn't exist.{->}De Myst5-map die je hebt geselecteerd bestaat niet.
+The Crowthistle folder you selected doesn't exist.{->}De Crowthistle-map die je hebt geselecteerd bestaat niet.
+The MOUL folder you selected doesn't exist.{->}De MOUL-map die je hebt geselecteerd bestaat niet.
+Unable to launch program: {->}Het is niet mogelijk het volgende programma te starten: 
+ because it doesn't exist.{->} omdat het niet bestaat.
+Starting conversion...{->}Omzetten wordt begonnen...
+Dont forget to run SoundDecompress.exe in your Pots folder, in order to get the sounds working!  (You can also click the SoundDecompress button on the form if you prefer.) (If SoundDecompress crashes, it means you have to log into Uru, quit, then try again.){->}Vergeet niet om SoundDecompress.exe in je POTS-map uit te voeren om de geluiden te laten werken! (Je kunt ook op de knop SoundDecompress klikken als je wilt.) (Als SoundDecompress crasht, dan moet je inloggen in Uru, afsluiten, en het opnieuw proberen.)
+Conversion completed!{->}Omzetten voltooid!
+
+//Tabs:
+Moul{->}MOUL
+MystV{->}Myst V
+Crowthistle{->}Crowthistle
+Music{->}Muziek
+tab3{->}tabblad 3
+Pots{->}POTS
+Reports{->}Rapporten
+Settings{->}Instellingen
+SpecialMods{->}Speciale aanpassingen
+HexIsle{->}Hex Isle
+List Analysis{->}Lijstanalyse
+CrossRefTool{->}CrossRefTool
+Old{->}Oud
+Misc{->}Overig
+Encryption{->}Versleuteling
+realMyst{->}RealMyst
+Riven{->}Riven
+Legacy{->}Oude dingen
+DeepView{->}DeepView
+Manual Conversion{->}Handmatig omzetten
+UruAgeManager(UAM){->}UruAgeManager(UAM)
+Conversion(Simplicity){->}Omzetten (Eenvoudig)
+Memories{->}Herinneringen
+GameHelp{->}Spelhulp
+Proxy{->}Proxy
+Advanced{->}Gevorderd
+Help{->}Help
+
+//UAM downloader:
+Only use "Unsafe Cancel" if "Cancel" doesn't work after 30 seconds.{->}Gebruik alleen "Onveilig annuleren" als "Annuleren" na 30 seconden nog niet werkt.
+Pause/Resume{->}Pauzeren/Vervolgen
+Cancel{->}Annuleren
+Unsafe Cancel{->}Onveilig annuleren
+UAM Downloading...{->}UAM downloaden...
+
+//misc
+(Select an Age, or click "Get Latest List" to get the latest list of Ages.){->}(Selecteer een Wereld of klik op "Ververs lijst" om de nieuwste lijst met Werelden te krijgen.)
+//<html>(Select an Age, or click "Get Latest List" to get the latest list of Ages.)</html>{-><html>(Selecteer een Wereld of klik op "Haal de nieuwste lijst" om de nieuwste lijst met Werelden te krijgen.)</html>
+Save Missing Translations{->}Missende vertalingen opslaan
+How rainy of a day is it?{->}Hoe regenachtig is het vandaag?
+archive folder:{->}Archiefmap:
+Generate uam.status.txt{->}uam.status.txt genereren
+Error reading config file.{->}Er ging iets fout bij het lezen van het configuratiebestand.
+You need to load the Age List in the UAM tab first.{->}Je moet eerst de lijst met Werelden op het tabblad UAM laden.
+Click the select button to pick a folder.{->}Klik op "Bladeren..." om een map te kiezen.
+
+//file select form
+Enter path or folder name:{->}Vul een pad of mapnaam in:
+Filter{->}Filteren
+Folders{->}Mappen
+null{->}leeg
+Files{->}Bestanden
+Enter file name:{->}Vul een bestandsnaam in:
+OK{->}OK
+Update{->}Vernieuwen
+Create Folder{->}Map aanmaken
+
+//misc dialogs
+Enter a server.{->}Vul een server in.
+Enter the server you want to use.{->}Vul de server in die je wilt gebruiken.
+Folder Name:{->}Mapnaam:
+
+//Drizzle22
+Done copying {->}Kopiëren gereed
+ music!{->} muziek!
+HexIsle folder:{->}HexIsle map:
+HexIsle music...{->}HexIsle muziek...
+
+//Drizzle23
+Working...{->}Bezig...
+Starting conversion of {->}Start omzetten van 
+Installed Version: {->}Geinstalleerde versie 
+Clearing all .sum files...{->}Alle .sum files worden gewist....
+Done!{->}Klaar!
+Are you sure you want to delete the old archives?{->}Weet je zeker dat je de oude gegevens wilt verwijderen?
+Delete the archives?{->}Oude archieven verwijderen?
+Ages with unknown installation status: {->}Werelden met onbekende installatie status: 
+Detecting which versions are installed...{->}Controleren welke versies zijn geinstalleerd...
+Unable to detect installed version, so keeping archives for Age: {->}Kan geinstalleerde versie niet vinden, geen wijzigingen in: 
+Start DrizzleDeepview{->}Start DrizzleDeepView
+Delete old archives...{->}Verwijder oude archieven
+Clear .sum files.{->}Wis .sum files.
+Version?{->}Versie?
+
+//Drizzle24
+Convert:{->}Omzetten
+3dsmax's output folder (set in PlasmaMax2.ini):{->}3dsmax's output map (gemaakt in PlasmaMax2.ini)
+(The created files will be placed in the Pots folder given on the UAM tab.){->}(De gemaakte files worden geplaatst in de Pots map onder de UAM tab.)
+This area is for things related to the writing of Ages.{->}Dit gedeelte is voor dingen die verband houden met het schrijven van werelden.
+Pyc or Pak file:{->}Pyc of Pak file:
+Decompile{->}Splitsen
+Unpack{->}Uitpakken
+Gamename (for a list, go to Misc->ListGamenames):{->}Spelnaam(voor een lijst, ga naar Overig->LijstSpellen)
+The Art{->}De Kunst
+Unpacking pak file...{->}pak file uitpakken...
+Done unpacking!{->}Uitpakken gereed!
+Decompiling pak file...{->}pak file veranderen...
+Done decompiling!{->}Klaar met veranderen
+Converting Age: {->}Omzetten wereld 
+Unknown encryption type; assuming it is unencrypted.{->}Onbekend versleuteld bestand; waarschijnlijk onversleuteld!.
+Converting Prp: {->}Prp omzetten 
+Process All was successful!{->}Alle processen waren succesvol!
+Recompilated completed!{->}Herschrijven compleet!
+Done converting Age!: {->}Omzetten wereld klaar! 
+Decompiling pyc file...{->}pyc file veranderen...
+List Gamenames{->}Spellijst
+
+//Drizzle25
+Magiquest folder:{->}Magiquest map:
+Magiquest music...{->}Magiquest muziek...
+Launch Uru after converting{->}Start Uru na omzetten
+Options{->}Opties
+Merge this Jar with Libs{->}Voeg Jar samen met Libs
+OldLegacy{->}Oude Bestanden
+Error while updating Drizzle. It seems Drizzle.jar did not close.{->}Fout tijdens aanpassen Drizzle. Waarschijnlijk sloot Drizzle.jar niet af.
+Please make sure there are no other copies of Drizzle running, and hit OK to try again.{->}Kijk of er geen andere versies van Drizzle in werking zijn en druk dan op OK om opnieuw te proberen.
+Problem updating{->}Probleem updating
+Restarting to update Drizzle...{->}Herstart voor aanpassen Drizzle...
+Drizzle is about to restart, in order to update itself.  You should use the Drizzle.exe (or less preferably, Drizzle.jar) file in the 'Drizzle' subfolder of Uru to start it.  Please don't get confused and use copies elsewhere, and think they are updated; you can always see which version you're using at the top of Drizzle.  And don't forget to have fun :D{->}Drizzle gaat herstarten om zich zelf te updaten. Je kunt beter met Drizzle.exe starten dan met Drizzle.jar , te vinden in de submap van Uru. Gebruik liever geen andere versies, waarvan je niet weet of ze zijn aangepast; je kunt altijd zien welke versie je gebruikt boven in het venster van Drizzle. Veel plezier :D 
+You have a newer version of Drizzle installed.  Perhaps you want to use that?  It's located at: {->}Je hebt een nieuwere versie van Drizzle geinstalleerd. Wil je die mischien gebruiken? Deze is te vinden in: 
+
+//Drizzle26
+account name:{->}account naam:
+password:{->}wachtwoord:
+avatar name:{->}avatar naam:
+
+//Drizzle28
+There is a privacy/security/persistency risk.  It is strongly recommended that you either: a) install the 'Network Access' with version '(disabled)', or b) manually delete the following file: {->}Er is een privacy/beveiligings/instabiliteits risico. Het is aanbevolen dat je: a)'Netwerk Toegang' met versie '(uitgeschakeld)' installeerd, of b)handmatig de volgende file verwijderd: 
+ Either way, this warning should not be displayed afterwards.{->} Deze waarschuwing moet niet achteraf gegeven worden.
+
+//Drizzle29
+Partial Age (i.e. no separate texture prp, and no .age file){->}Gedeeltelijke Age (geen separate texturen prp. en geen .age file)
+Woah there!  You probably meant to have the 'Partial Age' option set when making a Relto page or AhraPahts shell.{->}Stop daar! Vermoedelijk heb je de"Gedeeltelijke Age"optie gekozen toen je een Relto page of AhraPahts shell ging maken.
+Conversion is set to 'Partial Age', but no Textures prp was found.  If your Age has no textures then this is normal, otherwise you should re-export with 3dsmax.{->}Omzetten is op 'Gedeeltelijke Age' gezet, maar er is geen Texture prp gevonden. Als jouw Age geen textures heeft dan is dit normaal, anders moet je weer exporteren in 3dsmax.
+
+//Drizzle30
+You appear to be running Windows Vista or Windows Seven.  Uru has a bug that will require a workaround, see http://myst.dustbird.net/wiki/Drizzle#Vista_and_above for details.{->}U heeft Windows Vista of Windows 7.  Uru heeft een probleem dat aandacht nodig heeft, zie http://myst.dustbird.net/wiki/Drizzle#Vista_of_hoger voor details.
+Errors:{->}Fouten:
+Warnings:{->}Meldingen:

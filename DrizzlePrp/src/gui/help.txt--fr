@@ -1,0 +1,102 @@
+Bienvenue à Drizzle!
+
+De l'aide plus détaillée et plus à jour est disponible ici:  http://myst.dustbird.net/wiki/Drizzle
+
+
+Utilisation de UAM (UruAgeManager):
+---------------------------
+UAM permet de télécharger et installer facilement des Âges et des ajouts à votre Uru.
+
+1) Pour "dossier POTS", sélectionnez l'emplacement où vous avez installé Uru POTS ou Uru CC. (Par défaut:  "C:\Program Files\Ubi Soft\Cyan Worlds\Uru - Ages Beyond Myst" ou "C:\Program Files\Ubi Soft\Cyan Worlds\Myst Uru Complete Chronicles".)
+2) Cliquez sur le couton "Rafraîchir la liste" pour obtenir la liste des Âges disponibles sur le serveur.
+3) Sélectionnez un ou plusieurs Âges, la dernière version et le serveur miroir seront choisis pour vous.
+4) Cliquez sur "Télécharger" pour télécharger et installer les Âges sélectionnés.
+5) Assurez-vous d'avoir sélectionné "Offline-KI" car c'est ce qui vous permettra de vous téléporter sur les autres Âges.
+6) Optionnellement, vous pouvez supprimer des Âges, mais ce ne devrait jamais être nécessaire.
+
+
+Conversion Simple
+--------------------------------------
+Cet onglet permet de convertir facilement les Âges de Myst5, MOUL, Crowthistle et HexIsle au format Uru.
+1) Choisissez l'onglet "Conversion Simple".
+2) Dossier POTS: Sélectionnez le dossier où vous avez installé Uru Path Of The Shell ou Uru:Complete Chronicles. (Par défaut: "C:\Program Files\Ubi Soft\Cyan Worlds\Uru - Ages Beyond Myst" or "C:\Program Files\Ubi Soft\Cyan Worlds\Myst Uru Complete Chronicles".)
+3) Sélectionnez le dossier où vous avez installé Myst 5 (ou autre jeu que vous voulez convertir). (Par défaut: "C:\Program Files\Ubisoft\Cyan Worlds\Myst V End Of Ages".)
+4) Cliquez sur le bouton "Démarrer...". La conversion peut être assez longue.
+5) Optionnellement, si vous voulez convertir la musique d'un jeu pour qu'elle jour dans votre Relto, cliquez sur le bouton correspondant.
+6) Cliquez sur le bouton "Démarrer SoundDecompress..." ou bien exécutez SoundDecompress.exe dans votre dossier Uru. (SoundDecompress.exe pourrait planter si vous n'avez pas lancé Uru au moins une fois.)
+
+
+Souvenirs:
+--------------------------
+Cet onglet permet d'extraire images, notes, etc. de Uru.
+1) Le "Dossier source" sera différent selon que vous utilisez Pots(un seul joueur) or Alcugs(multi joueurs):
+  a) Pots: Le dossier source doit être celui qui contient vault.dat.  Cela se trouve dans votre dossier Uru, ensuite 'sav', ensuite le dossier de votre avatar (nommé selon une traduction hexadécimale du nom de l'avatar), ensuite 'current'.
+  b) Alcugs: Le dossier source doit être celui qui contient plusieurs fichiers ".v".  Cela se trouve dans votre dossier Uru, ensuite 'vnode_cache', ensuite le dossier de votre avatar (nommé selon une traduction hexadécimale du nom de l'avatar).
+2) Le "Dossier destination" est celui où vous voulez extraire les fichiers.  (Si le dossier contient déjà des fichiers extraits, ils seront fusionnés.)
+3) Cliquez sur le bouton "Démarrer".
+4) Vous trouverez un fichier "memories.xml" dans le dossier de destination.  Ouvrez-le avec un navigateur Internet pour voir les souvenirs (Testé avec IE7, IE6, FireFox 3 et Opera 9.)
+
+
+DeepView:
+--------------------------
+1) Entrez le fichier source dans le premier champ.  Utilisez un astérisque pour inclure tous les fichiers prp d'un Âge.  Ex: "C:\Pots\dat\Negilahn*"
+2) Cliquez sur le bouton "Lire" pour lire les fichiers et la fenêtre affichera une liste de tous les types d'objets Prp trouvés.
+3) Explorez la structure! Optionnellement, vous pouvez changer des références avec les boutons "Change".
+4) Optionnel: Pour vider la fenêtre, cliquez sur "Vider".
+5) Optionnel: Pour sauvegarder vos changements, sélectionnez un dossier dans le deuxième champ.  Ensuite cliquez sur "Enregistrer changements".
+
+
+Proxy:
+------------------------
+Ce serveur proxy permet de parcourir de vieux sites web archivés en .zip.
+1) Places vos fichiers .zip (ou vous dossiers d'archives) dans un dossier en incluant "index.net.zip".
+2) Choisieez l'onglet "Proxy".
+3) Pointez le "Dossier racine" vers le dossier qui contient vos archives.
+4) Optionnel: Changez le port(defaut 8012) et la journalisation des fichiers lus.
+5) Cliquez sur "Démarrer serveur".
+6) Dans votre navigateur web, réglez le proxy à 127.0.0.1:8012 (Dans firefox 3, Utilisez Tools->Options->Advanced->Network->Connection Settings (désolé je n'ai pas Firefox en français...).  Selectionnez "Manual proxy configuration" et "uses this proxy server for all protocols".  Réglez le "Http proxy" à "127.0.0.1" et "Port" à "8012".)
+7) Optionnel: utilisez un utilitaire Firefox comme QuickProxy pour basculer rapidement entre le mode normal et le mode proxy.
+8) Aller à http://index.net pour lire les archives.
+
+
+Divers/Wiki spider:
+------------
+Ceci vous permet de ramasser tout le contenu d'un Wiki.
+1) Url: entrez l'url d'un wiki, mais pas celui d'une page de contenu.  Ex: "http://en.wikipedia.org/wiki/", et non pas "http://en.wikipedia.org/wiki/Main_Page".  (Note: ce n,est qu'un exemple, n'essayez pas cela avec Wikipedia :P)
+2) Sélectionnez un dossier de destination pour les pages extraites.
+3) Cliquez sur "Démarrer".
+
+
+Divers/Rapports sur les Âges:
+------------
+Ceci produit un rapport sur un ou des Ages.
+1) Choisissez le dossier qui contient les Âges à analyser.
+2) Cliquez sur "Rapport".
+
+
+Écran large:
+------------------
+Cet onglet contient des modifications pour jouer à Uru sur écran 16/9e (ou n'importe que autre ratio du genre), ainsi que de supprimer la limite pour regarder vers le haut ou le bas.
+(d'ailleurs, même sur écran 4/3, ceci permet de supprimer un léger étirement vertical du jeu de base)
+Changer directement la résolution du jeu n'est pas possible pour le moment, voir le lien dans l'onglet.
+Vu que ceci nécessite beaucoup de modifications, il est préférable de lancer cet utilitaire en dernier.
+
+
+Outils pour Fan-Ages:
+--------------
+Cet onglet donne accès à quelques outils d'édition de Fan-Ages - ceci peut être utile aussi bien pour les auteurs que pour les joueurs.
+Ceci vous permet de réduire énormément les ralentissements dans certains Âges, ainsi que d'augmenter la distance d'affichage, ou même ajouter de faux effets de lumière pour rendre l'Âge plus réaliste !
+Voir sur la GoW pour une description plus ample des options.
+
+
+Information sur Drizzle:
+-------------
+Licence: GPLv3, ou subséquente, à votre choix.
+SVN: http://sourceforge.net/p/drizzle/code/
+Sourceforge: http://sourceforge.net/projects/drizzle/
+Contributeurs(liste incomplète):
+  Dustin(aka ddb174): conversion et programmation
+  L.K.: traduction allemande
+  Chacal: traduction française
+  Wodan, Erik: traduction hollandais
+  Sirius: programmation additionnelle, traduction française

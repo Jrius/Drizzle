@@ -1,0 +1,77 @@
+This file is just a little documentation on the kinds of things encountered in Myst5 sdl files.
+They have a different format than Uru/Moul, and can include types that are themselves statedescs.
+
+/* */
+
+#
+
+struct structname
+{
+version n;
+...
+
+}
+
+
+
+bool varname default=false;
+point3 varname default=(0,0,0);
+quaternion varname default=(0,0,0,1);
+vector3 varname default=(0,0,0);
+float varname default=0;
+double varname default=0;
+SoundState varname[];
+int varname default=0;
+int varname;
+byte varname default=1;
+string varname;
+bool varname default=0;
+uint name[];
+uint name;
+uoid name;  //some kind of player id
+string name default = "whatever";
+AgeTimeOfDay name;
+AgeTimeElapsed name;
+GameTimeElapsed name;
+buffer
+matrix44 name;
+string name[2] default=["what","ever"];
+
+//the following list are really just other sdl structs.
+//PythonTimer name[];
+//yeeshaJournalItem name[];
+//Kveer name;
+//Descent name;
+//Siralehn name;
+//Direbo name;
+//Laki name;
+//Todelmer name;
+//Tahgira name;
+//Myst name;
+//sketch
+//stroke
+//bahroSaveVars
+//slateData
+//bahroSlate
+//Island
+//AnimTimeConvert
+//menuBar
+//Player
+//Session name private;
+//GameSettings
+//NPC
+//global
+//Layer
+//AGMaster
+//FinalTablet
+//ParticleSystem
+//PythonFileMod
+//physical
+//XRegion
+
+
+
+
+notes:
+can have more than 1 struct per file.
+the Session var has a "private" tag after it.

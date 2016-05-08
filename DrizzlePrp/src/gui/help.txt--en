@@ -1,0 +1,97 @@
+Welcome to Drizzle!
+
+Up-to-date and more detailed help is available at http://myst.dustbird.net/wiki/Drizzle
+
+
+To use UAM (UruAgeManager):
+---------------------------
+1) Set the "Pots folder" to wherever you installed PathOfTheShell or CompleteChronicles. (By default it's "C:\Program Files\Ubi Soft\Cyan Worlds\Uru - Ages Beyond Myst" or "C:\Program Files\Ubi Soft\Cyan Worlds\Myst Uru Complete Chronicles".)
+2) Click the "Get Latest Ages" button to get a list of Ages you can download.
+3) Select the Age you want, and the latest version and mirror will be chosen for you.
+4) Click "Download" to download and install the Age!
+5) Make sure one of the Ages you install is "Offline-KI" since that is what lets you link to other Ages.
+6) Optional: you can also delete Ages, but you shouldn't ever need to.
+
+
+To convert Myst5/Moul/Crowthistle/Hexisle Ages the simple way:
+--------------------------------------
+1) Go to the Conversion(Simplicity) tab.
+2) Select the folder where you installed PathOfTheShell/CompleteChronicles. (By default it's "C:\Program Files\Ubi Soft\Cyan Worlds\Uru - Ages Beyond Myst" or "C:\Program Files\Ubi Soft\Cyan Worlds\Myst Uru Complete Chronicles".)
+3) Select the folder where you installed Myst5(or whichever game you want to convert). (By default, it's "C:\Program Files\Ubisoft\Cyan Worlds\Myst V End Of Ages".)
+4) Click the "Start..." button, and it will convert the Ages(this may take a long time).
+5) (optional) If you want the game's music in your Relto's musicbox, click the Music button for that game.
+6) In the PathOfTheShell/CompleteChronicles folder, run SoundDecompress.exe. (SoundDecompress.exe may crash if you haven't run Uru at least once.)
+
+
+Memories:
+--------------------------
+1) The infolder is set differently depending on whether you're using Pots(online) or Alcugs(offline):
+  a) Pots: The infolder should be set to the folder with vault.dat.  This is in Uru's folder, then 'sav', then the avatar's folder(which is named using the hex version of the avatar's name), then 'current'.
+  b) Alcugs: The infolder should be set to the folder with a bunch of .v files.  This is in Uru's folder, then 'vnode_cache', then the avatar's folder(which is named using the hex version of the avatar's name).
+2) The outfolder is set to where you want the files saved.  (If you choose one where you've done this before, they will be merged together.)
+3) Click the "Start" button.
+4) In the output folder will be a file called "memories.xml".  Open it with Internet Explorer or Firefox to view it!  (Tested with IE7, IE6, FF3, and Opera9.)
+
+
+To use DeepView:
+--------------------------
+1) Enter the input filename in the first box.  Use a * to include all prps files of an Age.  E.g.: "C:\Pots\dat\Negilahn*"
+2) Click the "read" button to read the file(s) and it will show a list of all the Prp object types found.
+3) Explore from there!
+4) Optional: If you want to remove all the currently loaded files, click the "clear" button.
+5) Optional: If you want to save your changes, select the folder to save them to in the second box.  Then click the "save changes" button.
+
+
+To run the proxy server:
+------------------------
+1) Put all the zip files (or folders, if that's what you're using) into some folder together, including "index.net.zip".
+2) Start Drizzle and go to the Proxy tab.
+3) Set the base folder to the folder you put all the zip files in.
+4) Optional: set the port(default 8012) and whether you want it to log when it successfully reads a file.
+5) Click the start button.
+6) Set the proxy in your browser to 127.0.0.1:8012 (In firefox 3, go to Tools->Options->Advanced->Network->Connection Settings.  Select "Manual proxy configuration" and check "uses this proxy server for all protocols".  Set "Http proxy" to "127.0.0.1" and "Port" to "8012".)
+7) Optional: install an add-on like QuickProxy to firefox, so you can quickly switch between proxy mode and not.
+8) Go to http://index.net to start browsing.
+
+
+Wiki spider:
+------------
+This allows you to spider all the source from a wiki.
+1) Set the Url to the location of the wiki, but not one of the actual pages.  Eg. "http://en.wikipedia.org/wiki/", *not* "http://en.wikipedia.org/wiki/Main_Page".  (Note: don't actually try to spider Wikipedia :P)
+2) Set the outfolder to where you want the files saved.
+3) Click Start!
+
+
+Age reports:
+------------
+This gives some information on an Age or Ages.
+1) Set the folder to the place with all the files you want reported on.
+2) Click Report!
+
+
+Uru in widescreen:
+------------------
+This tab contains hacks for playing Uru in 16/9 widescreen (or any other ratio you may need), and allows you to remove the limit when looking up/down.
+(actually, even when using a 4/3 monitor, changing the ratio fixes some slight vertical stretching in the normal game)
+Changing the game resolution itself is not yet possible, see the link on the tab.
+Because of all the modifications required, you may prefer to run this utility last.
+
+
+Fan-Age tools:
+--------------
+This tab gives a few tools for editing Fan-Ages - for authors and players alike.
+It allows you to drastically remove lag in some Ages, increase view distance, and even add fake lighting to the Age for better visuals !
+See the GoW for more information.
+
+
+Project Info:
+-------------
+License: GPLv3, or at your option, any later version.
+SVN: http://sourceforge.net/p/drizzle/code/
+Sourceforge: http://sourceforge.net/projects/drizzle/
+Contributers(not a complete list):
+  Dustin(aka ddb174): conversion
+  L.K.: German translation
+  Chacal: French translation
+  Wodan, Erik: Dutch translation
+  Sirius: additional programming, French translation

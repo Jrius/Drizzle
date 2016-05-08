@@ -1,0 +1,31 @@
+yeesha pages:
+
+num	pots		moul            off-ki
+
+1	sun         sun             sun
+2	wfall		wfall           wfall
+3	hutdec		hutdec          hutdec
+4	hutrf		hutrf           hutrf
+5	jump		jump            jump
+6	dock		dock            dock
+7	kicks		kicks           kicks
+8	imager		rain            imager
+9	music		music           music
+10	tree		tree            tree
+11	zandi		2nd shelf       zandi
+12	rain		imager          rain
+13	bflies		bflies          bflies
+14	firepla		firepla         firepla
+15	clock		bench           clock
+16	marbles		marbles         marbles
+17	lush		lush            lush
+18          	clock           (bench)
+19  			birds           birds
+20      		calendar
+21      		maples          maple
+22      		grass           grass
+23      		erca plants     erca plants
+24          	thunderstorm	thunderstorm
+25          	bahro poles
+26                              (calendar)
+27

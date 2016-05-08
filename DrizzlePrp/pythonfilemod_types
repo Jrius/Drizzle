@@ -1,0 +1,29 @@
+This is a complete list of all the pythonfilemod types in the games.
+
+name                        pt  ct  m5  moul    (pots, crowthistle, myst5, moul)
+
+ptAttribInt                 1       1   1
+ptAttribFloat               2       2   2
+ptAttribBoolean             3       3   3
+ptAttribString              4           4
+ptAttribDropDownList                4      (note: also a Bstr)
+ptAttribSceneobject         5
+ptAttribSceneObject         6
+ptAttribSceneObjectList             6      (note: probably can be converted as-is, but change the capital 'O' to 'o' in the python file.)
+ptAttribSceneobjectList                 6  (note: probably exists as-is in pots.)
+ptAttribActivator           7       7   7
+ptAttribResponder           8   8   8   8
+ptAttribDynamicMap          9       9   9
+ptAttribGUIDialog           10  10  10  10
+ptAttribExcludeRegion       11      11  11
+ptAttribAnimation           12  12  12  12 (note: this is an Uruobjectref)
+ptAttribAnimation           13  13  13  13 (note: this is a Bstr)
+ptAttribBehavior            14          14
+ptAttribMaterial            15          15
+ptAttribGUIPopUpMenu                    16 (note: probably exists as-is in pots.)
+ptAttribWaveSet             18          18
+ptAttribSwimCurrent         19          19
+ptAttribClusterList         20
+ptAttribGlobalSDLVar                20     (note: a Bstr; can't be converted?)
+ptAttribMaterialAnimation   21          21
+

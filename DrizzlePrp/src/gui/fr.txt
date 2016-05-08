@@ -1,0 +1,365 @@
+//Chacal's French translations; okay changes to this file with him first.
+
+Warning: {->}Avertissement: 
+Ignoring: {->}Ignoré: 
+Get Latest List{->}Rafraîchir la liste
+( Help can be found under the "Help" tab, or detailed help can be found at http://alcugs.almlys.org/Drizzle  ){->}( De l'aide est disponible sous l'onglet "Aide", pour plus de détails voir: http://myst.dustbird.net/wiki/Drizzle )
+Ages:{->}Âges:
+Versions:{->}Versions:
+Download{->}Télécharger
+Delete{->}Supprimer
+Mirrors:{->}Serveurs miroirs:
+Server:{->}Serveur:
+Select...{->}Choisir...
+select...{->}choisir...
+select{->}choisir...
+Select....{->}Choisir...
+Pots folder:{->}Dossier POTS:
+Change server...{->}Changer serveur...
+UAM Settings{->}Paramètres UAM
+Launch Uru{->}Démarrer Uru
+You have the latest version.{->}Vous avez la version la plus récente.
+You have a version, but not the latest.{->}Vous avez une version, mais pas la plus récente.
+You don't have this Age installed.{->}Vous n'avez pas téléchargé cet Âge.
+You have this Age, but its version is unknown.{->}Vous avez cet Âge, mais la version est inconnue.
+Legend{->}Légende
+Do not load Age list at startup.{->}Ne pas charger la liste au démarrage.
+Load last saved Age list at startup.{->}Charger la liste au démarrage.
+Download most recent Age list at startup.{->}Télécharger la liste au démarrage.
+Automatically download list?{->}Chargement automatique de la liste?
+Info:{->}Info:
+<html>This area is for converting MystV/Moul/Crowthistle files for play in Uru.  See the Help tab or http://alcugs.almlys.org/Drizzle</html>{->}<html>Cet onglet permet de convertir les fichiers de MystV, Moul et Crowthistle pour les intégrer à Uru. ( De l'aide est disponible sous l'onglet "Aide", pour plus de détails voir: http://myst.dustbird.net/wiki/Drizzle )</html>
+SoundDecompress (When conversion is done, it will ask you to run this.){->}Démarrer SoundDecompress (utiliser lorsque la conversion est terminée)
+Start...{->}Démarrer
+Moul folder:{->}Dossier MOUL:
+//select...{->Auswählen...
+Myst 5 Folder:{->}Dossier Myst 5:
+Pots Folder:{->}Dossier POTS:
+Crowthistle folder:{->}Dossier Crowthistle:
+<html>Fill out the info in the MystV, Moul, and Crowthistle tabs, then click these buttons to put their music in your Relto's musicbox.</html>{->}<html>Complétez l'information requise dans les onglets MystV, Moul, et Crowthistle puis cliquez sur ces boutons pour faire jouer leur musique dans l'appareil de votre Relto .</html>
+MystV music...{->}Musique de MystV
+Moul music...{->}Musique de Moul
+Crowthistle music...{->}Musique de Crowthistle
+Pots music...{->}Musique de POTS
+(Make sure you fill out the 'Pots Folder' on the Moul tab for this one.){->}(Assurez-vous d'avoir choisi le 'Dossier POTS' dans l'onglet 'Moul'.)
+Instructions can be found on the Help tab or at  http://alcugs.almlys.org/Drizzle{->}De l'aide est disponible sous l'onglet "Aide", pour plus de détails voir: http://myst.dustbird.net/wiki/Drizzle.
+infolder:{->}Dossier source:
+outfolder:{->}Dossier destination:
+Memories: this area is for extracting images, notes, etc. from Uru (either offline or online){->}Souvenirs: Cet onglet permet d'extraire images, notes, etc. de Uru (versions multi-joueurs ou autonome)
+Enter a list of angles(20=full circle) and distances.  They will be summed as vectors.{->}Entrez une liste d'angles (20=cercle complet) et de distances. Ils seront additionnés vectoriellement.
+sum...{->}Addition
+Predict Pod events{->}Prédire évènements
+Notes:{->}Notes:
+Start Server{->}Démarrer serveur
+base folder:{->}Dossier racine:
+port:{->}Port:
+Stop Server{->}Arrêter serveur
+Indicate in the log when files are read?{->}Indiquez dans le journal quand les fichiers sont lus?
+You have to stop and start the server for settings changes to take effect.{->}Vous devez arrêter et redémarrer le serveur pour que les changements prennent effet.
+This proxy server is for viewing old archived web sites.  Details on the help tab or  http://alcugs.almlys.org/Drizzle{->}<html>Ce serveur proxy permet de parcourir de vieux sites web archivés en .zip. De l'aide est disponible sous l'onglet "Aide", pour plus de détails voir: http://myst.dustbird.net/wiki/Drizzle.</html>
+List Available Ages...{->}Liste des Âges disponibles
+Get Offline list.{->}Liste locale
+Run Tests...{->}Démarrer tests
+ignore known overrides{->}Ignorer doublons connus
+Sanity check{->}Test de cohérence
+Name a random Age!{->}Un Âge au hasard
+Report{->}Rapport
+Agename:{->}Nom de l'Âge:
+Age reports{->}Rapports sur les Âges
+Everything here uses the Pots folder from the UAM tab.{->}Tous ces tests utilisent le dossier POTS de l'onglet UAM.
+UAM Advanced{->}UAM avancé
+start{->}démarrer
+Prefix:{->}Préfixe:
+file:{->}fichier:
+Language{->}Langue
+Read file.{->}Lire le fichier
+Read{->}Lire
+Clear{->}Vider
+Save changes.{->}Enregistrer changements
+MystV folder:{->}Dossier MystV:
+Output folder:{->}Dossier destination:
+Select All{->}Sélectionner tout
+Select None{->}Sélectionner aucun
+read all...{->}Lire tout
+Files to process:{->}Fichiers à traiter:
+start...{->}Démarrer
+Select all{->}Sélectionner tout
+Select none{->}Sélectionner aucun
+Output:{->}Destination:
+Translation:{->}Traduction:
+Remove dupes.{->}Enlever doublons
+Clear log.{->}Vider le journal
+Alphabetise.{->}Alphabétiser
+Log{->}Journal
+Save settings now{->}Enregistrer paramètres maintenant
+//Alternate Save settings now: Einstellungen speichern.
+Delete settings and exit{->}Supprimer paramètres et quitter
+Save settings on exit.{->}<html>Enregistrer les paramètres en quittant</html>
+Settings{->}Paramètres
+Setting language to {->}Langue changée pour: 
+Current GMT time is: {->}Heure GMT actuelle: 
+Current local time is: {->}Heure locale actuelle: 
+
+//Time of gmttime: {->
+//Time of localtime: {->
+//Time of cur day: {->
+//Time of next day: {->
+
+Time of today's {->}Apparition aujourd'hui du portail de
+ symbol: {->} [EMPTY] 
+Time of tomorrow's {->}Apparition demain du portail de  
+Not parsing final table in vault.dat{->}Table finale de vault.dat non traitée
+Getting data...{->}Lecture des données.
+In the output folder, there will be a file called 'memories.xml'; open it with your web-browser to view the memories.{->}Dans le dossier de destination, vous trouverez un fichier 'memories.xml'. Ouvrez-le dans un fureteur web pour voir les souvenirs.
+Finished creating Memories files!{->}Création du fichier de souvenirs terminée.
+Error: {->}Erreur: 
+You must select an output folder that already exists.{->}Vous devez choisir un dossier de destination existant.
+Folder doesn't exist.{->}Le dossier n'existe pas.
+The input folder must have either 'vault.dat' or some number of '.v' files.{->}Le dossier source doit contenir soit le fichier 'vault.dat' soit des fichiers '.v'.
+Ages not installed: {->}Âges non installés:
+ launched!{->} lancé.
+Cleaning up any previous version...{->}Nettoyage des versions précédentes.
+This Age is listed as not being safely deletable; performing upgrade only.{->}Cet Âge est marqué comme ne pouvant pas être détruit sans danger. 
+Checking to see if we already have this version in the cache...{->}Vérification de la présence de cette version dans la cache...
+Using cached version of Age: {->}Utilisation de la version cachée de cet Âge: 
+, Version: {->}, Version: 
+Checking integrity...{->}Vérification d'intégrité.
+File integrity is good!{->}Fichier intègre.
+Extracting {->}Extraction 
+Age installed!{->}Âge installé.
+Ages updatable: {->}Âges pouvant être mis à jour: 
+Deleting {->}Suppression 
+Attempting to download Age: {->}Tentatice de téléchargement de l'Âge: 
+, Mirror: {->}, serveur miroir: 
+The PathOfTheShell/CompleteChronicles folder you selected doesn't exist.{->}Le dossier POTS choisi n'existe pas.
+Checking the folders you gave...{->}Vérification des dossiers choisis.
+The Myst5 folder you selected doesn't exist.{->}Le dossier MystV choisi n'existe pas.
+The Crowthistle folder you selected doesn't exist.{->}Le dossier Crowthistle choisi n'existe pas.
+The MOUL folder you selected doesn't exist.{->}Le dossier MOUL choisi n'existe pas.
+Unable to launch program: {->}Incapable de lancer le programme: 
+ because it doesn't exist.{->} parce qu'il n'existe pas.
+Starting conversion...{->}Démarrage de la conversion.
+Dont forget to run SoundDecompress.exe in your Pots folder, in order to get the sounds working!  (You can also click the SoundDecompress button on the form if you prefer.) (If SoundDecompress crashes, it means you have to log into Uru, quit, then try again.){->}N'oubliez pas de lancer SoundDecompress.exe dans votre dossier POTS, pour que les sons fonctionnent! Vous pouvez aussi utiliser le bouton dans l'onglet 'Conversion simple' si vous préférez. Si SoundDecompress plante, vous devez démarrer Uru, quitter, ensuite essayer de nouveau.
+Conversion completed!{->}Conversion terminée.
+
+//Tabs:
+Moul{->}Moul
+MystV{->}MystV
+Crowthistle{->}Crowthistle
+Music{->}Musique
+tab3{->}Onglet3
+Pots{->}POTS
+Reports{->}Rapports
+Settings{->}Paramètres
+SpecialMods{->}Mods Spéciales
+HexIsle{->}HexIsle
+List Analysis{->}Analyse de listes 
+CrossRefTool{->}CrossRefTool
+Old{->}Périmé
+Misc{->}Divers
+Encryption{->}Chiffrement
+realMyst{->}realMyst
+Riven{->}Riven
+Legacy{->}Héritage
+DeepView{->}DeepView
+Manual Conversion{->}Conversion Manuelle
+UruAgeManager(UAM){->}UruAgeManager(UAM)
+Conversion(Simplicity){->}Conversion Simple
+Memories{->}Souvenirs
+GameHelp{->}Aide Uru
+Proxy{->}Proxy
+Advanced{->}Avancé
+Help{->}Aide
+
+//UAM downloader:
+Only use "Unsafe Cancel" if "Cancel" doesn't work after 30 seconds.{->}<html>N'utilisez 'Abandon risqué' que si 'Abandon' n'a pas fonctionné après 30 secondes.</html>
+Pause/Resume{->}Pause/Continuer
+Cancel{->}Abandon
+Unsafe Cancel{->}Abandon risqué
+UAM Downloading...{->}Téléchargement UAM
+
+//misc
+(Select an Age, or click "Get Latest List" to get the latest list of Ages.){->}Choisissez un Âge, ou cliques sur 'Rafraîchir' pour obtenir la dernière liste du serveur.
+//<html>(Select an Age, or click "Get Latest List" to get the latest list of Ages.)</html>{-><html>Choisissez un Âge, ou cliques sur 'Rafraîchir' pour obtenir la dernière liste du serveur.</html>
+Save Missing Translations{->}Conserver les traductions manquantes
+How rainy of a day is it?{->}Est-ce un jour de pluie?
+archive folder:{->}Dossier d'archives:
+Generate uam.status.txt{->}Générer uam.status.txt
+Error reading config file.{->}Erreur de lecture du fichier de configuration.
+You need to load the Age List in the UAM tab first.{->}Vous devez d'abord charger la liste des Âges dans l'onglet UAM.
+Click the select button to pick a folder.{->}Cliquez sur le bouton 'Choisir' pour choisir un dossier.
+
+//file select form
+Enter path or folder name:{->} Entrez le chemin ou le nom du dossier:
+Filter{->} Filtre
+Folders{->} Dossiers
+null{->} 
+Files{->} Fichiers
+Enter file name:{->} Entrez le nom du fichier
+OK{->} OK
+Update{->} Mise à jour
+Create Folder{->} Créer un dossier
+
+//misc dialogs
+Enter a server.{->}Entrez le nom d'un serveur
+Enter the server you want to use.{->}Entrez le nom du serveur que vous voulez utiliser
+Folder Name:{->}Nom du dossier:
+
+//Drizzle22 (also updated conversion paragraph in help.txt)
+Done copying {->}Copie de la musique de 
+ music!{->} terminée.
+HexIsle folder:{->}Dossier HexIsle:
+HexIsle music...{->}Musique de HexIsle...
+
+//Drizzle23
+Working...{->}En cours...
+Starting conversion of {->}Début de la conversion de... 
+Installed Version: {->} Versions installées: 
+Clearing all .sum files...{->}Vidage des fichiers .sum...
+Done!{->}Terminé!
+Are you sure you want to delete the old archives?{->}Êtes-vous certain de vouloir supprimer les anciennes archives?
+Delete the archives?{->}Supprimer les archives?
+Ages with unknown installation status: {->}Ages dont le statut est inconnu: 
+Detecting which versions are installed...{->}Détection des versions installées...
+Unable to detect installed version, so keeping archives for Age: {->}Incapable de détecter la version installée, on conserve les archives pour l'Age: 
+Start DrizzleDeepview{->}Démarrer Drizzle Deepview
+Delete old archives...{->}Supprimer les anciennes archives...
+Clear .sum files.{->}Vider les fichiers .sum
+Version?{->}Version?
+
+//Drizzle24
+Convert{->}Convertir
+3dsmax's output folder (set in PlasmaMax2.ini):{->}Dossier de sortie de 3dsmax (choisi dans PlasmaMax2.ini):
+(The created files will be placed in the Pots folder given on the UAM tab.){->}(Les fichiers créés seront placés dans le dossier Pots choisi dans l'onglet UAM)
+This area is for things related to the writing of Ages.{->}Cet emplacementest pour tout ce qui concerne la conception d'Ages.
+Pyc or Pak file:{->}Fichier Pyc ou Pak:
+Decompile{->}Décompiler
+Unpack{->}Dépaqueter
+Gamename(for a list, go to Misc->ListGamenames):{->}Nom du jeu (pour la liste, voir Misc/Liste des jeux):
+The Art{->}L'Art
+Unpacking pak file...{->}Dépaquetage du fichier pak...
+Done unpacking!{->}Dépaquetage terminé.
+Decompiling pak file...{->}Décompilation du fichier pak...
+Done decompiling!{->}Décompilation terminée.
+Converting Age: {->}Conversion de l'Age: 
+Unknown encryption type; assuming it is unencrypted.{->}Type de chiffrementinconnu, on assume que c'est en clair.
+Converting Prp: {->}Conversion du Prp: 
+Process All was successful!{->}Processus terminé avec succès.
+Recompilated completed!{->}Recompilation terminée.
+Done converting Age!: {->}Conversion de l'Age terminée. 
+Decompiling pyc file...{->}Décompilation du fichier pyc...
+List Gamenames{->}Liste des jeux
+
+//Drizzle25
+Magiquest folder:{->}Dossier Magiquest:
+Magiquest music...{->}Musique de Magiquest
+Launch Uru after converting{->}Lancer Uru après conversion
+Options{->}Options
+Merge this Jar with Libs{->}Fusionner Jar avec Libs
+OldLegacy{->}Fonctions périmées
+Error while updating Drizzle. It seems Drizzle.jar did not close.{->}Erreur lors de la mise à jour de Drizzle. Il semble que Drizzle.jar soit encore ouvert.
+Please make sure there are no other copies of Drizzle running, and hit OK to try again.{->}Assurez-vous qu'aucune autre copie de Drizzle ne soit active, puis appuyez sur OK pour essayer de nouveau.
+Problem updating{->}Problème de mise à jour
+Restarting to update Drizzle...{->}Redémarrage de Drizzle pour la mise à jour...
+Drizzle is about to restart, in order to update itself.  You should use the Drizzle.exe (or less preferably, Drizzle.jar) file in the 'Drizzle' subfolder of Uru to start it.  Please don't get confused and use copies elsewhere, and think they are updated; you can always see which version you're using at the top of Drizzle.  And don't forget to have fun :D{->}Drizzle va redémarrer pour effectuer sa mise à jour. Il est préférable d'utiliser la copie de Drizzle.exe (ou à défaut, Drizzle.jar) située dans le sous-dossier "Drizzle" de Uru. L'utilisation d'une autre copie peut amenr une confusion quant à la version utilisée. Drizzle affiche toujours son numéro de version en haut de la fenêtre. Nous vous souhaitons bien du plaisir avec votre nouvelle version de Drizzle! :D
+You have a newer version of Drizzle installed.  Perhaps you want to use that?  It's located at: {->}Vous avez une version plus récente de Drizzle, préférez-vous l'utiliser? Elle est située ici: 
+
+//Drizzle26
+account name:{->}Nom d'utilisateur:
+password:{->}Mot de passe:
+avatar name:{->}Nom de l'avatar:
+
+//Drizzle28
+There is a privacy/security/persistency risk.  It is strongly recommended that you either: a) install the 'Network Access' with version '(disabled)', or b) manually delete the following file: {->}Il y a un risque majeur pour pour la confidentialité de vos informations, la sécurité de votre PC et l'intégrité de vos données. Il est fortement recommandé d'installer la version désactivée ('disabled') du 'Network Access', ou bien de supprimer manuellement le fichier suivant: 
+ Either way, this warning should not be displayed afterwards.{->} Si vous choisissez une de ces deux options, cet avertissement ne sera pas répété.
+
+//Drizzle29
+Partial Age (i.e. no separate texture prp, and no .age file){->}Age partiel (pas de prp supplémentaire pour les textures, pas de fichier .age)
+Woah there!  You probably meant to have the 'Partial Age' option set when making a Relto page or AhraPahts shell.{->}Attention! Pour une page de Relto, ou une parcelle de Ahra Pahts, vous devriez utiliser l'option 'Age partiel'.
+Conversion is set to 'Partial Age', but no Textures prp was found.  If your Age has no textures then this is normal, otherwise you should re-export with 3dsmax.{->}Vous avez choisi l'option 'Age partiel', mais Drizzle ne trouve pas votre fichier prp de textures. C'est normal si votre Age n'a pas de textures, sinon vous devriez l'exporter de nouveau à partir de 3dsmax.
+
+//Drizzle30
+You appear to be running Windows Vista or Windows Seven.  Uru has a bug that will require a workaround, see http://myst.dustbird.net/wiki/Drizzle#Vista_and_above for details.{->}Il semble que vous utilisiez Windows Vista ou Windows 7. Cela peut causer un problème avec Uru, voir la solution ici: http://myst.dustbird.net/wiki/Drizzle#Vista_and_above
+//Err: Avertissements:
+Errors:{->}Erreurs:
+Warnings:{->}Aver:
+
+//Drizzle32
+Uru Widescreen{->}Écran large
+This area contains options to make Uru work in widescreen. READ THE DAMNED DESCRIPTION !{->}Cette page contient des options pour permettre à Uru de fonctionner sur écran large. LISEZ LA DESCRIPTION !
+<html>This allows you to fix Uru to play on a non 4/3 monitor. It does so by modifying a LOT of game files, which means it's 100% incompatible with Shards, so DON'T EVEN TRY using it for Shards. <br>Do make sure to apply this fix after converting content such as MOUL or Myst V (or simply re-run the utility after that). <br>It is highly recommended to backup your whole DAT folder and UruExplorer.exe, so you can revert changes. <br>This has only been tested with the Official No-CD patch from 2010, I wouldn't try it on any other version.{->}<html>Ceci vous permet de modifier Uru pour jouer sur des écrans autre que 4/3. Pour cela, BEAUCOUP de fichiers sont modifiés, ce qui veut dire que c'est 100% incompatible avec les version en ligne du jeu, donc N'ESSAYEZ même pas de l'utiliser sur une version version autre que hors-ligne. <br>Assurez-vous de n'utiliser cet outil qu'après avoir convertit tout le contenu dont vous avez besoin, tel que MOUL/MystV (au pire, relancez cet outil après conversion). <br>Il est très recommandé de faire une sauvegarde de l'intégralité du dossier DAT, ainsi que de UruExplorer.exe, ce qui vous permettra d'annuler les modifications. <br>Ceci n'a été testé que sur la version 2010 du Official No-CD patch, pas certain que ça fonctionne sur d'autres versions.
+Folder used for changes is the one you specified in the UruAgeManager tab{->}Le dossier d'installation est celui spécifié dans le panneau UruAgeManager
+Change game aspect ratio{->}Changer le ratio du jeu
+Fixes both PRP files and UruExplorer.exe to use a new ratio{->}Modifie à la fois les PRPs et UruExplorer.exe pour utiliser un nouveau ratio
+Also remove limit when looking up or down{->}Enlever également la limite en levant/baissant les yeux
+Target resolution:{->}Résolution voulue :
+by{->}par
+Change game resolution{->}Changer la résolution du jeu
+Currently not working. See instructions here:{->}Pas fonctionnel pour le moment. Voir les instruction ici :
+
+Fan Age tools{->}Outils pour Fan Ages
+These tools use the Uru installation folder specified in the UAM tab{->}Ces outils utilisent l'installation d'Uru spécifiée dans le panneau UAM
+Enter Fan Age name, or select .age file...{->}Entrez un nom de Fan Age, ou sélectionnez un fichier .age...
+Tasks{->}Tâches
+Light baking settings{->}Paramètres pré-calcul de lumière
+Fog/Sky settings{->}Paramètres brume/ciel
+Light baking{->}Pré-calcul de lumière
+
+Bake sunlight{->}Calculer le soleil
+Bake ambient occlusion{->}Calculer l'occlusion ambiante
+Remove bumpiness in collisions{->}Rendre les collisions plus lisses
+Change fog/sky color{->}Changer la couleur de brume/ciel
+Disable dynamic shadows{->}Désactiver les ombres dynamiques
+Disable glossiness{->}Désactiver les reflets
+Disable dynamic lights{->}Désactiver les lumières temps réel
+Disable dynamic reflections{->}Désactiver les reflets dynamiques
+Hide small far objects{->}Cacher les objets lointains
+minimum object size (degrees){->}taille minimale (degrés)
+
+Sunlight{->}Lumière solaire
+Sky color{->}Couleur du ciel
+Sun color{->}Couleur du soleil
+Light direction{->}Direction de la lumière du soleil
+Choose{->}Choisir
+Ambient occlusion{->}Occlusion ambiante
+Reach{->}Portée
+Intensity{->}Intensité
+Minimal color{->}Couleur minimale
+Excluded objects{->}Objets exclus
+
+Color{->}Couleur
+Max view distance{->}Distance d'affichage max
+feet{->}pieds
+Fog start{->}Distance de début de la brume
+
+APPLY{->}APPLIQUER
+
+// Things that were missing from previous Drizzle versions
+// list analysis
+copy from main output{->}copier depuis la sortie des messages
+Copy all text to clipboard{->}Copier tout le texte dans le presse-papier
+Prefix:{->}Préfixe
+remove all that don't start with prefix{->}enlever tout ce qui ne commence pas par ce préfixe
+
+// realmyst tab
+Nope, still doesn't work, stop asking.{->}Non, ça fonctionne toujours pas, arrêtez de le demander.
+in file:{->}fichier d'entrée
+out/test folder:{->}dosser de sortie/test
+select{->}sélectionner
+Folder to search in...{->}Dossier dans lequel chercher...
+String to search{->}Caractères à chercher
+string search{->}chercher des caractères
+Depack{->}Dépaqueter
+(won't produce any output file, just to make sure things are working){->}(ne produit aucun fichier de sortie, juste à des fins de test)
+Attempt to read.{->}Essayer de lire
+
+// command line
+command:{->}commande:
+Call{->}Exécuter
+
+// manual conversion
+Process a bunch of files...{->}Convertir un groupe de fichiers...
+Process a single file...{->}Convertir un seul fichier...
+
+// decompile
+Gamename (for a list, go to Misc->ListGamenames):{->}Nom du jeu (pour une liste, voir Divers->Lister des jeux)

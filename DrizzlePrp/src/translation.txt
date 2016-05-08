@@ -1,0 +1,15 @@
+The translation framework is very easy for other parts to use.
+
+
+A Gui form's constructor should call:  translate.translate.registerGuiForm(this);
+Calls to the log should look like:  m.msg("There are ", num, " Ages here.");  rather than:  m.msg("There are "+num+" Ages here.");  so that the parts can be translated individually.
+The program should call:  translate.translate.setLanguage("de");  very early, and it can be called again later to change the language at runtime.
+A resource (such as a text file) should be tied to a GUI element with:  translate.translate.registerResourceString("/gui/help.txt", thisTextArea);  and it will automatically load it from /gui/help.txt--de if available or use the default language.
+
+
+To get a list of things still need translation, after a session, click "Save Missing Translations" under Advanced->Misc->Language.
+To get a list of all the literal strings in the program, click "list all strings" under Advanced->Misc->Language.
+To test the current language (e.g. for lines that aren't used or duplicates lines or empty lines), click "test current language" under Advanced->Misc->Language.
+
+
+Watch out: it is currently set to ignore Strings that have a \n in them, as it is not expected that this would be in the log, etc.  If this is wanted in the future, something will have to be done.

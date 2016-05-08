@@ -1,0 +1,12 @@
+//Dustin's English overrides; okay changes to this file with him first.
+
+Warning: {->}Warning: 
+Crowthistle{->}Crowthistle
+Setting language to {->}Setting language to: 
+Recompilated completed!{->}Recompilation completed!
+
+
+( Help can be found under the "Help" tab, or detailed help can be found at http://alcugs.almlys.org/Drizzle  ){->}( Help can be found under the "Help" tab, or detailed help can be found at http://myst.dustbird.net/wiki/Drizzle  )
+<html>This area is for converting MystV/Moul/Crowthistle files for play in Uru.  See the Help tab or http://alcugs.almlys.org/Drizzle</html>{->}<html>This area is for converting MystV/Moul/Crowthistle files for play in Uru.  See the Help tab or http://myst.dustbird.net/wiki/Drizzle</html>
+Instructions can be found on the Help tab or at  http://alcugs.almlys.org/Drizzle{->}Instructions can be found on the Help tab or at  http://myst.dustbird.net/wiki/Drizzle
+This proxy server is for viewing old archived web sites.  Details on the help tab or  http://alcugs.almlys.org/Drizzle{->}This proxy server is for viewing old archived web sites.  Details on the help tab or  http://myst.dustbird.net/wiki/Drizzle

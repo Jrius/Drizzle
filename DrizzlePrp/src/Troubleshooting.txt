@@ -1,0 +1,2 @@
+If a subworld exit region isn't working, check to see if it's physics have 0x20=kPassive set.  Conversion might be dropping this flag.
+

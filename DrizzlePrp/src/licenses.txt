@@ -1,0 +1,24 @@
+**************** UAM legal information ***********************
+You use this software at your own risk. The author is not responsible for any accidental damage to your Uru installation or your computer, you should make a backup of your sav directory, and if you want, your entire installation.  The author is also not responsible for the content of any downloaded Ages.
+
+All Myst, Riven, D'ni, Uru images, text, sound and music © Cyan Worlds, Inc. All rights reserved
+Myst®, Riven®, D'ni® Uru®, respective Logos® Cyan Worlds, Inc.
+No part may be copied or reproduced without express, written permission of Cyan Worlds, Inc.
+
+
+******************* 3rd party code ***************************
+The bouncycastle.org license is MIT.
+The jetty license is LGPL/GPL/Apache2.0/X11-like
+  The readme files say that the javax.servlet classes are CDDL1.0, but Sun has also made them GPLv2+classpathException.
+  Consequently all licenses are compatible(the classpath exception allows us to make this project GPLv3+ even though the javax.servlet classes are GPLv2).
+The javax.servlet classes are GPLv2, but with a classpath exception, so we can freely use them.
+The apache commons-math license is Apache2.0
+The SevenZip stuff license is LGPL.
+The Antlr runtime source is under a BSD license.
+The Jbdiff code is under a BSD license.
+The H2 code is under a modified MPL1.1 or EPL1.0 (at your choice), which cannot directly be mixed with GPL code, but our use of it is fine.
+The Jacksum code is GPLv2+.
+The Lpg code is EPL, which cannot be directly mixed with GPL code, but our use of it is fine.
+The java-diff-utils code is Apache2.0.
+
+All other files are GPLv3 or later, as noted at the start of each file.

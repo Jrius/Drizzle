@@ -1,0 +1,3 @@
+Python 2.5 introduced only 2 new opcodes from 2.3:
+NOP, which does nothing.
+LIST_APPEND, which is another way of appending to a list, and is used in list comprehensions instead of the presumably less efficient way in 2.3.
