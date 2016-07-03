@@ -29,6 +29,7 @@ public class mystv //was myst5Fixes
         r.PythonVersion = 23;
         r.game = Game.mystv;
         r.agemodifier = new conversion.AgeModifier() {
+            @Override
             public void ModifyAge(Info info, FileInfo file, textfile tf) {
                 final String[][] alcugsOptionals = {
                     {"Descent","Page=dsntFootRgns,97,1"},
@@ -77,6 +78,23 @@ public class mystv //was myst5Fixes
                     //textfile agefile = textfile.createFromBytes(decryptedData);
                     tf.appendLine("Page=dusttest,90");
                     //decryptedData = agefile.saveToBytes();
+                }
+                // add SlatePower pages
+                if (file.agename.equals("Todelmer"))
+                    tf.appendLine("Page=tdlmSlatePower,91");
+                if (file.agename.equals("Tahgira"))
+                    tf.appendLine("Page=thgrSlatePower,91");
+                if (file.agename.equals("Laki"))
+                {
+                    tf.appendLine("Page=lakiSlatePower,91");
+                    
+                    // auto-load pirbirdactor
+                    for(textfile.textline line: tf.getLines())
+                    {
+                        String l = line.getString();
+                        if(l.startsWith("Page=PirBirdActor"))
+                            line.setString("Page=PirBirdActor,17"); // remove ",1" that prevents it from loading
+                    }
                 }
             }
         };
@@ -163,8 +181,30 @@ public class mystv //was myst5Fixes
         r.addEmbeddedFile("/files/myst5/Todelmer_District_dusttest.prp", "/dat/Todelmer_District_dusttest.prp");
         //"MystMystV_District_Additions.prp","Direbo_District_Additions.prp", //original authored material.
         
+        // add SlatePower files
+        r.addEmbeddedFile("/files/myst5/Tahgira_District_thgrSlatePower.prp", "/dat/Tahgira_District_thgrSlatePower.prp");
+        r.addEmbeddedFile("/files/myst5/Todelmer_District_tdlmSlatePower.prp", "/dat/Todelmer_District_tdlmSlatePower.prp");
+        r.addEmbeddedFile("/files/myst5/Laki_District_lakiSlatePower.prp", "/dat/Laki_District_lakiSlatePower.prp");
+        
+        // add BuiltIn SDL hooks
+        r.addEmbeddedFile("/files/myst5/Tahgira_District_BuiltIn.prp", "/dat/Tahgira_District_BuiltIn.prp");
+        r.addEmbeddedFile("/files/myst5/Todelmer_District_BuiltIn.prp", "/dat/Todelmer_District_BuiltIn.prp");
+        r.addEmbeddedFile("/files/myst5/Siralehn_District_BuiltIn.prp", "/dat/Siralehn_District_BuiltIn.prp");
+        r.addEmbeddedFile("/files/myst5/Laki_District_BuiltIn.prp", "/dat/Laki_District_BuiltIn.prp");
+        
+        r.addEmbeddedFile("/files/myst5/DescentMystV_District_BuiltIn.prp", "/dat/DescentMystV_District_BuiltIn.prp");
+        r.addEmbeddedFile("/files/myst5/Direbo_District_BuiltIn.prp", "/dat/Direbo_District_BuiltIn.prp");
+        r.addEmbeddedFile("/files/myst5/KveerMystV_District_BuiltIn.prp", "/dat/KveerMystV_District_BuiltIn.prp");
+        r.addEmbeddedFile("/files/myst5/MystMystV_District_BuiltIn.prp", "/dat/MystMystV_District_BuiltIn.prp");
+        
+        // GUI
+        r.addAgeFiles("GUI", new String[] {
+            "GUI_xSpecialEffectGlare.prp",
+        });
+        
         r.addAviFiles(new String[]{
             "direbo.bik","restStop1.bik","restStop2.bik","restStop3.bik","restStop4.bik","direboWithAlpha.bik","mystWithAlpha.bik",
+            "dsntRestStop1WithAlpha.bik", "dsntRestStop2WithAlpha.bik", "dsntRestStop3WithAlpha.bik", "dsntRestStop4WithAlpha.bik",
             "dsntYeesha-Imager01_eng.bik", "dsntYeesha-Imager02.bik", "dsntYeesha-Imager03.bik", // for imagers in descent
         });
 
@@ -259,6 +299,7 @@ public class mystv //was myst5Fixes
             "dsntYeesha-Imager01_eng.ogg", "dsntYeesha-Imager01_fre.ogg", "dsntYeesha-Imager01_ger.ogg", "dsntYeesha-Imager02_eng.ogg", "dsntYeesha-Imager02_fre.ogg", "dsntYeesha-Imager02_ger.ogg", "dsntYeesha-Imager03_eng.ogg", "dsntYeesha-Imager03_fre.ogg", "dsntYeesha-Imager03_ger.ogg",
         });
         r.fnimodifier = new conversion.FniModifier() {
+            @Override
             public void ModifyFni(Info info, FileInfo file, textfile tf) {
                 if(file.agename.equals("Laki"))
                 {

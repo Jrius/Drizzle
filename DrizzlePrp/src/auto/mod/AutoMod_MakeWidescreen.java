@@ -17,6 +17,14 @@ public class AutoMod_MakeWidescreen {
     public static float rad(float x)
     { return (float) (x*PI/180.f); }
     
+    /**
+     * Makes all cameras and PostEffectMods widescreen in the given PRP.
+     * Saves the file to the output folder even if there weren't any modifications.
+     * @param file the name of the file to modify
+     * @param ratio the aspect ratio (eg: 1.333, 1.78)
+     * @param outfolder the folder to write the output file
+     * @return true if the file was modified, false otherwise.
+     */
     public static boolean makePrpWidescreen(String file, float ratio, String outfolder)
     {
         prpobjects.prpfile prp = prpobjects.prpfile.createFromFile(file, true);
@@ -29,6 +37,12 @@ public class AutoMod_MakeWidescreen {
         return modif;
     }
     
+    /**
+     * Makes all cameras and PostEffectMods widescreen in the given PRP.
+     * @param prp the file to modify
+     * @param ratio the aspect ratio (eg: 1.333, 1.78)
+     * @return true if the file was modified, false otherwise.
+     */
     public static boolean makePrpWidescreen(prpfile prp, float ratio)
     {
         boolean modified = false;
@@ -53,6 +67,16 @@ public class AutoMod_MakeWidescreen {
         return modified;
     }
     
+    /**
+     * Makes all PRP files in the given folder widescreen.
+     * Files are overwritten with the new version automatically, but only if there were any modifications applied to them.
+     * Read: for GUIs which were made specifically for 4:3 ratio (such as the telescope), the new ratio is not applied,
+     * instead a 1.333 ratio is used (which does fix the tan ratio bug, though).
+     * Some PRPs are also converted to use the new ratio, but as a safeguard some modifications (font size) are applied
+     * to keep these interfaces usable.
+     * @param prpfolder the name of the folder containing PRPs
+     * @param ratio the aspect ratio (eg: 1.333, 1.78)
+     */
     public static void makeAllPrpsWidescreen(String prpfolder, float ratio)
     {
         File folder = new File(prpfolder);
@@ -62,17 +86,68 @@ public class AutoMod_MakeWidescreen {
         {
             if (child.getAbsolutePath().endsWith(".prp"))
             {
+                float usedRatio = ratio;
                 if (
+                        // These files must be kept at the original ratio - otherwise the left and right borders
+                        // end up showing the camera render behind it (think the telescope, for instance)
+                        // GUIs
                         child.getName().equals("GUI_District_telescope.prp") ||
-                        child.getName().equals("GUI_District_AvatarCustomization.prp")
+                        child.getName().equals("GUI_District_AvatarCustomization.prp") ||
+                        child.getName().equals("GUI_District_CalibrationGUI.prp") ||
+                        // GUIs embedded in Ages files
+                        child.getName().equals("Teledahn_District_tldnVaporScope.prp") ||
+                        child.getName().equals("Ercana_District_BakingRmGUI.prp") ||
+                        child.getName().equals("Ercana_District_BakingRmGUIBad.prp") ||
+                        child.getName().equals("GreatZero_District_CalibrationMarkerGameGUI.prp") ||
+                        child.getName().equals("Kadish_District_kdshScope01.prp") ||
+                        child.getName().equals("Kadish_District_kdshScope02.prp") ||
+                        child.getName().equals("Kadish_District_kdshScope03.prp") ||
+                        // EoA
+                        child.getName().equals("GUI_District_xSpecialEffectGlare.prp") ||
+                        child.getName().equals("Todelmer_District_MiniScope.prp") ||
+                        // BUG: widescreen often breaks rendering of text
+                        // Force these to render in 4:3, as it doesn't really break hummerjun
+                        // (could maybe disable the kScaleWithResolution flag instead - for now we won't bother with it)
+                        child.getName().equals("GUI_District_OptionsHelpGUI.prp") ||
+                        child.getName().equals("GUI_District_AdvancedGameSettingsDialog.prp") ||
+                        child.getName().equals("GUI_District_GameSettingsDialog.prp") ||
+                        child.getName().equals("GUI_District_KeyMap2Dialog.prp") ||
+                        child.getName().equals("GUI_District_KeyMapDialog.prp") ||
+                        child.getName().equals("GUI_District_OptionsHelpGUI.prp") ||
+                        child.getName().equals("GUI_District_OptionsMenuGUI.prp") ||
+                        child.getName().equals("GUI_District_StartupHelpGUI.prp")
                     )
-                    continue;
+                    usedRatio = 1.33333f;
                 m.status("Processing " + child.getAbsolutePath() + "...");
                 prpobjects.prpfile prp = prpobjects.prpfile.createFromFile(child.getAbsoluteFile(), true);
 
-                if (makePrpWidescreen(prp, ratio))
+                if (makePrpWidescreen(prp, usedRatio))
                 {
-                    String outputfilename = prpfolder + "/dat/" + prp.header.agename.toString()+"_District_"+prp.header.pagename.toString()+".prp";
+                    // BUG: widescreen often breaks rendering of text
+                    // If the GUI must really be rendered in 16:9, fix
+                    // it in the following if statements
+                    if (child.getName().equals("GUI_District_KIMini.prp") || child.getName().equals("GUI_District_KIMain.prp"))
+                    {
+                        // GPS coordinates are clipped, which makes the GZ quest unsolvable
+                        // Fix it by using a smaller font
+                        PrpRootObject[] objs = {
+                            prp.findObject("GUITextBoxGPS01", Typeid.pfGUITextBoxMod),
+                            prp.findObject("GUITextBoxGPS02", Typeid.pfGUITextBoxMod),
+                            prp.findObject("GUITextBoxGPS03", Typeid.pfGUITextBoxMod),
+                        };
+                        for (PrpRootObject obj: objs)
+                        {
+                            // first, check if the object actually exists
+                            // the GPS is in KIMini in the PotS KI, and in KIMain in the online version
+                            if (obj != null)
+                            {
+                                pfGUITextBoxMod textObj = obj.castTo();
+                                textObj.parent.colorScheme.fontsize = 8;
+                                obj.markAsChanged();
+                            }
+                        }
+                    }
+                    String outputfilename = prpfolder + "/" + prp.header.agename.toString()+"_District_"+prp.header.pagename.toString()+".prp";
                     prp.saveAsFile(outputfilename);
                 }
             }
@@ -163,8 +238,11 @@ public class AutoMod_MakeWidescreen {
     {
         m.status("Checking the folder you gave..." + urufolder);
         
+        if (urufolder.endsWith("/") || urufolder.endsWith("\\"))
+            urufolder = urufolder.substring(0, urufolder.length()-1);
+        
         // make sure this is a PotS folder !
-        // Will have to make other things sure: that it's not a Shard folder,
+        // TODO: make other things sure: that it's not a Shard folder,
         // that it has the correct official no-cd, etc.
         if(!auto.AllGames.getPots().isFolderX(urufolder)) return;
         if(!uam.Uam.HasPermissions(urufolder)) return;

@@ -1,129 +1,28 @@
-"""
-Environment effect handler, rewritten since we don't have Bahros or Slates anymore.
-"""
-
-
 from Plasma import *
 from PlasmaTypes import *
+import xLinkMgr
+actLink = ptAttribActivator(1, 'Take symbol click')
+destinationAgeName = ptAttribString(2, 'Which Age to link to')
+destinationSpawnPoint = ptAttribString(3, 'Which spawn point to link to')
 
-actRunEffect = ptAttribActivator(1, "Activator: run environment effect")
-respSpecialEffect = ptAttribResponder(2, "Responder: run glare FX")
-respEffectOn = ptAttribResponder(3, "Responder: trigger some shiny visuals on effect active")
-respEffectOff = ptAttribResponder(4, "Responder: normal visuals on effect inactive")
-
-boolIsRunningEnvEffect = False
-strSDLName = "runEnvEffect"
-effectLength = 90 # 90 seconds of env effect
-
-class xEnvEffect(ptResponder):
+class xSimpleLink(ptModifier):
 
 
     def __init__(self):
-        ptResponder.__init__(self)
-        self.id = -1
-        self.version = -1
-
-
-    def OnFirstUpdate(self):
-        print("xEnvEffect: OnFirstUpdate")
-        PtPageInNode("xSpecialEffectGlare")
-
-
-    def OnServerInitComplete(self):
-        PtLoadDialog("xSpecialEffectGlare", self.key)
-        
-        SlateSDLvalue = PtGetAgeSDL()[strSDLName][0]
-        if SlateSDLvalue:
-            curTime = PtGetDniTime()
-            timeleft = SlateSDLvalue - curTime
-            PtAtTimeCallback(self.key, timeleft, 1)
-            boolIsRunningEnvEffect = True
-            if respEffectOn:
-                respEffectOn.run(self.key, fastforward=True)
-        else:
-            if respEffectOff:
-                respEffectOff.run(self.key, fastforward=True)
-        
-        if PtGetAgeName() == "Tahgira":
-            # MOAR time for Tahgira. Because ghost trigger is farther away from puzzle.
-            effectLength = 180
-    
-    
-    def __del__(self):
-        PtHideDialog("xSpecialEffectGlare")
-        PtUnloadDialog("xSpecialEffectGlare")
-        PtPageOutNode("xSpecialEffectGlare")
-        PtClearTimerCallbacks(self.key)
+        ptModifier.__init__(self)
+        self.id = 6115
+        self.version = 1
+        print 'xLinkPedestalKeep.__init__: version -',
+        print self.version
 
 
     def OnNotify(self, state, id, events):
-        global boolIsRunningEnvEffect
-        print("xEnvEffect: Received notify, state=%s, id=%d" % (state, id))
-        if id == actRunEffect.id and state and PtWasLocallyNotified(self.key) and PtFindAvatar(events) == PtGetLocalAvatar() and not boolIsRunningEnvEffect:
-            for event in events:
-                if (event[1] == 1):
-                    self.runEnvEffect()
-                    break
-        elif id == respSpecialEffect.id:
-            print("Got callback from special effect responder")
+        if (PtFindAvatar(events) != PtGetLocalAvatar() or not PtWasLocallyNotified(self.key)):
+            return
+        if (id == actLink.id and state):
+            actLink.disable()
+            xLinkMgr.LinkToAge(destinationAgeName.value, destinationSpawnPoint.value)
 
-
-    def OnSDLNotify(self, VARname, SDLname, playerID, tag):
-        pass
-    
-    
-    def runEnvEffect(self):
-        global boolIsRunningEnvEffect
-        global strSDLName
-        global effectLength
-        print("#-#-# RUNNING SPECIAL EFFECT. HELL YEAH #-#-#")
-        
-        ## start env effect
-        ageSDL = PtGetAgeSDL()
-        if self.sceneobject.isLocallyOwned():
-            ageSDL[strSDLName] = (PtGetDniTime()+effectLength,) ## we could use only 1 but Todelmer's season are a bit more complex...
-        
-        ## make glare thing
-        PtShowDialog("xSpecialEffectGlare")
-        respSpecialEffect.run(self.key)
-        if respEffectOn:
-            respEffectOn.run(self.key)
-        
-        ## come back when it will be done
-        PtAtTimeCallback(self.key, effectLength, 1)
-        
-        boolIsRunningEnvEffect = True
-    
-    
-    def stopEnvEffect(self):
-        global boolCanRunEnvEffect
-        global boolIsRunningEnvEffect
-        global strSDLName
-        
-        print "#-#-# STOPPING ENV EFFECT #-#-#"
-        
-        ## stop env effect
-        ageSDL = PtGetAgeSDL()
-        if self.sceneobject.isLocallyOwned():
-            ageSDL[strSDLName] = (0,)
-        
-        ## make glare thing
-        PtShowDialog("xSpecialEffectGlare")
-        respSpecialEffect.run(self.key)
-        if respEffectOff:
-            respEffectOff.run(self.key)
-        
-        boolIsRunningEnvEffect = False
-    
-    
-    def OnTimer(self, id):
-        if id == 1:
-            self.stopEnvEffect()
-
-
-
-
-### Python Glue ###
 
 glue_cl = None
 glue_inst = None
@@ -164,8 +63,8 @@ def glue_getInst():
 def glue_delInst():
     global glue_inst
     global glue_cl
-    global glue_paramKeys
     global glue_params
+    global glue_paramKeys
     if (type(glue_inst) != type(None)):
         del glue_inst
     glue_cl = None
@@ -185,25 +84,24 @@ def glue_findAndAddAttribs(obj, glue_params):
         if glue_params.has_key(obj.id):
             if glue_verbose:
                 print 'WARNING: Duplicate attribute ids!'
-                print ('%s has id %d which is already defined in %s' %
-                      (obj.name, obj.id, glue_params[obj.id].name))
+                print ('%s has id %d which is already defined in %s' % (obj.name, obj.id, glue_params[obj.id].name))
         else:
             glue_params[obj.id] = obj
-    elif type(obj) == type([]):
+    elif (type(obj) == type([])):
         for o in obj:
             glue_findAndAddAttribs(o, glue_params)
-    elif type(obj) == type({}):
+    elif (type(obj) == type({})):
         for o in obj.values():
             glue_findAndAddAttribs(o, glue_params)
-    elif type(obj) == type(()):
+    elif (type(obj) == type(())):
         for o in obj:
             glue_findAndAddAttribs(o, glue_params)
 
 
 def glue_getParamDict():
-    global glue_paramKeys
     global glue_params
-    if type(glue_params) == type(None):
+    global glue_paramKeys
+    if (type(glue_params) == type(None)):
         glue_params = {}
         gd = globals()
         for obj in gd.values():
@@ -242,16 +140,17 @@ def glue_getNumParams():
 
 
 def glue_getParam(number):
+    global glue_paramKeys
     pd = glue_getParamDict()
     if (pd != None):
-        if type(glue_paramKeys) == type([]):
-            if (number >= 0) and (number < len(glue_paramKeys)):
+        if (type(glue_paramKeys) == type([])):
+            if ((number >= 0) and (number < len(glue_paramKeys))):
                 return pd[glue_paramKeys[number]].getdef()
             else:
                 print ('glue_getParam: Error! %d out of range of attribute list' % number)
         else:
             pl = pd.values()
-            if (number >= 0) and (number < len(pl)):
+            if ((number >= 0) and (number < len(pl))):
                 return pl[number].getdef()
             elif glue_verbose:
                 print ('glue_getParam: Error! %d out of range of attribute list' % number)
@@ -269,7 +168,7 @@ def glue_setParam(id, value):
             except AttributeError:
                 if isinstance(pd[id], ptAttributeList):
                     try:
-                        if type(pd[id].value) != type([]):
+                        if (type(pd[id].value) != type([])):
                             pd[id].value = []
                     except AttributeError:
                         pd[id].value = []
@@ -277,7 +176,8 @@ def glue_setParam(id, value):
                 else:
                     pd[id].value = value
         elif glue_verbose:
-            print "setParam: can't find id=", id
+            print 'setParam: can\'t find id=',
+            print id
     else:
         print 'setParma: Something terribly has gone wrong. Head for the cover.'
 
@@ -304,19 +204,23 @@ def glue_isMultiModifier():
 
 
 def glue_getVisInfo(number):
+    global glue_paramKeys
     pd = glue_getParamDict()
-    if pd != None:
-        if type(glue_paramKeys) == type([]):
-            if (number >= 0) and (number < len(glue_paramKeys)):
+    if (pd != None):
+        if (type(glue_paramKeys) == type([])):
+            if ((number >= 0) and (number < len(glue_paramKeys))):
                 return pd[glue_paramKeys[number]].getVisInfo()
             else:
                 print ('glue_getVisInfo: Error! %d out of range of attribute list' % number)
         else:
             pl = pd.values()
-            if (number >= 0) and (number < len(pl)):
+            if ((number >= 0) and (number < len(pl))):
                 return pl[number].getVisInfo()
             elif glue_verbose:
                 print ('glue_getVisInfo: Error! %d out of range of attribute list' % number)
     if glue_verbose:
         print 'GLUE: Attribute list error'
     return None
+
+
+

@@ -166,24 +166,23 @@ class xEoALinkingBook(ptModifier):
         agePanel = TargetAge.value
         showOpen = 1
         if agePanel:
-            if 1:
-                params = xAgeLinkingBooks[agePanel]
-                if (len(params) == 6):
-                    (width, height, bookdef, videoFile, ageName, spName) = params
-                    if not os.path.exists('avi\\%s.bik' % videoFile):
-                        (width, height, bookdef) = xAgeLinkingBooksStatic[agePanel]
-                    gui = 'BkBook'
-                elif (len(params) == 3):
-                    (width, height, bookdef, ageName, spName) = params
-                    gui = 'BkBook'
-                print bookdef
-                gLinkingBook = ptBook(bookdef, self.key)
-                gLinkingBook.setSize(width, height)
-                if (not (showOpen)):
-                    if (not (self.IsThereACover(bookdef))):
-                        showOpen = 1
-                gLinkingBook.setGUI(gui)
-                gLinkingBook.show(showOpen)
+            params = xAgeLinkingBooks[agePanel]
+            if (len(params) == 6):
+                (width, height, bookdef, videoFile, ageName, spName) = params
+                if not os.path.exists('avi\\%s.bik' % videoFile):
+                    (width, height, bookdef, ageName, spName) = xAgeLinkingBooksStatic[agePanel]
+                gui = 'BkBook'
+            elif (len(params) == 3):
+                (width, height, bookdef, ageName, spName) = params
+                gui = 'BkBook'
+            print bookdef
+            gLinkingBook = ptBook(bookdef, self.key)
+            gLinkingBook.setSize(width, height)
+            if (not (showOpen)):
+                if (not (self.IsThereACover(bookdef))):
+                    showOpen = 1
+            gLinkingBook.setGUI(gui)
+            gLinkingBook.show(showOpen)
         else:
             PtDebugPrint(('xEoALinkingBook: no age link panel' % agePanel), level=kErrorLevel)
 

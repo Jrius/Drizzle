@@ -1,129 +1,70 @@
-"""
-Environment effect handler, rewritten since we don't have Bahros or Slates anymore.
-"""
+#Decompiled with Drizzle30!  Enjoy :)
 
-
+global glue_cl
+global glue_inst
+global glue_params
+global glue_paramKeys
 from Plasma import *
 from PlasmaTypes import *
+sdlVar = ptAttribString(1, 'SDL var')
+strShownStates = ptAttribString(2, 'States in which shown')
 
-actRunEffect = ptAttribActivator(1, "Activator: run environment effect")
-respSpecialEffect = ptAttribResponder(2, "Responder: run glare FX")
-respEffectOn = ptAttribResponder(3, "Responder: trigger some shiny visuals on effect active")
-respEffectOff = ptAttribResponder(4, "Responder: normal visuals on effect inactive")
-
-boolIsRunningEnvEffect = False
-strSDLName = "runEnvEffect"
-effectLength = 90 # 90 seconds of env effect
-
-class xEnvEffect(ptResponder):
+class xGlobalSDLRespShowHide(ptMultiModifier):
 
 
     def __init__(self):
-        ptResponder.__init__(self)
-        self.id = -1
-        self.version = -1
+        ptMultiModifier.__init__(self)
+        self.id = 6104
+        self.version = 2
+        self.shownStates = []
+        print ('xGlobalSDLRespShowHide.__init__: version - %d' % self.version)
+
+
+    def EnableObject(self):
+        self.sceneobject.draw.enable()
+        self.sceneobject.physics.suppress(0)
+
+
+    def DisableObject(self):
+        self.sceneobject.draw.disable()
+        self.sceneobject.physics.suppress(1)
 
 
     def OnFirstUpdate(self):
-        print("xEnvEffect: OnFirstUpdate")
-        PtPageInNode("xSpecialEffectGlare")
-
-
-    def OnServerInitComplete(self):
-        PtLoadDialog("xSpecialEffectGlare", self.key)
-        
-        SlateSDLvalue = PtGetAgeSDL()[strSDLName][0]
-        if SlateSDLvalue:
-            curTime = PtGetDniTime()
-            timeleft = SlateSDLvalue - curTime
-            PtAtTimeCallback(self.key, timeleft, 1)
-            boolIsRunningEnvEffect = True
-            if respEffectOn:
-                respEffectOn.run(self.key, fastforward=True)
+        stateStr = strShownStates.value
+        stateList = stateStr.split(',')
+        for state in stateList:
+            try:
+                self.shownStates.append(int(state.strip()))
+            except:
+                pass
+        ageSDL = PtGetAgeSDL()
+        ageSDL.sendToClients(sdlVar.value)
+        ageSDL.setFlags(sdlVar.value, 1, 1)
+        ageSDL.setNotify(self.key, sdlVar.value, 0.0)
+        sdlval = ageSDL[sdlVar.value][0]
+        if (sdlval in self.shownStates):
+            self.EnableObject()
         else:
-            if respEffectOff:
-                respEffectOff.run(self.key, fastforward=True)
-        
-        if PtGetAgeName() == "Tahgira":
-            # MOAR time for Tahgira. Because ghost trigger is farther away from puzzle.
-            effectLength = 180
-    
-    
-    def __del__(self):
-        PtHideDialog("xSpecialEffectGlare")
-        PtUnloadDialog("xSpecialEffectGlare")
-        PtPageOutNode("xSpecialEffectGlare")
-        PtClearTimerCallbacks(self.key)
-
-
-    def OnNotify(self, state, id, events):
-        global boolIsRunningEnvEffect
-        print("xEnvEffect: Received notify, state=%s, id=%d" % (state, id))
-        if id == actRunEffect.id and state and PtWasLocallyNotified(self.key) and PtFindAvatar(events) == PtGetLocalAvatar() and not boolIsRunningEnvEffect:
-            for event in events:
-                if (event[1] == 1):
-                    self.runEnvEffect()
-                    break
-        elif id == respSpecialEffect.id:
-            print("Got callback from special effect responder")
+            self.DisableObject()
 
 
     def OnSDLNotify(self, VARname, SDLname, playerID, tag):
-        pass
-    
-    
-    def runEnvEffect(self):
-        global boolIsRunningEnvEffect
-        global strSDLName
-        global effectLength
-        print("#-#-# RUNNING SPECIAL EFFECT. HELL YEAH #-#-#")
-        
-        ## start env effect
         ageSDL = PtGetAgeSDL()
-        if self.sceneobject.isLocallyOwned():
-            ageSDL[strSDLName] = (PtGetDniTime()+effectLength,) ## we could use only 1 but Todelmer's season are a bit more complex...
-        
-        ## make glare thing
-        PtShowDialog("xSpecialEffectGlare")
-        respSpecialEffect.run(self.key)
-        if respEffectOn:
-            respEffectOn.run(self.key)
-        
-        ## come back when it will be done
-        PtAtTimeCallback(self.key, effectLength, 1)
-        
-        boolIsRunningEnvEffect = True
-    
-    
-    def stopEnvEffect(self):
-        global boolCanRunEnvEffect
-        global boolIsRunningEnvEffect
-        global strSDLName
-        
-        print "#-#-# STOPPING ENV EFFECT #-#-#"
-        
-        ## stop env effect
-        ageSDL = PtGetAgeSDL()
-        if self.sceneobject.isLocallyOwned():
-            ageSDL[strSDLName] = (0,)
-        
-        ## make glare thing
-        PtShowDialog("xSpecialEffectGlare")
-        respSpecialEffect.run(self.key)
-        if respEffectOff:
-            respEffectOff.run(self.key)
-        
-        boolIsRunningEnvEffect = False
-    
-    
-    def OnTimer(self, id):
-        if id == 1:
-            self.stopEnvEffect()
+        if (VARname == sdlVar.value):
+            if (ageSDL[VARname][0] in self.shownStates):
+                self.EnableObject()
+            else:
+                self.DisableObject()
 
 
+    def OnBackdoorMsg(self, target, param):
+        if (target == sdlVar.value):
+            if (param.lower() in ('on', '1', 'true')):
+                self.EnableObject()
+            elif (param.lower() in ('off', '0', 'false')):
+                self.DisableObject()
 
-
-### Python Glue ###
 
 glue_cl = None
 glue_inst = None
@@ -164,8 +105,8 @@ def glue_getInst():
 def glue_delInst():
     global glue_inst
     global glue_cl
-    global glue_paramKeys
     global glue_params
+    global glue_paramKeys
     if (type(glue_inst) != type(None)):
         del glue_inst
     glue_cl = None
@@ -185,25 +126,24 @@ def glue_findAndAddAttribs(obj, glue_params):
         if glue_params.has_key(obj.id):
             if glue_verbose:
                 print 'WARNING: Duplicate attribute ids!'
-                print ('%s has id %d which is already defined in %s' %
-                      (obj.name, obj.id, glue_params[obj.id].name))
+                print ('%s has id %d which is already defined in %s' % (obj.name, obj.id, glue_params[obj.id].name))
         else:
             glue_params[obj.id] = obj
-    elif type(obj) == type([]):
+    elif (type(obj) == type([])):
         for o in obj:
             glue_findAndAddAttribs(o, glue_params)
-    elif type(obj) == type({}):
+    elif (type(obj) == type({})):
         for o in obj.values():
             glue_findAndAddAttribs(o, glue_params)
-    elif type(obj) == type(()):
+    elif (type(obj) == type(())):
         for o in obj:
             glue_findAndAddAttribs(o, glue_params)
 
 
 def glue_getParamDict():
-    global glue_paramKeys
     global glue_params
-    if type(glue_params) == type(None):
+    global glue_paramKeys
+    if (type(glue_params) == type(None)):
         glue_params = {}
         gd = globals()
         for obj in gd.values():
@@ -242,16 +182,17 @@ def glue_getNumParams():
 
 
 def glue_getParam(number):
+    global glue_paramKeys
     pd = glue_getParamDict()
     if (pd != None):
-        if type(glue_paramKeys) == type([]):
-            if (number >= 0) and (number < len(glue_paramKeys)):
+        if (type(glue_paramKeys) == type([])):
+            if ((number >= 0) and (number < len(glue_paramKeys))):
                 return pd[glue_paramKeys[number]].getdef()
             else:
                 print ('glue_getParam: Error! %d out of range of attribute list' % number)
         else:
             pl = pd.values()
-            if (number >= 0) and (number < len(pl)):
+            if ((number >= 0) and (number < len(pl))):
                 return pl[number].getdef()
             elif glue_verbose:
                 print ('glue_getParam: Error! %d out of range of attribute list' % number)
@@ -269,7 +210,7 @@ def glue_setParam(id, value):
             except AttributeError:
                 if isinstance(pd[id], ptAttributeList):
                     try:
-                        if type(pd[id].value) != type([]):
+                        if (type(pd[id].value) != type([])):
                             pd[id].value = []
                     except AttributeError:
                         pd[id].value = []
@@ -277,7 +218,8 @@ def glue_setParam(id, value):
                 else:
                     pd[id].value = value
         elif glue_verbose:
-            print "setParam: can't find id=", id
+            print 'setParam: can\'t find id=',
+            print id
     else:
         print 'setParma: Something terribly has gone wrong. Head for the cover.'
 
@@ -304,19 +246,23 @@ def glue_isMultiModifier():
 
 
 def glue_getVisInfo(number):
+    global glue_paramKeys
     pd = glue_getParamDict()
-    if pd != None:
-        if type(glue_paramKeys) == type([]):
-            if (number >= 0) and (number < len(glue_paramKeys)):
+    if (pd != None):
+        if (type(glue_paramKeys) == type([])):
+            if ((number >= 0) and (number < len(glue_paramKeys))):
                 return pd[glue_paramKeys[number]].getVisInfo()
             else:
                 print ('glue_getVisInfo: Error! %d out of range of attribute list' % number)
         else:
             pl = pd.values()
-            if (number >= 0) and (number < len(pl)):
+            if ((number >= 0) and (number < len(pl))):
                 return pl[number].getVisInfo()
             elif glue_verbose:
                 print ('glue_getVisInfo: Error! %d out of range of attribute list' % number)
     if glue_verbose:
         print 'GLUE: Attribute list error'
     return None
+
+
+

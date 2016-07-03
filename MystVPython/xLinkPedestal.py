@@ -6,7 +6,7 @@ Now using one SDL var per ped (reason in drboPedestal).
 
 from Plasma import *
 from PlasmaTypes import *
-import xAgeSDL
+#import xAgeSDL
 actLink = ptAttribActivator(1, 'Take symbol click')
 soTakeWarpPoint = ptAttribSceneobject(2, 'Spawn to take')
 sdlPedEnabled = ptAttribString(3, 'Ped enabled var')

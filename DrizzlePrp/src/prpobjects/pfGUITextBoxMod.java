@@ -31,10 +31,10 @@ import shared.*;
 
 public class pfGUITextBoxMod extends uruobj
 {
-    pfGUIControlMod parent;
-    Bstr str1;
-    byte xb2;
-    Urustring16 xstr3; //e.g. ACA.GUI.Age.  Used for internationalization?
+    public pfGUIControlMod parent;
+    public Bstr str1;
+    public byte xb2;
+    public Urustring16 xstr3; //e.g. ACA.GUI.Age.  Used for internationalization?
     
     public pfGUITextBoxMod(context c) throws readexception
     {

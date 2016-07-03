@@ -5,6 +5,7 @@ act = ptAttribActivator(1, 'Lookatcloth activator')
 class lakiClueLink(ptResponder):
     def __init__(self):
         ptResponder.__init__(self)
+        print("lakiClueLink.Init")
         self.id = -1
         self.version = 1
 
