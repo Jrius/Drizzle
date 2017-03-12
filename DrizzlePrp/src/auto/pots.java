@@ -242,4 +242,61 @@ public class pots
         
         m.state.pop();
     }
+    
+    public static void UseHighResTextures(prpfile prp, prpfile textureprp)
+    {
+        // WIP
+        // fix wrong texture references
+        // usually there are scaled down versions of the same texture, marked as #<int> (int being lower
+        // for higher res textures).
+        PrpRootObject[] allRos = prp.FindAllObjectsOfType(Typeid.plLayer);
+        for (PrpRootObject ro: allRos)
+        {
+            x0006Layer layer = (x0006Layer) ro.castTo();
+            if (layer.texture != null && layer.texture.hasref())
+            {
+                String texname = layer.texture.xdesc.objectname.toString();
+                
+                if (texname.contains("@"))
+                    // special case, hard to process correctly. Ignore.
+                    // (texture used for distance fading - we can assume it's not necessary to replace it with a higher version, as we rarely notice it anyway)
+                    continue;
+                if (texname.contains("#0"))
+                    // higher version, nothing to do
+                    continue;
+                
+                int hashIndex = texname.indexOf("#");
+                int extIndex = texname.indexOf(".hsm");
+                if (hashIndex == -1 || extIndex == -1)
+                    // invalid tex name
+                    continue;
+                
+                String levelStr = texname.substring(hashIndex+1, extIndex);
+                int clipId=0;
+                try {
+                    clipId = Integer.parseInt(levelStr);
+                } catch (NumberFormatException ex) {
+                    continue;
+                }
+                
+                if (clipId == 0)
+                    // already at max level
+                    continue;
+                
+                for (int i=0; i<clipId; i++)
+                {
+                    String newtexname = texname.substring(0,hashIndex) + "#" + i + ".hsm";
+                    PrpRootObject mipro = textureprp.findObject(newtexname, Typeid.plMipMap);
+                    if (mipro != null)
+                    {
+                        ro.markAsChanged();
+                        prp.markAsChanged();
+                        layer.texture.xdesc.objectname = Urustring.createFromString(newtexname);
+                        m.msg("    Fixing " + newtexname);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }

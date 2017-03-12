@@ -126,7 +126,7 @@ public class AutoMod_FixFanAge {
         // TODO - see if we need to remove permaproj (should be projected texture - if we ever process such PRP, then the user clearly doesn't
         // know what he's doing...)
         
-        
+        int numberOfLitObjects = 0;
         for (PrpRootObject dsro: prp.FindAllObjectsOfType(Typeid.plDrawableSpans))
         {
             plDrawableSpans ds = dsro.castTo();
@@ -143,9 +143,11 @@ public class AutoMod_FixFanAge {
                     span.permaLightsCount = 0;
                     span.props &= ~(plDrawableSpans.PlSpan.kPropHasPermaLights);
                     dsro.markAsChanged();
+                    numberOfLitObjects++;
                 }
             }
         }
+        m.msg("Remove dynamic lights: found " + numberOfLitObjects + " lit objects in " + prp.filename);
     }
 
     /**
@@ -293,6 +295,8 @@ public class AutoMod_FixFanAge {
     
     public static void setExcludeFlags(String infile, String outfolder)
     {
+        int animationsDesynced = 0;
+        int originalSyncedAnimationNumber = 0;
         prpobjects.prpfile prp = prpobjects.prpfile.createFromFile(infile, true);
 
         // parse the PRP: find all object referenced by responders, logicmod or pfm
@@ -319,19 +323,51 @@ public class AutoMod_FixFanAge {
                 }
             }
         }
-        for (PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plAnimCmdMsg))
+        for (PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plLogicModifier))
         {
-            prpobjects.PrpMessage.PlAnimCmdMsg amsg = ro.castTo();
-            for (prpobjects.Uruobjectref recv: amsg.parent.parent.receivers)
+            plLogicModifier lo = ro.castTo();
+            if(lo.parent.message.type==Typeid.plAnimCmdMsg)
             {
-                if (recv.xdesc.objecttype == Typeid.plLayerAnimation)
-                    // will need to figure something out with these... for now we won't touch them.
-                    ;
-                if (recv.xdesc.objecttype == Typeid.plAGMasterMod)
-                    objlist.add(recv.xdesc.objectname.toString());
+                prpobjects.uruobj a = lo.parent.message.prpobject.object;
+                if(a instanceof prpobjects.PrpMessage.PlAnimCmdMsg)
+                {
+                    prpobjects.PrpMessage.PlAnimCmdMsg amsg = (prpobjects.PrpMessage.PlAnimCmdMsg)a;
+                    for (prpobjects.Uruobjectref recv: amsg.parent.parent.receivers)
+                    {
+                        if (recv.xdesc.objecttype == Typeid.plLayerAnimation)
+                            // will need to figure something out with these... for now we won't touch them.
+                            ;
+                        if (recv.xdesc.objecttype == Typeid.plAGMasterMod)
+                            objlist.add(recv.xdesc.objectname.toString());
+                    }
+                }
+            }
+        }
+        for (PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plResponderModifier))
+        {
+            prpobjects.plResponderModifier resp = ro.castTo();
+            for (plResponderModifier.PlResponderState state: resp.messages)
+            {
+                for (plResponderModifier.PlResponderCmd c: state.commands)
+                {
+                    Typeid msgtype = c.message.type;
+                    if (msgtype == Typeid.plAnimCmdMsg)
+                    {
+                        prpobjects.PrpMessage.PlAnimCmdMsg amsg = (prpobjects.PrpMessage.PlAnimCmdMsg)c.message.castTo();
+                        for (prpobjects.Uruobjectref recv: amsg.parent.parent.receivers)
+                        {
+                            if (recv.xdesc.objecttype == Typeid.plLayerAnimation)
+                                // will need to figure something out with these... for now we won't touch them.
+                                ;
+                            if (recv.xdesc.objecttype == Typeid.plAGMasterMod)
+                                objlist.add(recv.xdesc.objectname.toString());
+                        }
+                    }
+                }
             }
         }
 
+        m.msg("Found: " + objlist.size());
         for (PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plSceneObject))
         {
             prpobjects.plSceneObject so = ro.castTo();
@@ -339,9 +375,11 @@ public class AutoMod_FixFanAge {
             {
                 if (mod.xdesc.objecttype == Typeid.plAGMasterMod)
                 {
+                    originalSyncedAnimationNumber++;
                     boolean notExcluded = false;
                     for (String name: objlist)
                     {
+                        //m.msg(name + " vs " + mod.xdesc.objectname.toString());
                         if (name.equals(mod.xdesc.objectname.toString()))
                             notExcluded = true;
                     }
@@ -349,6 +387,7 @@ public class AutoMod_FixFanAge {
                     {
                         so.parent.flags |= plSynchedObject.kExcludeAllPersistentState;
                         ro.markAsChanged();
+                        animationsDesynced++;
                     }
                 }
             }
@@ -356,7 +395,7 @@ public class AutoMod_FixFanAge {
 
         String outputfilename = outfolder + "/" + prp.header.agename.toString()+"_District_"+prp.header.pagename.toString()+".prp";
         prp.saveAsFile(outputfilename);
-        m.msg("Done.");
+        m.msg("Done. Out of the " + originalSyncedAnimationNumber + " animations, " + animationsDesynced + " have been desynched.");
     }
     
     /**

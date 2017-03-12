@@ -10,6 +10,7 @@ import auto.mod.AutoMod_FixFanAge;
 import auto.mod.AutoMod_MakeWidescreen;
 import auto.mod.AutoMod_Light;
 import auto.postmod.PostMod_MystV_WhiteBox;
+import auto.prps;
 import shared.*;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -82,6 +83,8 @@ public class CommandLine
             m.msg("    -exactcollisions c:/inputfolder ageName    -> adds exact collisions to this Age. May be heavy ingame.");
             m.msg("    -excludepersistentstates c:/inputfile c:/outfolder    -> marks any animated object with animation not referenced by another object as non-persistent, this can help with Ages "
                     + "using a lot of animation which result in clients being kicked out online. Untested, use at your own risk.");
+            m.msg("    -usehigherrestextures c:/inputfolder agename    -> changes some texture references to use a higher res version");
+            m.msg("    -squashtextures c:/infolder c:/outfolder ageName -> moves all textures to a single PRP. Useful to reduce video memory consumption on older GPUs in ages like Elodea");
             m.msg("  Subtools:");
             m.msg("    -deepview c:/inputfile.prp    ->Starts DrizzleDeepview.  The inputfile is optional.");
             m.msg("    -folderdiff c:/folder1 c:/folder2    ->Diffs all the files and subfolders between two folders.");
@@ -334,7 +337,7 @@ public class CommandLine
             m.warn("Untested command ! Use it at your own risk !");
             AutoMod_FixFanAge.setExcludeFlags(args[1], args[2]);
         }
-        else if (args[0].equals("-squashTextures"))
+        else if (args[0].equals("-squashtextures"))
         {
             AutoMod_FixFanAge.squashDuplicateTextures(args[1], args[2], args[3]);
         }
@@ -362,6 +365,45 @@ public class CommandLine
                     }
                 }
             }
+        }
+        else if (args[0].equals("-usehigherrestextures"))
+        {
+            if (!args[1].endsWith("/") && !args[1].endsWith("\\"))
+                args[1] += "/";
+            File folder1 = new File(args[1]);
+            File texfile = new File(args[1] + args[2] + "_District_Textures.prp");
+            prpobjects.prpfile tex = prpobjects.prpfile.createFromFile(texfile, true);
+            
+            File[] folder1children = folder1.listFiles();
+            for(File child1: folder1children)
+            {
+                if (child1.getName().startsWith(args[2]+"_District_") && child1.getAbsolutePath().endsWith(".prp"))
+                {
+                    m.msg("  Loading " + child1.getName() + "...");
+                    prpobjects.prpfile prp = prpobjects.prpfile.createFromFile(child1.getAbsoluteFile(), true);
+
+                    m.msg("  Editing...");
+                    auto.pots.UseHighResTextures(prp, tex);
+
+                    if (prp.hasChanged())
+                    {
+                        m.msg("  Saving...");
+                        String outputfilename = args[1] + "/" + prp.header.agename.toString()+"_District_"+prp.header.pagename.toString()+".prp";
+                        prp.saveAsFile(outputfilename);
+                    }
+                    else
+                    {
+                        m.msg("  No change required.");
+                    }
+                }
+            }
+            m.msg("Done !");
+        }
+        else if(args[0].equals("-audiotojson"))
+        {
+            prpobjects.prpfile prp = prpobjects.prpfile.createFromFile(new File(args[1]), true);
+            prps.ListSoundsAsJSON(prp, args[2]);
+            m.msg("Done !");
         }
         else if(args[0].equals("-version"))
         {
