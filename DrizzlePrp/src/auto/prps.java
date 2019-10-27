@@ -103,6 +103,7 @@ public class prps
                 }
                 else
                     emitterJS += "'random': null,";
+                // TODO: add parent object
                 emitterJS += "'sounds':[";
                 for (Uruobjectref wsoundref: wa.objectrefs)
                 {
@@ -115,7 +116,6 @@ public class prps
                         wss = ((x0096Win32StaticSound) wssro.castTo()).parent;
                     else
                         wss = ((x0084Win32StreamingSound) wssro.castTo()).parent;
-                    if (wss.channel != 0) continue; // ignore this left channel/right channel mess.
                     PlSound wsss = wss.parent;
                     
                     /* things unity handles:
@@ -155,8 +155,12 @@ public class prps
                     sound += "'maxdist':" + wsss.maxfalloff + ",";
                     sound += "'autostart':" + (((wsss.properties & PlSound.kPropAutoStart) != 0) ? 1:0) + ",";
                     sound += "'streaming':" + (streaming ? 1:0) + ",";
-                    sound += "'3d':" + (((wsss.properties & PlSound.kProp3D) != 0) ? 1:0) + ",";
+                    sound += "'_3d':" + (((wsss.properties & PlSound.kProp3D) != 0) ? 1:0) + ",";
                     sound += "'loop':" + (((wsss.properties & PlSound.kPropLooping) != 0) ? 1:0) + ",";
+                    // Note about channels (ie: enum(left, right)):
+                    // 3D sounds in Plasma are only mono (as in Unity). However, Plamza can link two 3D mono sound emitters
+                    // to create more interesting 3D stereo sound. This will have to be reimplemented in Unity.
+                    sound += "'channel':" + wss.channel + ",";
                     if (wsss.dataBuffer != null && wsss.dataBuffer.xdesc != null)
                     {
                         PrpRootObject sbro = prp.findObjectWithRef(wsss.dataBuffer);
@@ -164,6 +168,8 @@ public class prps
                         {
                             plSoundBuffer sb = sbro.castTo();
                             sound += "'src':'" + sb.oggfile.toString() + "',";
+                            // add number of channels, to know if we're a splitted 3D stereo file
+                            sound += "'srcnumchannels':'" + sb.channels;
                         }
                     }
                     
@@ -177,6 +183,9 @@ public class prps
                     sound += "'fadeoutvolend':" + wsss.fadeOutParams.volEnd + ",";
                     
                     // add additional data here
+                    // NOTE:
+                    //  EAX: not supported on a per-source basis in Unity
+                    //  SoftVolumes: will have to find a workaround
                     
                     sound += "},";
                     emitterJS += sound;

@@ -406,7 +406,7 @@ public class AutoMod_FixFanAge {
      * @param outfolder
      * @param ageName
      */
-    public static void squashDuplicateTextures(String infolder, String outfolder, String ageName)
+    public static void squashDuplicateTextures(String infolder, String outfolder, final String ageName)
     {
         m.warn("This is a very memory-intensive process, if Drizzle crashes complaining about GC and memory limit, try increasing the VM memory...");
         

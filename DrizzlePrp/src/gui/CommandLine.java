@@ -55,7 +55,7 @@ public class CommandLine
             m.msg("    -drizzleintermediary   ->acts as go-between for UruSetup and UruExplorer for Alcugs");
             m.msg("  Prp:");
             //m.msg("    -prpdiff c:/source.prp c:/dest.prp c:/generated.diff.txt");
-            m.msg("    -prpdiff c:/version1.prp c:/version2.prp       ->Compares the two PRPs, listing the differences.");
+            m.msg("    -prpdiff c:/version1.prp c:/version2.prp (c:/diffOutFolder)       ->Compares the two PRPs, listing the differences.");
             m.msg("    -folderprpdiff c:/folder1 c:/folder2       ->Same, but operates on all PRPs that are present in both folders.");
             //m.msg("    -changeagename c:/inputfile.prp c:/outputfolder NewAgeName");
             m.msg("    -changeagename c:/inputfile.prp c:/outputfolder NewAgeName       ->Does not change python/ogg files.");
@@ -207,7 +207,10 @@ public class CommandLine
         }
         else if(args[0].equals("-prpdiff"))
         {
-            auto.PrpDiff.FindDiff(args[1], args[2]);
+            if (args.length > 2)
+                auto.PrpDiff.FindDiff(args[1], args[2], args[3]);
+            else
+                auto.PrpDiff.FindDiff(args[1], args[2]);
         }
         else if(args[0].equals("-changeagename"))
         {

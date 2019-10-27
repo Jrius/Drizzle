@@ -5,10 +5,16 @@
  */
 package auto.postmod;
 
+import auto.PrpDiff;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import prpobjects.*;
 import shared.Flt;
 import shared.m;
+import uru.Bytedeque;
 
 public class PostMod_MystV_WhiteBox
 {
@@ -25,6 +31,9 @@ public class PostMod_MystV_WhiteBox
      * - [[removes some weird new flag in ObjInterface]] -> no longer needed (wtf ?...)
      * - removes some weird new flag in plHKPhysical.group
      * - changes Quat from XYZW to WXYZ in plHKPhysical.orientation (I have no idea why these were changed...)
+     * - do some majiik in MystMystV_District_Island.prp -> Myst_Island_40000008_aBlendSpans0.
+     *      In the Steam version, there is a one-bit difference that cause a read out of bounds. Haven't found yet when/how/why.
+     *      However fixing it is pretty simple by altering the rawdata...
      * 
      * @param prp the prp to modify
      * @param isAlreadyWhite true if this PRP comes from the original version of the game, false if it comes from GOG/Steam
@@ -32,6 +41,7 @@ public class PostMod_MystV_WhiteBox
     public static void MakeWhite(prpfile prp, boolean isAlreadyWhite)
     {
         // well, not completely white, but closer to white anyway...
+        // (future me: wtf is wrong with me ??? did I really write that sentence ? I must have had a deathwish...)
         
         prp.markAsChanged();
         
@@ -118,6 +128,33 @@ public class PostMod_MystV_WhiteBox
                 phys.havok.orientation.y = phys.havok.orientation.x;
                 phys.havok.orientation.x = buf;
             }
+        }
+        
+        // fix some weird bit in Myst's island drawable span
+        if (prp.header.agename.toString().equals("MystMystV") && prp.header.pagename.toString().equals("Island"))
+        {
+            PrpRootObject ro = prp.findObject("Myst_Island_40000008_aBlendSpans0", Typeid.plDrawableSpans);
+            
+            // it seems the bogus byte is located in some kind of vertex descriptor. However it's ultra-hard for me to find its exact location.
+            // So ! Instead, let's use my unique superpower: DUMB HACKING.
+            // By which I mean: recompile the object manually, then assign the compiled data to the PrpRootObject's rawdata.
+            // Don't forget to pretend it was compiled all along and whistle inconspicuously, this way the PRPRO won't notice.
+            
+            plDrawableSpans dspan = (plDrawableSpans)ro.castTo();
+            Bytedeque dequeue = new Bytedeque(shared.Format.pots);
+            dspan.compile(dequeue);
+            ro.hasChanged = false;
+            ro.hasRaw = true;
+            ro.rawdata = dequeue.getAllBytes();
+            ro.rawdata[0xb0c4] = 0; // there. All good.
+            
+            /*
+            try (FileOutputStream stream = new FileOutputStream("c:/bin.uof")) {
+                stream.write(ro.rawdata);
+            } catch (IOException ex) {
+                Logger.getLogger(PrpDiff.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // */
         }
     }
 }

@@ -245,7 +245,6 @@ public class pots
     
     public static void UseHighResTextures(prpfile prp, prpfile textureprp)
     {
-        // WIP
         // fix wrong texture references
         // usually there are scaled down versions of the same texture, marked as #<int> (int being lower
         // for higher res textures).

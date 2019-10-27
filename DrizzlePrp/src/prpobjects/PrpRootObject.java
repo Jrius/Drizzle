@@ -38,7 +38,7 @@ public class PrpRootObject extends uruobj implements Comparable
     public boolean hasChanged; //does it have changes that need to be written
     public boolean hasRaw; //does it have raw byte[] data.
     public boolean hasParsed; //does it have a real prpobject
-    byte[] rawdata;
+    public byte[] rawdata;
     int readversion;
     
     public boolean tagDeleted = false;
