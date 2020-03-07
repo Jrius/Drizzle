@@ -1,5 +1,6 @@
 /build/
 /dist/Drizzle.jar
 /dist/.drizzlesettings.canbedeleted.dat
+.drizzlesettings.canbedeleted.dat
 /dist/lib/
 /nbproject/private
