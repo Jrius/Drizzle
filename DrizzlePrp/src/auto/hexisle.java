@@ -17,6 +17,8 @@ import java.util.HashMap;
 import prpobjects.Typeid;
 import prpobjects.PrpRootObject;
 import prpobjects.Uruobjectref;
+import prpobjects.plDrawableSpans;
+import prpobjects.plDrawableSpans.PlDISpanIndex;
 import shared.Flt;
 import prpobjects.textfile;
 
@@ -276,6 +278,8 @@ public class hexisle
     public static void createStaticCollidersForAllDrawables(prpfile prp)
     {
         PrpRootObject sn_ro = prp.findFirstScenenode();
+        if (sn_ro == null)
+            return;
         prpobjects.x0000Scenenode sn = sn_ro.castTo();
         Uruobjectref sn_ref = sn_ro.getref();
 
@@ -308,6 +312,8 @@ public class hexisle
                     {
                         prpobjects.plDrawableSpans ds = prp.findObjectWithRef(di.subsetgroups[j].span).castTo();
                         prpobjects.plDrawableSpans.PlDISpanIndex dispi = ds.DIIndices[di.subsetgroups[j].subsetgroupindex];
+                        if ((dispi.flags & PlDISpanIndex.kMatrixOnly) == PlDISpanIndex.kMatrixOnly) // bone, not rendered
+                            continue;
                         for(int k=0;k<dispi.indices.length;k++)
                         {
                             int subsetind = dispi.indices[k];
