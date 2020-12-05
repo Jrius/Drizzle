@@ -712,6 +712,12 @@ public class moul
                 //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
                 Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
                 layer.texture = mmref;
+                
+                // remove the GUID from the plLinkToAgeMsg to Chiso. This crashes PotS.
+                rm = prp.findObject("ChisoBook_ChisoBook_001_Responder", Typeid.plResponderModifier).castTo();
+                ltam = rm.messages.get(0).commands.get(1).message.castTo();
+                ltam.ageLinkStruct.ageinfo.flags &= ~0x04;
+                ltam.ageLinkStruct.ageinfo.ageInstanceGuid = null;
             }
             else
             {
