@@ -397,6 +397,43 @@ public class plHKPhysical extends uruobj
 
             //0,0,40,120 is the CalendarStoneProxyXX colliders in Relto; the mass should be set to 0?
         }
+        else if(( u14==0x0 && u15==0x0 && group0==0x80 )||
+                ( u14==0x0 && u15==0x0 && group0==0x184 ))
+        {
+            // GreatTreePub_District_GreatTree:BridgeProxyCollision and various others on MOUL as of Dec 2020 (Doobes' update)
+            pots.zzzu1 = 0x0;
+            pots.zzzcoltype = 0x200;
+            pots.zzzflagsdetect = 0x0;
+            pots.zzzflagsrespond = 0x0;
+            pots.zzzu2 = 0x0;
+            pots.zzzu3 = 0x0;
+            pots.zzzLOSDB = LOSDB;
+            pots.zzzgroup0 = group0;
+        }
+        else if( u14==0x6 && u15==0x0 && group0==0x4 )
+        {
+            // GreatTreePub_District_Pub: various book clickables on MOUL as of Dec 2020 (Doobes' update)
+            pots.zzzu1 = 0x0;
+            pots.zzzcoltype = 0x0;
+            pots.zzzflagsdetect = 0x0;
+            pots.zzzflagsrespond = 0x0;
+            pots.zzzu2 = 0x0;
+            pots.zzzu3 = 0x0;
+            pots.zzzLOSDB = LOSDB;
+            pots.zzzgroup0 = group0;
+        }
+        else if( u14==0x6 && u15==0x0 && group0==0x80 )
+        {
+            // GreatTreePub_District_Pub:PlayerBlocker4NoCam and others on MOUL as of Dec 2020 (Doobes' update)
+            pots.zzzu1 = 0x0;
+            pots.zzzcoltype = 0x0;
+            pots.zzzflagsdetect = 0x0;
+            pots.zzzflagsrespond = 0x0;
+            pots.zzzu2 = 0x0;
+            pots.zzzu3 = 0x0;
+            pots.zzzLOSDB = LOSDB;
+            pots.zzzgroup0 = group0;
+        }
         else if( u14==0x2 && u15==0x0 && LOSDB==0x0 && group0==0x0 )
         {
             //untested; relto
@@ -666,7 +703,7 @@ public class plHKPhysical extends uruobj
         HsBitVector group; //4,20,200,24,120,100,124,300,700  //count is always 1 in moul //props
         PXSphereBounds xu24a;
         PXBoxBounds xu24b;
-        PXConeBounds xu24c;
+        PXHullBounds xu24c;
         PXMeshBounds xu24d;
 
         public PXPhysical(context c) throws readexception
@@ -685,7 +722,7 @@ public class plHKPhysical extends uruobj
             EL = new Flt(c); //0
             //if(EL.toJavaFloat()!=(float)0)
             //    dummy=0;
-            format = c.readByte(); //4 //format?
+            format = c.readByte(); //4 // actually the type of bounds used by this physical object
             u14 = c.readByte(); //0
             /*if(u14!=0 && u14!=5)
             {
@@ -753,7 +790,7 @@ public class plHKPhysical extends uruobj
             else if(format==3)
             {
                 //calls PhysXCore.dll and gives it an object to read from the stream with.
-                xu24c = new PXConeBounds(c);
+                xu24c = new PXHullBounds(c);
             }
             else
             {
@@ -776,7 +813,10 @@ public class plHKPhysical extends uruobj
             moul.u14 = u14;
             moul.u15 = u15;
             moul.LOSDB = LOSDB;
-            moul.group0 = group.values[0];
+            if (group.count > 0)
+                moul.group0 = group.values[0];
+            else
+                moul.group0 = 0;
             potsflags pots = plHKPhysical.convertMoulFlagsToPotsFlags(moul,c.curRootObject.toString(),c.curFile);
             if(pots==null)
             {
@@ -792,7 +832,10 @@ public class plHKPhysical extends uruobj
             moul.u14 = u14;
             moul.u15 = u15;
             moul.LOSDB = LOSDB;
-            moul.group0 = group.values[0];
+            if (group.count > 0)
+                moul.group0 = group.values[0];
+            else
+                moul.group0 = 0;
             potsflags pots = plHKPhysical.convertMoulFlagsToPotsFlags(moul,"","");
             if(pots==null)
             {
@@ -1562,7 +1605,7 @@ public class plHKPhysical extends uruobj
         }
     }
     
-    public static class PXConeBounds
+    public static class PXHullBounds
     {
         byte[] yheader1;
         int y1;
@@ -1582,9 +1625,27 @@ public class plHKPhysical extends uruobj
         byte[] xy12a;
         short[] xy12b;
         
-        public PXConeBounds(context c) throws readexception
+        public PXHullBounds(context c) throws readexception
         {
-            yheader1 = c.readBytes(8); //header "NXS\0x01CVXM
+            byte[] headerFirstPart = c.readBytes(4);
+            if (b.BytesToString(headerFirstPart).equals("HSP\u0001"))
+            {
+                // This is a newer, more straightforward HSPlasma version of convex hulls implemented in 2016.
+                // See https://github.com/H-uru/libhsplasma/commit/50f26715ccd0c9eb03dfe64d9bd6e95fcfe77bc9
+                // This hasn't been an issue until now (December 2020), since fanmade content is finally
+                // being accepted on MOULa. Never thought I would ever get the chance to write this...
+                vertexcount = c.readInt();
+                vertices = c.readArray(Vertex.class, vertexcount);
+                surfacecount = 0;
+                return;
+            }
+            
+            byte[] headerSecondPart = c.readBytes(4);
+            byte[] combined = new byte[8];
+            System.arraycopy(headerFirstPart, 0, combined, 0, 4);
+            System.arraycopy(headerSecondPart, 0, combined, 4, 4);
+            
+            yheader1 = combined; //header "NXS\0x01CVXM
             if(!b.BytesToString(yheader1).equals("NXS\u0001CVXM"))
             {
                 int dummy=0;
@@ -1671,7 +1732,40 @@ public class plHKPhysical extends uruobj
         
         public PXMeshBounds(context c) throws readexception
         {
-            header = c.readBytes(8); //header "NXS\0x01MESH
+            byte[] headerFirstPart = c.readBytes(4);
+            if (b.BytesToString(headerFirstPart).equals("HSP\u0001"))
+            {
+                // This is a newer, more straightforward HSPlasma version of convex hulls implemented in 2016.
+                // See https://github.com/H-uru/libhsplasma/commit/50f26715ccd0c9eb03dfe64d9bd6e95fcfe77bc9
+                // This hasn't been an issue until now (December 2020), since fanmade content is finally
+                // being accepted on MOULa. Never thought I would ever get the chance to write this...
+                vertexcount = c.readInt();
+                vertices = c.readArray(Vertex.class, vertexcount);
+                surfacecount = c.readInt();
+                int[] surfaces = c.readInts(3*surfacecount);
+                // Surfaces are integer-indexed in this format. Store those in our byte or short formats depending on the number of vertices.
+                // Hopefully no fool will ever make a collider with 2**16 vertices... hopefully ?
+                if (vertexcount <= 256)
+                {
+                    xu36a = new byte[surfacecount*3];
+                    for (int i=0; i<surfacecount*3; i++)
+                        xu36a[i] = (byte)surfaces[i];
+                }
+                else
+                {
+                    xu36b = new short[surfacecount*3];
+                    for (int i=0; i<surfacecount*3; i++)
+                        xu36b[i] = (short)surfaces[i];
+                }
+                return;
+            }
+            
+            byte[] headerSecondPart = c.readBytes(4);
+            byte[] combined = new byte[8];
+            System.arraycopy(headerFirstPart, 0, combined, 0, 4);
+            System.arraycopy(headerSecondPart, 0, combined, 4, 4);
+            
+            header = combined; //header "NXS\0x01MESH
             if(!b.BytesToString(header).equals("NXS\u0001MESH"))
             {
                 int dummy=0;
