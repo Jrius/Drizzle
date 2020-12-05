@@ -81,7 +81,7 @@ public class plDynamicEnvMap extends uruobj
         result.faces = plCubicRenderTarget.createFromRenderTarget(dcm.target);
         
         PrpRootObject rn = prp.findObjectWithRef(dcm.rootNode);
-        if (rn != null)
+        if (rn != null && rn.castToSceneObject().coordinateinterface.hasref())
         {
             prpobjects.plCoordinateInterface ci = prp.findObjectWithRef(rn.castToSceneObject().coordinateinterface).castTo();
             float x = Float.intBitsToFloat(ci.localToWorld.xmatrix[3]);
