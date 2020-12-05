@@ -681,19 +681,42 @@ public class moul
         if(agename.equals("GreatTreePub") && pagename.equals("Pub"))
         {
             //change pythonfilemod from AhnonayCathedral to AhnonayMOUL.
-            plPythonFileMod pfm = prp.findObject("cPythLinkBookAhnonay", Typeid.plPythonFileMod).castTo();
-            pfm.getListingByIndex(4).xString = Bstr.createFromString("AhnonayMOUL");
-            
-            //change respondermodifier from AhnonayCathedral to AhnonayMOUL.
-            plResponderModifier rm = prp.findObject("cRespLinkOutAhnonay", Typeid.plResponderModifier).castTo();
-            PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
-            ltam.ageLinkStruct.xageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
+            PrpRootObject pfmObject = prp.findObject("cPythLinkBookAhnonay", Typeid.plPythonFileMod);
+            if (pfmObject == null)
+            {
+                // Doobes' new version - object names changed...
+                pfmObject = prp.findObject("AhnonayBook01_Python_File", Typeid.plPythonFileMod);
+                plPythonFileMod pfm = pfmObject.castTo();
+                pfm.getListingByIndex(4).xString = Bstr.createFromString("AhnonayMOUL");
 
-            //change Ahnonay image.
-            x0006Layer layer = prp.findObject("Map #69950", Typeid.plLayer).castTo();
-            //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
-            Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
-            layer.texture = mmref;
+                //change respondermodifier from AhnonayCathedral to AhnonayMOUL.
+                plResponderModifier rm = prp.findObject("AhnonayBook01_AhnonayBook01_Responder", Typeid.plResponderModifier).castTo();
+                PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
+                ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
+
+                //change Ahnonay image.
+                x0006Layer layer = prp.findObject("m_1545_Map__69950", Typeid.plLayer).castTo();
+                //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
+                Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
+                layer.texture = mmref;
+            }
+            else
+            {
+                // old Cyan version
+                plPythonFileMod pfm = pfmObject.castTo();
+                pfm.getListingByIndex(4).xString = Bstr.createFromString("AhnonayMOUL");
+
+                //change respondermodifier from AhnonayCathedral to AhnonayMOUL.
+                plResponderModifier rm = prp.findObject("cRespLinkOutAhnonay", Typeid.plResponderModifier).castTo();
+                PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
+                ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
+
+                //change Ahnonay image.
+                x0006Layer layer = prp.findObject("Map #69950", Typeid.plLayer).castTo();
+                //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
+                Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
+                layer.texture = mmref;
+            }
         
         }
         if(agename.equals("city") && pagename.equals("islmLakeLightMeter"))
