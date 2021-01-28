@@ -701,10 +701,28 @@ public class moul
                 layer.texture = mmref;
                 
                 // remove the GUID from the plLinkToAgeMsg to Chiso. This crashes PotS.
+                // (we could completely remove that responder as it's no longer used. I'm a bit wary of null plKeys though.)
                 rm = prp.findObject("ChisoBook_ChisoBook_001_Responder", Typeid.plResponderModifier).castTo();
                 ltam = rm.messages.get(0).commands.get(1).message.castTo();
                 ltam.ageLinkStruct.ageinfo.flags &= ~0x04;
                 ltam.ageLinkStruct.ageinfo.ageInstanceGuid = null;
+                
+                // make the Chiso book use the xSimpleLinkingBook script - this circumvents any potential instancing issues with the linking responder's LinkToAge msg.
+                pfm = prp.findObject("ChisoBook_001_Python_File", Typeid.plPythonFileMod).castTo();
+                pfm.pyfile = Urustring.createFromString("xSimpleLinkingBook");
+                // PFM parameters:
+                // 1 - clickable activator, no need to change
+                // 2 - behaviour (smartseek), conflicts with destination Age string, must change to id 11 (msbSeekBeforeUI)
+                // 3 - linkout responder, conflicts with spawn point, must remove
+                // 4 - left page texture, conflicts with link panel, and is a non-converted tex. Could change to DRCNote03.dds, but has wrong format and crashes the game. Delete.
+                pfm.getListingByIndex(2).index = 11;
+                pfm.removeListingByIndex(3);
+                pfm.removeListingByIndex(4);
+                // missing:
+                // 2 - target Age name
+                // 4 - link panel to use
+                pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(2, Bstr.createFromString("ChisoPreniv")));
+                //pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(4, Bstr.createFromString("LinkingImage_ChisoPreniv")));
             }
             else
             {
