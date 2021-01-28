@@ -414,7 +414,7 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState38">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="http://myst.dustbird.net/uru-ages/"/>
+                    <Property name="text" type="java.lang.String" value="http://www.the-deep-island.de/uru-ages/"/>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="name" type="java.lang.String" value="uamServer2" noResource="true"/>
                   </Properties>

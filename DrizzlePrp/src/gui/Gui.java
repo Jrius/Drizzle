@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/ 
+*/
 
 package gui;
 //import shared.State.CheckboxState;
@@ -52,7 +52,7 @@ public class Gui extends javax.swing.JFrame {
 
     JFileChooser fc = null;
     //CrossRefPanel vis = null;
-    
+
     //String moul;
     //String pots;
     //String out;
@@ -62,10 +62,10 @@ public class Gui extends javax.swing.JFrame {
     Settings settings = new Settings();
     //boolean dosavesettings = false;
     public static final String settingsfilename = ".drizzlesettings.canbedeleted.dat";
-    
+
     deepview.deepview deep;
     public final shared.State.TabsState tabs;
-    
+
     /** Creates new form Gui */
     public Gui()
     {
@@ -86,7 +86,7 @@ public class Gui extends javax.swing.JFrame {
         shared.translation.registerGUIForm(this);
         tabs = this.tabsState3;
         Plugins.initialiseGui();
-        
+
         gui.UamGui.guiform = this;
         gui.UamGui.agelist = this.jList1;
         gui.UamGui.verlist = this.jList2;
@@ -101,9 +101,9 @@ public class Gui extends javax.swing.JFrame {
         //set icon:
         java.awt.Image img = shared.GetResource.getResourceAsImage("/gui/Pterosaur2b4-16.png");
         this.setIconImage(img);
-        
+
         GuiUtils.SetKeymaps();
-        
+
         deep = new deepview.deepview(jDesktopPane1);
 
 
@@ -156,7 +156,7 @@ public class Gui extends javax.swing.JFrame {
                 return strings.get(index);
             }
         });
-        
+
         //fc = new JFileChooser();
         //m.setJTextArea(this.jTextArea1); //make sure the messages will come through.
         m.setLogbox(logBoxStateless1);
@@ -182,11 +182,11 @@ public class Gui extends javax.swing.JFrame {
         //this.jPanel32.getGraphics().drawImage(img, 0, 0, rootPane);
         //this.setIconImage(image.getImage());
         //}catch(Exception e){}
-        
+
         //jTextArea5.repaint();
         //jTextArea5.scrollRectToVisible(new java.awt.Rectangle(0,0,1,1));
 
-        
+
         /*jComboBox1.setEditable(true);
         this.jComboBox1.removeAllItems();
         //pots = "D:/DontBackup/deletable/deletable/Program Files/Ubi Soft/Cyan Worlds/Uru - Ages Beyond Myst/dat/";
@@ -336,21 +336,21 @@ public class Gui extends javax.swing.JFrame {
         this.jComboBox1.addItem(moul);*/
 
         //if(!uru.moulprp.Typeid.validateTriplets()) m.err("Triplets not valid!");
-        
-        
+
+
         //Load Settings:
         //this.loadsettings();
         //dosavesettings = true;
         //shared.State.AllStates.loadandpush(settingsfile);
         boolean result_loadsettings = shared.State.AllStates.load(settingsfile);
-        
+
         //settings overrides:
         if(shared.State.AllStates.getStateAsString("uamServer2").equals("http://dusty.homeunix.net/uru-ages/"))
             shared.State.AllStates.setState("uamServer2", "http://myst.dustbird.net/uru-ages/");
-            
+
         if(result_loadsettings) shared.State.AllStates.pushOutStates();
 
-        
+
         //language stuff:
         pushlanguage(true);
         //String helpstr = shared.GetResource.getResourceAsString("/gui/help.txt");
@@ -362,7 +362,7 @@ public class Gui extends javax.swing.JFrame {
         {
             m.msg("You appear to be running Windows Vista or Windows Seven.  Uru has a bug that will require a workaround, see http://myst.dustbird.net/wiki/Drizzle#Vista_and_above for details.");
         }*/
-        
+
         SetBackgroundColour(true);
 
         //initialise plugins
@@ -398,12 +398,12 @@ public class Gui extends javax.swing.JFrame {
     {
         String curfile;
         int curfolder;
-        
+
     }
     /*public void savesettings()
     {
         if(!dosavesettings) return;
-        
+
         try
         {
             settings.curfile = (String)this.jComboBox1.getSelectedItem();
@@ -412,7 +412,7 @@ public class Gui extends javax.swing.JFrame {
             if(this.jRadioButton2.isSelected()) settings.curfolder = 2;
             if(this.jRadioButton3.isSelected()) settings.curfolder = 3;
             if(this.jRadioButton4.isSelected()) settings.curfolder = 4;
-            
+
             java.io.ObjectOutputStream out = new java.io.ObjectOutputStream(new java.io.FileOutputStream(this.out+"settings.dat"));
             out.writeObject(settings);
             out.close();
@@ -450,7 +450,7 @@ public class Gui extends javax.swing.JFrame {
         if(result==null) m.err("Uruutils: problem in getSelectedFilename.");
         return result;
     }*/
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -1109,7 +1109,7 @@ public class Gui extends javax.swing.JFrame {
         jPanel42.add(jLabel35);
         jLabel35.setBounds(10, 30, 70, 16);
 
-        textfieldState38.setText("http://myst.dustbird.net/uru-ages/");
+        textfieldState38.setText("http://www.the-deep-island.de/uru-ages/");
         textfieldState38.setEnabled(false);
         textfieldState38.setName("uamServer2"); // NOI18N
         textfieldState38.addActionListener(new java.awt.event.ActionListener() {
@@ -4488,7 +4488,7 @@ public class Gui extends javax.swing.JFrame {
             }
         }
         if(true)return;
-    
+
         //tests
         File file = new File(this.getSelectedFilename());
         byte[] filecontents = FileUtils.ReadFile(file.getAbsoluteFile());
@@ -4496,19 +4496,19 @@ public class Gui extends javax.swing.JFrame {
         //try{
         uru.moulprp.prpprocess.ProcessAllObjectsOfType(c, Typeid.plLayerAnimation);
         //}catch(Exception e){}
-        
-        
+
+
         //byte[] content = {'a','b','c'};
         //FileUtils.WriteFile("c:/hi.txt", content);
-        
+
         //byte[] bytes = {(byte)0x00,(byte)0x01};
         //short s = UruUtils.BytesToInt16(bytes,0);
         //Main.message("short:"+Short.toString(s));
-        
+
         //byte[] bytes = {(byte)0x06,(byte)0x00,(byte)0x29,(byte)0x10,(byte)0x01,(byte)0x11,(byte)0x0C,(byte)0x0A};
         //byte[] result = UruUtils.DecryptEoastring(bytes);
         //Main.message("eoastring:"+new String(result));
-        
+
         //byte[] bytes = {(byte)'D',(byte)'i',(byte)'r',(byte)'e',(byte)'b',(byte)'o'};
         //byte[] result = UruUtils.EncryptEoastring(bytes);
         //Main.message("eoastring:"+new String(result));//GEN-LAST:event_jButton6ActionPerformed
@@ -4516,18 +4516,18 @@ public class Gui extends javax.swing.JFrame {
         //byte[] bytes = {(byte)0x09,(byte)0xF0,(byte)0xBD,(byte)0x9E,(byte)0x97,(byte)0x8D,(byte)0x90,(byte)0xBC,(byte)0x9E,(byte)0x89,(byte)0x9A};
         //byte[] result = UruUtils.DecryptUrustring(bytes);
         //Main.message("urustring:"+new String(result));
-        
+
         //byte[] bytes = {(byte)'B',(byte)'a',(byte)'h',(byte)'r',(byte)'o',(byte)'C',(byte)'a',(byte)'v',(byte)'e'};
         //UruUtils.EncryptUrustring(bytes);
-        
+
         //byte[] bytes = {'T','h','e',' ','q','u','i','c','k',' ','b','r','o','w','n',' ','f','o','x',' ','j','u','m','p','s',' ','o','v','e','r',' ','t','h','e',' ','l','a','z','y',' ','d','o','g'};
         //byte[] result = CryptHashes.GetMd5(bytes);
         //Main.message("done");
-        
+
         //byte[] filecontents = FileUtils.ReadFile((String)this.jComboBox1.getSelectedItem());
         //Moul.createPrp(filecontents);
-        
-        
+
+
         //uru.Bytedeque d = new uru.Bytedeque();
         //byte[] bytes1 = {'a','b'};
         //byte[] bytes2 = {'c'};
@@ -4538,7 +4538,7 @@ public class Gui extends javax.swing.JFrame {
         //d.appendBytes(bytes4);
         //d.prependBytes(bytes3);
         //byte[] result = d.getAllBytes();
-        
+
         //try{
         //jxl.write.WritableWorkbook wb = jxl.Workbook.createWorkbook(new java.io.File("c:/hi.xls"));
         //jxl.write.WritableSheet sheet = wb.createSheet("Sheet", 0);
@@ -4547,7 +4547,7 @@ public class Gui extends javax.swing.JFrame {
         //wb.write();
         //wb.close();
         //}catch(Exception e){}
-        
+
         //byte[] bytes = new byte[256];
         //for(int i=0;i<256;i++)
         //{
@@ -4555,7 +4555,7 @@ public class Gui extends javax.swing.JFrame {
         //}
         //byte[] encoded = uru.UruCrypt.EncryptUruMessage(bytes);
         //byte[] decoded = uru.UruCrypt.DecryptUruMessage(encoded);
-        
+
         //byte[] bytes = FileUtils.ReadFile("c:/documents and settings/user/desktop/4.dat");
         //byte[] dec = uru.UruCrypt.DecryptUruMessage(bytes,7);
         //FileUtils.WriteFile("c:/documents and settings/user/desktop/5.dat", dec);
@@ -4573,7 +4573,7 @@ public class Gui extends javax.swing.JFrame {
         {
             int i=0;
         }*/
-        
+
         /*
         com.jcraft.jzlib.ZStream d_stream = new com.jcraft.jzlib.ZStream();
         d_stream.next_in = bytes;
@@ -4587,7 +4587,7 @@ public class Gui extends javax.swing.JFrame {
 
         while(d_stream.total_out<200 &&
           d_stream.total_in<200) {
-          d_stream.avail_in=d_stream.avail_out=1; 
+          d_stream.avail_in=d_stream.avail_out=1;
           err=d_stream.inflate(com.jcraft.jzlib.JZlib.Z_NO_FLUSH);
           if(err==com.jcraft.jzlib.JZlib.Z_STREAM_END) break;
           //CHECK_ERR(d_stream, err, "inflate");
@@ -4596,11 +4596,11 @@ public class Gui extends javax.swing.JFrame {
         err=d_stream.inflateEnd();
         //CHECK_ERR(d_stream, err, "inflateEnd");
         */
-        
+
         //uru.moulprp.Uruvector<String> a23 = new uru.moulprp.Uruvector<String>();
 
-        
-    }                                        
+
+    }
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         File file = new File(textfieldState15.getText());
@@ -4843,11 +4843,11 @@ public class Gui extends javax.swing.JFrame {
         int data1 = Integer.parseInt(this.jTextField3.getText());
         int data2 = Integer.parseInt(this.jTextField4.getText());
         prpobjects.PrpController.decompressQuaternion(data1,data2);
-        
+
     }//GEN-LAST:event_jButton39ActionPerformed
 
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
-        
+
         //PtGetServerTime() = UTC (seconds)
         //PtGetDniTime() = UTC - 7*60*60 (New Mexico timezone). No DST.
         //PtGetAgeTime()+agefile.StartDateTime=PtGetServerTime()
@@ -4881,10 +4881,10 @@ public class Gui extends javax.swing.JFrame {
             long agefileStartDatetime = pairs[i].startdatetime;
             long msecondsPerDay = 56585*1000;
             long timeForSymbol = msecondsPerDay*226/2000;
-            
+
             //String datetimestring = this.jTextField5.getText();
             //long servertime = new java.text.SimpleDateFormat("MMM dd, yyyy KK:mm aa zzz").parse(datetimestring).getTime();
-            
+
             long servertime = uru.Time.PtGetServerTime();
             long dnitime = uru.Time.PtGetDniTime();
             uru.Time.podtime pt = uru.Time.GetPodAgeTimeInfo(msecondsPerDay, agefileStartDatetime, servertime, timeForSymbol);
@@ -4893,10 +4893,10 @@ public class Gui extends javax.swing.JFrame {
             long timeofday = pt.msTimeOfDay;
             long curdaystart = pt.msCurDayStart;
             long nextdaystart = pt.msNextDayStart;
-            
+
             long curdaysymbol = pt.msCurDaySymbol;
             long nextdaysymbol = pt.msNextDaySymbol;
-            
+
             if(i==0)
             {
                 m.msg("servertime=",Long.toString(servertime));
@@ -4981,7 +4981,7 @@ public class Gui extends javax.swing.JFrame {
         //org.kc7bfi.jflac.FLACEncoder a = new org.kc7bfi.jflac.FLACEncoder();
         //org.kc7bfi.jflac.FLACDecoder b;
         //a.
-        
+
     }//GEN-LAST:event_jButton50ActionPerformed
 
     private void jButton51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton51ActionPerformed
@@ -5015,7 +5015,7 @@ private void jButton59ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
     //shared.State.AllStates.loadandpush(settingsfile);
-    
+
 
     //set language if called for...
     /*int startuptype = shared.State.AllStates.getStateAsInt("language");
@@ -5249,7 +5249,7 @@ private void jButton99ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             pots.add(name);
         }
     }
-    
+
     File f3 = new File("g:/prps/mouloffline/sfx/");
     Vector<String> moul = new Vector<String>();
     for(File f2: f3.listFiles())
@@ -5270,8 +5270,8 @@ private void jButton99ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             mystv.add(name);
         }
     }
-    
-    
+
+
     //find the sfx that are in mystv, but not pots
     Vector<String> mystvNotPots = new Vector<String>();
     for(String f1: mystv)
@@ -5287,7 +5287,7 @@ private void jButton99ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         if(cond) mystvNotPots.add(f1);
     }
-    
+
     //find the sfx that are in mystv, but not pots nor moul
     Vector<String> mystvNotPotsNorMoul = new Vector<String>();
     for(String f1: mystv)
@@ -5314,7 +5314,7 @@ private void jButton99ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         if(cond) mystvNotPotsNorMoul.add(f1);
     }
-    
+
     StringBuilder sb = new StringBuilder();
     for(String s: mystvNotPotsNorMoul)
     {
@@ -5322,7 +5322,7 @@ private void jButton99ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
     String sb2 = sb.toString();
     shared.clipboard.SetString(sb2);
-    
+
     int dummy=0;
 }//GEN-LAST:event_jButton99ActionPerformed
     /*String in = textfieldState18.getText();
@@ -5403,17 +5403,17 @@ private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     String outfol = this.textfieldState24.getText();
     m.state.push();
     m.state.curstate.writeToFile = true;
-    
+
     Vector<realmyst.Sdb> sdbs = auto.realmyst.readAllSdbs(outfol);
     String[] rooms = auto.realmyst.findRoomInfo(sdbs,"Myst");
-    
+
     m.state.pop();
-    
+
     m.msg("Subcount3s handled: ",Integer.toString(realmyst.Count3Undone.subcount3.numhandled));
     m.msg("Subcount3s ignored: ",Integer.toString(realmyst.Count3Undone.subcount3.numignored));
     m.msg("Count3s handled: ",Integer.toString(realmyst.Count3Undone.numhandled));
     m.msg("Count3s ignored: ",Integer.toString(realmyst.Count3Undone.numignored));
-    
+
     /*File f2 = new File(outfol+"/mdb");
     for(File child: f2.listFiles())
     {
@@ -5424,7 +5424,7 @@ private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             realmyst.Mdb mdb = new realmyst.Mdb(bs);
             int offset = bs.getAbsoluteOffset();
             int bytesleft = bs.getBytesRemaining();
-            
+
             if (mdb.u2!=fs-offset)
             {
                 int dummy=0;
@@ -5436,7 +5436,7 @@ private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             int dummy=0;
         }
     }*/
-    
+
 }//GEN-LAST:event_jButton104ActionPerformed
 
 private void jButton105ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton105ActionPerformed
@@ -5452,7 +5452,7 @@ private void jButton106ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     String outfol = this.textfieldState24.getText();
     m.state.push();
     m.state.curstate.writeToFile = true;
-    
+
     Vector<realmyst.Mdb> mdbs = auto.realmyst.readAllMdbs(outfol);
     auto.realmyst.save3dsFile(mdbs);
 
@@ -5466,7 +5466,7 @@ private void jButton107ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void jButton108ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton108ActionPerformed
     String outfol = this.textfieldState24.getText();
     //m.state.curstate.writeToFile = true;
-    
+
     Vector<realmyst.Hsm> hsms = auto.realmyst.readAllHsms(outfol);
     //automation.realmyst.save3dsFile(mdbs);
     auto.realmyst.saveDdsFiles(hsms,"c:/hsmout");
@@ -5488,7 +5488,7 @@ private void jButton109ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         //"ch_waterhut01",
         //"ch_cylinder_f",
         //"ch_achenar01",
-        
+
         //85660192.vdb
         //"me_achenar02",
         //"me_achenar01",
@@ -5497,29 +5497,29 @@ private void jButton109ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         //"me_bookroom",
         //"mech_outdoor",
         //"me_conpane",
-        
+
         //"se_stair04",
         //"selenitic",
         //"se_stair03",
         //"se_stair02",
-        
+
         //"cabin",
         //"treegate",
         //"rocket",
         //"fireplace",
-        
+
         ////"stoneship01",
         ////"sn_island_laboratory",
         //"snowage",
         //"aurora",
-        
+
         //"sship_aku_room",
         //"ss_akk04",
         //"ss_deep_sea",
         //"compus_room",
         //"sship_tunnel",
         //"lighthouse",
-        
+
         "myst..base_mountain"
     };
     searchstrs = searchstr.split(sep);
@@ -5553,16 +5553,16 @@ private void jButton109ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void jButton110ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton110ActionPerformed
 
     String outfol = this.textfieldState24.getText();
-    
+
     Vector<realmyst.Sdb> sdbs = auto.realmyst.readAllSdbs(outfol);
-    
+
     Vector<realmyst.Mdb> mdbs = auto.realmyst.readAllMdbs(outfol);
     //String[] mystrooms = automation.realmyst.findRoomInfo(sdbs,"Myst");
     //Vector<realmyst.Mdb> mystmdbs = automation.realmyst.filterMdbsByRoom(mdbs, mystrooms);
     //automation.realmyst.save3dsFile(mystmdbs);
 
     auto.realmyst.testrun2(sdbs,mdbs);
-    
+
 }//GEN-LAST:event_jButton110ActionPerformed
 
 private void jButton112ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton112ActionPerformed
@@ -6012,7 +6012,7 @@ private void jButton173ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxState33ActionPerformed
 }//GEN-LAST:event_checkboxState33ActionPerformed
-    
+
 /*class c2 extends javax.swing.DefaultListSelectionModel
 {
     this.
@@ -6040,14 +6040,14 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
         });
     }*/
-    
+
     /*public void message(String msg)
     {
         String finalmsg = msg + "\n";
         this.jTextArea1.append(finalmsg);
     }*/
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private shared.State.TabsState AdvTabState;
     private javax.swing.JPanel GHelpTab;
@@ -6524,5 +6524,5 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private shared.State.ButtongroupState uamStartupButtongroup;
     private javax.swing.JLabel warnlabel;
     // End of variables declaration//GEN-END:variables
-    
+
 }
