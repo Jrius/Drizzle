@@ -790,10 +790,6 @@ public class plDrawableSpans extends uruobj
         public int indicesCount; //subsetcount
         public int[] indices; //subsetindex
         
-        public static int kNone = 0x0;
-        public static int kMatrixOnly = 0x1;
-        public static int kDontTransformSpans = 0x2;
-        
         public PlDISpanIndex(context c)
         {
             flags = c.in.readInt();

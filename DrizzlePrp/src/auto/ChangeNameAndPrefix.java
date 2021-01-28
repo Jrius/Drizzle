@@ -52,8 +52,6 @@ public class ChangeNameAndPrefix
         //read old one:
         prpfile prp = prpfile.createFromFile(inputfilename, false);
 
-        if (newprefix.startsWith("\\"))
-            newprefix = newprefix.substring(1);
         int newpre = Integer.parseInt(newprefix);
         ChangePrefix(prp,newpre);
 

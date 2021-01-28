@@ -32,20 +32,20 @@ public class x009BCameraModifier1 extends uruobj
 {
     //Objheader xheader;
     //x001FSingleModifier parent;
-    public Uruobjectref brain;
-    public int count;
-    public CamTrans[] trans;
-    public Flt FOVw;
-    public Flt FOVh;
-    public int count2;
-    public PrpTaggedObject[] messageQueue;
-    public Uruobjectref[] messageQueueSenders;
-    public int count3;
-    public PrpTaggedObject[] FOVInstructions;
-    public byte animated;
-    public byte startAnimOnPush;
-    public byte stopAnimOnPop;
-    public byte resetAnimOnPop;
+    Uruobjectref brain;
+    int count;
+    CamTrans[] trans;
+    Flt FOVw;
+    Flt FOVh;
+    int count2;
+    PrpTaggedObject[] messageQueue;
+    Uruobjectref[] messageQueueSenders;
+    int count3;
+    PrpTaggedObject[] FOVInstructions;
+    byte animated;
+    byte startAnimOnPush;
+    byte stopAnimOnPop;
+    byte resetAnimOnPop;
     
     public x009BCameraModifier1(context c) throws readexception
     {
@@ -80,10 +80,6 @@ public class x009BCameraModifier1 extends uruobj
         stopAnimOnPop = c.readByte();
         resetAnimOnPop = c.readByte();
     }
-
-    private x009BCameraModifier1() {
-        
-    }
     public void compile(Bytedeque c)
     {
         brain.compile(c);
@@ -116,29 +112,10 @@ public class x009BCameraModifier1 extends uruobj
         c.writeByte(resetAnimOnPop);
         
     }
-
-    public static x009BCameraModifier1 createDefault() {
-        x009BCameraModifier1 e = new x009BCameraModifier1();
-        e.FOVw = new Flt(5f);
-        e.FOVh = new Flt(3.75f);
-        e.FOVInstructions = new PrpTaggedObject[0];
-        e.animated = 0;
-        e.brain = Uruobjectref.none();
-        e.count = 0;
-        e.count2 = 0;
-        e.count3 = 0;
-        e.messageQueue = new PrpTaggedObject[0];
-        e.messageQueueSenders = new Uruobjectref[0];
-        e.resetAnimOnPop = 0;
-        e.startAnimOnPush = 0;
-        e.stopAnimOnPop = 0;
-        e.trans = new CamTrans[0];
-        return e;
-    }
     
     public static class CamTrans extends uruobj
     {
-        public Uruobjectref transTo;
+        Uruobjectref transTo;
         byte cutPos;
         byte cutPOA;
         byte ignore;
@@ -162,8 +139,6 @@ public class x009BCameraModifier1 extends uruobj
             POAAccel = new Flt(c);
             POADecel = new Flt(c);
         }
-
-        private CamTrans() {}
         
         public void compile(Bytedeque c)
         {
@@ -178,23 +153,6 @@ public class x009BCameraModifier1 extends uruobj
             POAAccel.compile(c);
             POADecel.compile(c);
             
-        }
-
-        public static CamTrans createDefault() {
-            CamTrans e = new CamTrans();
-            
-            e.Accel = new Flt(60f);
-            e.Decel = new Flt(60f);
-            e.POAAccel = new Flt(60f);
-            e.POADecel = new Flt(60f);
-            e.POAVelocity = new Flt(60f);
-            e.Velocity = new Flt(60f);
-            e.cutPOA = 1;
-            e.cutPos = 1;
-            e.ignore = 0;
-            e.transTo = Uruobjectref.none();
-            
-            return e;
         }
     }
 }

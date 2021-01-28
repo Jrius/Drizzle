@@ -32,7 +32,7 @@ import shared.*;
 public class HsBitVector extends uruobj
 {
     public int count;
-    public int[] values;
+    int[] values;
 
     public HsBitVector(context c)
     {

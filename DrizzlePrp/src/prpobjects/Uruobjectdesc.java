@@ -34,9 +34,7 @@ import shared.*;
  */
 public class Uruobjectdesc extends uruobj implements java.io.Serializable
 {
-    static final long serialVersionUID = 4806070105831567965L;
-    
-    public byte flag;
+    byte flag;
     //int pageid;
     public Pageid pageid;
     //short pagetype;

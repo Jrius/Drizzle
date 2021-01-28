@@ -33,8 +33,8 @@ import org.apache.commons.math.linear.RealMatrixImpl;
 //aka hsMatrix44
 public strictfp class Transmatrix extends uruobj
 {
-    public byte isnotIdentity;
-    public int[] xmatrix = new int[16]; //raw data (floats are 32bit, so they fit in integer.)
+    byte isnotIdentity;
+    int[] xmatrix = new int[16]; //raw data (floats are 32bit, so they fit in integer.)
     
     //private Flt[][] testvals;
     

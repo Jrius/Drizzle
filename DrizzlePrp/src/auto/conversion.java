@@ -191,7 +191,7 @@ public class conversion
         if(newagename!=null)
         {
             prp.header.agename = Urustring.createFromString(newagename);
-            auto.postmod.PostMod_MystV.PostMod_ChangeVerySpecialPython(prp, oldagename, newagename);
+            auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_ChangeVerySpecialPython(prp, oldagename, newagename);
         }
 
         //processPrp(prp,agename,agenames,outfolder);

@@ -30,8 +30,8 @@ import shared.readexception;
 
 public class plObjectInVolumeDetector extends uruobj
 {
-    public plDetectorModifier parent;
-    public byte type;
+    plDetectorModifier parent;
+    byte type;
     
     public plObjectInVolumeDetector(context c) throws readexception
     {
@@ -39,16 +39,6 @@ public class plObjectInVolumeDetector extends uruobj
         type = c.readByte();
         
     }
-    
-    public static plObjectInVolumeDetector createDefault()
-    {
-        plObjectInVolumeDetector e = new plObjectInVolumeDetector();
-        e.type = 0;
-        e.parent = plDetectorModifier.createDefault();
-        return e;
-    }
-
-    private plObjectInVolumeDetector() {}
     
     public void compile(Bytedeque c)
     {

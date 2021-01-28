@@ -224,8 +224,7 @@ public class distiller
 
             }catch(Exception e)
             {
-                m.err("Unable to load object in distiller. Reason:");
-                m.err(e.getMessage());
+                m.err("Unable to load object in distiller.");
             }
         }
 

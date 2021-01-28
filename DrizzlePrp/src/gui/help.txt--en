@@ -69,21 +69,6 @@ This gives some information on an Age or Ages.
 2) Click Report!
 
 
-Uru in widescreen:
-------------------
-This tab contains hacks for playing Uru in 16/9 widescreen (or any other ratio you may need), and allows you to remove the limit when looking up/down.
-(actually, even when using a 4/3 monitor, changing the ratio fixes some slight vertical stretching in the normal game)
-Changing the game resolution itself is not yet possible, see the link on the tab.
-Because of all the modifications required, you may prefer to run this utility last.
-
-
-Fan-Age tools:
---------------
-This tab gives a few tools for editing Fan-Ages - for authors and players alike.
-It allows you to drastically remove lag in some Ages, increase view distance, and even add fake lighting to the Age for better visuals !
-See the GoW for more information.
-
-
 Project Info:
 -------------
 License: GPLv3, or at your option, any later version.
@@ -93,5 +78,4 @@ Contributers(not a complete list):
   Dustin(aka ddb174): conversion
   L.K.: German translation
   Chacal: French translation
-  Wodan, Erik: Dutch translation
-  Sirius: additional programming, French translation
+  Wodan,Erik: Dutch translation

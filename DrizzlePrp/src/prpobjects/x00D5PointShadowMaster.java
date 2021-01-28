@@ -33,7 +33,7 @@ import shared.b;
 public class x00D5PointShadowMaster extends uruobj
 {
     //Objheader xheader;
-    public x00D3ShadowMaster parent;
+    x00D3ShadowMaster parent;
     
     public x00D5PointShadowMaster(context c) throws readexception
     {

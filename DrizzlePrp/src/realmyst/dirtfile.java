@@ -27,11 +27,6 @@ import java.io.File;
 
 //pera.dni seems to contain only .wav files.
 
-/**
- * Structure for .DNI file I/O.
- * Include mara.dni, pera.dni, sho.dni.
- * Also worth nothing there is supposed to be a fourth resource file: oosha.dni
- */
 public class dirtfile
 {
     Header header;

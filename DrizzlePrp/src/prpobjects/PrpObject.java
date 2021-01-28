@@ -209,8 +209,6 @@ public class PrpObject extends uruobj
                 return new plSoftVolumeIntersect(c);
             case plEAXListenerMod:
                 return new plEAXListenerMod(c);
-            case plEAXReverbEffect:
-                return new plEAXReverbEffect(c);
             case plPhysicalSndGroup:
                 return new plPhysicalSndGroup(c);
             case plSeekPointMod:
@@ -392,24 +390,14 @@ public class PrpObject extends uruobj
             case plParticleUniformWind:
                 return new plParticleWindEffect.PlParticleUniformWind(c);
             case plCubicRenderTarget:
-                return new plDynamicEnvMap.plCubicRenderTarget(c);
-            case plCameraModifier: // myst v version (really the same)
-                return new x009BCameraModifier1(c);
-            case plCameraBrainUru: // myst v version (really the same)
-                return new plCameraBrain1(c);
-            case plCameraBrainUru_Fixed: // myst v version (really the same)
-                return new plCameraBrain1_Fixed(c);
-            case plDirectMusicSound:
-                return new plDirectMusicSound(c);
-            case pfGUIDynDisplayCtrl:
-                return new pfGUIDynDisplayCtrl(c);
+                return new plDynamicEnvMap.ithinkthisisPlCubicRenderTarget(c);
             //case plCubicRenderTargetModifier:
             //    return new plCubicRenderTarg
             case plNetMsgSDLState:
                 try{
                   Class<uruobj> klass = (Class<uruobj>)Class.forName("prpobjects.plNetMsgSDLState"); //
                   return shared.generic.createObjectWithSingleArgumentConstructor(klass, context.class, c);
-                }catch(ClassNotFoundException e){
+                }catch(Exception e){
                     throw new shared.nested(e);
                 }
 
@@ -434,7 +422,7 @@ public class PrpObject extends uruobj
             Class<uruobj> plasmaClass2 = (Class<uruobj>)plasmaClass;
             uruobj r = shared.generic.createObjectWithSingleArgumentConstructor(plasmaClass2, context.class, c);
             return r;
-        }catch(ClassNotFoundException e){
+        }catch(Exception e){
             return null;
             //throw new shared.nested(e);
         }
@@ -450,13 +438,11 @@ public class PrpObject extends uruobj
         result.object = obj;
         return result;
     }
-    @Override
     public void compile(Bytedeque c)
     {
         object.compile(c);
     }
     
-    @Override
     public String toString()
     {
         return object.toString();

@@ -18,7 +18,6 @@
 
 package prpobjects;
 
-import static java.lang.Math.*;
 import shared.Vertex;
 import shared.Quat;
 import shared.Flt;
@@ -67,13 +66,9 @@ public class plODEPhysical extends uruobj
     Flt f6a;
     Flt f6b;
     
-    public Vertex sphereposoverride;
-    
     public plHKPhysical.HKPhysical convertee;
-    public plHKPhysical.HKPhysical convertToHKPhysical(prpfile prp) // only used by HexIsle.
+    public plHKPhysical.HKPhysical convertToHKPhysical(prpfile prp)
     {
-        // note: doesn't include physics fixes for Myst V - hopefully this means people won't have to re-convert HexIsle...
-        
         if(type==5)
         {
             convertee.format = 4;
@@ -209,19 +204,19 @@ public class plODEPhysical extends uruobj
             xu3s = c.readBytes(xu3); //one byte for each surface?
             
         }
-        else if(type==1) // box
+        else if(type==1) //box?
         {
             f1 = new Flt(c);
             f2 = new Flt(c);
             f3 = new Flt(c);
             //throw new readexception("ODEPhysical: can read okay but throwing error to ignore.");
         }
-        else if(type==2) // sphere
+        else if(type==2) //sphere?
         {
             u4 = new Flt(c); //same as 6
             //throw new readexception("ODEPhysical: can read okay but throwing error to ignore.");
         }
-        else if(type==6) // cylinder
+        else if(type==6) //ellipse???
         {
             //cylinder.  I would have to convert it to a discreet cylinder.
             //m.msg("Untested ODE case6...");
@@ -270,8 +265,8 @@ public class plODEPhysical extends uruobj
         convertee.parent = this.parent;
         convertee.position = Vertex.zero();
         convertee.orientation = Quat.identity();
-        convertee.mass = f8;
-        convertee.RC = new Flt(0.5f);
+        convertee.mass = Flt.zero();
+        convertee.RC = Flt.zero();
         convertee.EL = Flt.zero();
         if(type==5)
         {
@@ -287,9 +282,8 @@ public class plODEPhysical extends uruobj
         }
         else if(type==6)
         {
-            convertee.format = 3; // will create hull cylinder
-            //throw new shared.readwarningexception("ODEPhysical: able to read, but ignoring unhandled type 6.(cylinder)");
-        }
+            throw new shared.readwarningexception("ODEPhysical: able to read, but ignoring unhandled type 6.(cylinder)");
+        } //convertee.format = 0;//changethis!!!
         else
         {
             throw new readexception("ODEPhysical: able to read okay, but throwing error to ignore unhandled format.");
@@ -307,12 +301,15 @@ public class plODEPhysical extends uruobj
         convertee.subworld = Uruobjectref.none();
         convertee.soundgroup = Uruobjectref.none();
         
+        if(c.curRootObject.objectname.toString().toLowerCase().equals("rgncliffladdertop"))
+        {
+            int dummy=0;
+            //throw new readexception("skip rgncliffladdertop");
+        }
+        
         //handle flags...
         convertee.LOSDB = b.Int16ToInt32(u13);
-        
-        boolean givemass = false;
-        
-        //ordinary surface (collider)
+        //ordinary surface.
         if(
                 (u8==0x2000000 && u9==0x0 && u10==0x0) //verified - all over!
                 //||(u8==0x4800000 && u9==0x20000 && u10==0x0)
@@ -320,7 +317,6 @@ public class plODEPhysical extends uruobj
                 ||(u8==0x2000000 && u9==0x7860000 && u10==0x0) //laki collision
                 )
         {
-            //m.warn("physics - collider: " + convertee.sceneobject.xdesc.objectname);
             convertee.u1 = 0;
             convertee.coltype = 0x200;
             convertee.flagsdetect = 0;
@@ -328,16 +324,11 @@ public class plODEPhysical extends uruobj
             convertee.u2 = 0;
             convertee.u3 = 0;
             //convertee.LOSDB = 0x44;
-            convertee.LOSDB |= 0x4; // camera blocking
+            convertee.LOSDB = convertee.LOSDB | 0x4;
             convertee.group = new HsBitVector(0);
         }
         else if(u8==0x2000000 && u9==0x20000 && u10==0x0) //descent
         {
-            // it seems these are just more complex colliders
-            // Dustin set a respond flag, but HSplasma doesn't show it.
-            // No need to set mass for these
-            
-            //m.warn("physics - descent collision: " + convertee.sceneobject.xdesc.objectname);
             convertee.u1 = 0;
             convertee.coltype = 0x200;
             convertee.flagsdetect = 0;
@@ -349,10 +340,6 @@ public class plODEPhysical extends uruobj
         }
         else if(u8==0x1800000 && u9==0x3000000 && u10==0x0) //descent, dragable
         {
-            // these should always have mass, but as a matter of fact they ALWAYS have mass already anyway...
-            // (unless they are handled by the mass flag ? let's try this way, since it seems to work)
-            
-            //m.warn("physics - descent draggable: " + convertee.sceneobject.xdesc.objectname);
             //guessing...
             convertee.u1 = 0;
             convertee.coltype = 0x400;
@@ -371,8 +358,6 @@ public class plODEPhysical extends uruobj
                 
                 )
         {
-            //m.warn("physics - direbo book+pedestal(verified) + detection: " + convertee.sceneobject.xdesc.objectname);
-            //m.warn("(Avatar detector region - detector+avatar)");
             convertee.u1 = 0;
             convertee.coltype = 0x400;
             convertee.flagsdetect = 0x8000000;
@@ -381,16 +366,13 @@ public class plODEPhysical extends uruobj
             convertee.u3 = 0;
             //convertee.LOSDB = 0x0;
             convertee.group = new HsBitVector(4);
-            
-            givemass = true;
+            //convertee.mass = Flt.one(); //assign mass
         }
         else if((u8==0x4000000 && u9==0x0 && u10==0x20000) //not verified - direbo gates: may actually just be blocker.
                 ||(u8==0x4800000 && u9==0x0 && u10==0x20000) //dtctFloot greatShaft platform
                 ||(u8==0x4000000 && u9==0x0 && u10==0x20002) //laki detector
                 ||(u8==0x4800000 && u9==0x0 && u10==0x20002) //laki detector
         ){
-            //m.warn("physics - direbo+laki+shaft floo - setting mass: " + convertee.sceneobject.xdesc.objectname);
-            //m.warn("(avatar+npc detectors)"); // sometimes regular avatar-only regions
             convertee.u1 = 0;
             convertee.coltype = 0x400;
             convertee.flagsdetect = 0x20000;
@@ -399,8 +381,7 @@ public class plODEPhysical extends uruobj
             convertee.u3 = 0;
             //convertee.LOSDB = 0x0; //stting this to 2 seemed to make everything else a clickable, except the exclude regions covering the gate and switch.  Is this because it thinks the gate is open?
             convertee.group = new HsBitVector(4);
-            
-            givemass = true;
+            convertee.mass = Flt.one(); //assign mass
         }
         //myst5 has a kind of clickable that is dragable, e.g. the door handle in k'veer.
         else if((u8==0x4000000 && u9==0x0 && u10==0x0) //wrong, it produces blockers, when it shouldn't
@@ -409,8 +390,6 @@ public class plODEPhysical extends uruobj
               ||(u8==0x4800000 && u9==0x0 && u10==0x0) //verified - direbo pedestal buttons
               ||(u8==0x4000000 && u9==0x0 && u10==0x2) //e.g. Tahgira CrackBahroDtct
         ){
-            //m.warn("physics - draggable+direbo pedestal+tahgira crack: " + convertee.sceneobject.xdesc.objectname);
-            //m.warn("(more clickables/draggables (Noloben Ladder, Shaft ventilation cranck))");
             convertee.u1 = 0;
             convertee.coltype = 0x400;
             convertee.flagsdetect = 0;
@@ -419,8 +398,7 @@ public class plODEPhysical extends uruobj
             convertee.u3 = 0;
             //convertee.LOSDB = 0x2;
             convertee.group = new HsBitVector(0x4);
-            
-            givemass = true;
+            //convertee.mass = Flt.one(); //assign mass
         }
         else if((u8==0x4000000 && u9==0x20000 && u10==0x0) //verified - Direbo descent linking books.
               ||(u8==0x4800000 && u9==0x20000 && u10==0x0) //not verified - direbo gates
@@ -428,8 +406,6 @@ public class plODEPhysical extends uruobj
               ||(u8==0x4800000 && u9==0x1020000 && u10==0x0) //e.g. some telescope stuff in Todelmer
                 )
         {
-            //m.warn("physics - direbo linking books+gates+telescope: " + convertee.sceneobject.xdesc.objectname);
-            //m.warn("(clickable+some drag+xrgn? - detector)");
             convertee.u1 = 0;
             convertee.coltype = 0x400;
             convertee.flagsdetect = 0;
@@ -438,21 +414,7 @@ public class plODEPhysical extends uruobj
             convertee.u3 = 0;
             //convertee.LOSDB = 0x2;
             convertee.group = new HsBitVector(0x4);
-            
-            givemass = true;
-        }
-        else if ((u8==0x4800000 && u9==0x0 && u10==0x2000000) // piranha bird
-                || (u8==0x20000 && u9==0x3040000 && u10==0x0))
-        {
-            // not sure, but close enough
-            convertee.u1 = 0;
-            convertee.coltype = 0x400;
-            convertee.flagsdetect = 0x8000000;
-            convertee.flagsrespond = 0;
-            convertee.u2 = 0;
-            convertee.u3 = 0;
-            convertee.group = new HsBitVector(4);
-            givemass = true;
+            //convertee.mass = Flt.one(); //assign mass
         }
         else if(false)//u8==0x4000000 && u9==0x1020000 && u10==0x0)
         {
@@ -475,32 +437,6 @@ public class plODEPhysical extends uruobj
             //if(shared.State.AllStates.getStateAsBoolean("skipPhysics")) throw new readexception("ODEPhysical: unhandled case.");
             boolean skipPhysics = false;
             if(skipPhysics) throw new readexception("ODEPhysical: unhandled case.");
-        }
-        
-        
-        //m.msg("type: "+type);
-        //m.msg(u8 + ";" + u9 + ";" + u10);
-
-        //if (u8 == 0x2800000)
-        //    m.warn("MASS RELATED");
-        //else if ((u8 & 0x800000) != 0)
-        //    m.warn("FLAG FOR MASS");
-        
-        
-        if (givemass == true || (type == 5 && (u8 & 0x800000) != 0))
-        {
-            if (convertee.mass.equals(Flt.zero()))
-                convertee.mass = Flt.one(); //assign mass
-            convertee.group.values[0] |= plHKPhysical.HKPhysical.kPropPinned;
-        }
-        
-        if (type==1 || type==2)
-        {
-            if (convertee.mass.equals(Flt.zero()))
-            {
-                convertee.mass = Flt.one();
-                convertee.group.values[0] |= plHKPhysical.HKPhysical.kPropPinned;
-            }
         }
        
        //if(convertee.flagsdetect!=0x0) convertee.mass = Flt.one();
@@ -532,32 +468,11 @@ public class plODEPhysical extends uruobj
         
         if(type==6)
         {
-            // cylinder type, using f6a and f6b;
-            
-            // only Laki's bird uses these, but let's do this either way...
-            
-            int resolution = 24; // should be enough for accurate collisions
-            Vertex[] verts;
-            verts = new Vertex[resolution*2];
-            
-            // generate vertices
-            for (int i=0; i<resolution; i++)
-            {
-                Vertex vert1 = new Vertex(0,0,0);
-                vert1.x = new Flt( (float) (cos( ((float)i) / resolution * 2*PI )*f6b.toJavaFloat()) );
-                vert1.y = new Flt( (float) (sin( ((float)i) / resolution * 2*PI )*f6b.toJavaFloat()) );
-                vert1.z = new Flt(f6a.toJavaFloat()/2.f);
-                verts[i] = vert1;
-                
-                Vertex vert2 = new Vertex(0,0,0);
-                vert2.x = new Flt( (float) (cos( ((float)i) / resolution * 2*PI )*f6b.toJavaFloat()) );
-                vert2.y = new Flt( (float) (sin( ((float)i) / resolution * 2*PI )*f6b.toJavaFloat()) );
-                vert2.z = new Flt(-f6a.toJavaFloat()/2.f);
-                verts[i+resolution] = vert2;
-            }
-            
-            c.writeInt(resolution*2);
-            c.writeArray(verts);
+            //unknown type, using f6a and f6b;
+            Vertex offset = findOffsetVectorFromSceneObject(c.prp, sceneobject);
+            Flt wha1 = f6a;
+            Flt wha2 = f6b;
+            int dummy=0;
         }
         else if(type==5)
         {
@@ -576,30 +491,22 @@ public class plODEPhysical extends uruobj
         }
         else if(type==1) //box
         {
-            //Vertex center = findOffsetVectorFromSceneObject(c.prp, sceneobject);
-            //m.msg("Resizing boxes in ODEPhysical...");
+            Vertex center = findOffsetVectorFromSceneObject(c.prp, sceneobject);
+            m.msg("Resizing boxes in ODEPhysical...");
             Vertex cornervector = new Vertex(f1.mult((float)0.5),f2.mult((float)0.5),f3.mult((float)0.5)); //is this order correct?
 
             //boxbounds is just proxybounds
             int vertexcount = 8;
             int facecount = 12;
             Vertex[] vertices = new Vertex[]{
-//                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
-//                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
-//                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
-//                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
-//                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
-//                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
-//                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
-//                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
-                new Vertex(cornervector.x.neg() , cornervector.y.neg()  ,cornervector.z.neg()   ),
-                new Vertex(cornervector.x       , cornervector.y.neg()  ,cornervector.z.neg()   ),
-                new Vertex(cornervector.x.neg() , cornervector.y        ,cornervector.z.neg()   ),
-                new Vertex(cornervector.x       , cornervector.y        ,cornervector.z.neg()   ),
-                new Vertex(cornervector.x.neg() , cornervector.y.neg()  ,cornervector.z         ),
-                new Vertex(cornervector.x       , cornervector.y.neg()  ,cornervector.z         ),
-                new Vertex(cornervector.x.neg() , cornervector.y        ,cornervector.z         ),
-                new Vertex(cornervector.x       , cornervector.y        ,cornervector.z         ),
+                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
+                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
+                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
+                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
+                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
+                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
+                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
+                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
             };
             short[] faces = new short[]{
                 0,2,1,
@@ -638,21 +545,18 @@ public class plODEPhysical extends uruobj
             c.writeArray(vertices);
             c.writeInt(facecount);
             c.writeShorts(faces);
+            
         }
         else if(type==2) //sphere
         {
-            //Vertex offset = findOffsetVectorFromSceneObject(c.prp, sceneobject);
-            Vertex offset = new Vertex(0,0,0); // MV doesn't actually have any offset param.
-            
-            if (sphereposoverride != null)
-                offset = sphereposoverride;
+            Vertex offset = findOffsetVectorFromSceneObject(c.prp, sceneobject);
             
             offset.compile(c); //offset
             u4.compile(c); //radius
         }
         else
         {
-            m.err("critical error: ODEPhysical: currently unable to compile this type");
+            m.err("cricial error: ODEPhysical: currently unable to compile this type");
         }
         
         convertee.sceneobject.compile(c);

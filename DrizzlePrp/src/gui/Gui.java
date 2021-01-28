@@ -18,23 +18,29 @@
 
 package gui;
 //import shared.State.CheckboxState;
-import auto.mod.AutoMod_FixFanAge;
-import auto.mod.AutoMod_Light;
-import auto.mod.AutoMod_MakeWidescreen;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.util.Date;
+import javax.swing.event.ListDataListener;
+import javax.swing.text.Element;
+import javax.swing.text.View;
 import shared.FileUtils;
 import javax.swing.JFileChooser;
 import java.io.File;
 import uru.UruCrypt;
 import uru.UruFileTypes;
+import shared.CryptHashes;
 //import uru.Moul;
 import prpobjects.prputils;
+import uru.Bytestream;
 import shared.m;
+import relationvis.CrossRefPanel;
 import shared.b;
+import prpobjects._staticsettings;
+import uru.context;
+import prpobjects.Typeid;
+import shared.Bytes;
 import java.util.Vector;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import prpobjects.textfile;
 import shared.GuiUtils;
 import shared.*;
 
@@ -59,14 +65,6 @@ public class Gui extends javax.swing.JFrame {
     
     deepview.deepview deep;
     public final shared.State.TabsState tabs;
-    private JDialog colorPickerAmbDial;
-    private JColorChooser colorPickerAmb;
-    private JColorChooser colorPickerSun;
-    private JDialog colorPickerSunDial;
-    private JColorChooser colorPickerAO;
-    private JDialog colorPickerAODial;
-    private JColorChooser colorPickerFNI;
-    private JDialog colorPickerFNIDial;
     
     /** Creates new form Gui */
     public Gui()
@@ -129,9 +127,9 @@ public class Gui extends javax.swing.JFrame {
             }
         });*/
         listState2.setModel(new javax.swing.AbstractListModel() {
-            /*String[] strings = {
+            String[] strings = {
                 "Descent.(others)","Descent.age","Descent.fni","Descent.sum","Descent_dsntBahro_Idle02.prp","Descent_dsntBahro_Idle03.prp","Descent_dsntBahro_Idle04.prp","Descent_dsntBahro_Idle05.prp","Descent_dsntBahro_Idle06.prp","Descent_dsntBahro_Idle07.prp","Descent_dsntBahro_Idle08.prp","Descent_dsntBahro_Idle09.prp","Descent_dsntBahro_Shot02.prp","Descent_dsntBahro_Shot03.prp","Descent_dsntBahro_Shot04.prp","Descent_dsntBahro_Shot05.prp","Descent_dsntBahro_Shot06.prp","Descent_dsntBahro_Shot07.prp","Descent_dsntBahro_Shot08.prp","Descent_dsntBahro_Shot09.prp","Descent_dsntBahro_Tunnel01.prp","Descent_dsntBahro_Tunnel01Idle.prp","Descent_dsntBats.prp","Descent_dsntEsherIdleTopOfShaft.prp","Descent_dsntEsher_BottomOfShaft.prp","Descent_dsntEsher_FirstHub.prp","Descent_dsntEsher_Intro.prp","Descent_dsntEsher_TopOfShaft.prp","Descent_dsntGreatShaftBalcony.prp","Descent_dsntGreatShaftLowerRm.prp","Descent_dsntLowerBats.prp","Descent_dsntMapGUI.prp","Descent_dsntPostBats.prp","Descent_dsntPostShaftNodeAndTunnels.prp","Descent_dsntShaftGeneratorRoom.prp","Descent_dsntShaftTunnelSystem.prp","Descent_dsntTianaCave.prp","Descent_dsntTianaCaveNode2.prp","Descent_dsntTianaCaveTunnel1.prp","Descent_dsntTianaCaveTunnel3.prp","Descent_dsntUpperBats.prp","Descent_dsntUpperShaft.prp","Descent_dsntVolcano.prp","Descent_Textures.prp","Descent_dusttest.prp",
-                / *"Direbo.sdl",* /"Direbo.(others)","Direbo.age","Direbo.fni","Direbo.sum","Direbo_DragonFly.prp","Direbo_drboEsherIdleDirebo.prp","Direbo_drboEsher_DireboLaki.prp","Direbo_drboEsher_DireboSrln.prp","Direbo_drboEsher_DireboTdlm.prp","Direbo_drboEsher_DireboThgr.prp","Direbo_drboUrwinShape.prp","Direbo_RestAge.prp","Direbo_Textures.prp","Direbo_UrwinIdle.prp","Direbo_UrwinWalk.prp",
+                /*"Direbo.sdl",*/"Direbo.(others)","Direbo.age","Direbo.fni","Direbo.sum","Direbo_DragonFly.prp","Direbo_drboEsherIdleDirebo.prp","Direbo_drboEsher_DireboLaki.prp","Direbo_drboEsher_DireboSrln.prp","Direbo_drboEsher_DireboTdlm.prp","Direbo_drboEsher_DireboThgr.prp","Direbo_drboUrwinShape.prp","Direbo_RestAge.prp","Direbo_Textures.prp","Direbo_UrwinIdle.prp","Direbo_UrwinWalk.prp",
                 "Kveer.(others)","Kveer.age","Kveer.fni","Kveer.sum","Kveer_bkMystBookLocked.prp","Kveer_GreatRm.prp","Kveer_KveerBats.prp","Kveer_kverAtrus.prp","Kveer_kverAtrus_1.prp","Kveer_kverAtrus_Idle.prp","Kveer_kverBahroWingsGUI.prp","Kveer_kverBahro_1.prp","Kveer_kverBahro_2.prp","Kveer_kverBahro_Ballroom01.prp","Kveer_kverBahro_Ballroom02.prp","Kveer_kverBahro_Ballroom03.prp","Kveer_kverBahro_Exit01.prp","Kveer_kverBahro_Exit02.prp","Kveer_kverBahro_Idle05.prp","Kveer_kverBahro_Idle06.prp","Kveer_kverBahro_Idle07.prp","Kveer_kverBahro_Idle08.prp","Kveer_kverBahro_Idle09.prp","Kveer_kverBahro_Shot03.prp","Kveer_kverBahro_Shot04.prp","Kveer_kverBahro_Shot05.prp","Kveer_kverBahro_Shot06.prp","Kveer_kverBahro_Shot07.prp","Kveer_kverBahro_Shot08.prp","Kveer_kverBahro_Shot09.prp","Kveer_kverConc3Music.prp","Kveer_kverEsher_1.prp","Kveer_kverReleeshan.prp","Kveer_kverYeesha_1.prp","Kveer_kverYeesha_Conc01.prp","Kveer_kverYeesha_Conc02.prp","Kveer_kverYeesha_Conc03.prp","Kveer_kverYeesha_ConcIntro.prp","Kveer_kverYeesha_ConcIntro2.prp","Kveer_kverYeesha_IdleForIntro.prp","Kveer_kverYeesha_Intro.prp","Kveer_Prison.prp","Kveer_Textures.prp","Kveer_dusttest.prp",
                 "Laki.(others)","Laki.age","Laki.fni","Laki.sum","Laki_Exterior.prp","Laki_LakiArenaVillaInt.prp","Laki_LakiCreatures.prp","Laki_lakiEsher-Arena.prp","Laki_lakiEsher-FighterBeach.prp","Laki_lakiEsher-Keep.prp","Laki_lakiEsher-Villa.prp","Laki_lakiEsherIdleKeep.prp","Laki_lakiEsherIdleVilla.prp","Laki_LakiMaze.prp","Laki_lakiMazeClue.prp","Laki_LakiTrees01.prp","Laki_PirBirdActor.prp","Laki_PirBirdChomp.prp","Laki_PirBirdIdle.prp","Laki_PirBirdSwallow.prp","Laki_PirBirdVocalize.prp","Laki_PirBirdWalk.prp","Laki_Textures.prp","Laki_dusttest.prp",
                 "Myst.(others)","Myst.age","Myst.fni","Myst.sum","Myst_Island.prp","Myst_mystEsher-Conc01.prp","Myst_mystEsher-Conc02.prp","Myst_Textures.prp",
@@ -139,13 +137,12 @@ public class Gui extends javax.swing.JFrame {
                 "Tahgira.(others)","Tahgira.age","Tahgira.fni","Tahgira.sum","Tahgira_Exterior.prp","Tahgira_IceCave.prp","Tahgira_Textures.prp","Tahgira_thgrEsherIdleIntro.prp","Tahgira_thgrEsherIdleTake.prp","Tahgira_thgrEsher_TahgiraGrave.prp","Tahgira_thgrEsher_TahgiraIntro.prp","Tahgira_thgrEsher_TahgiraTake.prp","Tahgira_thgrEsher_TahgiraThermals.prp","Tahgira_thgrEsher_TahgiraVillage.prp","Tahgira_dusttest.prp",
                 "Todelmer.(others)","Todelmer.age","Todelmer.fni","Todelmer.sum","Todelmer_Exterior.prp","Todelmer_InteriorPillar1.prp","Todelmer_InteriorPillar3.prp","Todelmer_MiniScope.prp","Todelmer_Pod.prp","Todelmer_Sky.prp","Todelmer_tdlmEsherIdleP3.prp","Todelmer_tdlmEsherIdleRing.prp","Todelmer_tdlmEsher_TodelmerP1.prp","Todelmer_tdlmEsher_TodelmerP3.prp","Todelmer_tdlmEsher_TodelmerRing.prp","Todelmer_Textures.prp","Todelmer_dusttest.prp",
                 "restStop1.bik","restStop2.bik","restStop3.bik","restStop4.bik",
-            }; //*/
-            Vector<String> strings = auto.fileLists.mystvSupportedList();
+            };
             public int getSize() {
-                return strings.size();
+                return strings.length;
             }
             public Object getElementAt(int index) {
-                return strings.get(index);
+                return strings[index];
             }
         });
         listState3.setModel(new javax.swing.AbstractListModel() {
@@ -460,8 +457,7 @@ public class Gui extends javax.swing.JFrame {
      * always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         filedirButtonGroup = new javax.swing.ButtonGroup();
         uamStartupButtongroup = new shared.State.ButtongroupState();
@@ -612,9 +608,9 @@ public class Gui extends javax.swing.JFrame {
         checkboxState25 = new shared.State.CheckboxState();
         jButton139 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
+        textfieldState42 = new shared.State.TextfieldState();
         jButton133 = new javax.swing.JButton();
         jLabel44 = new javax.swing.JLabel();
-        textfieldState77 = new shared.State.TextfieldState();
         jButton15 = new javax.swing.JButton();
         jPanel46 = new javax.swing.JPanel();
         textfieldState45 = new shared.State.TextfieldState();
@@ -634,76 +630,13 @@ public class Gui extends javax.swing.JFrame {
         sliderState1 = new shared.State.SliderState();
         jButton132 = new javax.swing.JButton();
         jButton167 = new javax.swing.JButton();
-        UruWidescreenPanel = new javax.swing.JPanel();
-        jLabel84 = new javax.swing.JLabel();
-        jLabel85 = new javax.swing.JLabel();
-        jButton175 = new javax.swing.JButton();
-        jLabel87 = new javax.swing.JLabel();
-        jLabel88 = new javax.swing.JLabel();
-        jButton176 = new javax.swing.JButton();
-        textfieldState75 = new shared.State.TextfieldState();
-        textfieldState76 = new shared.State.TextfieldState();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel86 = new javax.swing.JLabel();
-        jLabel90 = new javax.swing.JLabel();
-        jLabel91 = new javax.swing.JLabel();
-        checkboxState34 = new shared.State.CheckboxState();
-        FAgePanel = new javax.swing.JPanel();
-        jLabel97 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel53 = new javax.swing.JPanel();
-        jPanel52 = new javax.swing.JPanel();
-        chbFATrembump = new javax.swing.JCheckBox();
-        chbFATeditFni = new javax.swing.JCheckBox();
-        jPanel55 = new javax.swing.JPanel();
-        chbFATmkMxDist = new javax.swing.JCheckBox();
-        chbFATdisdynref = new javax.swing.JCheckBox();
-        chbFATdislights = new javax.swing.JCheckBox();
-        chbFATdisspec = new javax.swing.JCheckBox();
-        chbFATdisshad = new javax.swing.JCheckBox();
-        FAToolsMaxDistDeg = new shared.State.TextfieldState();
-        jLabel105 = new javax.swing.JLabel();
-        jPanel56 = new javax.swing.JPanel();
-        chbFATbakeao = new javax.swing.JCheckBox();
-        chbFATbakesun = new javax.swing.JCheckBox();
-        jPanel54 = new javax.swing.JPanel();
-        jLabel104 = new javax.swing.JLabel();
-        excludeObjectsFld = new shared.State.TextfieldState();
-        jPanel57 = new javax.swing.JPanel();
-        jLabel98 = new javax.swing.JLabel();
-        ambientColFld = new shared.State.TextfieldState();
-        jLabel99 = new javax.swing.JLabel();
-        sunColFld = new shared.State.TextfieldState();
-        jLabel100 = new javax.swing.JLabel();
-        lightdirFld = new shared.State.TextfieldState();
-        jButton76 = new javax.swing.JButton();
-        jButton177 = new javax.swing.JButton();
-        jPanel58 = new javax.swing.JPanel();
-        jLabel101 = new javax.swing.JLabel();
-        aoReachFld = new shared.State.TextfieldState();
-        jLabel102 = new javax.swing.JLabel();
-        aoIntFld = new shared.State.TextfieldState();
-        jLabel103 = new javax.swing.JLabel();
-        aoColMinFld = new shared.State.TextfieldState();
-        jButton178 = new javax.swing.JButton();
-        jPanel59 = new javax.swing.JPanel();
-        jLabel106 = new javax.swing.JLabel();
-        FATfniSkCol = new shared.State.TextfieldState();
-        jLabel107 = new javax.swing.JLabel();
-        FATfniMaxDist = new shared.State.TextfieldState();
-        jLabel108 = new javax.swing.JLabel();
-        jLabel109 = new javax.swing.JLabel();
-        FATfniMinDist = new shared.State.TextfieldState();
-        jLabel110 = new javax.swing.JLabel();
-        jButton179 = new javax.swing.JButton();
-        jButton75 = new javax.swing.JButton();
-        FAToolsAgeName = new shared.State.TextfieldState();
-        jButton74 = new javax.swing.JButton();
-        jLabel96 = new javax.swing.JLabel();
         AdvTabState = new shared.State.TabsState();
         jPanel48 = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
         textfieldState12 = new shared.State.TextfieldState();
+        jButton74 = new javax.swing.JButton();
+        jButton75 = new javax.swing.JButton();
+        jButton76 = new javax.swing.JButton();
         jButton87 = new javax.swing.JButton();
         jButton72 = new javax.swing.JButton();
         jPanel30 = new javax.swing.JPanel();
@@ -804,8 +737,6 @@ public class Gui extends javax.swing.JFrame {
         jButton110 = new javax.swing.JButton();
         textfieldState29 = new shared.State.TextfieldState();
         textfieldState30 = new shared.State.TextfieldState();
-        jLabel89 = new javax.swing.JLabel();
-        jLabel92 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jButton50 = new javax.swing.JButton();
         tabsState4 = new shared.State.TabsState();
@@ -854,20 +785,15 @@ public class Gui extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jButton55 = new javax.swing.JButton();
         jButton56 = new javax.swing.JButton();
-        textfieldState2 = new shared.State.TextfieldState();
-        textfieldState3 = new shared.State.TextfieldState();
-        jButton78 = new javax.swing.JButton();
-        jPanel50 = new javax.swing.JPanel();
-        textfieldState74 = new shared.State.TextfieldState();
-        jButton134 = new javax.swing.JButton();
-        jButton174 = new javax.swing.JButton();
-        jPanel51 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        jButton57 = new javax.swing.JButton();
         jButton58 = new javax.swing.JButton();
         jButton59 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         listState2 = new shared.State.ListState();
-        jButton57 = new javax.swing.JButton();
+        textfieldState2 = new shared.State.TextfieldState();
+        textfieldState3 = new shared.State.TextfieldState();
+        jLabel10 = new javax.swing.JLabel();
+        jButton78 = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -1017,14 +943,11 @@ public class Gui extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(2, 2, 995, 713));
         setMinimumSize(null);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter()
-        {
-            public void windowClosing(java.awt.event.WindowEvent evt)
-            {
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
-            public void windowOpened(java.awt.event.WindowEvent evt)
-            {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
@@ -1037,54 +960,46 @@ public class Gui extends javax.swing.JFrame {
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("English");
         jRadioButton1.setMargin(new java.awt.Insets(0, 2, 0, 2));
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
             }
         });
         jPanel28.add(jRadioButton1);
-        jRadioButton1.setBounds(10, 30, 80, 19);
+        jRadioButton1.setBounds(10, 30, 80, 20);
 
         languageButtonGroup.add(jRadioButton2);
         jRadioButton2.setText("Deutsch");
         jRadioButton2.setMargin(new java.awt.Insets(0, 2, 0, 2));
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
             }
         });
         jPanel28.add(jRadioButton2);
-        jRadioButton2.setBounds(10, 50, 80, 19);
+        jRadioButton2.setBounds(10, 50, 80, 20);
 
         languageButtonGroup.add(jRadioButton3);
         jRadioButton3.setText("Français");
         jRadioButton3.setMargin(new java.awt.Insets(0, 2, 0, 2));
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton3ActionPerformed(evt);
             }
         });
         jPanel28.add(jRadioButton3);
-        jRadioButton3.setBounds(10, 70, 80, 19);
+        jRadioButton3.setBounds(10, 70, 80, 20);
 
         languageButtonGroup.add(jRadioButton4);
         jRadioButton4.setText("Nederlands");
         jRadioButton4.setMargin(new java.awt.Insets(0, 2, 0, 2));
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton4ActionPerformed(evt);
             }
         });
         jPanel28.add(jRadioButton4);
-        jRadioButton4.setBounds(10, 90, 94, 19);
+        jRadioButton4.setBounds(10, 90, 94, 20);
 
         getContentPane().add(jPanel28);
         jPanel28.setBounds(890, 510, 110, 180);
@@ -1093,26 +1008,22 @@ public class Gui extends javax.swing.JFrame {
         jPanel26.setLayout(null);
 
         jButton107.setText("Save settings now");
-        jButton107.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton107.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton107ActionPerformed(evt);
             }
         });
         jPanel26.add(jButton107);
-        jButton107.setBounds(10, 50, 230, 23);
+        jButton107.setBounds(10, 50, 230, 36);
 
         jButton61.setText("Delete settings and exit");
-        jButton61.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton61.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton61ActionPerformed(evt);
             }
         });
         jPanel26.add(jButton61);
-        jButton61.setBounds(10, 20, 230, 23);
+        jButton61.setBounds(10, 20, 230, 36);
 
         checkboxState24.setSelected(true);
         checkboxState24.setText("Save settings on exit.");
@@ -1128,21 +1039,19 @@ public class Gui extends javax.swing.JFrame {
         UAMTab.setLayout(null);
 
         jButton124.setText("Get Latest List");
-        jButton124.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton124.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton124ActionPerformed(evt);
             }
         });
         UAMTab.add(jButton124);
-        jButton124.setBounds(80, 150, 190, 23);
+        jButton124.setBounds(80, 150, 190, 36);
 
         jLabel36.setFont(jLabel36.getFont());
         jLabel36.setForeground(new java.awt.Color(0, 102, 102));
         jLabel36.setText("( Help can be found under the \"Help\" tab, or detailed help can be found at http://alcugs.almlys.org/Drizzle  )");
         UAMTab.add(jLabel36);
-        jLabel36.setBounds(20, 10, 830, 14);
+        jLabel36.setBounds(20, 10, 830, 16);
 
         jScrollPane6.setViewportView(jList1);
 
@@ -1163,54 +1072,48 @@ public class Gui extends javax.swing.JFrame {
 
         jLabel38.setText("Ages:");
         UAMTab.add(jLabel38);
-        jLabel38.setBounds(30, 160, 70, 14);
+        jLabel38.setBounds(30, 160, 70, 16);
 
         jLabel39.setText("Versions:");
         UAMTab.add(jLabel39);
-        jLabel39.setBounds(280, 190, 160, 14);
+        jLabel39.setBounds(280, 190, 160, 16);
 
         jButton127.setText("Download");
         jButton127.setEnabled(false);
-        jButton127.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton127.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton127ActionPerformed(evt);
             }
         });
         UAMTab.add(jButton127);
-        jButton127.setBounds(490, 260, 100, 23);
+        jButton127.setBounds(490, 260, 100, 36);
 
         jButton129.setText("Delete");
         jButton129.setEnabled(false);
-        jButton129.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton129.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton129ActionPerformed(evt);
             }
         });
         UAMTab.add(jButton129);
-        jButton129.setBounds(490, 290, 100, 23);
+        jButton129.setBounds(490, 290, 100, 36);
 
         jLabel40.setText("Mirrors:");
         UAMTab.add(jLabel40);
-        jLabel40.setBounds(280, 330, 120, 14);
+        jLabel40.setBounds(280, 330, 120, 16);
 
         jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder("UAM Settings"));
         jPanel42.setLayout(null);
 
         jLabel35.setText("Server:");
         jPanel42.add(jLabel35);
-        jLabel35.setBounds(10, 30, 70, 14);
+        jLabel35.setBounds(10, 30, 70, 16);
 
-        textfieldState38.setText("http://www.the-deep-island.de/uru-ages/");
+        textfieldState38.setText("http://myst.dustbird.net/uru-ages/");
         textfieldState38.setEnabled(false);
         textfieldState38.setName("uamServer2"); // NOI18N
-        textfieldState38.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        textfieldState38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textfieldState38ActionPerformed(evt);
             }
         });
@@ -1218,15 +1121,13 @@ public class Gui extends javax.swing.JFrame {
         textfieldState38.setBounds(120, 30, 270, 20);
 
         jButton125.setText("Select...");
-        jButton125.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton125.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton125ActionPerformed(evt);
             }
         });
         jPanel42.add(jButton125);
-        jButton125.setBounds(450, 50, 110, 23);
+        jButton125.setBounds(450, 50, 110, 36);
 
         textfieldState39.setText("C:\\Program Files\\Ubi Soft\\Cyan Worlds\\");
             textfieldState39.setName("uamRoot"); // NOI18N
@@ -1235,32 +1136,28 @@ public class Gui extends javax.swing.JFrame {
 
             jLabel37.setText("Pots folder:");
             jPanel42.add(jLabel37);
-            jLabel37.setBounds(10, 60, 100, 14);
+            jLabel37.setBounds(10, 60, 100, 16);
 
             jButton136.setText("Change server...");
-            jButton136.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton136.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton136ActionPerformed(evt);
                 }
             });
             jPanel42.add(jButton136);
-            jButton136.setBounds(400, 20, 160, 23);
+            jButton136.setBounds(400, 20, 160, 36);
 
             UAMTab.add(jPanel42);
             jPanel42.setBounds(10, 40, 570, 100);
 
             jButton135.setText("Launch Uru");
-            jButton135.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton135.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton135ActionPerformed(evt);
                 }
             });
             UAMTab.add(jButton135);
-            jButton135.setBounds(830, 320, 140, 23);
+            jButton135.setBounds(830, 320, 140, 36);
 
             jPanel43.setBorder(javax.swing.BorderFactory.createTitledBorder("Legend"));
             jPanel43.setLayout(null);
@@ -1268,21 +1165,21 @@ public class Gui extends javax.swing.JFrame {
             jLabel46.setForeground(new java.awt.Color(0, 119, 0));
             jLabel46.setText("You have the latest version.");
             jPanel43.add(jLabel46);
-            jLabel46.setBounds(30, 20, 340, 14);
+            jLabel46.setBounds(30, 20, 340, 16);
 
             jLabel47.setForeground(new java.awt.Color(119, 119, 0));
             jLabel47.setText("You have a version, but not the latest.");
             jPanel43.add(jLabel47);
-            jLabel47.setBounds(30, 40, 330, 14);
+            jLabel47.setBounds(30, 40, 330, 16);
 
             jLabel48.setForeground(new java.awt.Color(119, 0, 0));
             jLabel48.setText("You don't have this Age installed.");
             jPanel43.add(jLabel48);
-            jLabel48.setBounds(30, 60, 270, 14);
+            jLabel48.setBounds(30, 60, 270, 16);
 
             jLabel49.setText("You have this Age, but its version is unknown.");
             jPanel43.add(jLabel49);
-            jLabel49.setBounds(30, 80, 340, 14);
+            jLabel49.setBounds(30, 80, 340, 16);
 
             imagePanel3.setImageFile("/gui/dashred.png");
             imagePanel3.setResize(true);
@@ -1379,7 +1276,7 @@ public class Gui extends javax.swing.JFrame {
 
             jLabel50.setText("Info:");
             UAMTab.add(jLabel50);
-            jLabel50.setBounds(30, 410, 40, 14);
+            jLabel50.setBounds(30, 410, 40, 16);
 
             ageInfo3.setText("(Select an Age, or click \"Get Latest List\" to get the latest list of Ages.)");
             ageInfo3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -1389,15 +1286,13 @@ public class Gui extends javax.swing.JFrame {
 
             jButton142.setText("Version?");
             jButton142.setEnabled(false);
-            jButton142.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton142.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton142ActionPerformed(evt);
                 }
             });
             UAMTab.add(jButton142);
-            jButton142.setBounds(490, 320, 100, 23);
+            jButton142.setBounds(490, 320, 100, 36);
 
             tabsState3.addTab("UruAgeManager(UAM)", UAMTab);
 
@@ -1416,256 +1311,218 @@ public class Gui extends javax.swing.JFrame {
 
             jLabel32.setText("Pots folder:");
             SimpTab.add(jLabel32);
-            jLabel32.setBounds(20, 70, 140, 14);
+            jLabel32.setBounds(20, 70, 140, 16);
 
             jButton116.setText("select...");
-            jButton116.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton116.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton116ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton116);
-            jButton116.setBounds(570, 60, 110, 23);
+            jButton116.setBounds(570, 60, 110, 36);
 
             jLabel31.setText("Moul folder:");
             SimpTab.add(jLabel31);
-            jLabel31.setBounds(20, 140, 140, 14);
+            jLabel31.setBounds(20, 140, 140, 16);
 
             textfieldState33.setName("moulSimplicityIn"); // NOI18N
             SimpTab.add(textfieldState33);
             textfieldState33.setBounds(170, 140, 400, 20);
 
             jButton115.setText("select...");
-            jButton115.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton115.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton115ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton115);
-            jButton115.setBounds(570, 130, 110, 23);
+            jButton115.setBounds(570, 130, 110, 36);
 
             jButton114.setText("Start...");
-            jButton114.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton114.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton114ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton114);
-            jButton114.setBounds(710, 130, 90, 23);
+            jButton114.setBounds(710, 130, 90, 36);
 
             jButton141.setText("SoundDecompress (When conversion is done, it will ask you to run this.)");
-            jButton141.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton141.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton141ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton141);
-            jButton141.setBounds(350, 400, 616, 23);
+            jButton141.setBounds(350, 400, 616, 36);
 
             jLabel19.setText("Myst 5 Folder:");
             SimpTab.add(jLabel19);
-            jLabel19.setBounds(20, 180, 140, 14);
+            jLabel19.setBounds(20, 180, 140, 16);
 
             textfieldState22.setName("simpleMystvIn"); // NOI18N
             SimpTab.add(textfieldState22);
             textfieldState22.setBounds(170, 180, 400, 20);
 
             jButton97.setText("select...");
-            jButton97.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton97.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton97ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton97);
-            jButton97.setBounds(570, 170, 110, 23);
+            jButton97.setBounds(570, 170, 110, 36);
 
             jButton96.setText("Start...");
-            jButton96.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton96.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton96ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton96);
-            jButton96.setBounds(710, 170, 90, 23);
+            jButton96.setBounds(710, 170, 90, 36);
 
             jLabel41.setText("Crowthistle folder:");
             SimpTab.add(jLabel41);
-            jLabel41.setBounds(20, 220, 140, 14);
+            jLabel41.setBounds(20, 220, 140, 16);
 
             textfieldState40.setName("crowSimpleIn"); // NOI18N
             SimpTab.add(textfieldState40);
             textfieldState40.setBounds(170, 220, 400, 20);
 
             jButton131.setText("select...");
-            jButton131.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton131.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton131ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton131);
-            jButton131.setBounds(570, 210, 110, 23);
+            jButton131.setBounds(570, 210, 110, 36);
 
             jButton130.setText("Start...");
-            jButton130.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton130.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton130ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton130);
-            jButton130.setBounds(710, 210, 90, 23);
+            jButton130.setBounds(710, 210, 90, 36);
 
             jButton30.setText("MystV music...");
-            jButton30.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton30.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton30ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton30);
-            jButton30.setBounds(790, 170, 170, 23);
+            jButton30.setBounds(790, 170, 170, 36);
 
             jButton31.setText("Moul music...");
-            jButton31.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton31.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton31ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton31);
-            jButton31.setBounds(790, 130, 170, 23);
+            jButton31.setBounds(790, 130, 170, 36);
 
             jButton34.setText("Crowthistle music...");
-            jButton34.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton34.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton34ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton34);
-            jButton34.setBounds(790, 210, 170, 23);
+            jButton34.setBounds(790, 210, 170, 36);
 
             jButton36.setText("Pots music...");
-            jButton36.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton36.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton36ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton36);
-            jButton36.setBounds(790, 60, 170, 23);
+            jButton36.setBounds(790, 60, 170, 36);
 
             jLabel69.setText("HexIsle folder:");
             SimpTab.add(jLabel69);
-            jLabel69.setBounds(20, 260, 140, 14);
+            jLabel69.setBounds(20, 260, 140, 16);
 
             jButton91.setText("HexIsle music...");
-            jButton91.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton91.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton91ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton91);
-            jButton91.setBounds(790, 250, 170, 23);
+            jButton91.setBounds(790, 250, 170, 36);
 
             textfieldState66.setName("hexSimpIn"); // NOI18N
             SimpTab.add(textfieldState66);
             textfieldState66.setBounds(170, 260, 400, 20);
 
             jButton100.setText("select...");
-            jButton100.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton100.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton100ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton100);
-            jButton100.setBounds(570, 250, 110, 23);
+            jButton100.setBounds(570, 250, 110, 36);
 
             jButton98.setText("Start...");
-            jButton98.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton98.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton98ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton98);
-            jButton98.setBounds(710, 250, 90, 23);
+            jButton98.setBounds(710, 250, 90, 36);
 
             jButton160.setText("Start...");
-            jButton160.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton160.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton160ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton160);
-            jButton160.setBounds(710, 60, 90, 23);
+            jButton160.setBounds(710, 60, 90, 36);
 
             jLabel78.setText("Magiquest folder:");
             SimpTab.add(jLabel78);
-            jLabel78.setBounds(20, 300, 140, 14);
+            jLabel78.setBounds(20, 300, 140, 16);
 
             textfieldState70.setName("mqosimp"); // NOI18N
             SimpTab.add(textfieldState70);
             textfieldState70.setBounds(170, 300, 400, 20);
 
             jButton169.setText("select...");
-            jButton169.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton169.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton169ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton169);
-            jButton169.setBounds(570, 290, 110, 23);
+            jButton169.setBounds(570, 290, 110, 36);
 
             jButton170.setText("Magiquest music...");
-            jButton170.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton170.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton170ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton170);
-            jButton170.setBounds(790, 290, 170, 23);
+            jButton170.setBounds(790, 290, 170, 36);
 
             jButton171.setText("Start...");
-            jButton171.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton171.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton171ActionPerformed(evt);
                 }
             });
             SimpTab.add(jButton171);
-            jButton171.setBounds(710, 290, 90, 23);
+            jButton171.setBounds(710, 290, 90, 36);
 
             tabsState3.addTab("Conversion(Simplicity)", SimpTab);
 
@@ -1675,45 +1532,41 @@ public class Gui extends javax.swing.JFrame {
             jLabel30.setForeground(new java.awt.Color(0, 102, 102));
             jLabel30.setText("Memories: this area is for extracting images, notes, etc. from Uru (either offline or online)");
             MemTab.add(jLabel30);
-            jLabel30.setBounds(10, 10, 705, 14);
+            jLabel30.setBounds(10, 10, 705, 16);
 
             jLabel43.setForeground(new java.awt.Color(0, 102, 102));
             jLabel43.setText("Instructions can be found on the Help tab or at  http://alcugs.almlys.org/Drizzle");
             MemTab.add(jLabel43);
-            jLabel43.setBounds(10, 40, 730, 14);
+            jLabel43.setBounds(10, 40, 730, 16);
 
             jPanel39.setBorder(javax.swing.BorderFactory.createTitledBorder("Pots / Alcugs"));
             jPanel39.setLayout(null);
 
             jLabel33.setText("infolder:");
             jPanel39.add(jLabel33);
-            jLabel33.setBounds(20, 30, 111, 14);
+            jLabel33.setBounds(20, 30, 111, 16);
 
             textfieldState36.setName("vaultInFolder"); // NOI18N
             jPanel39.add(textfieldState36);
             textfieldState36.setBounds(140, 30, 602, 20);
 
             jButton122.setText("Start...");
-            jButton122.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton122.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton122ActionPerformed(evt);
                 }
             });
             jPanel39.add(jButton122);
-            jButton122.setBounds(70, 60, 80, 23);
+            jButton122.setBounds(70, 60, 80, 36);
 
             jButton121.setText("Select...");
-            jButton121.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton121.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton121ActionPerformed(evt);
                 }
             });
             jPanel39.add(jButton121);
-            jButton121.setBounds(750, 20, 110, 23);
+            jButton121.setBounds(750, 20, 110, 36);
 
             MemTab.add(jPanel39);
             jPanel39.setBounds(10, 130, 890, 110);
@@ -1722,15 +1575,13 @@ public class Gui extends javax.swing.JFrame {
             jPanel40.setLayout(null);
 
             jButton173.setText("Start...");
-            jButton173.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton173.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton173ActionPerformed(evt);
                 }
             });
             jPanel40.add(jButton173);
-            jButton173.setBounds(70, 120, 83, 23);
+            jButton173.setBounds(70, 120, 83, 36);
 
             textfieldState71.setName("ma_un"); // NOI18N
             jPanel40.add(textfieldState71);
@@ -1746,28 +1597,26 @@ public class Gui extends javax.swing.JFrame {
 
             jLabel79.setText("account name:");
             jPanel40.add(jLabel79);
-            jLabel79.setBounds(20, 30, 140, 14);
+            jLabel79.setBounds(20, 30, 140, 16);
 
             jLabel80.setText("password:");
             jPanel40.add(jLabel80);
-            jLabel80.setBounds(20, 60, 140, 14);
+            jLabel80.setBounds(20, 60, 140, 16);
 
             jLabel81.setText("avatar name:");
             jPanel40.add(jLabel81);
-            jLabel81.setBounds(20, 90, 140, 14);
+            jLabel81.setBounds(20, 90, 140, 16);
 
             MemTab.add(jPanel40);
             jPanel40.setBounds(10, 260, 320, 170);
 
             jLabel34.setText("outfolder:");
             MemTab.add(jLabel34);
-            jLabel34.setBounds(30, 80, 110, 14);
+            jLabel34.setBounds(30, 80, 110, 16);
 
             textfieldState37.setName("vaultOutFolder"); // NOI18N
-            textfieldState37.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            textfieldState37.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     textfieldState37ActionPerformed(evt);
                 }
             });
@@ -1775,15 +1624,13 @@ public class Gui extends javax.swing.JFrame {
             textfieldState37.setBounds(150, 80, 602, 20);
 
             jButton123.setText("Select...");
-            jButton123.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton123.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton123ActionPerformed(evt);
                 }
             });
             MemTab.add(jButton123);
-            jButton123.setBounds(760, 70, 110, 23);
+            jButton123.setBounds(760, 70, 110, 36);
 
             tabsState3.addTab("Memories", MemTab);
 
@@ -1792,10 +1639,8 @@ public class Gui extends javax.swing.JFrame {
             jTextField5.setText("Feb 15, 1982 8:00 AM CST");
 
             jButton42.setText("Predict Pod events");
-            jButton42.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton42.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton42ActionPerformed(evt);
                 }
             });
@@ -1823,10 +1668,8 @@ public class Gui extends javax.swing.JFrame {
             jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Minkata"));
 
             jButton35.setText("sum...");
-            jButton35.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton35.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton35ActionPerformed(evt);
                 }
             });
@@ -1868,10 +1711,8 @@ public class Gui extends javax.swing.JFrame {
             );
 
             jButton43.setText("PtGetDniTime");
-            jButton43.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton43.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton43ActionPerformed(evt);
                 }
             });
@@ -1931,15 +1772,13 @@ public class Gui extends javax.swing.JFrame {
             ProxyTab.setLayout(null);
 
             jButton70.setText("Start Server");
-            jButton70.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton70.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton70ActionPerformed(evt);
                 }
             });
             ProxyTab.add(jButton70);
-            jButton70.setBounds(140, 240, 170, 23);
+            jButton70.setBounds(140, 240, 170, 36);
 
             textfieldState9.setText("C:\\Documents and Settings\\user\\Desktop\\web");
             textfieldState9.setName("proxyFolder"); // NOI18N
@@ -1948,11 +1787,11 @@ public class Gui extends javax.swing.JFrame {
 
             jLabel15.setText("base folder:");
             ProxyTab.add(jLabel15);
-            jLabel15.setBounds(10, 90, 120, 14);
+            jLabel15.setBounds(10, 90, 120, 16);
 
             jLabel16.setText("port:");
             ProxyTab.add(jLabel16);
-            jLabel16.setBounds(10, 120, 100, 14);
+            jLabel16.setBounds(10, 120, 100, 16);
 
             textfieldState10.setText("8012");
             textfieldState10.setName("proxyPort"); // NOI18N
@@ -1960,36 +1799,32 @@ public class Gui extends javax.swing.JFrame {
             textfieldState10.setBounds(150, 120, 100, 20);
 
             jButton71.setText("Stop Server");
-            jButton71.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton71.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton71ActionPerformed(evt);
                 }
             });
             ProxyTab.add(jButton71);
-            jButton71.setBounds(310, 240, 170, 23);
+            jButton71.setBounds(310, 240, 170, 36);
 
             checkboxState10.setText("Indicate in the log when files are read?");
             checkboxState10.setName("proxyLogReads"); // NOI18N
             ProxyTab.add(checkboxState10);
-            checkboxState10.setBounds(250, 170, 710, 23);
+            checkboxState10.setBounds(250, 170, 710, 28);
 
             jLabel17.setForeground(new java.awt.Color(0, 102, 102));
             jLabel17.setText("You have to stop and start the server for settings changes to take effect.");
             ProxyTab.add(jLabel17);
-            jLabel17.setBounds(150, 280, 720, 14);
+            jLabel17.setBounds(150, 280, 720, 16);
 
             jButton77.setText("select...");
-            jButton77.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jButton77.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton77ActionPerformed(evt);
                 }
             });
             ProxyTab.add(jButton77);
-            jButton77.setBounds(520, 80, 120, 23);
+            jButton77.setBounds(520, 80, 120, 36);
 
             jLabel52.setFont(jLabel52.getFont());
             jLabel52.setForeground(new java.awt.Color(0, 102, 102));
@@ -2010,41 +1845,37 @@ public class Gui extends javax.swing.JFrame {
                 textfieldState68.setBounds(390, 170, 280, 20);
 
                 jButton168.setText("Convert");
-                jButton168.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton168.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton168ActionPerformed(evt);
                     }
                 });
                 jPanel34.add(jButton168);
-                jButton168.setBounds(550, 200, 110, 23);
+                jButton168.setBounds(550, 200, 110, 36);
 
                 jButton166.setText("select...");
-                jButton166.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton166.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton166ActionPerformed(evt);
                     }
                 });
                 jPanel34.add(jButton166);
-                jButton166.setBounds(670, 160, 110, 23);
+                jButton166.setBounds(670, 160, 110, 36);
 
                 jLabel74.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
                 jLabel74.setText("3dsmax's output folder (set in PlasmaMax2.ini):");
                 jPanel34.add(jLabel74);
-                jLabel74.setBounds(10, 170, 370, 14);
+                jLabel74.setBounds(10, 170, 370, 16);
 
                 jLabel75.setForeground(new java.awt.Color(0, 102, 102));
                 jLabel75.setText("(The created files will be placed in the Pots folder given on the UAM tab.)");
                 jPanel34.add(jLabel75);
-                jLabel75.setBounds(20, 30, 710, 14);
+                jLabel75.setBounds(20, 30, 710, 16);
 
                 jLabel77.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
                 jLabel77.setText("Ages:");
                 jPanel34.add(jLabel77);
-                jLabel77.setBounds(250, 210, 130, 14);
+                jLabel77.setBounds(250, 210, 130, 16);
 
                 jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder("Options"));
                 jPanel38.setLayout(null);
@@ -2052,19 +1883,17 @@ public class Gui extends javax.swing.JFrame {
                 checkboxState32.setText("Launch Uru after converting");
                 checkboxState32.setName("maxlaunch"); // NOI18N
                 jPanel38.add(checkboxState32);
-                checkboxState32.setBounds(10, 20, 226, 23);
+                checkboxState32.setBounds(10, 20, 226, 28);
 
                 checkboxState33.setText("Partial Age (i.e. no separate texture prp, and no .age file)");
                 checkboxState33.setName("maxsingle"); // NOI18N
-                checkboxState33.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                checkboxState33.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         checkboxState33ActionPerformed(evt);
                     }
                 });
                 jPanel38.add(checkboxState33);
-                checkboxState33.setBounds(10, 50, 490, 23);
+                checkboxState33.setBounds(10, 50, 490, 28);
 
                 jPanel34.add(jPanel38);
                 jPanel38.setBounds(390, 60, 510, 90);
@@ -2079,7 +1908,7 @@ public class Gui extends javax.swing.JFrame {
                 jLabel76.setForeground(new java.awt.Color(0, 102, 102));
                 jLabel76.setText("This area is for things related to the writing of Ages.");
                 TheArtTab.add(jLabel76);
-                jLabel76.setBounds(20, 20, 480, 14);
+                jLabel76.setBounds(20, 20, 480, 16);
 
                 tabsState3.addTab("The Art", TheArtTab);
 
@@ -2089,26 +1918,22 @@ public class Gui extends javax.swing.JFrame {
                 jPanel41.setLayout(null);
 
                 jButton126.setText("List Available Ages...");
-                jButton126.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton126.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton126ActionPerformed(evt);
                     }
                 });
                 jPanel41.add(jButton126);
-                jButton126.setBounds(10, 180, 240, 23);
+                jButton126.setBounds(10, 180, 240, 36);
 
                 jButton137.setText("Get Offline list.");
-                jButton137.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton137.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton137ActionPerformed(evt);
                     }
                 });
                 jPanel41.add(jButton137);
-                jButton137.setBounds(10, 210, 240, 23);
+                jButton137.setBounds(10, 210, 240, 36);
 
                 jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Sanity check"));
                 jPanel6.setLayout(null);
@@ -2117,18 +1942,16 @@ public class Gui extends javax.swing.JFrame {
                 checkboxState25.setText("ignore known overrides");
                 checkboxState25.setName("uamig"); // NOI18N
                 jPanel6.add(checkboxState25);
-                checkboxState25.setBounds(20, 50, 240, 23);
+                checkboxState25.setBounds(20, 50, 240, 28);
 
                 jButton139.setText("Run Tests...");
-                jButton139.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton139.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton139ActionPerformed(evt);
                     }
                 });
                 jPanel6.add(jButton139);
-                jButton139.setBounds(10, 20, 130, 23);
+                jButton139.setBounds(10, 20, 130, 36);
 
                 jPanel41.add(jPanel6);
                 jPanel6.setBounds(10, 260, 300, 90);
@@ -2136,38 +1959,34 @@ public class Gui extends javax.swing.JFrame {
                 jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("uam.status.xml"));
                 jPanel7.setLayout(null);
 
+                textfieldState42.setName("genFolder"); // NOI18N
+                jPanel7.add(textfieldState42);
+                textfieldState42.setBounds(130, 20, 230, 20);
+
                 jButton133.setText("Generate uam.status.txt");
-                jButton133.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton133.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton133ActionPerformed(evt);
                     }
                 });
                 jPanel7.add(jButton133);
-                jButton133.setBounds(10, 40, 180, 23);
+                jButton133.setBounds(10, 40, 180, 36);
 
                 jLabel44.setText("archive folder:");
                 jPanel7.add(jLabel44);
-                jLabel44.setBounds(10, 20, 120, 14);
-
-                textfieldState77.setName("genFolder"); // NOI18N
-                jPanel7.add(textfieldState77);
-                textfieldState77.setBounds(130, 20, 230, 20);
+                jLabel44.setBounds(10, 20, 120, 16);
 
                 jPanel41.add(jPanel7);
                 jPanel7.setBounds(10, 60, 480, 80);
 
                 jButton15.setText("Name a random Age!");
-                jButton15.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton15.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton15ActionPerformed(evt);
                     }
                 });
                 jPanel41.add(jButton15);
-                jButton15.setBounds(10, 150, 240, 23);
+                jButton15.setBounds(10, 150, 240, 36);
 
                 jPanel46.setBorder(javax.swing.BorderFactory.createTitledBorder("Age reports"));
                 jPanel46.setLayout(null);
@@ -2178,19 +1997,17 @@ public class Gui extends javax.swing.JFrame {
                 textfieldState45.setBounds(140, 20, 150, 20);
 
                 jButton145.setText("Report");
-                jButton145.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton145.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton145ActionPerformed(evt);
                     }
                 });
                 jPanel46.add(jButton145);
-                jButton145.setBounds(210, 40, 80, 23);
+                jButton145.setBounds(210, 40, 80, 36);
 
                 jLabel56.setText("Agename:");
                 jPanel46.add(jLabel56);
-                jLabel56.setBounds(20, 20, 110, 14);
+                jLabel56.setBounds(20, 20, 110, 16);
 
                 jPanel41.add(jPanel46);
                 jPanel46.setBounds(10, 350, 300, 80);
@@ -2199,29 +2016,25 @@ public class Gui extends javax.swing.JFrame {
                 jLabel62.setForeground(new java.awt.Color(0, 102, 102));
                 jLabel62.setText("Everything here uses the Pots folder from the UAM tab.");
                 jPanel41.add(jLabel62);
-                jLabel62.setBounds(20, 30, 410, 14);
+                jLabel62.setBounds(20, 30, 410, 16);
 
                 jButton140.setText("Delete old archives...");
-                jButton140.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton140.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton140ActionPerformed(evt);
                     }
                 });
                 jPanel41.add(jButton140);
-                jButton140.setBounds(250, 150, 240, 23);
+                jButton140.setBounds(250, 150, 240, 36);
 
                 jButton159.setText("Clear .sum files.");
-                jButton159.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton159.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton159ActionPerformed(evt);
                     }
                 });
                 jPanel41.add(jButton159);
-                jButton159.setBounds(250, 180, 240, 23);
+                jButton159.setBounds(250, 180, 240, 36);
 
                 MiscPanel.add(jPanel41);
                 jPanel41.setBounds(400, 10, 500, 440);
@@ -2233,28 +2046,22 @@ public class Gui extends javax.swing.JFrame {
 
                 textfieldState47.setText("c:\\place\\to\\save");
                 textfieldState47.setName("wspout"); // NOI18N
-                textfieldState47.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                textfieldState47.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         textfieldState47ActionPerformed(evt);
                     }
                 });
 
                 jButton146.setText("start");
-                jButton146.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton146.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton146ActionPerformed(evt);
                     }
                 });
 
                 jButton147.setText("select...");
-                jButton147.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton147.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton147ActionPerformed(evt);
                     }
                 });
@@ -2307,10 +2114,8 @@ public class Gui extends javax.swing.JFrame {
                 sliderState1.setMinimum(20);
                 sliderState1.setValue(76);
                 sliderState1.setName("raininess"); // NOI18N
-                sliderState1.addChangeListener(new javax.swing.event.ChangeListener()
-                {
-                    public void stateChanged(javax.swing.event.ChangeEvent evt)
-                    {
+                sliderState1.addChangeListener(new javax.swing.event.ChangeListener() {
+                    public void stateChanged(javax.swing.event.ChangeEvent evt) {
                         sliderState1StateChanged(evt);
                     }
                 });
@@ -2333,761 +2138,27 @@ public class Gui extends javax.swing.JFrame {
                 );
 
                 MiscPanel.add(jPanel25);
-                jPanel25.setBounds(20, 190, 330, 110);
+                jPanel25.setBounds(20, 240, 330, 110);
 
                 jButton132.setText("Start DrizzleDeepview");
-                jButton132.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton132.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton132ActionPerformed(evt);
                     }
                 });
                 MiscPanel.add(jButton132);
-                jButton132.setBounds(20, 160, 170, 23);
+                jButton132.setBounds(20, 170, 170, 36);
 
                 jButton167.setText("List Gamenames");
-                jButton167.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton167.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton167ActionPerformed(evt);
                     }
                 });
                 MiscPanel.add(jButton167);
-                jButton167.setBounds(30, 310, 140, 23);
+                jButton167.setBounds(30, 380, 140, 36);
 
                 tabsState3.addTab("Misc", MiscPanel);
-
-                jLabel84.setForeground(new java.awt.Color(0, 102, 102));
-                jLabel84.setText("This area contains options to make Uru work in widescreen. READ THE DAMNED DESCRIPTION !");
-
-                jLabel85.setForeground(new java.awt.Color(0, 102, 102));
-                jLabel85.setText("Folder used for changes is the one you specified in the UruAgeManager tab");
-
-                jButton175.setText("Change game aspect ratio");
-                jButton175.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton175ActionPerformed(evt);
-                    }
-                });
-
-                jLabel87.setText("Target resolution:");
-
-                jLabel88.setText("by");
-
-                jButton176.setText("Change game resolution");
-                jButton176.setEnabled(false);
-                jButton176.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton176ActionPerformed(evt);
-                    }
-                });
-
-                textfieldState75.setText("1920");
-                textfieldState75.setName("widescrScreenWidth"); // NOI18N
-
-                textfieldState76.setText("1080");
-                textfieldState76.setName("widescrScreenHeight"); // NOI18N
-
-                jTextField1.setEditable(false);
-                jTextField1.setText("http://forum.guildofwriters.org/viewtopic.php?f=10&t=5607&p=57242&#p57242");
-
-                jLabel86.setText("Currently not working. See instructions here:");
-
-                jLabel90.setText("<html>This allows you to fix Uru to play on a non 4/3 monitor. It does so by modifying a LOT of game files, which means it's 100% incompatible with Shards, so DON'T EVEN TRY using it for Shards.\n<br>Do make sure to apply this fix after converting content such as MOUL or Myst V (or simply re-run the utility after that).\n<br>It is highly recommended to backup your whole DAT folder and UruExplorer.exe, so you can revert changes.\n<br>This has only been tested with the Official No-CD patch from 2010, I wouldn't try it on any other version.");
-
-                jLabel91.setText("Fixes both PRP files and UruExplorer.exe to use a new ratio");
-
-                checkboxState34.setText("Also remove limit when looking up or down");
-                checkboxState34.setName("widescrIncreasePitchAngle"); // NOI18N
-
-                javax.swing.GroupLayout UruWidescreenPanelLayout = new javax.swing.GroupLayout(UruWidescreenPanel);
-                UruWidescreenPanel.setLayout(UruWidescreenPanelLayout);
-                UruWidescreenPanelLayout.setHorizontalGroup(
-                    UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UruWidescreenPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel90, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
-                            .addGroup(UruWidescreenPanelLayout.createSequentialGroup()
-                                .addGroup(UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(UruWidescreenPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel87)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textfieldState75, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel88)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textfieldState76, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(UruWidescreenPanelLayout.createSequentialGroup()
-                                        .addGroup(UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jButton176, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton175, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(UruWidescreenPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel86)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(UruWidescreenPanelLayout.createSequentialGroup()
-                                                .addComponent(jLabel91)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(checkboxState34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(jLabel85)
-                                    .addComponent(jLabel84))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                );
-                UruWidescreenPanelLayout.setVerticalGroup(
-                    UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UruWidescreenPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel84)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel90, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel85)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton175)
-                            .addComponent(jLabel91)
-                            .addComponent(checkboxState34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel87)
-                            .addComponent(jLabel88)
-                            .addComponent(textfieldState75, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfieldState76, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(UruWidescreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton176)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel86))
-                        .addContainerGap(237, Short.MAX_VALUE))
-                );
-
-                tabsState3.addTab("Uru Widescreen", UruWidescreenPanel);
-
-                jLabel97.setText("These tools use the Uru installation folder specified in the UAM tab");
-
-                jPanel52.setBorder(javax.swing.BorderFactory.createTitledBorder("Misc"));
-                jPanel52.setName(""); // NOI18N
-
-                chbFATrembump.setSelected(true);
-                chbFATrembump.setText("Remove bumpiness in collisions");
-                chbFATrembump.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATrembumpActionPerformed(evt);
-                    }
-                });
-
-                chbFATeditFni.setText("Change fog/sky color");
-                chbFATeditFni.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATeditFniActionPerformed(evt);
-                    }
-                });
-
-                javax.swing.GroupLayout jPanel52Layout = new javax.swing.GroupLayout(jPanel52);
-                jPanel52.setLayout(jPanel52Layout);
-                jPanel52Layout.setHorizontalGroup(
-                    jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel52Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chbFATrembump)
-                            .addComponent(chbFATeditFni)))
-                );
-                jPanel52Layout.setVerticalGroup(
-                    jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel52Layout.createSequentialGroup()
-                        .addComponent(chbFATrembump)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chbFATeditFni))
-                );
-
-                jPanel55.setBorder(javax.swing.BorderFactory.createTitledBorder("Performance"));
-
-                chbFATmkMxDist.setSelected(true);
-                chbFATmkMxDist.setText("Hide small far objects");
-                chbFATmkMxDist.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATmkMxDistActionPerformed(evt);
-                    }
-                });
-
-                chbFATdisdynref.setSelected(true);
-                chbFATdisdynref.setText("Disable dynamic reflections");
-                chbFATdisdynref.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATdisdynrefActionPerformed(evt);
-                    }
-                });
-
-                chbFATdislights.setSelected(true);
-                chbFATdislights.setText("Disable dynamic lights");
-                chbFATdislights.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATdislightsActionPerformed(evt);
-                    }
-                });
-
-                chbFATdisspec.setSelected(true);
-                chbFATdisspec.setText("Disable glossiness");
-                chbFATdisspec.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATdisspecActionPerformed(evt);
-                    }
-                });
-
-                chbFATdisshad.setSelected(true);
-                chbFATdisshad.setText("Disable dynamic shadows");
-                chbFATdisshad.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATdisshadActionPerformed(evt);
-                    }
-                });
-
-                FAToolsMaxDistDeg.setText("0.35");
-                FAToolsMaxDistDeg.setName("FAToolsMaxDistDegrees"); // NOI18N
-                FAToolsMaxDistDeg.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        FAToolsMaxDistDegActionPerformed(evt);
-                    }
-                });
-
-                jLabel105.setText("minimum object size (degrees)");
-
-                javax.swing.GroupLayout jPanel55Layout = new javax.swing.GroupLayout(jPanel55);
-                jPanel55.setLayout(jPanel55Layout);
-                jPanel55Layout.setHorizontalGroup(
-                    jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel55Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel55Layout.createSequentialGroup()
-                                .addComponent(chbFATmkMxDist)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(FAToolsMaxDistDeg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel105)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel55Layout.createSequentialGroup()
-                                .addGroup(jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chbFATdisshad)
-                                    .addComponent(chbFATdislights))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chbFATdisspec)
-                                    .addComponent(chbFATdisdynref))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                );
-                jPanel55Layout.setVerticalGroup(
-                    jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel55Layout.createSequentialGroup()
-                        .addGroup(jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chbFATdisshad)
-                            .addComponent(chbFATdisspec))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chbFATdislights)
-                            .addComponent(chbFATdisdynref))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chbFATmkMxDist)
-                            .addComponent(FAToolsMaxDistDeg, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel105)))
-                );
-
-                jPanel56.setBorder(javax.swing.BorderFactory.createTitledBorder("Light baking"));
-
-                chbFATbakeao.setText("Bake ambient occlusion");
-                chbFATbakeao.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATbakeaoActionPerformed(evt);
-                    }
-                });
-
-                chbFATbakesun.setText("Bake sunlight");
-                chbFATbakesun.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        chbFATbakesunActionPerformed(evt);
-                    }
-                });
-
-                javax.swing.GroupLayout jPanel56Layout = new javax.swing.GroupLayout(jPanel56);
-                jPanel56.setLayout(jPanel56Layout);
-                jPanel56Layout.setHorizontalGroup(
-                    jPanel56Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel56Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(chbFATbakesun)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel56Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(chbFATbakeao)
-                        .addGap(394, 394, 394))
-                );
-                jPanel56Layout.setVerticalGroup(
-                    jPanel56Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel56Layout.createSequentialGroup()
-                        .addComponent(chbFATbakesun)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chbFATbakeao))
-                );
-
-                javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
-                jPanel53.setLayout(jPanel53Layout);
-                jPanel53Layout.setHorizontalGroup(
-                    jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel53Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel56, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 425, Short.MAX_VALUE))
-                );
-                jPanel53Layout.setVerticalGroup(
-                    jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel53Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel53Layout.createSequentialGroup()
-                                .addComponent(jPanel56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(27, Short.MAX_VALUE))
-                );
-
-                jTabbedPane1.addTab("Tasks", jPanel53);
-
-                jLabel104.setText("Excluded objects");
-
-                excludeObjectsFld.setText("Welt_Himmel; Welt_WasserGrund");
-                excludeObjectsFld.setName("excludeObjectsFld"); // NOI18N
-                excludeObjectsFld.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        excludeObjectsFldActionPerformed(evt);
-                    }
-                });
-
-                jPanel57.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Sunlight"));
-
-                jLabel98.setText("Sky color");
-
-                ambientColFld.setText("92, 98, 127");
-                ambientColFld.setName("ambientColFld"); // NOI18N
-                ambientColFld.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        ambientColFldActionPerformed(evt);
-                    }
-                });
-
-                jLabel99.setText("Sun color");
-
-                sunColFld.setText("255, 255, 218");
-                sunColFld.setName("sunColFld"); // NOI18N
-                sunColFld.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        sunColFldActionPerformed(evt);
-                    }
-                });
-
-                jLabel100.setText("Light direction");
-
-                lightdirFld.setText("-0.56, 0.32, -0.77");
-                lightdirFld.setName("lightDirFld"); // NOI18N
-                lightdirFld.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        lightdirFldActionPerformed(evt);
-                    }
-                });
-
-                jButton76.setText("Choose");
-                jButton76.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton76ActionPerformed(evt);
-                    }
-                });
-
-                jButton177.setText("Choose");
-                jButton177.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton177ActionPerformed(evt);
-                    }
-                });
-
-                javax.swing.GroupLayout jPanel57Layout = new javax.swing.GroupLayout(jPanel57);
-                jPanel57.setLayout(jPanel57Layout);
-                jPanel57Layout.setHorizontalGroup(
-                    jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel57Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel98)
-                            .addComponent(jLabel99)
-                            .addComponent(jLabel100))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lightdirFld, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel57Layout.createSequentialGroup()
-                                .addGroup(jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(sunColFld, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ambientColFld, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton76)
-                                    .addComponent(jButton177))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
-                jPanel57Layout.setVerticalGroup(
-                    jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel57Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel98)
-                            .addComponent(ambientColFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton76))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel99)
-                            .addComponent(sunColFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton177))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel57Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel100)
-                            .addComponent(lightdirFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
-
-                jPanel58.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ambient occlusion"));
-
-                jLabel101.setText("Reach");
-
-                aoReachFld.setText("35");
-                aoReachFld.setName("aoReachFld"); // NOI18N
-                aoReachFld.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        aoReachFldActionPerformed(evt);
-                    }
-                });
-
-                jLabel102.setText("Intensity");
-
-                aoIntFld.setText("12");
-                aoIntFld.setName("aoIntFld"); // NOI18N
-                aoIntFld.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        aoIntFldActionPerformed(evt);
-                    }
-                });
-
-                jLabel103.setText("Minimal color");
-
-                aoColMinFld.setText("50, 40, 30");
-                aoColMinFld.setName("aoMinColFld"); // NOI18N
-                aoColMinFld.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        aoColMinFldActionPerformed(evt);
-                    }
-                });
-
-                jButton178.setText("Choose");
-                jButton178.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton178ActionPerformed(evt);
-                    }
-                });
-
-                javax.swing.GroupLayout jPanel58Layout = new javax.swing.GroupLayout(jPanel58);
-                jPanel58.setLayout(jPanel58Layout);
-                jPanel58Layout.setHorizontalGroup(
-                    jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel58Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel103)
-                            .addComponent(jLabel102)
-                            .addComponent(jLabel101))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel58Layout.createSequentialGroup()
-                                .addComponent(aoColMinFld, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton178))
-                            .addGroup(jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(aoReachFld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(aoIntFld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                );
-                jPanel58Layout.setVerticalGroup(
-                    jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel58Layout.createSequentialGroup()
-                        .addGroup(jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel101)
-                            .addComponent(aoReachFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel102)
-                            .addComponent(aoIntFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel58Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel103)
-                            .addComponent(aoColMinFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton178))
-                        .addGap(0, 29, Short.MAX_VALUE))
-                );
-
-                javax.swing.GroupLayout jPanel54Layout = new javax.swing.GroupLayout(jPanel54);
-                jPanel54.setLayout(jPanel54Layout);
-                jPanel54Layout.setHorizontalGroup(
-                    jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel54Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel54Layout.createSequentialGroup()
-                                .addComponent(jPanel57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel58, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel54Layout.createSequentialGroup()
-                                .addComponent(jLabel104)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(excludeObjectsFld, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
-                                .addGap(274, 274, 274))))
-                );
-                jPanel54Layout.setVerticalGroup(
-                    jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel54Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel58, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel57, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel104)
-                            .addComponent(excludeObjectsFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19))
-                );
-
-                jTabbedPane1.addTab("Light baking settings", jPanel54);
-
-                jLabel106.setText("Color");
-
-                FATfniSkCol.setText("186, 206, 255");
-                FATfniSkCol.setName("FATfniSkCol"); // NOI18N
-                FATfniSkCol.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        FATfniSkColActionPerformed(evt);
-                    }
-                });
-
-                jLabel107.setText("Max view distance");
-
-                FATfniMaxDist.setText("5000");
-                FATfniMaxDist.setName("FATfniMaxDist"); // NOI18N
-                FATfniMaxDist.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        FATfniMaxDistActionPerformed(evt);
-                    }
-                });
-
-                jLabel108.setText("feet");
-
-                jLabel109.setText("Fog start");
-
-                FATfniMinDist.setText("300");
-                FATfniMinDist.setName("FATfniMinDist"); // NOI18N
-                FATfniMinDist.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        FATfniMinDistActionPerformed(evt);
-                    }
-                });
-
-                jLabel110.setText("feet");
-
-                jButton179.setText("Choose");
-                jButton179.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton179ActionPerformed(evt);
-                    }
-                });
-
-                javax.swing.GroupLayout jPanel59Layout = new javax.swing.GroupLayout(jPanel59);
-                jPanel59.setLayout(jPanel59Layout);
-                jPanel59Layout.setHorizontalGroup(
-                    jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel59Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel106)
-                            .addComponent(jLabel107)
-                            .addComponent(jLabel109))
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel59Layout.createSequentialGroup()
-                                .addGroup(jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(FATfniMaxDist, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                                    .addComponent(FATfniMinDist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel108)
-                                    .addComponent(jLabel110)))
-                            .addGroup(jPanel59Layout.createSequentialGroup()
-                                .addComponent(FATfniSkCol, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton179)))
-                        .addContainerGap(675, Short.MAX_VALUE))
-                );
-                jPanel59Layout.setVerticalGroup(
-                    jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel59Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel106)
-                            .addComponent(FATfniSkCol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton179))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel107)
-                            .addComponent(FATfniMaxDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel108))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel109)
-                            .addComponent(FATfniMinDist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel110))
-                        .addContainerGap(96, Short.MAX_VALUE))
-                );
-
-                jTabbedPane1.addTab("Fog/Sky settings", jPanel59);
-
-                jButton75.setText("APPLY");
-                jButton75.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton75ActionPerformed(evt);
-                    }
-                });
-
-                FAToolsAgeName.setName("FAToolsAgeName"); // NOI18N
-                FAToolsAgeName.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        FAToolsAgeNameActionPerformed(evt);
-                    }
-                });
-
-                jButton74.setText("Select...");
-                jButton74.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton74ActionPerformed(evt);
-                    }
-                });
-
-                jLabel96.setText("Enter Fan Age name, or select .age file...");
-
-                javax.swing.GroupLayout FAgePanelLayout = new javax.swing.GroupLayout(FAgePanel);
-                FAgePanel.setLayout(FAgePanelLayout);
-                FAgePanelLayout.setHorizontalGroup(
-                    FAgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FAgePanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(FAgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane1)
-                            .addGroup(FAgePanelLayout.createSequentialGroup()
-                                .addGroup(FAgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel97, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton75)
-                                    .addGroup(FAgePanelLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(FAgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel96, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(FAgePanelLayout.createSequentialGroup()
-                                                .addComponent(FAToolsAgeName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton74)))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                );
-                FAgePanelLayout.setVerticalGroup(
-                    FAgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FAgePanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel97)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel96)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(FAgePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(FAToolsAgeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton74))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton75)
-                        .addGap(699, 699, 699))
-                );
-
-                tabsState3.addTab("Fan Age tools", FAgePanel);
 
                 AdvTabState.setName("subadv"); // NOI18N
 
@@ -3096,62 +2167,62 @@ public class Gui extends javax.swing.JFrame {
                 jPanel31.setBorder(javax.swing.BorderFactory.createEtchedBorder());
                 jPanel31.setLayout(null);
 
-                textfieldState12.setText("logfile");
+                textfieldState12.setText("textfieldState12");
                 textfieldState12.setName("logFile"); // NOI18N
                 jPanel31.add(textfieldState12);
-                textfieldState12.setBounds(10, 10, 84, 20);
+                textfieldState12.setBounds(10, 20, 87, 20);
+
+                jButton74.setText("jButton74");
+                jPanel31.add(jButton74);
+                jButton74.setBounds(100, 20, 76, 36);
+
+                jButton75.setText("jButton75");
+                jPanel31.add(jButton75);
+                jButton75.setBounds(10, 56, 80, 40);
+
+                jButton76.setText("jButton76");
+                jPanel31.add(jButton76);
+                jButton76.setBounds(100, 60, 76, 36);
 
                 jPanel48.add(jPanel31);
-                jPanel31.setBounds(510, 20, 200, 80);
+                jPanel31.setBounds(20, 10, 200, 100);
 
                 jButton87.setText("Copy all text to clipboard");
-                jButton87.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton87.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton87ActionPerformed(evt);
                     }
                 });
                 jPanel48.add(jButton87);
-                jButton87.setBounds(30, 60, 160, 23);
+                jButton87.setBounds(190, 60, 160, 36);
 
                 jButton72.setText("copy from main output");
-                jButton72.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton72.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton72ActionPerformed(evt);
                     }
                 });
                 jPanel48.add(jButton72);
-                jButton72.setBounds(30, 20, 150, 23);
+                jButton72.setBounds(230, 10, 150, 36);
 
                 jPanel30.setBorder(javax.swing.BorderFactory.createEtchedBorder());
                 jPanel30.setLayout(null);
 
                 jLabel18.setText("Prefix:");
                 jPanel30.add(jLabel18);
-                jLabel18.setBounds(10, 10, 32, 14);
+                jLabel18.setBounds(10, 10, 33, 16);
 
-                textfieldState11.setText("logprefix");
+                textfieldState11.setText("textfieldState11");
                 textfieldState11.setName("logPrefix"); // NOI18N
                 jPanel30.add(textfieldState11);
-                textfieldState11.setBounds(60, 10, 160, 20);
+                textfieldState11.setBounds(70, 10, 160, 20);
 
                 jButton73.setText("remove all that don't start with prefix");
-                jButton73.setEnabled(false);
-                jButton73.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
-                        jButton73ActionPerformed(evt);
-                    }
-                });
                 jPanel30.add(jButton73);
-                jButton73.setBounds(10, 50, 220, 23);
+                jButton73.setBounds(10, 40, 220, 36);
 
                 jPanel48.add(jPanel30);
-                jPanel30.setBounds(260, 20, 240, 80);
+                jPanel30.setBounds(310, 20, 240, 80);
 
                 jTextArea6.setColumns(20);
                 jTextArea6.setRows(5);
@@ -3165,92 +2236,76 @@ public class Gui extends javax.swing.JFrame {
                 jPanel4.setLayout(null);
 
                 jButton23.setText("delete marked entities");
-                jButton23.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton23.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton23ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton23);
-                jButton23.setBounds(650, 220, 170, 23);
+                jButton23.setBounds(650, 220, 170, 36);
 
                 jButton22.setText("clear all marks");
-                jButton22.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton22.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton22ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton22);
-                jButton22.setBounds(700, 100, 120, 23);
+                jButton22.setBounds(700, 100, 120, 36);
 
                 jButton29.setText("mark links");
-                jButton29.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton29.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton29ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton29);
-                jButton29.setBounds(710, 130, 110, 23);
+                jButton29.setBounds(710, 130, 110, 36);
 
                 jButton24.setText("mark links from selected");
-                jButton24.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton24.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton24ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton24);
-                jButton24.setBounds(670, 160, 150, 23);
+                jButton24.setBounds(670, 160, 150, 36);
 
                 jButton25.setText("mark all that start with STRING");
-                jButton25.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton25.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton25ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton25);
-                jButton25.setBounds(630, 310, 181, 23);
+                jButton25.setBounds(630, 310, 191, 36);
 
                 jButton28.setText("load");
-                jButton28.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton28.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton28ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton28);
-                jButton28.setBounds(760, 40, 80, 23);
+                jButton28.setBounds(760, 40, 80, 36);
 
                 jButton27.setText("mark links to selected");
-                jButton27.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton27.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton27ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton27);
-                jButton27.setBounds(650, 190, 170, 23);
+                jButton27.setBounds(650, 190, 170, 36);
 
                 jButton26.setText("... end with STRING");
-                jButton26.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton26.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton26ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton26);
-                jButton26.setBounds(660, 340, 160, 23);
+                jButton26.setBounds(660, 340, 160, 36);
 
                 crossRefPanel1.setBackground(new java.awt.Color(153, 255, 153));
                 crossRefPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -3275,77 +2330,63 @@ public class Gui extends javax.swing.JFrame {
                 textfieldState50.setBounds(620, 20, 130, 20);
 
                 jButton19.setText("select...");
-                jButton19.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton19.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton19ActionPerformed(evt);
                     }
                 });
                 jPanel4.add(jButton19);
-                jButton19.setBounds(746, 10, 110, 23);
+                jButton19.setBounds(746, 10, 110, 36);
 
                 jLabel57.setText("file:");
                 jPanel4.add(jLabel57);
-                jLabel57.setBounds(580, 20, 40, 14);
+                jLabel57.setBounds(580, 20, 40, 16);
 
                 textfieldState51.setText("textfieldState51");
                 textfieldState51.setName("crstr"); // NOI18N
                 jPanel4.add(textfieldState51);
-                textfieldState51.setBounds(620, 280, 84, 20);
+                textfieldState51.setBounds(620, 280, 87, 20);
 
                 AdvTabState.addTab("CrossRefTool", jPanel4);
 
                 jButton13.setText("Make prp report");
-                jButton13.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton13.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton13ActionPerformed(evt);
                     }
                 });
 
                 jButton14.setText("Dump some objects");
-                jButton14.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton14.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton14ActionPerformed(evt);
                     }
                 });
 
                 jButton17.setText("Recompile prp");
-                jButton17.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton17.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton17ActionPerformed(evt);
                     }
                 });
 
                 jButton21.setText("Find Objects of a certain type");
-                jButton21.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton21.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton21ActionPerformed(evt);
                     }
                 });
 
                 jButton32.setText("convert from xml escaped text (TEXT:)");
-                jButton32.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton32.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton32ActionPerformed(evt);
                     }
                 });
 
                 jButton33.setText("convert to escaped double quotes (TEXT:)");
-                jButton33.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton33.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton33ActionPerformed(evt);
                     }
                 });
@@ -3353,19 +2394,15 @@ public class Gui extends javax.swing.JFrame {
                 jLabel3.setText("Use these to convert text from .loc files to an escaped string that can be used by Python:");
 
                 jButton44.setText("Dump All Objects");
-                jButton44.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton44.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton44ActionPerformed(evt);
                     }
                 });
 
                 jButton48.setText("create .sum file");
-                jButton48.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton48.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton48ActionPerformed(evt);
                     }
                 });
@@ -3414,7 +2451,7 @@ public class Gui extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButton33))
                                     .addComponent(jLabel3))))
-                        .addContainerGap(407, Short.MAX_VALUE))
+                        .addContainerGap(395, Short.MAX_VALUE))
                 );
                 jPanel1Layout.setVerticalGroup(
                     jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3454,10 +2491,8 @@ public class Gui extends javax.swing.JFrame {
                 jPanel45.setBorder(javax.swing.BorderFactory.createTitledBorder("Chat"));
 
                 jButton143.setText("jButton143");
-                jButton143.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton143.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton143ActionPerformed(evt);
                     }
                 });
@@ -3488,26 +2523,24 @@ public class Gui extends javax.swing.JFrame {
                 );
 
                 jPanel49.add(jPanel45);
-                jPanel45.setBounds(40, 30, 292, 117);
+                jPanel45.setBounds(40, 30, 288, 126);
 
                 textfieldState43.setText("defaulttest");
                 textfieldState43.setName("wha"); // NOI18N
                 jPanel49.add(textfieldState43);
-                textfieldState43.setBounds(20, 200, 59, 20);
+                textfieldState43.setBounds(20, 200, 61, 20);
 
                 jPanel36.setBorder(javax.swing.BorderFactory.createEtchedBorder());
                 jPanel36.setLayout(null);
 
                 jButton105.setText("Check(url,timer,search)");
-                jButton105.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton105.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton105ActionPerformed(evt);
                     }
                 });
                 jPanel36.add(jButton105);
-                jButton105.setBounds(10, 210, 180, 23);
+                jButton105.setBounds(10, 210, 180, 36);
 
                 textfieldState26.setText("http://example.com/page.html");
                 textfieldState26.setName("address"); // NOI18N
@@ -3526,37 +2559,33 @@ public class Gui extends javax.swing.JFrame {
 
                 jLabel1.setText("url:");
                 jPanel36.add(jLabel1);
-                jLabel1.setBounds(10, 10, 50, 14);
+                jLabel1.setBounds(10, 10, 50, 16);
 
                 jLabel2.setText("timer(s)");
                 jPanel36.add(jLabel2);
-                jLabel2.setBounds(10, 40, 70, 14);
+                jLabel2.setBounds(10, 40, 70, 16);
 
                 jButton16.setText("Start saving(url,timer,outfolder)");
-                jButton16.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton16.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton16ActionPerformed(evt);
                     }
                 });
                 jPanel36.add(jButton16);
-                jButton16.setBounds(10, 180, 210, 23);
+                jButton16.setBounds(10, 180, 210, 36);
 
                 jButton18.setText("Cancel All");
-                jButton18.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton18.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton18ActionPerformed(evt);
                     }
                 });
                 jPanel36.add(jButton18);
-                jButton18.setBounds(260, 150, 80, 23);
+                jButton18.setBounds(260, 150, 80, 36);
 
                 jLabel51.setText("outfolder");
                 jPanel36.add(jLabel51);
-                jLabel51.setBounds(10, 70, 70, 14);
+                jLabel51.setBounds(10, 70, 70, 16);
 
                 textfieldState52.setText("textfieldState52");
                 textfieldState52.setName("tmsrch"); // NOI18N
@@ -3570,204 +2599,168 @@ public class Gui extends javax.swing.JFrame {
 
                 jLabel60.setText("search");
                 jPanel36.add(jLabel60);
-                jLabel60.setBounds(10, 100, 32, 14);
+                jLabel60.setBounds(10, 100, 38, 16);
 
                 jLabel61.setText("date & time:");
                 jPanel36.add(jLabel61);
-                jLabel61.setBounds(10, 130, 80, 14);
+                jLabel61.setBounds(10, 130, 80, 16);
 
                 jButton37.setText("Save at time(url, outfolder, date&time)");
-                jButton37.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton37.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton37ActionPerformed(evt);
                     }
                 });
                 jPanel36.add(jButton37);
-                jButton37.setBounds(10, 240, 250, 23);
+                jButton37.setBounds(10, 240, 250, 36);
 
                 jPanel49.add(jPanel36);
                 jPanel36.setBounds(350, 10, 350, 300);
 
                 jButton1.setText("Run Code Validation");
-                jButton1.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton1ActionPerformed(evt);
                     }
                 });
                 jPanel49.add(jButton1);
-                jButton1.setBounds(50, 170, 170, 23);
+                jButton1.setBounds(50, 170, 170, 36);
 
                 jButton6.setText("test!!!");
-                jButton6.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton6.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton6ActionPerformed(evt);
                     }
                 });
                 jPanel49.add(jButton6);
-                jButton6.setBounds(90, 210, 80, 23);
+                jButton6.setBounds(90, 210, 80, 36);
 
                 jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Language"));
                 jPanel13.setLayout(null);
 
                 jButton38.setText("list all strings");
-                jButton38.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton38.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton38ActionPerformed(evt);
                     }
                 });
                 jPanel13.add(jButton38);
-                jButton38.setBounds(0, 20, 180, 23);
+                jButton38.setBounds(0, 20, 180, 36);
 
                 jButton40.setText("test current language");
-                jButton40.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton40.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton40ActionPerformed(evt);
                     }
                 });
                 jPanel13.add(jButton40);
-                jButton40.setBounds(0, 50, 180, 23);
+                jButton40.setBounds(0, 50, 180, 36);
 
                 jButton46.setText("Save Missing Translations");
-                jButton46.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton46.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton46ActionPerformed(evt);
                     }
                 });
                 jPanel13.add(jButton46);
-                jButton46.setBounds(10, 120, 240, 23);
+                jButton46.setBounds(10, 120, 240, 36);
 
                 jPanel49.add(jPanel13);
                 jPanel13.setBounds(30, 240, 260, 170);
 
                 jButton158.setText("as float");
-                jButton158.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton158.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton158ActionPerformed(evt);
                     }
                 });
                 jPanel49.add(jButton158);
-                jButton158.setBounds(260, 200, 69, 23);
+                jButton158.setBounds(260, 200, 64, 36);
 
                 textfieldState65.setText("0x4F800000");
                 textfieldState65.setName("bitflt"); // NOI18N
                 jPanel49.add(textfieldState65);
-                textfieldState65.setBounds(260, 170, 66, 20);
+                textfieldState65.setBounds(260, 170, 72, 20);
 
                 jButton161.setText("Create Distillation Profiles");
-                jButton161.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton161.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton161ActionPerformed(evt);
                     }
                 });
                 jPanel49.add(jButton161);
-                jButton161.setBounds(340, 340, 210, 23);
+                jButton161.setBounds(340, 340, 210, 36);
 
                 jButton172.setText("Merge this Jar with Libs");
-                jButton172.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton172.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton172ActionPerformed(evt);
                     }
                 });
                 jPanel49.add(jButton172);
-                jButton172.setBounds(330, 370, 200, 23);
+                jButton172.setBounds(330, 370, 200, 36);
 
                 AdvTabState.addTab("Misc", jPanel49);
 
                 jButton5.setText("Decrypt notthedroids");
-                jButton5.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton5.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton5ActionPerformed(evt);
                     }
                 });
 
                 jButton4.setText("Decrypt whatdoyousee");
-                jButton4.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton4.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton4ActionPerformed(evt);
                     }
                 });
 
                 jButton11.setText("Decrypt elf");
-                jButton11.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton11.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton11ActionPerformed(evt);
                     }
                 });
 
                 jButton8.setText("Decrypt eoa");
-                jButton8.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton8.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton8ActionPerformed(evt);
                     }
                 });
 
                 jButton7.setText("Encrypt notthedroids");
-                jButton7.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton7.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton7ActionPerformed(evt);
                     }
                 });
 
                 jButton10.setText("Encrypt whatdoyousee");
-                jButton10.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton10.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton10ActionPerformed(evt);
                     }
                 });
 
                 jButton9.setText("Encrypt eoa");
-                jButton9.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton9.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton9ActionPerformed(evt);
                     }
                 });
 
                 jButton12.setText("Encrypt elf");
-                jButton12.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton12.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton12ActionPerformed(evt);
                     }
                 });
 
                 jButton47.setText("Calculate md5");
-                jButton47.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton47.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton47ActionPerformed(evt);
                     }
                 });
@@ -3779,46 +2772,36 @@ public class Gui extends javax.swing.JFrame {
                 textfieldState16.setName("encryptionOut"); // NOI18N
 
                 jButton88.setText("select...");
-                jButton88.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton88.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton88ActionPerformed(evt);
                     }
                 });
 
                 jButton89.setText("select...");
-                jButton89.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton89.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton89ActionPerformed(evt);
                     }
                 });
 
                 jButton128.setText("Calculate Whirlpool");
-                jButton128.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton128.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton128ActionPerformed(evt);
                     }
                 });
 
                 jButton138.setText("Caclulate Sha1");
-                jButton138.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton138.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton138ActionPerformed(evt);
                     }
                 });
 
                 jButton3.setText("Detect Type");
-                jButton3.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton3.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton3ActionPerformed(evt);
                     }
                 });
@@ -3906,167 +2889,137 @@ public class Gui extends javax.swing.JFrame {
                 jPanel10.setLayout(null);
 
                 jButton45.setText("Depack");
-                jButton45.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton45.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton45ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton45);
-                jButton45.setBounds(50, 120, 130, 23);
+                jButton45.setBounds(50, 120, 130, 36);
 
-                textfieldState21.setText("C:/some_file");
+                textfieldState21.setText("textfieldState21");
                 textfieldState21.setName("realmystIn"); // NOI18N
                 jPanel10.add(textfieldState21);
                 textfieldState21.setBounds(130, 30, 370, 20);
 
                 jButton95.setText("select");
-                jButton95.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton95.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton95ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton95);
-                jButton95.setBounds(500, 20, 110, 23);
+                jButton95.setBounds(500, 20, 110, 36);
 
                 jButton101.setText("select");
-                jButton101.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton101.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton101ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton101);
-                jButton101.setBounds(500, 70, 110, 23);
+                jButton101.setBounds(500, 70, 110, 36);
 
-                textfieldState24.setText("C:/some_folder");
+                textfieldState24.setText("textfieldState24");
                 textfieldState24.setName("realmystOut"); // NOI18N
                 jPanel10.add(textfieldState24);
                 textfieldState24.setBounds(130, 80, 370, 20);
 
-                jLabel25.setText("Nope, still doesn't work, stop asking.");
+                jLabel25.setText("in file:");
                 jPanel10.add(jLabel25);
-                jLabel25.setBounds(10, 10, 350, 14);
+                jLabel25.setBounds(10, 30, 100, 16);
 
-                jLabel26.setText("out/test folder:");
+                jLabel26.setText("out folder:");
                 jPanel10.add(jLabel26);
-                jLabel26.setBounds(10, 80, 110, 14);
+                jLabel26.setBounds(10, 80, 110, 16);
 
-                textfieldState25.setText("C:/some_file_to_read");
+                textfieldState25.setText("textfieldState25");
                 textfieldState25.setName("realmystObjFile"); // NOI18N
                 jPanel10.add(textfieldState25);
                 textfieldState25.setBounds(90, 210, 340, 20);
 
                 jButton102.setText("Attempt to read.");
-                jButton102.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton102.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton102ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton102);
-                jButton102.setBounds(90, 250, 160, 23);
+                jButton102.setBounds(90, 250, 160, 36);
 
                 jLabel27.setText("File:");
                 jPanel10.add(jLabel27);
-                jLabel27.setBounds(30, 210, 48, 14);
+                jLabel27.setBounds(30, 210, 48, 16);
 
                 jButton103.setText("select");
-                jButton103.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton103.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton103ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton103);
-                jButton103.setBounds(440, 200, 110, 23);
+                jButton103.setBounds(440, 200, 110, 36);
 
                 jButton104.setText("sdb test");
-                jButton104.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton104.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton104ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton104);
-                jButton104.setBounds(210, 120, 100, 23);
+                jButton104.setBounds(210, 120, 100, 36);
 
                 jButton106.setText("mdb test");
-                jButton106.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton106.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton106ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton106);
-                jButton106.setBounds(302, 120, 100, 23);
+                jButton106.setBounds(302, 120, 100, 36);
 
                 jButton108.setText("hsm test");
-                jButton108.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton108.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton108ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton108);
-                jButton108.setBounds(400, 120, 120, 23);
+                jButton108.setBounds(400, 120, 120, 36);
 
                 jButton109.setText("string search");
-                jButton109.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton109.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton109ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton109);
-                jButton109.setBounds(646, 60, 140, 23);
+                jButton109.setBounds(646, 60, 140, 36);
 
                 jButton110.setText("full test");
-                jButton110.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton110.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton110ActionPerformed(evt);
                     }
                 });
                 jPanel10.add(jButton110);
-                jButton110.setBounds(380, 160, 130, 23);
+                jButton110.setBounds(380, 160, 130, 36);
 
-                textfieldState29.setText("String to search");
+                textfieldState29.setText("textfieldState29");
                 textfieldState29.setName("searchString"); // NOI18N
                 jPanel10.add(textfieldState29);
                 textfieldState29.setBounds(650, 40, 130, 20);
 
-                textfieldState30.setText("Folder to search in...");
+                textfieldState30.setText("textfieldState30");
                 textfieldState30.setName("searchPath"); // NOI18N
                 jPanel10.add(textfieldState30);
                 textfieldState30.setBounds(650, 10, 130, 20);
 
-                jLabel89.setText("(won't produce any output file, just to make sure things are working)");
-                jPanel10.add(jLabel89);
-                jLabel89.setBounds(250, 260, 560, 14);
-
-                jLabel92.setText("in file:");
-                jPanel10.add(jLabel92);
-                jLabel92.setBounds(10, 30, 100, 14);
-
                 AdvTabState.addTab("realMyst", jPanel10);
 
                 jButton50.setText("jButton50");
-                jButton50.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton50.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton50ActionPerformed(evt);
                     }
                 });
@@ -4095,39 +3048,37 @@ public class Gui extends javax.swing.JFrame {
                 jPanel2.setLayout(null);
 
                 jButton82.setText("Start...");
-                jButton82.addActionListener(new java.awt.event.ActionListener()
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                    {
+                jButton82.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jButton82ActionPerformed(evt);
                     }
                 });
                 jPanel2.add(jButton82);
-                jButton82.setBounds(240, 260, 90, 23);
+                jButton82.setBounds(240, 260, 90, 36);
 
                 checkboxState26.setSelected(true);
                 checkboxState26.setText("Include general files");
                 checkboxState26.setName("dsop1"); // NOI18N
                 jPanel2.add(checkboxState26);
-                checkboxState26.setBounds(390, 40, 150, 23);
+                checkboxState26.setBounds(390, 40, 150, 28);
 
                 checkboxState27.setSelected(true);
                 checkboxState27.setText("Include Pots Ages");
                 checkboxState27.setName("dsop2"); // NOI18N
                 jPanel2.add(checkboxState27);
-                checkboxState27.setBounds(390, 80, 150, 23);
+                checkboxState27.setBounds(390, 80, 150, 28);
 
                 checkboxState28.setSelected(true);
                 checkboxState28.setText("Include agelist.txt Ages");
                 checkboxState28.setName("dsop3"); // NOI18N
                 jPanel2.add(checkboxState28);
-                checkboxState28.setBounds(390, 120, 170, 23);
+                checkboxState28.setBounds(390, 120, 170, 28);
 
                 checkboxState29.setSelected(true);
                 checkboxState29.setText("Include AvailableLinks.inf Ages");
                 checkboxState29.setName("dsop4"); // NOI18N
                 jPanel2.add(checkboxState29);
-                checkboxState29.setBounds(390, 160, 210, 23);
+                checkboxState29.setBounds(390, 160, 210, 28);
 
                 textfieldState55.setText("192.168.0.102");
                 textfieldState55.setName("dsserv"); // NOI18N
@@ -4136,11 +3087,11 @@ public class Gui extends javax.swing.JFrame {
 
                 jLabel64.setText("Server:");
                 jPanel2.add(jLabel64);
-                jLabel64.setBounds(10, 50, 70, 14);
+                jLabel64.setBounds(10, 50, 70, 16);
 
                 jLabel65.setText("Save folder:");
                 jPanel2.add(jLabel65);
-                jLabel65.setBounds(10, 110, 80, 14);
+                jLabel65.setBounds(10, 110, 80, 16);
 
                 textfieldState56.setText("C:\\somepath\\");
                     textfieldState56.setName("dssave"); // NOI18N
@@ -4148,21 +3099,19 @@ public class Gui extends javax.swing.JFrame {
                     textfieldState56.setBounds(90, 110, 200, 20);
 
                     jButton148.setText("Select...");
-                    jButton148.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton148.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton148ActionPerformed(evt);
                         }
                     });
                     jPanel2.add(jButton148);
-                    jButton148.setBounds(290, 100, 70, 23);
+                    jButton148.setBounds(290, 100, 70, 36);
 
                     checkboxState30.setSelected(true);
                     checkboxState30.setText("Include Custom Ages:");
                     checkboxState30.setName("dsop5"); // NOI18N
                     jPanel2.add(checkboxState30);
-                    checkboxState30.setBounds(390, 200, 160, 23);
+                    checkboxState30.setBounds(390, 200, 160, 28);
 
                     textareaState2.setColumns(20);
                     textareaState2.setRows(5);
@@ -4171,7 +3120,7 @@ public class Gui extends javax.swing.JFrame {
                     jScrollPane3.setViewportView(textareaState2);
 
                     jPanel2.add(jScrollPane3);
-                    jScrollPane3.setBounds(550, 200, 310, 96);
+                    jScrollPane3.setBounds(550, 200, 310, 87);
 
                     tabsState4.addTab("DataserverMirror", jPanel2);
 
@@ -4184,11 +3133,11 @@ public class Gui extends javax.swing.JFrame {
 
                     jLabel66.setText("Uru folder to use:");
                     jPanel29.add(jLabel66);
-                    jLabel66.setBounds(20, 30, 120, 14);
+                    jLabel66.setBounds(20, 30, 120, 16);
 
                     jLabel67.setText("Output folder:");
                     jPanel29.add(jLabel67);
-                    jLabel67.setBounds(20, 60, 110, 14);
+                    jLabel67.setBounds(20, 60, 110, 16);
 
                     textfieldState58.setText("C:\\path\\to\\dataserver");
                     textfieldState58.setName("dsout"); // NOI18N
@@ -4199,40 +3148,34 @@ public class Gui extends javax.swing.JFrame {
                     checkboxState31.setText("Create data files");
                     checkboxState31.setName("adjdsdf"); // NOI18N
                     jPanel29.add(checkboxState31);
-                    checkboxState31.setBounds(70, 120, 160, 23);
+                    checkboxState31.setBounds(70, 120, 160, 28);
 
                     jButton149.setText("Start");
-                    jButton149.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton149.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton149ActionPerformed(evt);
                         }
                     });
                     jPanel29.add(jButton149);
-                    jButton149.setBounds(70, 170, 80, 23);
+                    jButton149.setBounds(70, 170, 80, 36);
 
                     jButton150.setText("select");
-                    jButton150.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton150.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton150ActionPerformed(evt);
                         }
                     });
                     jPanel29.add(jButton150);
-                    jButton150.setBounds(520, 50, 60, 23);
+                    jButton150.setBounds(520, 50, 60, 36);
 
                     jButton151.setText("select");
-                    jButton151.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton151.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton151ActionPerformed(evt);
                         }
                     });
                     jPanel29.add(jButton151);
-                    jButton151.setBounds(520, 20, 60, 23);
+                    jButton151.setBounds(520, 20, 60, 36);
 
                     tabsState4.addTab("DataserverGenerator", jPanel29);
 
@@ -4247,19 +3190,19 @@ public class Gui extends javax.swing.JFrame {
 
                     jLabel68.setText("command:");
                     jPanel32.add(jLabel68);
-                    jLabel68.setBounds(80, 70, 70, 14);
+                    jLabel68.setBounds(80, 70, 70, 16);
 
                     jLabel70.setText("arg1:");
                     jPanel32.add(jLabel70);
-                    jLabel70.setBounds(80, 120, 60, 14);
+                    jLabel70.setBounds(80, 120, 60, 16);
 
                     jLabel71.setText("arg2:");
                     jPanel32.add(jLabel71);
-                    jLabel71.setBounds(80, 160, 70, 14);
+                    jLabel71.setBounds(80, 160, 70, 16);
 
                     jLabel72.setText("arg3:");
                     jPanel32.add(jLabel72);
-                    jLabel72.setBounds(80, 200, 70, 14);
+                    jLabel72.setBounds(80, 200, 70, 16);
 
                     textfieldState60.setName("cl1"); // NOI18N
                     jPanel32.add(textfieldState60);
@@ -4274,67 +3217,57 @@ public class Gui extends javax.swing.JFrame {
                     textfieldState62.setBounds(160, 200, 370, 20);
 
                     jButton152.setText("Call...");
-                    jButton152.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton152.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton152ActionPerformed(evt);
                         }
                     });
                     jPanel32.add(jButton152);
-                    jButton152.setBounds(150, 270, 80, 23);
+                    jButton152.setBounds(150, 270, 80, 36);
 
                     jLabel73.setText("arg4:");
                     jPanel32.add(jLabel73);
-                    jLabel73.setBounds(80, 240, 70, 14);
+                    jLabel73.setBounds(80, 240, 70, 16);
 
                     textfieldState63.setName("cl4"); // NOI18N
                     jPanel32.add(textfieldState63);
                     textfieldState63.setBounds(160, 240, 370, 20);
 
                     jButton153.setText("Select...");
-                    jButton153.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton153.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton153ActionPerformed(evt);
                         }
                     });
                     jPanel32.add(jButton153);
-                    jButton153.setBounds(530, 110, 80, 23);
+                    jButton153.setBounds(530, 110, 80, 36);
 
                     jButton154.setText("Select...");
-                    jButton154.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton154.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton154ActionPerformed(evt);
                         }
                     });
                     jPanel32.add(jButton154);
-                    jButton154.setBounds(530, 150, 80, 23);
+                    jButton154.setBounds(530, 150, 80, 36);
 
                     jButton155.setText("Select...");
-                    jButton155.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton155.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton155ActionPerformed(evt);
                         }
                     });
                     jPanel32.add(jButton155);
-                    jButton155.setBounds(530, 190, 80, 23);
+                    jButton155.setBounds(530, 190, 80, 36);
 
                     jButton156.setText("Help");
-                    jButton156.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton156.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton156ActionPerformed(evt);
                         }
                     });
                     jPanel32.add(jButton156);
-                    jButton156.setBounds(400, 270, 110, 23);
+                    jButton156.setBounds(400, 270, 110, 36);
 
                     AdvTabState.addTab("CommandLine", jPanel32);
 
@@ -4345,102 +3278,36 @@ public class Gui extends javax.swing.JFrame {
                     jLabel9.setText("Output folder:");
 
                     jButton55.setText("select...");
-                    jButton55.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton55.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton55ActionPerformed(evt);
                         }
                     });
 
                     jButton56.setText("select...");
-                    jButton56.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton56.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton56ActionPerformed(evt);
                         }
                     });
 
-                    textfieldState2.setText("C:\\Program Files\\Ubisoft\\Cyan Worlds\\Myst V End Of Ages");
-                    textfieldState2.setName("myst5intext"); // NOI18N
-
-                    textfieldState3.setText("C:\\Documents and Settings\\user\\Desktop\\output");
-                    textfieldState3.setName("myst5outtext"); // NOI18N
-
-                    jButton78.setText("read all...");
-                    jButton78.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
-                            jButton78ActionPerformed(evt);
+                    jButton57.setText("Start...");
+                    jButton57.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            jButton57ActionPerformed(evt);
                         }
                     });
-
-                    jPanel50.setBorder(javax.swing.BorderFactory.createTitledBorder("Process a single file..."));
-
-                    textfieldState74.setText("Kveer_District_BuiltIn.prp");
-                    textfieldState74.setName("mystvParticularFile"); // NOI18N
-
-                    jButton134.setText("select...");
-                    jButton134.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
-                            jButton134ActionPerformed(evt);
-                        }
-                    });
-
-                    jButton174.setText("start...");
-                    jButton174.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
-                            jButton174ActionPerformed(evt);
-                        }
-                    });
-
-                    javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
-                    jPanel50.setLayout(jPanel50Layout);
-                    jPanel50Layout.setHorizontalGroup(
-                        jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel50Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(textfieldState74, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton134)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton174)
-                            .addContainerGap(78, Short.MAX_VALUE))
-                    );
-                    jPanel50Layout.setVerticalGroup(
-                        jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel50Layout.createSequentialGroup()
-                            .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(textfieldState74, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton134)
-                                .addComponent(jButton174))
-                            .addContainerGap(23, Short.MAX_VALUE))
-                    );
-
-                    jPanel51.setBorder(javax.swing.BorderFactory.createTitledBorder("Process a bunch of files..."));
-
-                    jLabel10.setText("Files to process:");
 
                     jButton58.setText("Select All");
-                    jButton58.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton58.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton58ActionPerformed(evt);
                         }
                     });
 
                     jButton59.setText("Select None");
-                    jButton59.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton59.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton59ActionPerformed(evt);
                         }
                     });
@@ -4448,46 +3315,20 @@ public class Gui extends javax.swing.JFrame {
                     listState2.setName("myst5list"); // NOI18N
                     jScrollPane5.setViewportView(listState2);
 
-                    jButton57.setText("Start...");
-                    jButton57.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
-                            jButton57ActionPerformed(evt);
+                    textfieldState2.setText("C:\\Program Files\\Ubisoft\\Cyan Worlds\\Myst V End Of Ages");
+                    textfieldState2.setName("myst5intext"); // NOI18N
+
+                    textfieldState3.setText("C:\\Documents and Settings\\user\\Desktop\\output");
+                    textfieldState3.setName("myst5outtext"); // NOI18N
+
+                    jLabel10.setText("Files to process:");
+
+                    jButton78.setText("read all...");
+                    jButton78.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            jButton78ActionPerformed(evt);
                         }
                     });
-
-                    javax.swing.GroupLayout jPanel51Layout = new javax.swing.GroupLayout(jPanel51);
-                    jPanel51.setLayout(jPanel51Layout);
-                    jPanel51Layout.setHorizontalGroup(
-                        jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel51Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel10)
-                                .addComponent(jButton58, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton59, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
-                            .addContainerGap())
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel51Layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(jButton57))
-                    );
-                    jPanel51Layout.setVerticalGroup(
-                        jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel51Layout.createSequentialGroup()
-                            .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel51Layout.createSequentialGroup()
-                                    .addComponent(jLabel10)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton58)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton59))
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton57))
-                    );
 
                     javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
                     jPanel15.setLayout(jPanel15Layout);
@@ -4496,26 +3337,31 @@ public class Gui extends javax.swing.JFrame {
                         .addGroup(jPanel15Layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textfieldState2, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                                .addComponent(textfieldState3, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                                 .addGroup(jPanel15Layout.createSequentialGroup()
-                                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel9))
+                                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jButton58)
+                                        .addComponent(jButton59))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(textfieldState3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textfieldState2, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton55, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jButton56, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton78)
-                                    .addGap(333, 333, 333))
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton57)
                                 .addGroup(jPanel15Layout.createSequentialGroup()
-                                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(jButton55)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton78))
+                                .addComponent(jButton56))
+                            .addGap(312, 312, 312))
+                        .addGroup(jPanel15Layout.createSequentialGroup()
+                            .addGap(62, 62, 62)
+                            .addComponent(jLabel10)
+                            .addContainerGap(825, Short.MAX_VALUE))
                     );
                     jPanel15Layout.setVerticalGroup(
                         jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4526,16 +3372,30 @@ public class Gui extends javax.swing.JFrame {
                                 .addComponent(textfieldState2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton55)
                                 .addComponent(jButton78))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel9)
-                                .addComponent(textfieldState3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton56))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                            .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(68, 68, 68))
+                            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel15Layout.createSequentialGroup()
+                                    .addGap(80, 80, 80)
+                                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                                            .addComponent(jButton57)
+                                            .addGap(76, 76, 76))
+                                        .addGroup(jPanel15Layout.createSequentialGroup()
+                                            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel15Layout.createSequentialGroup()
+                                                    .addComponent(jButton58)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jButton59)))
+                                            .addGap(17, 17, 17))))
+                                .addGroup(jPanel15Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel9)
+                                        .addComponent(textfieldState3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton56))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel10)))
+                            .addGap(98, 98, 98))
                     );
 
                     tabsState2.addTab("MystV", jPanel15);
@@ -4545,28 +3405,22 @@ public class Gui extends javax.swing.JFrame {
                     jLabel7.setText("Output folder:");
 
                     jButton53.setText("start...");
-                    jButton53.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton53.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton53ActionPerformed(evt);
                         }
                     });
 
                     jButton51.setText("select...");
-                    jButton51.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton51.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton51ActionPerformed(evt);
                         }
                     });
 
                     jButton52.setText("select...");
-                    jButton52.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton52.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton52ActionPerformed(evt);
                         }
                     });
@@ -4597,7 +3451,7 @@ public class Gui extends javax.swing.JFrame {
                                         .addComponent(jButton51)
                                         .addComponent(jButton52)))
                                 .addComponent(jButton53))
-                            .addContainerGap(377, Short.MAX_VALUE))
+                            .addContainerGap(379, Short.MAX_VALUE))
                     );
                     jPanel14Layout.setVerticalGroup(
                         jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4622,39 +3476,37 @@ public class Gui extends javax.swing.JFrame {
                     jPanel16.setLayout(null);
 
                     jButton79.setText("Read All Prps from All Games...");
-                    jButton79.addActionListener(new java.awt.event.ActionListener()
-                    {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
+                    jButton79.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                             jButton79ActionPerformed(evt);
                         }
                     });
                     jPanel16.add(jButton79);
-                    jButton79.setBounds(50, 190, 230, 23);
+                    jButton79.setBounds(50, 190, 230, 36);
 
                     checkboxState2.setSelected(true);
                     checkboxState2.setText("Read from Pots");
                     checkboxState2.setName("readAllFromPots"); // NOI18N
                     jPanel16.add(checkboxState2);
-                    checkboxState2.setBounds(60, 20, 160, 23);
+                    checkboxState2.setBounds(60, 20, 160, 28);
 
                     checkboxState14.setSelected(true);
                     checkboxState14.setText("Read from Crowthistle");
                     checkboxState14.setName("readAllFromCrowthistle"); // NOI18N
                     jPanel16.add(checkboxState14);
-                    checkboxState14.setBounds(60, 50, 180, 23);
+                    checkboxState14.setBounds(60, 50, 180, 28);
 
                     checkboxState15.setSelected(true);
                     checkboxState15.setText("Read from MystV");
                     checkboxState15.setName("readAllFromMystv"); // NOI18N
                     jPanel16.add(checkboxState15);
-                    checkboxState15.setBounds(60, 80, 140, 23);
+                    checkboxState15.setBounds(60, 80, 140, 28);
 
                     checkboxState16.setSelected(true);
                     checkboxState16.setText("Read from Moul");
                     checkboxState16.setName("readAllFromMoul"); // NOI18N
                     jPanel16.add(checkboxState16);
-                    checkboxState16.setBounds(60, 110, 180, 23);
+                    checkboxState16.setBounds(60, 110, 180, 28);
 
                     tabsState2.addTab("tab3", jPanel16);
 
@@ -4667,40 +3519,34 @@ public class Gui extends javax.swing.JFrame {
 
                         jLabel11.setText("Pots folder:");
                         jPanel17.add(jLabel11);
-                        jLabel11.setBounds(10, 40, 140, 14);
+                        jLabel11.setBounds(10, 40, 140, 16);
 
                         jButton62.setText("Read all prp files...");
-                        jButton62.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton62.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton62ActionPerformed(evt);
                             }
                         });
                         jPanel17.add(jButton62);
-                        jButton62.setBounds(90, 70, 160, 23);
+                        jButton62.setBounds(90, 70, 160, 36);
 
                         jButton63.setText("select...");
-                        jButton63.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton63.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton63ActionPerformed(evt);
                             }
                         });
                         jPanel17.add(jButton63);
-                        jButton63.setBounds(670, 30, 110, 23);
+                        jButton63.setBounds(670, 30, 110, 36);
 
                         jButton69.setText("Read selected files.");
-                        jButton69.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton69.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton69ActionPerformed(evt);
                             }
                         });
                         jPanel17.add(jButton69);
-                        jButton69.setBounds(510, 200, 140, 23);
+                        jButton69.setBounds(510, 200, 140, 36);
 
                         textfieldState64.setText("textfieldState64");
                         textfieldState64.setName("potsconv"); // NOI18N
@@ -4708,15 +3554,13 @@ public class Gui extends javax.swing.JFrame {
                         textfieldState64.setBounds(60, 210, 350, 20);
 
                         jButton157.setText("select...");
-                        jButton157.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton157.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton157ActionPerformed(evt);
                             }
                         });
                         jPanel17.add(jButton157);
-                        jButton157.setBounds(410, 210, 73, 23);
+                        jButton157.setBounds(410, 210, 66, 36);
 
                         tabsState2.addTab("Pots", jPanel17);
 
@@ -4733,42 +3577,36 @@ public class Gui extends javax.swing.JFrame {
                         textfieldState8.setBounds(130, 60, 510, 20);
 
                         jButton64.setText("Select...");
-                        jButton64.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton64.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton64ActionPerformed(evt);
                             }
                         });
                         jPanel19.add(jButton64);
-                        jButton64.setBounds(660, 20, 110, 23);
+                        jButton64.setBounds(660, 20, 110, 36);
 
                         jButton65.setText("Select....");
-                        jButton65.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton65.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton65ActionPerformed(evt);
                             }
                         });
                         jPanel19.add(jButton65);
-                        jButton65.setBounds(660, 60, 110, 23);
+                        jButton65.setBounds(660, 60, 110, 36);
 
                         jLabel12.setText("Moul folder:");
                         jPanel19.add(jLabel12);
-                        jLabel12.setBounds(10, 10, 110, 14);
+                        jLabel12.setBounds(10, 10, 110, 16);
 
                         jLabel13.setText("Output folder:");
                         jPanel19.add(jLabel13);
-                        jLabel13.setBounds(10, 60, 110, 14);
+                        jLabel13.setBounds(10, 60, 110, 16);
 
                         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder("Process a bunch of files..."));
 
                         jButton67.setText("Select all");
-                        jButton67.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton67.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton67ActionPerformed(evt);
                             }
                         });
@@ -4776,10 +3614,8 @@ public class Gui extends javax.swing.JFrame {
                         jLabel14.setText("Files to process:");
 
                         jButton68.setText("Select none");
-                        jButton68.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton68.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton68ActionPerformed(evt);
                             }
                         });
@@ -4788,10 +3624,8 @@ public class Gui extends javax.swing.JFrame {
                         jScrollPane8.setViewportView(listState3);
 
                         jButton66.setText("Start...");
-                        jButton66.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton66.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton66ActionPerformed(evt);
                             }
                         });
@@ -4841,19 +3675,15 @@ public class Gui extends javax.swing.JFrame {
                         textfieldState1.setName("moulParticularFile"); // NOI18N
 
                         jButton60.setText("select...");
-                        jButton60.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton60.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton60ActionPerformed(evt);
                             }
                         });
 
                         jButton86.setText("start...");
-                        jButton86.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton86.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton86ActionPerformed(evt);
                             }
                         });
@@ -4891,47 +3721,47 @@ public class Gui extends javax.swing.JFrame {
                         checkboxState1.setText("Report the ogg files seen.");
                         checkboxState1.setName("reportOggFiles"); // NOI18N
                         jPanel18.add(checkboxState1);
-                        checkboxState1.setBounds(130, 50, 380, 23);
+                        checkboxState1.setBounds(130, 50, 380, 28);
 
                         checkboxState3.setText("Report the avi files seen.");
                         checkboxState3.setName("reportAviFiles"); // NOI18N
                         jPanel18.add(checkboxState3);
-                        checkboxState3.setBounds(130, 90, 430, 23);
+                        checkboxState3.setBounds(130, 90, 430, 28);
 
                         checkboxState4.setText("Report PlEAXSourceSettings info.");
                         checkboxState4.setName("reportEaxSourceSettings"); // NOI18N
                         jPanel18.add(checkboxState4);
-                        checkboxState4.setBounds(130, 130, 450, 23);
+                        checkboxState4.setBounds(130, 130, 450, 28);
 
                         checkboxState5.setText("Report Physics settings.");
                         checkboxState5.setName("reportPhysics"); // NOI18N
                         jPanel18.add(checkboxState5);
-                        checkboxState5.setBounds(130, 170, 410, 23);
+                        checkboxState5.setBounds(130, 170, 410, 28);
 
                         checkboxState6.setText("Report suffixes written(including forced changes) and changed Age names.");
                         checkboxState6.setName("reportSuffixes"); // NOI18N
                         jPanel18.add(checkboxState6);
-                        checkboxState6.setBounds(130, 210, 490, 23);
+                        checkboxState6.setBounds(130, 210, 490, 28);
 
                         checkboxState7.setText("Report prp files processed.");
                         checkboxState7.setName("reportPrp"); // NOI18N
                         jPanel18.add(checkboxState7);
-                        checkboxState7.setBounds(130, 20, 290, 23);
+                        checkboxState7.setBounds(130, 20, 290, 28);
 
                         checkboxState12.setText("Report PythonFileMod info.");
                         checkboxState12.setName("reportPythonFileMod"); // NOI18N
                         jPanel18.add(checkboxState12);
-                        checkboxState12.setBounds(130, 250, 190, 23);
+                        checkboxState12.setBounds(130, 250, 190, 28);
 
                         checkboxState13.setText("Report Decryption info.");
                         checkboxState13.setName("reportDecryption"); // NOI18N
                         jPanel18.add(checkboxState13);
-                        checkboxState13.setBounds(130, 280, 170, 23);
+                        checkboxState13.setBounds(130, 280, 170, 28);
 
                         checkboxState21.setText("Report all object name & types.");
                         checkboxState21.setName("reportObjects"); // NOI18N
                         jPanel18.add(checkboxState21);
-                        checkboxState21.setBounds(130, 310, 220, 23);
+                        checkboxState21.setBounds(130, 310, 220, 28);
 
                         tabsState2.addTab("Reports", jPanel18);
 
@@ -4939,7 +3769,7 @@ public class Gui extends javax.swing.JFrame {
                         jPanel20.setLayout(jPanel20Layout);
                         jPanel20Layout.setHorizontalGroup(
                             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGap(0, 975, Short.MAX_VALUE)
+                            .addGap(0, 978, Short.MAX_VALUE)
                         );
                         jPanel20Layout.setVerticalGroup(
                             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4949,10 +3779,8 @@ public class Gui extends javax.swing.JFrame {
                         tabsState2.addTab("Settings", jPanel20);
 
                         jButton90.setText("Create BuiltIn District prp (Agename, Output)");
-                        jButton90.addActionListener(new java.awt.event.ActionListener()
-                        {
-                            public void actionPerformed(java.awt.event.ActionEvent evt)
-                            {
+                        jButton90.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton90ActionPerformed(evt);
                             }
                         });
@@ -4964,19 +3792,15 @@ public class Gui extends javax.swing.JFrame {
                             textfieldState19.setName("translateOutput"); // NOI18N
 
                             jButton92.setText("select");
-                            jButton92.addActionListener(new java.awt.event.ActionListener()
-                            {
-                                public void actionPerformed(java.awt.event.ActionEvent evt)
-                                {
+                            jButton92.addActionListener(new java.awt.event.ActionListener() {
+                                public void actionPerformed(java.awt.event.ActionEvent evt) {
                                     jButton92ActionPerformed(evt);
                                 }
                             });
 
                             jButton93.setText("select");
-                            jButton93.addActionListener(new java.awt.event.ActionListener()
-                            {
-                                public void actionPerformed(java.awt.event.ActionEvent evt)
-                                {
+                            jButton93.addActionListener(new java.awt.event.ActionListener() {
+                                public void actionPerformed(java.awt.event.ActionEvent evt) {
                                     jButton93ActionPerformed(evt);
                                 }
                             });
@@ -4985,19 +3809,15 @@ public class Gui extends javax.swing.JFrame {
                             textfieldState20.setName("translateVector"); // NOI18N
 
                             jButton94.setText("List Spawnpoint Sceneobjects (File)");
-                            jButton94.addActionListener(new java.awt.event.ActionListener()
-                            {
-                                public void actionPerformed(java.awt.event.ActionEvent evt)
-                                {
+                            jButton94.addActionListener(new java.awt.event.ActionListener() {
+                                public void actionPerformed(java.awt.event.ActionEvent evt) {
                                     jButton94ActionPerformed(evt);
                                 }
                             });
 
                             jButton99.setText("Sound test");
-                            jButton99.addActionListener(new java.awt.event.ActionListener()
-                            {
-                                public void actionPerformed(java.awt.event.ActionEvent evt)
-                                {
+                            jButton99.addActionListener(new java.awt.event.ActionListener() {
+                                public void actionPerformed(java.awt.event.ActionEvent evt) {
                                     jButton99ActionPerformed(evt);
                                 }
                             });
@@ -5014,10 +3834,8 @@ public class Gui extends javax.swing.JFrame {
                             jLabel24.setText("Translation:");
 
                             jButton41.setText("AutoMod");
-                            jButton41.addActionListener(new java.awt.event.ActionListener()
-                            {
-                                public void actionPerformed(java.awt.event.ActionEvent evt)
-                                {
+                            jButton41.addActionListener(new java.awt.event.ActionListener() {
+                                public void actionPerformed(java.awt.event.ActionEvent evt) {
                                     jButton41ActionPerformed(evt);
                                 }
                             });
@@ -5026,10 +3844,8 @@ public class Gui extends javax.swing.JFrame {
                                 textfieldState54.setName("spmodpots"); // NOI18N
 
                                 jButton144.setText("select");
-                                jButton144.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton144.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton144ActionPerformed(evt);
                                     }
                                 });
@@ -5037,10 +3853,8 @@ public class Gui extends javax.swing.JFrame {
                                 jLabel53.setText("Pots:");
 
                                 jButton49.setText("Create All Profiles");
-                                jButton49.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton49.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton49ActionPerformed(evt);
                                     }
                                 });
@@ -5058,7 +3872,7 @@ public class Gui extends javax.swing.JFrame {
                                                         .addComponent(jButton90)
                                                         .addGroup(jPanel23Layout.createSequentialGroup()
                                                             .addComponent(jButton94)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                                                             .addComponent(jButton99))))
                                                 .addGroup(jPanel23Layout.createSequentialGroup()
                                                     .addContainerGap()
@@ -5072,8 +3886,8 @@ public class Gui extends javax.swing.JFrame {
                                                     .addGap(12, 12, 12)
                                                     .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(textfieldState17, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(textfieldState18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(textfieldState54, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                        .addComponent(textfieldState18, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                                                        .addComponent(textfieldState54, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                     .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jButton92)
@@ -5150,28 +3964,22 @@ public class Gui extends javax.swing.JFrame {
                                 textfieldState32.setName("hexisleOutfolder"); // NOI18N
 
                                 jButton111.setText("Start...");
-                                jButton111.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton111.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton111ActionPerformed(evt);
                                     }
                                 });
 
                                 jButton112.setText("select...");
-                                jButton112.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton112.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton112ActionPerformed(evt);
                                     }
                                 });
 
                                 jButton113.setText("select...");
-                                jButton113.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton113.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton113ActionPerformed(evt);
                                     }
                                 });
@@ -5198,7 +4006,7 @@ public class Gui extends javax.swing.JFrame {
                                             .addGroup(jPanel37Layout.createSequentialGroup()
                                                 .addGap(75, 75, 75)
                                                 .addComponent(jButton111)))
-                                        .addContainerGap(502, Short.MAX_VALUE))
+                                        .addContainerGap(505, Short.MAX_VALUE))
                                 );
                                 jPanel37Layout.setVerticalGroup(
                                     jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5226,7 +4034,7 @@ public class Gui extends javax.swing.JFrame {
                                 jPanel35.setLayout(jPanel35Layout);
                                 jPanel35Layout.setHorizontalGroup(
                                     jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGap(0, 975, Short.MAX_VALUE)
+                                    .addGap(0, 978, Short.MAX_VALUE)
                                 );
                                 jPanel35Layout.setVerticalGroup(
                                     jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5244,10 +4052,8 @@ public class Gui extends javax.swing.JFrame {
                                 jTextField4.setText("883481695");
 
                                 jButton39.setText("jButton39");
-                                jButton39.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton39.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton39ActionPerformed(evt);
                                     }
                                 });
@@ -5292,83 +4098,79 @@ public class Gui extends javax.swing.JFrame {
                                 );
 
                                 jPanel24.add(jPanel8);
-                                jPanel8.setBounds(530, 220, 327, 160);
+                                jPanel8.setBounds(530, 220, 320, 160);
 
                                 jButton119.setText("Read file.");
-                                jButton119.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton119.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton119ActionPerformed(evt);
                                     }
                                 });
                                 jPanel24.add(jButton119);
-                                jButton119.setBounds(10, 300, 160, 23);
+                                jButton119.setBounds(10, 300, 160, 36);
 
                                 textfieldState35.setText("textfieldState35");
                                 textfieldState35.setName("vaultInFile"); // NOI18N
                                 jPanel24.add(textfieldState35);
-                                textfieldState35.setBounds(40, 370, 84, 20);
+                                textfieldState35.setBounds(40, 370, 87, 20);
 
                                 jButton120.setText("Select...");
-                                jButton120.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton120.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton120ActionPerformed(evt);
                                     }
                                 });
                                 jPanel24.add(jButton120);
-                                jButton120.setBounds(10, 340, 160, 23);
+                                jButton120.setBounds(10, 340, 160, 36);
 
                                 checkboxState23.setText("Include new content (currently does nothing).");
                                 checkboxState23.setName("includeAuthoredMaterial"); // NOI18N
                                 jPanel24.add(checkboxState23);
-                                checkboxState23.setBounds(20, 210, 247, 23);
+                                checkboxState23.setBounds(20, 210, 269, 28);
 
                                 checkboxState20.setSelected(true);
                                 checkboxState20.setText("Do automated work on Myst5(PythonFileMods, etc)");
                                 checkboxState20.setName("automateMystV"); // NOI18N
                                 jPanel24.add(checkboxState20);
-                                checkboxState20.setBounds(20, 240, 271, 23);
+                                checkboxState20.setBounds(20, 240, 300, 28);
 
                                 checkboxState18.setSelected(true);
                                 checkboxState18.setText("Remove plLogicModifiers that reference plLadderModifiers.");
                                 checkboxState18.setName("removeLadders"); // NOI18N
                                 jPanel24.add(checkboxState18);
-                                checkboxState18.setBounds(20, 80, 307, 23);
+                                checkboxState18.setBounds(20, 80, 347, 28);
 
                                 checkboxState17.setText("Translate avatar away from smartseeks. (Warning: looks kind-of bad)");
                                 checkboxState17.setName("translateSmartseeks"); // NOI18N
                                 jPanel24.add(checkboxState17);
-                                checkboxState17.setBounds(20, 280, 359, 23);
+                                checkboxState17.setBounds(20, 280, 401, 28);
 
                                 checkboxState11.setSelected(true);
                                 checkboxState11.setText("When renaming Ages, changes the VeryVerySpecialPythonFileMod too.");
                                 checkboxState11.setName("changeVerySpecialPython"); // NOI18N
                                 jPanel24.add(checkboxState11);
-                                checkboxState11.setBounds(20, 180, 367, 23);
+                                checkboxState11.setBounds(20, 180, 411, 28);
 
                                 checkboxState9.setText("Make all PlLayers wireframe!");
                                 checkboxState9.setName("makePlLayersWireframe"); // NOI18N
                                 jPanel24.add(checkboxState9);
-                                checkboxState9.setBounds(20, 140, 161, 23);
+                                checkboxState9.setBounds(20, 140, 182, 28);
 
                                 checkboxState8.setSelected(true);
                                 checkboxState8.setText("Remove PlDynamicCamMap references from Materials(removes frostiness, makes it transparent instead)");
                                 checkboxState8.setName("removeDynamicCamMap"); // NOI18N
                                 jPanel24.add(checkboxState8);
-                                checkboxState8.setBounds(20, 110, 525, 23);
+                                checkboxState8.setBounds(20, 110, 603, 28);
 
                                 checkboxState19.setText("Skip physics with unhandled flags.");
                                 checkboxState19.setName("skipPhysics"); // NOI18N
                                 jPanel24.add(checkboxState19);
-                                checkboxState19.setBounds(20, 50, 189, 23);
+                                checkboxState19.setBounds(20, 50, 214, 28);
 
                                 checkboxState22.setText("Use xyzw for PlPXPhysical orientation.");
                                 checkboxState22.setName("plpxphysicalQuatChange"); // NOI18N
                                 jPanel24.add(checkboxState22);
-                                checkboxState22.setBounds(20, 10, 209, 23);
+                                checkboxState22.setBounds(20, 10, 231, 28);
 
                                 jLabel58.setForeground(new java.awt.Color(0, 102, 102));
                                 jLabel58.setText("<html>Fill out the info in the MystV, Moul, and Crowthistle tabs, then click these buttons to put their music in your Relto's musicbox.</html>");
@@ -5383,29 +4185,25 @@ public class Gui extends javax.swing.JFrame {
                                 textfieldState13.setText("C:\\Documents and Settings\\user\\Desktop\\output\\ahny\\Ahnonay_District_BuiltIn.prp");
                                 textfieldState13.setName("deepViewFilename"); // NOI18N
                                 jPanel33.add(textfieldState13);
-                                textfieldState13.setBounds(10, 10, 411, 20);
+                                textfieldState13.setBounds(10, 10, 455, 20);
 
                                 jButton80.setText("Select...");
-                                jButton80.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton80.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton80ActionPerformed(evt);
                                     }
                                 });
                                 jPanel33.add(jButton80);
-                                jButton80.setBounds(470, 0, 120, 23);
+                                jButton80.setBounds(470, 0, 120, 36);
 
                                 jButton81.setText("Read");
-                                jButton81.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton81.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton81ActionPerformed(evt);
                                     }
                                 });
                                 jPanel33.add(jButton81);
-                                jButton81.setBounds(580, 0, 110, 23);
+                                jButton81.setBounds(580, 0, 110, 36);
 
                                 jScrollPane13.setViewportView(jDesktopPane1);
 
@@ -5413,64 +4211,54 @@ public class Gui extends javax.swing.JFrame {
                                 jScrollPane13.setBounds(10, 70, 760, 340);
 
                                 jButton83.setText("Clear");
-                                jButton83.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton83.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton83ActionPerformed(evt);
                                     }
                                 });
                                 jPanel33.add(jButton83);
-                                jButton83.setBounds(680, 0, 120, 23);
+                                jButton83.setBounds(680, 0, 120, 36);
 
                                 jButton84.setText("Save changes.");
-                                jButton84.addActionListener(new java.awt.event.ActionListener()
-                                {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt)
-                                    {
+                                jButton84.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton84ActionPerformed(evt);
                                     }
                                 });
                                 jPanel33.add(jButton84);
-                                jButton84.setBounds(460, 30, 150, 23);
+                                jButton84.setBounds(460, 30, 150, 36);
 
                                 textfieldState14.setText("C:\\Documents and Settings\\user\\Desktop\\output\\");
                                     textfieldState14.setName("deepViewOutput"); // NOI18N
                                     jPanel33.add(textfieldState14);
-                                    textfieldState14.setBounds(10, 40, 245, 20);
+                                    textfieldState14.setBounds(10, 40, 272, 20);
 
                                     jButton85.setText("Select...");
-                                    jButton85.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton85.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton85ActionPerformed(evt);
                                         }
                                     });
                                     jPanel33.add(jButton85);
-                                    jButton85.setBounds(280, 30, 140, 23);
+                                    jButton85.setBounds(280, 30, 140, 36);
 
                                     jButton117.setText("Strings");
-                                    jButton117.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton117.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton117ActionPerformed(evt);
                                         }
                                     });
                                     jPanel33.add(jButton117);
-                                    jButton117.setBounds(780, 120, 65, 23);
+                                    jButton117.setBounds(780, 120, 63, 36);
 
                                     jButton118.setText("Refs");
-                                    jButton118.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton118.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton118ActionPerformed(evt);
                                         }
                                     });
                                     jPanel33.add(jButton118);
-                                    jButton118.setBounds(790, 160, 55, 23);
+                                    jButton118.setBounds(790, 160, 50, 36);
 
                                     LegTab.addTab("DeepView", jPanel33);
 
@@ -5488,59 +4276,51 @@ public class Gui extends javax.swing.JFrame {
 
                                     jLabel20.setText("Pyc or Pak file:");
                                     jPanel5.add(jLabel20);
-                                    jLabel20.setBounds(20, 120, 120, 14);
+                                    jLabel20.setBounds(20, 120, 120, 16);
 
                                     jLabel42.setText("Output folder:");
                                     jPanel5.add(jLabel42);
-                                    jLabel42.setBounds(20, 160, 110, 14);
+                                    jLabel42.setBounds(20, 160, 110, 16);
 
                                     jButton162.setText("Decompile");
-                                    jButton162.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton162.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton162ActionPerformed(evt);
                                         }
                                     });
                                     jPanel5.add(jButton162);
-                                    jButton162.setBounds(370, 240, 120, 23);
+                                    jButton162.setBounds(370, 240, 120, 36);
 
                                     jButton163.setText("Unpack");
-                                    jButton163.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton163.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton163ActionPerformed(evt);
                                         }
                                     });
                                     jPanel5.add(jButton163);
-                                    jButton163.setBounds(500, 240, 120, 23);
+                                    jButton163.setBounds(500, 240, 120, 36);
 
                                     jButton164.setText("select...");
-                                    jButton164.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton164.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton164ActionPerformed(evt);
                                         }
                                     });
                                     jPanel5.add(jButton164);
-                                    jButton164.setBounds(630, 110, 110, 23);
+                                    jButton164.setBounds(630, 110, 110, 36);
 
                                     jButton165.setText("select...");
-                                    jButton165.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton165.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton165ActionPerformed(evt);
                                         }
                                     });
                                     jPanel5.add(jButton165);
-                                    jButton165.setBounds(630, 150, 110, 23);
+                                    jButton165.setBounds(630, 150, 110, 36);
 
                                     jLabel59.setText("Gamename (for a list, go to Misc->ListGamenames):");
                                     jPanel5.add(jLabel59);
-                                    jLabel59.setBounds(20, 200, 480, 14);
+                                    jLabel59.setBounds(20, 200, 480, 16);
 
                                     textfieldState67.setText("pots");
                                     textfieldState67.setName("dridec3"); // NOI18N
@@ -5572,8 +4352,6 @@ public class Gui extends javax.swing.JFrame {
                                     jTextArea5.setColumns(20);
                                     jTextArea5.setRows(5);
                                     jScrollPane2.setViewportView(jTextArea5);
-                                    jTextArea5.setLineWrap(true);
-                                    jTextArea5.setWrapStyleWord(true);
 
                                     HelpTab.add(jScrollPane2);
                                     jScrollPane2.setBounds(150, 40, 810, 370);
@@ -5587,37 +4365,31 @@ public class Gui extends javax.swing.JFrame {
                                     jPanel27.setLayout(null);
 
                                     jButton2.setText("Clear log.");
-                                    jButton2.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton2.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton2ActionPerformed(evt);
                                         }
                                     });
                                     jPanel27.add(jButton2);
-                                    jButton2.setBounds(10, 20, 140, 23);
+                                    jButton2.setBounds(10, 20, 140, 36);
 
                                     jButton20.setText("Remove dupes.");
-                                    jButton20.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton20.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton20ActionPerformed(evt);
                                         }
                                     });
                                     jPanel27.add(jButton20);
-                                    jButton20.setBounds(10, 50, 140, 23);
+                                    jButton20.setBounds(10, 50, 140, 36);
 
                                     jButton54.setText("Alphabetise.");
-                                    jButton54.addActionListener(new java.awt.event.ActionListener()
-                                    {
-                                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                                        {
+                                    jButton54.addActionListener(new java.awt.event.ActionListener() {
+                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
                                             jButton54ActionPerformed(evt);
                                         }
                                     });
                                     jPanel27.add(jButton54);
-                                    jButton54.setBounds(10, 80, 140, 23);
+                                    jButton54.setBounds(10, 80, 140, 36);
                                     jPanel27.add(jProgressBar1);
                                     jProgressBar1.setBounds(20, 150, 570, 14);
 
@@ -5626,22 +4398,22 @@ public class Gui extends javax.swing.JFrame {
                                     jPanel27.add(jScrollPane9);
                                     jScrollPane9.setBounds(160, 27, 430, 110);
 
-                                    errlabel.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+                                    errlabel.setFont(new java.awt.Font("Dialog", 0, 10));
                                     errlabel.setText("0");
                                     jPanel27.add(errlabel);
                                     errlabel.setBounds(58, 120, 30, 14);
 
-                                    jLabel82.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+                                    jLabel82.setFont(new java.awt.Font("Dialog", 0, 10));
                                     jLabel82.setText("Errors:");
                                     jPanel27.add(jLabel82);
                                     jLabel82.setBounds(20, 120, 60, 14);
 
-                                    warnlabel.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+                                    warnlabel.setFont(new java.awt.Font("Dialog", 0, 10));
                                     warnlabel.setText("0");
                                     jPanel27.add(warnlabel);
                                     warnlabel.setBounds(135, 120, 30, 14);
 
-                                    jLabel83.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+                                    jLabel83.setFont(new java.awt.Font("Dialog", 0, 10));
                                     jLabel83.setText("Warnings:");
                                     jPanel27.add(jLabel83);
                                     jLabel83.setBounds(76, 120, 70, 14);
@@ -6175,20 +4947,14 @@ public class Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton44ActionPerformed
 
     private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
-        gui.ThreadedTasks.custom(new java.lang.Runnable() {
-            public void run() {
-                m.msg("Decompiling DNI file...");
-                //byte[] filecontents = FileUtils.ReadFile(this.getSelectedFilename());
-                //byte[] filecontents = FileUtils.ReadFile(this.textfieldState21.getText());
-                //realmyst.rmcontext c = new realmyst.rmcontext(new Bytestream(filecontents));
-                //realmyst.dirtfile df = new realmyst.dirtfile(c);
-                shared.IBytestream bs = shared.SerialBytestream.createFromFilename(textfieldState21.getText());
-                realmyst.dirtfile df = new realmyst.dirtfile(bs);
-                df.saveAllFiles(textfieldState24.getText());
-                int dummy=0;
-                m.msg("Done !");
-            }
-        });
+        //byte[] filecontents = FileUtils.ReadFile(this.getSelectedFilename());
+        //byte[] filecontents = FileUtils.ReadFile(this.textfieldState21.getText());
+        //realmyst.rmcontext c = new realmyst.rmcontext(new Bytestream(filecontents));
+        //realmyst.dirtfile df = new realmyst.dirtfile(c);
+        shared.IBytestream bs = shared.SerialBytestream.createFromFilename(this.textfieldState21.getText());
+        realmyst.dirtfile df = new realmyst.dirtfile(bs);
+        df.saveAllFiles(this.textfieldState24.getText());
+        int dummy=0;
     }//GEN-LAST:event_jButton45ActionPerformed
 
     private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
@@ -6316,7 +5082,6 @@ private void jButton61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void jButton57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton57ActionPerformed
         //do myst5 conversion.
         //auto.mystAutomation.convertMyst5ToPots(textfieldState2.getText(), textfieldState3.getText(), listState2.getSelectedAsStrings(), false);
-        auto.AllGames.getMystV().ConvertFiles(textfieldState2.getText(), textfieldState3.getText(), listState2.getSelectedAsStrings());
 }//GEN-LAST:event_jButton57ActionPerformed
 
 private void jButton63ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton63ActionPerformed
@@ -6599,15 +5364,15 @@ private void jButton102ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         if(f.getParentFile().getName().toLowerCase().equals("sdb"))
         {
             sdb = new realmyst.Sdb(bs);
-//            for(int i=0;i<sdb.count2s.length;i++)
-//            {
-//                realmyst.Count2 c2 = sdb.count2s[i];
-//                String curtex = c2.sb2.str.toString();
-//                if(curtex.equals("GBdock.hsm"))
-//                {
-//                    int dummy=0;
-//                }
-//            }
+            for(int i=0;i<sdb.count2s.length;i++)
+            {
+                realmyst.Count2 c2 = sdb.count2s[i];
+                String curtex = c2.sb2.str.toString();
+                if(curtex.equals("GBdock.hsm"))
+                {
+                    int dummy=0;
+                }
+            }
         }
         else if(f.getParentFile().getName().toLowerCase().equals("mdb"))
             mdb = new realmyst.Mdb(bs,"none");
@@ -6635,57 +5400,43 @@ private void jButton102ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jButton102ActionPerformed
 
 private void jButton104ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton104ActionPerformed
-    gui.ThreadedTasks.custom(new java.lang.Runnable() {
-            public void run() {
-                m.msg("Getting info from realMyst rooms...");
-                String outfol = textfieldState24.getText();
-                m.state.push();
-                m.state.curstate.writeToFile = true;
-
-                Vector<realmyst.Sdb> sdbs = auto.realmyst.readAllSdbs(outfol);
-                /*for (realmyst.Sdb sdb: sdbs)
-                {
-                    for (int i=0; i<sdb.count6; i++)
-                    {
-                        sdb.count6s[i].wout(sdb.name.toString(), i);
-                    }
-                }*/
-                /*
-                String[] rooms = auto.realmyst.findRoomInfo(sdbs,"Myst");
-
-                m.state.pop();
-
-                m.msg("Subcount3s handled: ",Integer.toString(realmyst.Count3Undone.subcount3.numhandled));
-                m.msg("Subcount3s ignored: ",Integer.toString(realmyst.Count3Undone.subcount3.numignored));
-                m.msg("Count3s handled: ",Integer.toString(realmyst.Count3Undone.numhandled));
-                m.msg("Count3s ignored: ",Integer.toString(realmyst.Count3Undone.numignored));
-
-                /*File f2 = new File(outfol+"/mdb");
-                for(File child: f2.listFiles())
-                {
-                    if(child.getName().toLowerCase().endsWith(".vdb"))
-                    {
-                        int fs = (int)child.length();
-                        shared.IBytestream bs = shared.SerialBytestream.createFromFile(child);
-                        realmyst.Mdb mdb = new realmyst.Mdb(bs);
-                        int offset = bs.getAbsoluteOffset();
-                        int bytesleft = bs.getBytesRemaining();
-
-                        if (mdb.u2!=fs-offset)
-                        {
-                            int dummy=0;
-                        }
-                        if(bytesleft!=0)
-                        {
-                            int dummy=0;
-                        }
-                        int dummy=0;
-                    }
-                }* /
-                
-                m.msg("Done !");*/
+    String outfol = this.textfieldState24.getText();
+    m.state.push();
+    m.state.curstate.writeToFile = true;
+    
+    Vector<realmyst.Sdb> sdbs = auto.realmyst.readAllSdbs(outfol);
+    String[] rooms = auto.realmyst.findRoomInfo(sdbs,"Myst");
+    
+    m.state.pop();
+    
+    m.msg("Subcount3s handled: ",Integer.toString(realmyst.Count3Undone.subcount3.numhandled));
+    m.msg("Subcount3s ignored: ",Integer.toString(realmyst.Count3Undone.subcount3.numignored));
+    m.msg("Count3s handled: ",Integer.toString(realmyst.Count3Undone.numhandled));
+    m.msg("Count3s ignored: ",Integer.toString(realmyst.Count3Undone.numignored));
+    
+    /*File f2 = new File(outfol+"/mdb");
+    for(File child: f2.listFiles())
+    {
+        if(child.getName().toLowerCase().endsWith(".vdb"))
+        {
+            int fs = (int)child.length();
+            shared.IBytestream bs = shared.SerialBytestream.createFromFile(child);
+            realmyst.Mdb mdb = new realmyst.Mdb(bs);
+            int offset = bs.getAbsoluteOffset();
+            int bytesleft = bs.getBytesRemaining();
+            
+            if (mdb.u2!=fs-offset)
+            {
+                int dummy=0;
             }
-        });
+            if(bytesleft!=0)
+            {
+                int dummy=0;
+            }
+            int dummy=0;
+        }
+    }*/
+    
 }//GEN-LAST:event_jButton104ActionPerformed
 
 private void jButton105ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton105ActionPerformed
@@ -6698,21 +5449,14 @@ private void jButton105ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jButton105ActionPerformed
 
 private void jButton106ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton106ActionPerformed
-    gui.ThreadedTasks.custom(new java.lang.Runnable() {
-            public void run() {
-                //m.msg("Starting compilation of mdbs to 3ds file...");
-                m.msg("Reading all mdbs...");
-                String outfol = textfieldState24.getText();
-                //m.state.push();
-                //m.state.curstate.writeToFile = true;
+    String outfol = this.textfieldState24.getText();
+    m.state.push();
+    m.state.curstate.writeToFile = true;
+    
+    Vector<realmyst.Mdb> mdbs = auto.realmyst.readAllMdbs(outfol);
+    auto.realmyst.save3dsFile(mdbs);
 
-                Vector<realmyst.Mdb> mdbs = auto.realmyst.readAllMdbs(outfol);
-                auto.realmyst.save3dsFile(mdbs, outfol+"/drizzletests");
-
-                //m.state.pop();
-                m.msg("Done !");
-            }
-        });
+    m.state.pop();
 }//GEN-LAST:event_jButton106ActionPerformed
 
 private void jButton107ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton107ActionPerformed
@@ -6720,18 +5464,12 @@ private void jButton107ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jButton107ActionPerformed
 
 private void jButton108ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton108ActionPerformed
-    gui.ThreadedTasks.custom(new java.lang.Runnable() {
-            public void run() {
-                m.msg("Converting all hsms to dds...");
-                String outfol = textfieldState24.getText();
-                //m.state.curstate.writeToFile = true;
-
-                Vector<realmyst.Hsm> hsms = auto.realmyst.readAllHsms(outfol);
-                //automation.realmyst.save3dsFile(mdbs);
-                auto.realmyst.saveDdsFiles(hsms,outfol+"/drizzletests/hsmout");
-                m.msg("Done !");
-            }
-        });
+    String outfol = this.textfieldState24.getText();
+    //m.state.curstate.writeToFile = true;
+    
+    Vector<realmyst.Hsm> hsms = auto.realmyst.readAllHsms(outfol);
+    //automation.realmyst.save3dsFile(mdbs);
+    auto.realmyst.saveDdsFiles(hsms,"c:/hsmout");
 
 }//GEN-LAST:event_jButton108ActionPerformed
 
@@ -6813,30 +5551,17 @@ private void jButton109ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jButton109ActionPerformed
 
 private void jButton110ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton110ActionPerformed
-    gui.ThreadedTasks.custom(new java.lang.Runnable() {
-            public void run() {
-                m.msg("STARTING FULL TEST");
-                
-                
-                String outfol = textfieldState24.getText();
 
-                Vector<realmyst.Sdb> sdbs = auto.realmyst.readAllSdbs(outfol);
+    String outfol = this.textfieldState24.getText();
+    
+    Vector<realmyst.Sdb> sdbs = auto.realmyst.readAllSdbs(outfol);
+    
+    Vector<realmyst.Mdb> mdbs = auto.realmyst.readAllMdbs(outfol);
+    //String[] mystrooms = automation.realmyst.findRoomInfo(sdbs,"Myst");
+    //Vector<realmyst.Mdb> mystmdbs = automation.realmyst.filterMdbsByRoom(mdbs, mystrooms);
+    //automation.realmyst.save3dsFile(mystmdbs);
 
-                Vector<realmyst.Mdb> mdbs = auto.realmyst.readAllMdbs(outfol);
-                //String[] mystrooms = automation.realmyst.findRoomInfo(sdbs,"Myst");
-                //Vector<realmyst.Mdb> mystmdbs = automation.realmyst.filterMdbsByRoom(mdbs, mystrooms);
-                //automation.realmyst.save3dsFile(mystmdbs);
-
-                auto.realmyst.testrun2(sdbs,mdbs, outfol+"/drizzletests/full");
-                //*/
-                
-                
-                //auto.realmyst.doAllPerRoom(textfieldState24.getText());
-                
-                
-                m.msg("Full test successfull !");
-            }
-        });
+    auto.realmyst.testrun2(sdbs,mdbs);
     
 }//GEN-LAST:event_jButton110ActionPerformed
 
@@ -6939,7 +5664,7 @@ private void jButton133ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     //uam.PrepareAge.DoAllWork(textfieldState42.getText(),textfieldState74.getText(),null);
     ThreadedTasks.custom(new java.lang.Runnable() {
             public void run() {
-                uam.PrepareAge.DoAllWork(FAToolsAgeName.getText());//,checkboxState33.isSelected());
+                uam.PrepareAge.DoAllWork(textfieldState42.getText());//,checkboxState33.isSelected());
             }
         });
 }//GEN-LAST:event_jButton133ActionPerformed
@@ -6953,10 +5678,7 @@ private void jButton135ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jButton135ActionPerformed
 
 private void jButton136ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton136ActionPerformed
-    GuiUtils.getStringFromUser(this.textfieldState38,"Enter the server you want to use.\n"
-            + "You might want to use either the original http://myst.dustbird.net/uru-ages/\n"
-            + "(which is still functional but no longer maintained),\n"
-            + "or the up-to-date http://www.the-deep-island.de/uru-ages/","Enter a server.");
+    GuiUtils.getStringFromUser(this.textfieldState38,"Enter the server you want to use.","Enter a server.");
 }//GEN-LAST:event_jButton136ActionPerformed
 
 private void jButton137ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton137ActionPerformed
@@ -7290,447 +6012,6 @@ private void jButton173ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxState33ActionPerformed
 }//GEN-LAST:event_checkboxState33ActionPerformed
-
-    private void jButton174ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton174ActionPerformed
-        // start conversion
-        Vector<String> files = new Vector<String>();
-        File f = new File(textfieldState74.getText());
-        if (!f.getParentFile().getName().equals("dat")) {
-            m.err("The file you specify must be in a folder called \"dat\"");
-            return;
-        }
-        String filename = f.getName();
-        String infolder = f.getParentFile().getParent();
-        String outfolder = textfieldState3.getText();
-        files.add(filename);
-        //auto.mystAutomation.convertMoulToPots(infolder/*textfieldState6.getText()*/,textfieldState8.getText(), v,false,auto.renames.getMoulRenameInfo());
-        //auto.moul.convertMoulToPots(infolder, outfolder, files, false, auto.moul.getMoulRenameInfo());
-        auto.AllGames.getMystV().ConvertFiles(infolder,outfolder,files);
-    }//GEN-LAST:event_jButton174ActionPerformed
-
-    private void jButton134ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton134ActionPerformed
-        // select file
-        GuiUtils.getUserSelectedFile(textfieldState74);
-    }//GEN-LAST:event_jButton134ActionPerformed
-
-    private void jButton175ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton175ActionPerformed
-        int res = JOptionPane.showConfirmDialog(this,
-            "Are you sure ? This cannot be undone !",
-            "Sure you want to do this ?",
-            JOptionPane.YES_NO_OPTION);
-        if (res == JOptionPane.YES_OPTION)
-        {
-            gui.ThreadedTasks.custom(new java.lang.Runnable() {
-                public void run() {
-                    if (checkboxState34.isSelected())
-                        AutoMod_MakeWidescreen.increateUruExplorerPitch(textfieldState39.getText());
-                    float ratio = Float.parseFloat(textfieldState75.getText()) / Float.parseFloat(textfieldState76.getText());
-                    AutoMod_MakeWidescreen.autoWidescreenAll(textfieldState39.getText(), ratio);
-                }
-            });
-        }
-    }//GEN-LAST:event_jButton175ActionPerformed
-
-    private void jButton176ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton176ActionPerformed
-        AutoMod_MakeWidescreen.makeResolution(textfieldState39.getText(), Integer.parseInt(textfieldState75.getText()), Integer.parseInt(textfieldState76.getText()));
-    }//GEN-LAST:event_jButton176ActionPerformed
-
-    private void jButton73ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton73ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton73ActionPerformed
-
-    private void jButton74ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton74ActionPerformed
-        GuiUtils.getUserSelectedFile(FAToolsAgeName);
-    }//GEN-LAST:event_jButton74ActionPerformed
-
-    private void jButton75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton75ActionPerformed
-        gui.ThreadedTasks.custom(new java.lang.Runnable() {
-                public void run() {
-                    String agename = FAToolsAgeName.getText();
-                    String agedir = textfieldState39.getText()+"/dat/";
-
-                    int lastSlash = agename.lastIndexOf("/");
-                    if (lastSlash != -1)
-                    {
-                        agedir = agename.substring(0, lastSlash+1);
-                        agename = agename.substring(lastSlash+1);
-                    }
-
-                    lastSlash = agename.lastIndexOf("\\");
-                    if (lastSlash != -1)
-                    {
-                        agedir = agename.substring(0, lastSlash+1);
-                        agename = agename.substring(lastSlash+1);
-                    }
-
-                    if (agename.endsWith(".age"))
-                        agename = agename.substring(0,agename.length()-4);
-
-                    String[] excludes = excludeObjectsFld.getText().split(",|;");
-
-                    if (chbFATbakesun.isSelected())
-                    {
-                        if (isColStringValid(sunColFld.getText()))
-                            AutoMod_Light.directColor = parseColString(sunColFld.getText());
-                        else
-                        {
-                            m.err("Sun color is invalid !");
-                            return;
-                        }
-
-                        if (isColStringValid(ambientColFld.getText()))
-                            AutoMod_Light.ambientColor = parseColString(ambientColFld.getText());
-                        else
-                        {
-                            m.err("Ambient color is invalid !");
-                            return;
-                        }
-                        
-                        String[] directions = lightdirFld.getText().split(",|;");
-                        if (directions.length == 3)
-                        {
-                            Vector3 vect = new Vector3(0,0,0);
-                            try {
-                                vect.x = Float.parseFloat(directions[0]);
-                                vect.y = Float.parseFloat(directions[1]);
-                                vect.z = Float.parseFloat(directions[2]);
-                                AutoMod_Light.sunDirection = vect.getNormalized();
-                            } catch (NumberFormatException ex) {
-                                m.err("Invalid sunlight direction !");
-                                return;
-                            }
-                        }
-                    }
-
-                    if (chbFATbakeao.isSelected())
-                    {
-                        if (isColStringValid(aoColMinFld.getText()))
-                            AutoMod_Light.minAOColor = parseColString(aoColMinFld.getText());
-                        else
-                        {
-                            m.err("Ambient occlusion color is invalid !");
-                            return;
-                        }
-                        
-                        try {
-                            AutoMod_Light.aoReach = Float.parseFloat(aoReachFld.getText());
-                            AutoMod_Light.aoIntensity = Float.parseFloat(aoIntFld.getText());
-                        } catch (NumberFormatException ex)
-                        {
-                            m.err("Ambient occlusion reach or intensity is invalid !");
-                            return;
-                        }
-                    }
-
-                    m.msg("#-#-# Editing " + agename + "'s prps in " + agedir + "... #-#-#");
-                    File folder1 = new File(agedir);
-
-                    File[] folder1children = folder1.listFiles();
-                    for(File child1: folder1children)
-                    {
-                        if (child1.getName().startsWith(agename+"_District_") && child1.getAbsolutePath().endsWith(".prp"))
-                        {
-                            m.msg("  Loading " + child1.getName() + "...");
-                            prpobjects.prpfile prp = prpobjects.prpfile.createFromFile(child1.getAbsoluteFile(), true);
-
-                            if (chbFATrembump.isSelected())
-                            {
-                                m.msg("  Removing bumpy physics...");
-                                AutoMod_FixFanAge.removeBumpyPhysics(prp);
-                            }
-                            if (chbFATdisshad.isSelected())
-                            {
-                                m.msg("  Disabling dynamic shadows...");
-                                AutoMod_FixFanAge.removeShadowCasters(prp);
-                            }
-                            if (chbFATdisspec.isSelected())
-                            {
-                                m.msg("  Disabling specularity...");
-                                AutoMod_FixFanAge.disableSpecularity(prp);
-                            }
-                            if (chbFATdislights.isSelected())
-                            {
-                                m.msg("  Disabling dynamic lighting...");
-                                AutoMod_FixFanAge.removeAllDynamicLights(prp);
-                            }
-                            if (chbFATdisdynref.isSelected())
-                            {
-                                m.msg("  Disabling dynamic reflections...");
-                                AutoMod_FixFanAge.disableEnvmapRefresh(prp);
-                            }
-                            if (chbFATmkMxDist.isSelected())
-                            {
-                                m.msg("  Computing max visibility distance for objects...");
-                                boolean ok=false; float angle=0f;
-                                try {
-                                    angle = Float.parseFloat(FAToolsMaxDistDeg.getText());
-                                    ok=true;
-                                } catch (NumberFormatException e) {
-                                    m.err("  " + FAToolsMaxDistDeg.getText() + " isn't a valid float value. Not doing anything."); }
-                                if (ok) AutoMod_FixFanAge.makeMaxDistance(prp, angle);
-                            }
-                            if (chbFATbakesun.isSelected())
-                            {
-                                m.msg("  Baking sunlight... this could take a while...");
-                                AutoMod_Light.bakeSun(prp, excludes, true);
-                            }
-                            if (chbFATbakeao.isSelected())
-                            {
-                                m.msg("  Baking ambient occlusion... this will take a while...");
-                                AutoMod_Light.bakeAmbientOcclusion(prp, excludes, !chbFATbakesun.isSelected());
-                            }
-
-                            m.msg("  Saving...");
-                            String outputfilename = agedir + "/" + prp.header.agename.toString()+"_District_"+prp.header.pagename.toString()+".prp";
-                            prp.saveAsFile(outputfilename);
-                        }
-                    }
-                    if (chbFATeditFni.isSelected())
-                    {
-                        m.msg("  Editing settings in FNI...");
-                        textfile textfile = new textfile();
-                        int yon, start, end; float r, g, b;
-                        try {
-                            yon = end = Integer.parseInt(FATfniMaxDist.getText());
-                            start = Integer.parseInt(FATfniMinDist.getText());
-                            String[] skycol = FATfniSkCol.getText().split(",");
-                            r=Integer.parseInt(skycol[0].replace(" ", "")) / 255.f;
-                            g=Integer.parseInt(skycol[1].replace(" ", "")) / 255.f;
-                            b=Integer.parseInt(skycol[2].replace(" ", "")) / 255.f;
-                        } catch (NumberFormatException e)
-                        {
-                            m.err("You entered invalid sky/fog settings");
-                            return;
-                        }
-                        textfile.appendLine("Graphics.Renderer.Setyon " + yon);
-                        textfile.appendLine("Graphics.Renderer.Fog.SetDefLinear "+start+" "+end+" 1");
-                        String col = r + " " + g + " " + b;
-                        textfile.appendLine("Graphics.Renderer.Fog.SetDefColor " + col);
-                        textfile.appendLine("Graphics.Renderer.SetClearColor " + col);
-                        byte[] wdysData = UruCrypt.EncryptWhatdoyousee(textfile.saveToByteArray());
-                        String outfile = agedir + "/" + agename+".fni";
-                        FileUtils.WriteFile(outfile, wdysData,true,true);
-                    }
-                    m.msg("Done !");
-                }
-            });
-    }//GEN-LAST:event_jButton75ActionPerformed
-
-    private void FAToolsAgeNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FAToolsAgeNameActionPerformed
-    {//GEN-HEADEREND:event_FAToolsAgeNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FAToolsAgeNameActionPerformed
-
-    private void chbFATrembumpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATrembumpActionPerformed
-    {//GEN-HEADEREND:event_chbFATrembumpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATrembumpActionPerformed
-
-    private void chbFATdisshadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATdisshadActionPerformed
-    {//GEN-HEADEREND:event_chbFATdisshadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATdisshadActionPerformed
-
-    private void chbFATdisspecActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATdisspecActionPerformed
-    {//GEN-HEADEREND:event_chbFATdisspecActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATdisspecActionPerformed
-
-    private void chbFATbakeaoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATbakeaoActionPerformed
-    {//GEN-HEADEREND:event_chbFATbakeaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATbakeaoActionPerformed
-
-    private void chbFATbakesunActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATbakesunActionPerformed
-    {//GEN-HEADEREND:event_chbFATbakesunActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATbakesunActionPerformed
-
-    private void jButton76ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton76ActionPerformed
-    {//GEN-HEADEREND:event_jButton76ActionPerformed
-        if (colorPickerAmb == null)
-            colorPickerAmb = new JColorChooser();
-        if (colorPickerAmbDial == null)
-            colorPickerAmbDial = JColorChooser.createDialog(
-                    fc, "Choose color...", true, colorPickerAmb,
-                    new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
-                            java.awt.Color col = colorPickerAmb.getColor();
-                            ambientColFld.setText(col.getRed() + ", " + col.getGreen() + ", " + col.getBlue());
-                        } }
-                    , null);
-        float[] col = parseColString(ambientColFld.getText());
-        colorPickerAmb.setColor(new java.awt.Color(col[0], col[1], col[2]));
-        colorPickerAmbDial.show();
-    }//GEN-LAST:event_jButton76ActionPerformed
-
-    private void ambientColFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ambientColFldActionPerformed
-    {//GEN-HEADEREND:event_ambientColFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ambientColFldActionPerformed
-
-    private void sunColFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_sunColFldActionPerformed
-    {//GEN-HEADEREND:event_sunColFldActionPerformed
-        
-    }//GEN-LAST:event_sunColFldActionPerformed
-
-    private void jButton177ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton177ActionPerformed
-    {//GEN-HEADEREND:event_jButton177ActionPerformed
-        if (colorPickerSun == null)
-            colorPickerSun = new JColorChooser();
-        if (colorPickerSunDial == null)
-            colorPickerSunDial = JColorChooser.createDialog(
-                    fc, "Choose color...", true, colorPickerSun,
-                    new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
-                            java.awt.Color col = colorPickerSun.getColor();
-                            sunColFld.setText(col.getRed() + ", " + col.getGreen() + ", " + col.getBlue());
-                        } }
-                    , null);
-        
-        float[] col = parseColString(sunColFld.getText());
-        colorPickerSun.setColor(new java.awt.Color(col[0], col[1], col[2]));
-        colorPickerSunDial.show();
-    }//GEN-LAST:event_jButton177ActionPerformed
-
-    private void lightdirFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_lightdirFldActionPerformed
-    {//GEN-HEADEREND:event_lightdirFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lightdirFldActionPerformed
-
-    private void aoReachFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aoReachFldActionPerformed
-    {//GEN-HEADEREND:event_aoReachFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aoReachFldActionPerformed
-
-    private void aoIntFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aoIntFldActionPerformed
-    {//GEN-HEADEREND:event_aoIntFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aoIntFldActionPerformed
-
-    private void jButton178ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton178ActionPerformed
-    {//GEN-HEADEREND:event_jButton178ActionPerformed
-        if (colorPickerAO == null)
-            colorPickerAO = new JColorChooser();
-        if (colorPickerAODial == null)
-            colorPickerAODial = JColorChooser.createDialog(
-                    fc, "Choose color...", true, colorPickerAO,
-                    new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
-                            java.awt.Color col = colorPickerAO.getColor();
-                            aoColMinFld.setText(col.getRed() + ", " + col.getGreen() + ", " + col.getBlue());
-                        } }
-                    , null);
-        
-        float[] col = parseColString(aoColMinFld.getText());
-        colorPickerAO.setColor(new java.awt.Color(col[0], col[1], col[2]));
-        colorPickerAODial.show();
-    }//GEN-LAST:event_jButton178ActionPerformed
-
-    private void aoColMinFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aoColMinFldActionPerformed
-    {//GEN-HEADEREND:event_aoColMinFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aoColMinFldActionPerformed
-
-    private void excludeObjectsFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_excludeObjectsFldActionPerformed
-    {//GEN-HEADEREND:event_excludeObjectsFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_excludeObjectsFldActionPerformed
-
-    private void chbFATdislightsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATdislightsActionPerformed
-    {//GEN-HEADEREND:event_chbFATdislightsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATdislightsActionPerformed
-
-    private void chbFATdisdynrefActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATdisdynrefActionPerformed
-    {//GEN-HEADEREND:event_chbFATdisdynrefActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATdisdynrefActionPerformed
-
-    private void chbFATmkMxDistActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATmkMxDistActionPerformed
-    {//GEN-HEADEREND:event_chbFATmkMxDistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATmkMxDistActionPerformed
-
-    private void FAToolsMaxDistDegActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FAToolsMaxDistDegActionPerformed
-    {//GEN-HEADEREND:event_FAToolsMaxDistDegActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FAToolsMaxDistDegActionPerformed
-
-    private void FATfniSkColActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FATfniSkColActionPerformed
-    {//GEN-HEADEREND:event_FATfniSkColActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FATfniSkColActionPerformed
-
-    private void FATfniMaxDistActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FATfniMaxDistActionPerformed
-    {//GEN-HEADEREND:event_FATfniMaxDistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FATfniMaxDistActionPerformed
-
-    private void FATfniMinDistActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FATfniMinDistActionPerformed
-    {//GEN-HEADEREND:event_FATfniMinDistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FATfniMinDistActionPerformed
-
-    private void jButton179ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton179ActionPerformed
-    {//GEN-HEADEREND:event_jButton179ActionPerformed
-        if (colorPickerFNI == null)
-            colorPickerFNI = new JColorChooser();
-        if (colorPickerFNIDial == null)
-            colorPickerFNIDial = JColorChooser.createDialog(
-                    fc, "Choose color...", true, colorPickerFNI,
-                    new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt)
-                        {
-                            java.awt.Color col = colorPickerFNI.getColor();
-                            FATfniSkCol.setText(col.getRed() + ", " + col.getGreen() + ", " + col.getBlue());
-                        } }
-                    , null);
-        
-        float[] col = parseColString(FATfniSkCol.getText());
-        colorPickerFNI.setColor(new java.awt.Color(col[0], col[1], col[2]));
-        colorPickerFNIDial.show();
-    }//GEN-LAST:event_jButton179ActionPerformed
-
-    private void chbFATeditFniActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATeditFniActionPerformed
-    {//GEN-HEADEREND:event_chbFATeditFniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbFATeditFniActionPerformed
-    
-    private float[] parseColString(String colStr)
-    {
-        float[] ret = new float[] {1f,1f,1f};
-        String[] splitted = colStr.split(",");
-        if (splitted.length == 3)
-        {
-            try {
-                ret[0] = Float.parseFloat(splitted[0]) / 255f;
-                ret[1] = Float.parseFloat(splitted[1]) / 255f;
-                ret[2] = Float.parseFloat(splitted[2]) / 255f;
-                return ret;
-            } catch (NumberFormatException nfe) {}
-        }
-        return ret;
-    }
-    
-    private boolean isColStringValid(String colStr)
-    {
-        String[] splitted = colStr.split(",");
-        if (splitted.length == 3)
-        {
-            try {
-                float x;
-                x=Float.parseFloat(splitted[0]) / 255f;
-                x=Float.parseFloat(splitted[1]) / 255f;
-                x=Float.parseFloat(splitted[2]) / 255f;
-                return true;
-            } catch (NumberFormatException nfe) {}
-        }
-        return false;
-    }
     
 /*class c2 extends javax.swing.DefaultListSelectionModel
 {
@@ -7769,12 +6050,6 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private shared.State.TabsState AdvTabState;
-    private shared.State.TextfieldState FATfniMaxDist;
-    private shared.State.TextfieldState FATfniMinDist;
-    private shared.State.TextfieldState FATfniSkCol;
-    private shared.State.TextfieldState FAToolsAgeName;
-    private shared.State.TextfieldState FAToolsMaxDistDeg;
-    private javax.swing.JPanel FAgePanel;
     private javax.swing.JPanel GHelpTab;
     private javax.swing.JPanel HelpTab;
     private javax.swing.JTabbedPane LegTab;
@@ -7784,21 +6059,7 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel SimpTab;
     private javax.swing.JPanel TheArtTab;
     private javax.swing.JPanel UAMTab;
-    private javax.swing.JPanel UruWidescreenPanel;
     private javax.swing.JLabel ageInfo3;
-    private shared.State.TextfieldState ambientColFld;
-    private shared.State.TextfieldState aoColMinFld;
-    private shared.State.TextfieldState aoIntFld;
-    private shared.State.TextfieldState aoReachFld;
-    private javax.swing.JCheckBox chbFATbakeao;
-    private javax.swing.JCheckBox chbFATbakesun;
-    private javax.swing.JCheckBox chbFATdisdynref;
-    private javax.swing.JCheckBox chbFATdislights;
-    private javax.swing.JCheckBox chbFATdisshad;
-    private javax.swing.JCheckBox chbFATdisspec;
-    private javax.swing.JCheckBox chbFATeditFni;
-    private javax.swing.JCheckBox chbFATmkMxDist;
-    private javax.swing.JCheckBox chbFATrembump;
     private shared.State.CheckboxState checkboxState1;
     private shared.State.CheckboxState checkboxState10;
     private shared.State.CheckboxState checkboxState11;
@@ -7826,7 +6087,6 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private shared.State.CheckboxState checkboxState31;
     private shared.State.CheckboxState checkboxState32;
     private shared.State.CheckboxState checkboxState33;
-    private shared.State.CheckboxState checkboxState34;
     private shared.State.CheckboxState checkboxState4;
     private shared.State.CheckboxState checkboxState5;
     private shared.State.CheckboxState checkboxState6;
@@ -7835,7 +6095,6 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private shared.State.CheckboxState checkboxState9;
     private relationvis.CrossRefPanel crossRefPanel1;
     private javax.swing.JLabel errlabel;
-    private shared.State.TextfieldState excludeObjectsFld;
     private javax.swing.ButtonGroup filedirButtonGroup;
     private shared.ImagePanel imagePanel1;
     private shared.ImagePanel imagePanel2;
@@ -7881,7 +6140,6 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton jButton131;
     private javax.swing.JButton jButton132;
     private javax.swing.JButton jButton133;
-    private javax.swing.JButton jButton134;
     private javax.swing.JButton jButton135;
     private javax.swing.JButton jButton136;
     private javax.swing.JButton jButton137;
@@ -7925,12 +6183,6 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton jButton171;
     private javax.swing.JButton jButton172;
     private javax.swing.JButton jButton173;
-    private javax.swing.JButton jButton174;
-    private javax.swing.JButton jButton175;
-    private javax.swing.JButton jButton176;
-    private javax.swing.JButton jButton177;
-    private javax.swing.JButton jButton178;
-    private javax.swing.JButton jButton179;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
@@ -8024,18 +6276,7 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel100;
-    private javax.swing.JLabel jLabel101;
-    private javax.swing.JLabel jLabel102;
-    private javax.swing.JLabel jLabel103;
-    private javax.swing.JLabel jLabel104;
-    private javax.swing.JLabel jLabel105;
-    private javax.swing.JLabel jLabel106;
-    private javax.swing.JLabel jLabel107;
-    private javax.swing.JLabel jLabel108;
-    private javax.swing.JLabel jLabel109;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -8115,20 +6356,7 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
-    private javax.swing.JLabel jLabel85;
-    private javax.swing.JLabel jLabel86;
-    private javax.swing.JLabel jLabel87;
-    private javax.swing.JLabel jLabel88;
-    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
-    private javax.swing.JLabel jLabel96;
-    private javax.swing.JLabel jLabel97;
-    private javax.swing.JLabel jLabel98;
-    private javax.swing.JLabel jLabel99;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JList jList3;
@@ -8177,16 +6405,6 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel50;
-    private javax.swing.JPanel jPanel51;
-    private javax.swing.JPanel jPanel52;
-    private javax.swing.JPanel jPanel53;
-    private javax.swing.JPanel jPanel54;
-    private javax.swing.JPanel jPanel55;
-    private javax.swing.JPanel jPanel56;
-    private javax.swing.JPanel jPanel57;
-    private javax.swing.JPanel jPanel58;
-    private javax.swing.JPanel jPanel59;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -8212,23 +6430,19 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private shared.State.TextareaStateless jTextArea3;
     private javax.swing.JTextArea jTextArea4;
     private shared.State.TextareaStateless jTextArea5;
     private shared.State.TextareaStateless jTextArea6;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private shared.State.ButtongroupState languageButtonGroup;
-    private shared.State.TextfieldState lightdirFld;
     private shared.State.ListState listState2;
     private shared.State.ListState listState3;
     private shared.State.LogBoxStateless logBoxStateless1;
     private shared.State.SliderState sliderState1;
-    private shared.State.TextfieldState sunColFld;
     private shared.State.TabsState tabsState2;
     private shared.State.TabsState tabsState3;
     private shared.State.TabsState tabsState4;
@@ -8270,6 +6484,7 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private shared.State.TextfieldState textfieldState4;
     private shared.State.TextfieldState textfieldState40;
     private shared.State.TextfieldState textfieldState41;
+    private shared.State.TextfieldState textfieldState42;
     private shared.State.TextfieldState textfieldState43;
     private shared.State.TextfieldState textfieldState44;
     private shared.State.TextfieldState textfieldState45;
@@ -8304,10 +6519,6 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
     private shared.State.TextfieldState textfieldState71;
     private shared.State.TextfieldState textfieldState72;
     private shared.State.TextfieldState textfieldState73;
-    private shared.State.TextfieldState textfieldState74;
-    private shared.State.TextfieldState textfieldState75;
-    private shared.State.TextfieldState textfieldState76;
-    private shared.State.TextfieldState textfieldState77;
     private shared.State.TextfieldState textfieldState8;
     private shared.State.TextfieldState textfieldState9;
     private shared.State.ButtongroupState uamStartupButtongroup;

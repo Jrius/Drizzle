@@ -31,14 +31,14 @@ import shared.readexception;
 public class plMatrixConstant extends uruobj
 {
     Urustring name;
-    PrpController.affinePart xuk;
+    PrpController.uk xuk;
     
     public plMatrixConstant(context c) throws readexception
     {
         name = new Urustring(c);
         if(c.readversion==6)
         {
-            xuk = new PrpController.affinePart(c);
+            xuk = new PrpController.uk(c);
         }
         m.warn("PlMatrixConstant has untested Pots form, since it doesn't seem to actually occur in Pots.");
     }

@@ -1,8 +1,4 @@
-
-
--- Done by Dustin -- v
-
-//Fix the Myst5 problem with CubicEnvironMaps.  They are currently all inverted, but we only want to do the ones on the interior of the sphere, and we are getting an inverted Direbo CubicEnvironMap too.  Solution: move the inversion into ProcessPrp rather than in the reader for CubicEnvironMap.
+Fix the Myst5 problem with CubicEnvironMaps.  They are currently all inverted, but we only want to do the ones on the interior of the sphere, and we are getting an inverted Direbo CubicEnvironMap too.  Solution: move the inversion into ProcessPrp rather than in the reader for CubicEnvironMap.
 
 //Change KveerMOUL link from Myst to MystMystV
 //Delin pythonfilemod change page from 15 to 18.

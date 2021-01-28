@@ -187,12 +187,12 @@ public class PrpController extends uruobj
     }
     public static class plCompoundRotController extends uruobj
     {
-        public int flag1;
-        public plScalarController pos1;
-        public int flag2;
-        public plScalarController pos2;
-        public int flag3;
-        public plScalarController pos3;
+        int flag1;
+        plScalarController pos1;
+        int flag2;
+        plScalarController pos2;
+        int flag3;
+        plScalarController pos3;
         
         public plCompoundRotController(context c) throws readexception
         {
@@ -593,8 +593,8 @@ public class PrpController extends uruobj
     }
     public static class hsEaseKeyList extends uruobj
     {
-        public int count;
-        public hsScalarKey[] keys;
+        int count;
+        hsScalarKey[] keys;
         
         public hsEaseKeyList(context c)
         {
@@ -611,9 +611,9 @@ public class PrpController extends uruobj
     }
     public static class plEaseController extends uruobj
     {
-        public plLeafController parent;
-        public int haskeylist;
-        public hsEaseKeyList xeasekeylist;
+        plLeafController parent;
+        int haskeylist;
+        hsEaseKeyList xeasekeylist;
         
         public plEaseController(context c) throws readexception
         {
@@ -631,27 +631,27 @@ public class PrpController extends uruobj
     public static class plLeafController extends uruobj implements uru.writesOwnTypeid
     {
         //pots:
-        public int u1;
-        public int count;
-        public plEaseController[] easecontrollers;
+        int u1;
+        int count;
+        plEaseController[] easecontrollers;
         int garbage;
         //byte[] rawdata;
 
         //moul:
-        public byte controllertype;
-        public int count2;
-        public moul1[] xtype1;
-        public moul2[] xtype2;
-        public moul3[] xtype3;
-        public moul4[] xtype4;
-        public moul5[] xtype5;
-        public moul6[] xtype6;
-        public moul7[] xtype7;
-        public moul8[] xtype8;
-        public moul9[] xtype9;
-        public moul10[] xtype10;
-        public moul11[] xtype11;
-        public moul12[] xtype12;
+        byte controllertype;
+        int count2;
+        moul1[] xtype1;
+        moul2[] xtype2;
+        moul3[] xtype3;
+        moul4[] xtype4;
+        moul5[] xtype5;
+        moul6[] xtype6;
+        moul7[] xtype7;
+        moul8[] xtype8;
+        moul9[] xtype9;
+        moul10[] xtype10;
+        moul11[] xtype11;
+        moul12[] xtype12;
         
         private int readversion; //keep track of read version for compilation.
         
@@ -1119,8 +1119,8 @@ public class PrpController extends uruobj
     
     public static class moul1 extends uruobj
     {
-        public short framenum;
-        public Vertex data;
+        short framenum;
+        Vertex data;
         
         public moul1(context c) throws readexception
         {
@@ -1139,10 +1139,10 @@ public class PrpController extends uruobj
     }
     public static class moul2 extends uruobj
     {
-        public short framenum;
-        public Vertex data1;
-        public Vertex data2;
-        public Vertex data3;
+        short framenum;
+        Vertex data1;
+        Vertex data2;
+        Vertex data3;
         
         public moul2(context c) throws readexception
         {
@@ -1163,8 +1163,8 @@ public class PrpController extends uruobj
     }
     public static class moul3 extends uruobj
     {
-        public short framenum;
-        public Flt data;
+        short framenum;
+        Flt data;
         
         public moul3(context c) throws readexception
         {
@@ -1183,10 +1183,10 @@ public class PrpController extends uruobj
     }
     public static class moul4 extends uruobj
     {
-        public short framenum;
-        public Flt data1;
-        public Flt data2;
-        public Flt data3;
+        short framenum;
+        Flt data1;
+        Flt data2;
+        Flt data3;
         
         public moul4(context c) throws readexception
         {
@@ -1207,9 +1207,9 @@ public class PrpController extends uruobj
     }
     public static class moul5 extends uruobj
     {
-        public short framenum;
-        public Vertex data1;
-        public Quat data2;
+        short framenum;
+        Vertex data1;
+        Quat data2;
         
         public moul5(context c) throws readexception
         {
@@ -1229,11 +1229,11 @@ public class PrpController extends uruobj
     }
     public static class moul6 extends uruobj
     {
-        public short framenum;
-        public Vertex data1;
-        public Vertex data2;
-        public Vertex data3;
-        public Quat data4;
+        short framenum;
+        Vertex data1;
+        Vertex data2;
+        Vertex data3;
+        Quat data4;
         
         public moul6(context c) throws readexception
         {
@@ -1255,8 +1255,8 @@ public class PrpController extends uruobj
     }
     public static class moul7 extends uruobj
     {
-        public short framenum;
-        public Quat data;
+        short framenum;
+        Quat data;
         
         public moul7(context c) throws readexception
         {
@@ -1275,8 +1275,8 @@ public class PrpController extends uruobj
     }
     public static class moul8 extends uruobj
     {
-        public short framenum;
-        public int data;
+        short framenum;
+        int data;
         
         public moul8(context c) throws readexception
         {
@@ -1295,9 +1295,9 @@ public class PrpController extends uruobj
     }
     public static class moul9 extends uruobj
     {
-        public short framenum;
-        public int data1;
-        public int data2;
+        short framenum;
+        int data1;
+        int data2;
         
         public moul9(context c) throws readexception
         {
@@ -1318,8 +1318,8 @@ public class PrpController extends uruobj
     }
     public static class moul10 extends uruobj
     {
-        public short framenum;
-        public PrpController.affinePart data;
+        short framenum;
+        PrpController.uk data;
         
         public moul10(context c) throws readexception
         {
@@ -1333,13 +1333,13 @@ public class PrpController extends uruobj
                 //m.msg(flt.toString());
                 framenum = (short)java.lang.Math.round(flt.toJavaFloat()*30.0f);
             }
-            data = new PrpController.affinePart(c);
+            data = new PrpController.uk(c);
         }
     }
     public static class moul11 extends uruobj
     {
-        public short framenum;
-        public Flt[] matrixdata;
+        short framenum;
+        Flt[] matrixdata;
         
         public moul11(context c) throws readexception
         {
@@ -1358,8 +1358,8 @@ public class PrpController extends uruobj
     }
     public static class moul12 extends uruobj
     {
-        public short framenum;
-        public Transmatrix data;
+        short framenum;
+        Transmatrix data;
         
         public moul12(context c) throws readexception
         {
@@ -1379,9 +1379,9 @@ public class PrpController extends uruobj
     
     public static class plCompoundController extends uruobj implements uru.writesOwnTypeid
     {
-        public PrpTaggedObject u1;
-        public PrpTaggedObject u2;
-        public PrpTaggedObject u3;
+        PrpTaggedObject u1;
+        PrpTaggedObject u2;
+        PrpTaggedObject u3;
         
         public plCompoundController(context c) throws readexception
         {
@@ -1649,7 +1649,7 @@ public class PrpController extends uruobj
         }
     }
     
-    public static class affinePart extends uruobj //hsAffineParts
+    public static class uk extends uruobj //hsAffineParts
     {
         int xu0; //apparently always zero.
         public Vertex u1; //T
@@ -1658,7 +1658,7 @@ public class PrpController extends uruobj
         public Vertex u4; //K
         public Flt u5; //F
         
-        public affinePart(context c) throws readexception
+        public uk(context c) throws readexception
         {
             if(c.readversion==3||c.readversion==4||c.readversion==7) //sep9revert
             {

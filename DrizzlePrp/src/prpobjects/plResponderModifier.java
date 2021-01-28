@@ -18,7 +18,6 @@
 
 package prpobjects;
 
-import java.util.Iterator;
 import shared.readexception;
 import uru.context; import shared.readexception;
 import uru.Bytestream;
@@ -27,7 +26,6 @@ import shared.e;
 import shared.m;
 import shared.b;
 import java.util.Vector;
-import shared.mystobj;
 
 //untested and needs PrpMessages to be at least partially complete.
 public class plResponderModifier extends uruobj
@@ -136,8 +134,8 @@ public class plResponderModifier extends uruobj
 
         public static class WaitToCmd extends uruobj
         {
-            public byte wait;
-            public byte cmd;
+            byte wait;
+            byte cmd;
 
             public WaitToCmd(context c)
             {
@@ -169,44 +167,8 @@ public class plResponderModifier extends uruobj
         
         public PlResponderCmd(context c) throws readexception
         {
-            context ahead = c.Fork();
-            Typeid type = Typeid.Read(ahead);
-            
-            if (type != Typeid.plCrossfadeMsg)
-                message = new PrpTaggedObject(c);
-            else
-            {
-                m.msg("Unsupported plCrossfadeMsg, replacing.");
-//                // since we must keep a message in the list (just in case), we'll make it an empty notify msg
-//                message = PrpTaggedObject.createWithTypeidUruobj(Typeid.plNotifyMsg,
-//                        PrpMessage.PlNotifyMsg.createWithRef(Uruobjectref.none()));
-//                // offset the read cursor
-//                Typeid.Read(c);
-//                plMessage msg = new plMessage(c);
-                
-                
-                // offset the read cursor
-                Typeid.Read(c);
-                plMessage msg = new plMessage(c);
-                
-                
-                // actually, it's like a sound message ! Grrrrr...
-                PrpMessage.PlSoundMsg sm = PrpMessage.PlSoundMsg.createEmpty();
-                sm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
-                sm.parent.parent = msg;
-                
-                sm.parent.callbacks = new Vector();
-                sm.parent.count = 0;
-                
-                message = PrpTaggedObject.createWithTypeidUruobj(Typeid.plSoundMsg, sm);
-            }
+            message = new PrpTaggedObject(c);
             waitOn = c.readByte();
-        }
-        
-        private PlResponderCmd() {}
-
-        public static PlResponderCmd createEmpty() {
-            return new PlResponderCmd();
         }
         
         public void compile(Bytedeque c)

@@ -29,16 +29,6 @@ public class Count9
         Typeid type = Typeid.read(c); e.ensure(type==Typeid.count9);
         int size = c.readInt(); //size of this object.
         
-        
-        
-        /*
-        IBytestream f = c.Fork();
-        byte[] data = f.readBytes(size-8);
-        
-        String tmp = new String(data);
-        if (tmp.contains("bird_toy03"))
-            m.msg("FOUND BIRD_TOY03 9");//*/
-        
         int u1 = c.readInt(); e.ensure(u1,1);
         Bstr s1 = new Bstr(c);
         byte b1 = c.readByte(); e.ensure((int)b1,15);

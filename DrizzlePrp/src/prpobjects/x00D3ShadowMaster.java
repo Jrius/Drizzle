@@ -34,7 +34,7 @@ import shared.b;
 public class x00D3ShadowMaster extends uruobj
 {
     //Objheader xheader;
-    public plObjInterface parent;
+    plObjInterface parent;
     Flt attendist;
     Flt maxdist;
     Flt mindist;

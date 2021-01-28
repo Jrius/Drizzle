@@ -32,26 +32,6 @@ import shared.b;
  */
 public class plSynchedObject extends uruobj
 {
-    public static final int kDontDirty = 0x1,
-                            kSendReliably = 0x2,
-                            kHasConstantNetGroup = 0x4,
-                            kDontSynchGameMessages = 0x8,
-                            kExcludePersistentState = 0x10,
-                            kExcludeAllPersistentState = 0x20,
-                            kLocalOnly = kExcludeAllPersistentState | kDontSynchGameMessages,
-                            kHasVolatileState = 0x40,
-                            kAllStateIsVolatile = 0x80;
-    
-    public static final int kBCastToClients = 0x1,
-                            kForceFullSend = 0x2,
-                            kSkipLocalOwnershipCheck = 0x4,
-                            kSendImmediately = 0x8,
-                            kDontPersistOnServer = 0x10,
-                            kUseRelevanceRegions = 0x20,
-                            kNewState = 0x40,
-                            kIsAvatarState = 0x80;
-    
-    
     //Objheader xheader;
     //x0002Keyedobject parent;
     public int flags;
@@ -111,9 +91,6 @@ public class plSynchedObject extends uruobj
         }
         else if(c.readversion==4||c.readversion==7)
         {
-            if ((flags & ~(0x1 | 0x2 | 0x4)) != 0)
-                m.warn("Unknown synch flag combination ! " + flags);
-            
             //if neither of bits 2 nor 3 are set...
             //I'm assuming that I should be assigning to the first set.  The 2nd set is hardly (possibly never) used.
             if ((flags & 0x6)==0)
@@ -127,25 +104,7 @@ public class plSynchedObject extends uruobj
                     sdllinks[i] = new Wpstr(c);
                 }
 
-                flags |= kExcludePersistentState;
             }
-            
-            
-            // the synch flags are reworked in MV - which means we _must_ correct them, otherwise we lose kExcludeAllPersistentState
-            // (in short: big, bad SDL synching that cause heavy slowdown). Thanks to D'Lanor for pointing this out.
-            
-            if ((flags & 0x4) != 0) // Myst V's kExcludeAllPersistentState
-                flags = (flags & ~0x4) | kExcludeAllPersistentState;
-            
-            // other things from HSPlasma: 0x1=kDontDirty, 0x2=kExcludePersistentState
-            // However, according to Dustin, we have kExcludePersistentState if 0x2 and 0x4 are off...
-            // Let's keep kDontDirty, because it makes sense.
-
-            if ((flags & 0x1) != 0)
-                flags = (flags & ~0x1) | kDontDirty;
-            
-//            if ((flags & 0x2) != 0)
-//                flags = (flags & ~0x2) | kExcludePersistentState;
         }
     }
     public void compile(Bytedeque deque)

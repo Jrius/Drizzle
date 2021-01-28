@@ -96,7 +96,7 @@ public class plRailCameraMod extends uruobj
         int u1;
         PrpTaggedObject xu2a;
         public PrpController.plTMController xu2b;
-        public PrpController.affinePart u3;
+        public PrpController.uk u3;
         Transmatrix u4;
         Transmatrix u5;
         Flt u6;
@@ -117,7 +117,7 @@ public class plRailCameraMod extends uruobj
             {
                 xu2b = new PrpController.plTMController(c);
             }
-            u3 = new PrpController.affinePart(c);
+            u3 = new PrpController.uk(c);
             u4 = new Transmatrix(c);
             u5 = new Transmatrix(c);
             u6 = new Flt(c);

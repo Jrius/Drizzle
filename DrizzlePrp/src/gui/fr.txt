@@ -55,7 +55,7 @@ base folder:{->}Dossier racine:
 port:{->}Port:
 Stop Server{->}Arrêter serveur
 Indicate in the log when files are read?{->}Indiquez dans le journal quand les fichiers sont lus?
-You have to stop and start the server for settings changes to take effect.{->}Vous devez arrêter et redémarrer le serveur pour que les changements prennent effet.
+You have to stop and start the server for settings changes to take effect.{->}Vous devex arrêter et redémarrer le serveur pour que les changements prennent effet.
 This proxy server is for viewing old archived web sites.  Details on the help tab or  http://alcugs.almlys.org/Drizzle{->}<html>Ce serveur proxy permet de parcourir de vieux sites web archivés en .zip. De l'aide est disponible sous l'onglet "Aide", pour plus de détails voir: http://myst.dustbird.net/wiki/Drizzle.</html>
 List Available Ages...{->}Liste des Âges disponibles
 Get Offline list.{->}Liste locale
@@ -283,83 +283,3 @@ You appear to be running Windows Vista or Windows Seven.  Uru has a bug that wil
 //Err: Avertissements:
 Errors:{->}Erreurs:
 Warnings:{->}Aver:
-
-//Drizzle32
-Uru Widescreen{->}Écran large
-This area contains options to make Uru work in widescreen. READ THE DAMNED DESCRIPTION !{->}Cette page contient des options pour permettre à Uru de fonctionner sur écran large. LISEZ LA DESCRIPTION !
-<html>This allows you to fix Uru to play on a non 4/3 monitor. It does so by modifying a LOT of game files, which means it's 100% incompatible with Shards, so DON'T EVEN TRY using it for Shards. <br>Do make sure to apply this fix after converting content such as MOUL or Myst V (or simply re-run the utility after that). <br>It is highly recommended to backup your whole DAT folder and UruExplorer.exe, so you can revert changes. <br>This has only been tested with the Official No-CD patch from 2010, I wouldn't try it on any other version.{->}<html>Ceci vous permet de modifier Uru pour jouer sur des écrans autre que 4/3. Pour cela, BEAUCOUP de fichiers sont modifiés, ce qui veut dire que c'est 100% incompatible avec les version en ligne du jeu, donc N'ESSAYEZ même pas de l'utiliser sur une version version autre que hors-ligne. <br>Assurez-vous de n'utiliser cet outil qu'après avoir convertit tout le contenu dont vous avez besoin, tel que MOUL/MystV (au pire, relancez cet outil après conversion). <br>Il est très recommandé de faire une sauvegarde de l'intégralité du dossier DAT, ainsi que de UruExplorer.exe, ce qui vous permettra d'annuler les modifications. <br>Ceci n'a été testé que sur la version 2010 du Official No-CD patch, pas certain que ça fonctionne sur d'autres versions.
-Folder used for changes is the one you specified in the UruAgeManager tab{->}Le dossier d'installation est celui spécifié dans le panneau UruAgeManager
-Change game aspect ratio{->}Changer le ratio du jeu
-Fixes both PRP files and UruExplorer.exe to use a new ratio{->}Modifie à la fois les PRPs et UruExplorer.exe pour utiliser un nouveau ratio
-Also remove limit when looking up or down{->}Enlever également la limite en levant/baissant les yeux
-Target resolution:{->}Résolution voulue :
-by{->}par
-Change game resolution{->}Changer la résolution du jeu
-Currently not working. See instructions here:{->}Pas fonctionnel pour le moment. Voir les instruction ici :
-
-Fan Age tools{->}Outils pour Fan Ages
-These tools use the Uru installation folder specified in the UAM tab{->}Ces outils utilisent l'installation d'Uru spécifiée dans le panneau UAM
-Enter Fan Age name, or select .age file...{->}Entrez un nom de Fan Age, ou sélectionnez un fichier .age...
-Tasks{->}Tâches
-Light baking settings{->}Paramètres pré-calcul de lumière
-Fog/Sky settings{->}Paramètres brume/ciel
-Light baking{->}Pré-calcul de lumière
-
-Bake sunlight{->}Calculer le soleil
-Bake ambient occlusion{->}Calculer l'occlusion ambiante
-Remove bumpiness in collisions{->}Rendre les collisions plus lisses
-Change fog/sky color{->}Changer la couleur de brume/ciel
-Disable dynamic shadows{->}Désactiver les ombres dynamiques
-Disable glossiness{->}Désactiver les reflets
-Disable dynamic lights{->}Désactiver les lumières temps réel
-Disable dynamic reflections{->}Désactiver les reflets dynamiques
-Hide small far objects{->}Cacher les objets lointains
-minimum object size (degrees){->}taille minimale (degrés)
-
-Sunlight{->}Lumière solaire
-Sky color{->}Couleur du ciel
-Sun color{->}Couleur du soleil
-Light direction{->}Direction de la lumière du soleil
-Choose{->}Choisir
-Ambient occlusion{->}Occlusion ambiante
-Reach{->}Portée
-Intensity{->}Intensité
-Minimal color{->}Couleur minimale
-Excluded objects{->}Objets exclus
-
-Color{->}Couleur
-Max view distance{->}Distance d'affichage max
-feet{->}pieds
-Fog start{->}Distance de début de la brume
-
-APPLY{->}APPLIQUER
-
-// Things that were missing from previous Drizzle versions
-// list analysis
-copy from main output{->}copier depuis la sortie des messages
-Copy all text to clipboard{->}Copier tout le texte dans le presse-papier
-Prefix:{->}Préfixe
-remove all that don't start with prefix{->}enlever tout ce qui ne commence pas par ce préfixe
-
-// realmyst tab
-Nope, still doesn't work, stop asking.{->}Non, ça fonctionne toujours pas, arrêtez de le demander.
-in file:{->}fichier d'entrée
-out/test folder:{->}dosser de sortie/test
-select{->}sélectionner
-Folder to search in...{->}Dossier dans lequel chercher...
-String to search{->}Caractères à chercher
-string search{->}chercher des caractères
-Depack{->}Dépaqueter
-(won't produce any output file, just to make sure things are working){->}(ne produit aucun fichier de sortie, juste à des fins de test)
-Attempt to read.{->}Essayer de lire
-
-// command line
-command:{->}commande:
-Call{->}Exécuter
-
-// manual conversion
-Process a bunch of files...{->}Convertir un groupe de fichiers...
-Process a single file...{->}Convertir un seul fichier...
-
-// decompile
-Gamename (for a list, go to Misc->ListGamenames):{->}Nom du jeu (pour une liste, voir Divers->Lister des jeux)

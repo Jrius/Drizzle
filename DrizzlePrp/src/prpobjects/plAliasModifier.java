@@ -31,7 +31,7 @@ import shared.readexception;
 public class plAliasModifier extends uruobj
 {
     plSingleModifier parent;
-    public Bstr str;
+    Bstr str;
     
     public plAliasModifier(context c) throws readexception
     {

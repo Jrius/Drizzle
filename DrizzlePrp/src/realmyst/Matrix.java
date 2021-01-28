@@ -34,20 +34,6 @@ public class Matrix
             }
         }
     }
-    public Matrix()
-    {
-        for(int i=0;i<4;i++)
-        {
-            for(int j=0;j<4;j++)
-            {
-                values[i][j] = new Flt(0f);
-            }
-        }
-        values[0][0] = new Flt(1f);
-        values[1][1] = new Flt(1f);
-        values[2][2] = new Flt(1f);
-        values[3][3] = new Flt(1f);
-    }
     
     public String toString()
     {

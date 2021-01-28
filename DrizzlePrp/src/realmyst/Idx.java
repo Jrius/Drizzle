@@ -20,11 +20,11 @@ public class Idx
     //byte b2; //0
     //byte b3; //0
     //byte blockcount; //hard to tell since there's only 1 idx file, but I think this is the block count.
-    public ReverseInt three;
+    ReverseInt three;
     //IdxBlock[] idxblocks;
-    public IdxBlock SaveGroupIndex; //refs to /sdb
-    public IdxBlock RoomIndex; //refs to /sdb
-    public IdxBlock NamedGroupIndex; //refs to /sdb
+    IdxBlock SaveGroupIndex; //refs to /sdb
+    IdxBlock RoomIndex; //refs to /sdb
+    IdxBlock NamedGroupIndex; //refs to /sdb
     //int u1;
     //int u2;
     //IdxEntry[] entries;
@@ -84,8 +84,8 @@ public class Idx
     }
     public static class IdxBlock
     {
-        public int idxcount;
-        public IdxEntry[] entries;
+        int idxcount;
+        IdxEntry[] entries;
         
         public IdxBlock(IBytestream c)
         {
@@ -95,9 +95,9 @@ public class Idx
     }
     public static class IdxEntry
     {
-        public Bstr name;
-        public int indexcount;
-        public int[] indexes;
+        Bstr name;
+        int indexcount;
+        int[] indexes;
         
         public IdxEntry(IBytestream c)
         {

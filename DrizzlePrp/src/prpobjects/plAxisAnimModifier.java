@@ -31,25 +31,13 @@ import shared.readexception;
 
 public class plAxisAnimModifier extends uruobj
 {
-    public plSingleModifier parent;
-    public Uruobjectref xAnim;
-    public Uruobjectref yAnim;
-    public Uruobjectref notificationKey;
-    public byte allOrNothing;
-    public PrpTaggedObject message;
-    public Wpstr animLabel;
-    
-    /* Typical problem: PotS only allows the item to be dragged, MV flags didn't exist at that time
-     * Things missing:
-     *  - speed factor
-     *  - sens (could be negative speed factor)
-     *  - stop values (think of Siralehn's turnable rock)
-     *  - release position (when releasing, animation will go back to closest "node")
-     * Oh, and notification doesn't seem to work anyway. I'll resort to add some AnimEventModifiers here and there (tested on Srln turnable rocks, is perfect).
-     * To fix speed factor and sens: edit the animations (might lose precision, will be hard, but could work).
-     * To fix release pos: use anim.playToTime(). Stop values: if we have release pos, it won't be necessary. Might be even easier to drag Siralehn's rocks.
-     * Best solution would be to fire those axis animations, and put typical Uru anims, but might be more work.
-     */
+    plSingleModifier parent;
+    Uruobjectref ref1;
+    Uruobjectref ref2;
+    Uruobjectref ref3;
+    byte b3;
+    PrpTaggedObject emb1;
+    Wpstr s1;
     
     public plAxisAnimModifier(context c) throws readexception
     {
@@ -59,12 +47,12 @@ public class plAxisAnimModifier extends uruobj
             byte b1 = c.readByte();
             byte b2 = c.readByte();
         }
-        xAnim = new Uruobjectref(c);
-        yAnim = new Uruobjectref(c);
-        notificationKey = new Uruobjectref(c);
-        allOrNothing = c.readByte();
-        message = new PrpTaggedObject(c);
-        animLabel = new Wpstr(c);
+        ref1 = new Uruobjectref(c);
+        ref2 = new Uruobjectref(c);
+        ref3 = new Uruobjectref(c);
+        b3 = c.readByte();
+        emb1 = new PrpTaggedObject(c);
+        s1 = new Wpstr(c);
         if(c.readversion==4)
         {
             int count1 = c.readInt();
@@ -91,12 +79,13 @@ public class plAxisAnimModifier extends uruobj
     public void compile(Bytedeque c)
     {
         parent.compile(c);
-        xAnim.compile(c);
-        yAnim.compile(c);
-        notificationKey.compile(c);
-        c.writeByte(allOrNothing);
-        message.compile(c);
-        animLabel.compile(c);
+        ref1.compile(c);
+        ref2.compile(c);
+        ref3.compile(c);
+        c.writeByte(b3);
+        emb1.compile(c);
+        s1.compile(c);
+        
     }
     
 }

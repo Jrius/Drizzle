@@ -31,123 +31,62 @@ import shared.readexception;
 //I reverse-engineered this myself, via decompilation.
 public class plEAXListenerMod extends uruobj
 {
-    public plSingleModifier parent;
-    public Uruobjectref softRegion;
-    public int environment;
-    public Flt environmentSize;
-    public Flt environmentDiffusion;
-    public int room;
-    public int roomHF;
-    public int roomLF;
-    public Flt decayTime;
-    public Flt decayHFRatio;
-    public Flt decayLFRatio;
-    public int reflections;
-    public Flt reflectionsDelay;
-    public int reverb;
-    public Flt reverbDelay;
-    public Flt echoTime;
-    public Flt echoDepth;
-    public Flt modulationTime;
-    public Flt modulationDepth;
-    public Flt airAbsorptionHF;
-    public Flt HFReference;
-    public Flt LFReference;
-    public Flt roomRolloffFactor;
-    public int flags;
+    plSingleModifier parent;
+    Uruobjectref ref;
+    int u1;
+    Flt u2;
+    Flt u3;
+    int u4;
+    int u5;
+    int u6;
+    Flt u7;
+    Flt u8;
+    Flt u9;
+    int u10;
+    Flt u11;
+    int u12;
+    Flt[] u13; //9 of them
+    int u14;
     
     public plEAXListenerMod(context c) throws readexception
     {
         parent = new plSingleModifier(c);
-        softRegion = new Uruobjectref(c);
-        environment = c.readInt();
-        environmentSize = new Flt(c);
-        environmentDiffusion = new Flt(c);
-        room = c.readInt();
-        roomHF = c.readInt();
-        roomLF = c.readInt();
-        decayTime = new Flt(c);
-        decayHFRatio = new Flt(c);
-        decayLFRatio = new Flt(c);
-        reflections = c.readInt();
-        reflectionsDelay = new Flt(c);
-        reverb = c.readInt();
-        reverbDelay = new Flt(c);
-        echoTime = new Flt(c);
-        echoDepth = new Flt(c);
-        modulationTime = new Flt(c);
-        modulationDepth = new Flt(c);
-        airAbsorptionHF = new Flt(c);
-        HFReference = new Flt(c);
-        LFReference = new Flt(c);
-        roomRolloffFactor = new Flt(c);
-        flags = c.readInt();
+        ref = new Uruobjectref(c);
+        u1 = c.readInt();
+        u2 = new Flt(c);
+        u3 = new Flt(c);
+        u4 = c.readInt();
+        u5 = c.readInt();
+        u6 = c.readInt();
+        u7 = new Flt(c);
+        u8 = new Flt(c);
+        u9 = new Flt(c);
+        u10 = c.readInt();
+        u11 = new Flt(c);
+        u12 = c.readInt();
+        u13 = c.readArray(Flt.class, 9);
+        u14 = c.readInt();
+        
     }
     
     public void compile(Bytedeque c)
     {
         parent.compile(c);
-        softRegion.compile(c);
-        c.writeInt(environment);
-        environmentSize.compile(c);
-        environmentDiffusion.compile(c);
-        c.writeInt(room);
-        c.writeInt(roomHF);
-        c.writeInt(roomLF);
-        decayTime.compile(c);
-        decayHFRatio.compile(c);
-        decayLFRatio.compile(c);
-        c.writeInt(reflections);
-        reflectionsDelay.compile(c);
-        c.writeInt(reverb);
-        reverbDelay.compile(c);
-        echoTime.compile(c);
-        echoDepth.compile(c);
-        modulationTime.compile(c);
-        modulationDepth.compile(c);
-        airAbsorptionHF.compile(c);
-        HFReference.compile(c);
-        LFReference.compile(c);
-        roomRolloffFactor.compile(c);
-        c.writeInt(flags);
+        ref.compile(c);
+        c.writeInt(u1);
+        u2.compile(c);
+        u3.compile(c);
+        c.writeInt(u4);
+        c.writeInt(u5);
+        c.writeInt(u6);
+        u7.compile(c);
+        u8.compile(c);
+        u9.compile(c);
+        c.writeInt(u10);
+        u11.compile(c);
+        c.writeInt(u12);
+        c.writeArray(u13);
+        c.writeInt(u14);
     }
     
-    private plEAXListenerMod() {}
-    
-    public static plEAXListenerMod createEmpty()
-    {
-        return new plEAXListenerMod();
-    }
-    
-    public static plEAXListenerMod createFromReverbEffect(prpobjects.plEAXReverbEffect eaxre)
-    {
-        plEAXListenerMod result = plEAXListenerMod.createEmpty();
-        
-        result.parent = eaxre.parent;
-        result.softRegion = eaxre.softRegion;
-        result.environment = eaxre.environment;
-        result.environmentSize = eaxre.environmentSize;
-        result.environmentDiffusion = eaxre.environmentDiffusion;
-        result.room = eaxre.room;
-        result.roomHF = eaxre.roomHF;
-        result.roomLF = eaxre.roomLF;
-        result.decayTime = eaxre.decayTime;
-        result.decayHFRatio = eaxre.decayHFRatio;
-        result.decayLFRatio = eaxre.decayLFRatio;
-        result.reflections = eaxre.reflections;
-        result.reflectionsDelay = eaxre.reflectionsDelay;
-        result.reverb = eaxre.reverb;
-        result.reverbDelay = eaxre.reverbDelay;
-        result.echoTime = eaxre.echoTime;
-        result.echoDepth = eaxre.echoDepth;
-        result.modulationTime = eaxre.modulationTime;
-        result.modulationDepth = eaxre.modulationDepth;
-        result.airAbsorptionHF = eaxre.airAbsorptionHF;
-        result.HFReference = eaxre.HFReference;
-        result.LFReference = eaxre.LFReference;
-        result.roomRolloffFactor = eaxre.roomRolloffFactor;
-        result.flags = eaxre.flags;
-        
-        return result;
-    }
 }

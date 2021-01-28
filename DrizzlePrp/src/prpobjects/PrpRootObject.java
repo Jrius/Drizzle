@@ -32,13 +32,13 @@ import java.lang.Comparable;
 public class PrpRootObject extends uruobj implements Comparable
 {
     public Objheader header;
-    public PrpObject prpobject;
+    PrpObject prpobject;
     //public boolean isRaw = false;
     //public boolean saveRaw = false;
     public boolean hasChanged; //does it have changes that need to be written
     public boolean hasRaw; //does it have raw byte[] data.
     public boolean hasParsed; //does it have a real prpobject
-    public byte[] rawdata;
+    byte[] rawdata;
     int readversion;
     
     public boolean tagDeleted = false;
@@ -57,6 +57,14 @@ public class PrpRootObject extends uruobj implements Comparable
         this.hasRaw = readRaw;
         this.hasParsed = true;
         this.readversion = c.readversion;
+        //String breakname = "map #2159";
+        String breakname = "fanroomcrank_drag";
+        Typeid breaktype = null;
+        //Typeid breaktype = Typeid.plATCAnim;
+        if(header.desc.objectname.toString().toLowerCase().startsWith(breakname.toLowerCase()) && (breaktype==null || breaktype==header.desc.objecttype))
+        {
+            int breakdummy = 0;
+        }
         if(readRaw)
         {
             //rawdata = c.Fork().readBytes(length-(headerEnd-headerStart));

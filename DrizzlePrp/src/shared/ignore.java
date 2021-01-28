@@ -14,6 +14,6 @@ public class ignore extends shared.uncaughtexception
     public ignore(String msg)
     {
         super(msg);
-        //m.msg("Ignoring item: "+msg);
+        m.msg("Ignoring item: "+msg);
     }    
 }

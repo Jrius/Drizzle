@@ -49,14 +49,12 @@ public class plLogicModifier extends uruobj
         }
     }
     private plLogicModifier(){}
-    
-    public static plLogicModifier createWithRef(Uruobjectref ref)
+    /*public static PlLogicModifier createWithRef(Uruobjectref ref)
     {
-        plLogicModifier result = new plLogicModifier();
+        PlLogicModifier result = new PlLogicModifier();
         result.parent = PlLogicModBase.createWithRef(ref);
-        result.u1 = 1;
-        return result;
-    }
+        
+    }*/
     public void compile(Bytedeque c)
     {
         parent.compile(c);
@@ -72,7 +70,7 @@ public class plLogicModifier extends uruobj
         //short[] unused;
         //public PrpMessage message;
         public PrpTaggedObject message;
-        public HsBitVector u1;
+        HsBitVector u1;
         public byte disabled;
         
         public PlLogicModBase(context c) throws readexception
@@ -95,7 +93,6 @@ public class plLogicModifier extends uruobj
             result.message = PrpTaggedObject.createWithTypeidUruobj(Typeid.plNotifyMsg, msg);
             result.u1 = new HsBitVector(1); //just copying from known object
             result.disabled = 0; //enable it.
-            result.count = 0;
             return result;
         }
         public void compile(Bytedeque c)

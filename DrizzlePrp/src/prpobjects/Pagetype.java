@@ -29,8 +29,6 @@ import shared.*;
 
 public class Pagetype extends uruobj implements java.io.Serializable
 {
-    static final long serialVersionUID = -7148572319556349354L;
-    
     //usually: 8 is Textures or BuiltIn, 4 is a global one, and 0 is a regular page.
     public static final int kLocalOnly = 0x01;
     public static final int kVolatile =  0x02;
@@ -38,7 +36,7 @@ public class Pagetype extends uruobj implements java.io.Serializable
     public static final int kBuiltIn =   0x08;
     public static final int kItinerant = 0x10;
 
-    public short pagetype;
+    short pagetype;
     
     public Pagetype(context c)
     {

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
-<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.5" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="filedirButtonGroup">
     </Component>
@@ -28,7 +28,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
@@ -415,7 +414,7 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState38">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="http://www.the-deep-island.de/uru-ages/"/>
+                    <Property name="text" type="java.lang.String" value="http://myst.dustbird.net/uru-ages/"/>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="name" type="java.lang.String" value="uamServer2" noResource="true"/>
                   </Properties>
@@ -443,7 +442,7 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState39">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="C:\u005cProgram Files\u005cUbi Soft\u005cCyan Worlds\u005c" containsInvalidXMLChars="true"/>
+                    <Property name="text" type="java.lang.String" value="C:\Program Files\Ubi Soft\Cyan Worlds\"/>
                     <Property name="name" type="java.lang.String" value="uamRoot" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -1653,7 +1652,7 @@
             </Component>
             <Component class="shared.State.TextfieldState" name="textfieldState9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="C:\u005cDocuments and Settings\u005cuser\u005cDesktop\u005cweb" containsInvalidXMLChars="true"/>
+                <Property name="text" type="java.lang.String" value="C:\Documents and Settings\user\Desktop\web"/>
                 <Property name="name" type="java.lang.String" value="proxyFolder" noResource="true"/>
               </Properties>
               <Constraints>
@@ -1796,7 +1795,7 @@
               <SubComponents>
                 <Component class="shared.State.TextfieldState" name="textfieldState68">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="C:\u005cPlasmaTest\u005c" containsInvalidXMLChars="true"/>
+                    <Property name="text" type="java.lang.String" value="C:\PlasmaTest\"/>
                     <Property name="name" type="java.lang.String" value="theart1" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -2058,6 +2057,16 @@
                     <Property name="useNullLayout" type="boolean" value="true"/>
                   </Layout>
                   <SubComponents>
+                    <Component class="shared.State.TextfieldState" name="textfieldState42">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="genFolder" noResource="true"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="130" y="20" width="230" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
                     <Component class="javax.swing.JButton" name="jButton133">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Generate uam.status.txt"/>
@@ -2078,16 +2087,6 @@
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="10" y="20" width="120" height="-1"/>
-                        </Constraint>
-                      </Constraints>
-                    </Component>
-                    <Component class="shared.State.TextfieldState" name="textfieldState77">
-                      <Properties>
-                        <Property name="name" type="java.lang.String" value="genFolder" noResource="true"/>
-                      </Properties>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="130" y="20" width="230" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -2274,7 +2273,7 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState47">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="c:\u005cplace\u005cto\u005csave" containsInvalidXMLChars="true"/>
+                    <Property name="text" type="java.lang.String" value="c:\place\to\save"/>
                     <Property name="name" type="java.lang.String" value="wspout" noResource="true"/>
                   </Properties>
                   <Events>
@@ -2319,7 +2318,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="190" width="330" height="110"/>
+                  <AbsoluteConstraints x="20" y="240" width="330" height="110"/>
                 </Constraint>
               </Constraints>
 
@@ -2365,7 +2364,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="160" width="170" height="-1"/>
+                  <AbsoluteConstraints x="20" y="170" width="170" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -2378,997 +2377,9 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="30" y="310" width="140" height="-1"/>
+                  <AbsoluteConstraints x="30" y="380" width="140" height="-1"/>
                 </Constraint>
               </Constraints>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="UruWidescreenPanel">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Uru Widescreen">
-                <Property name="tabTitle" type="java.lang.String" value="Uru Widescreen"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel90" pref="965" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="textfieldState75" min="-2" pref="60" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="textfieldState76" min="-2" pref="60" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jButton176" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jButton175" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel86" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jTextField1" min="-2" pref="413" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel91" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="checkboxState34" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Component id="jLabel85" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel84" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel84" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel85" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton175" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel91" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkboxState34" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel87" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel88" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfieldState75" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfieldState76" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton176" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel86" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="237" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel84">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="This area contains options to make Uru work in widescreen. READ THE DAMNED DESCRIPTION !"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel85">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Folder used for changes is the one you specified in the UruAgeManager tab"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton175">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Change game aspect ratio"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton175ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel87">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Target resolution:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel88">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="by"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton176">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Change game resolution"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton176ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="shared.State.TextfieldState" name="textfieldState75">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="1920"/>
-                <Property name="name" type="java.lang.String" value="widescrScreenWidth" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="shared.State.TextfieldState" name="textfieldState76">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="1080"/>
-                <Property name="name" type="java.lang.String" value="widescrScreenHeight" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="http://forum.guildofwriters.org/viewtopic.php?f=10&amp;t=5607&amp;p=57242&amp;#p57242"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel86">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Currently not working. See instructions here:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel90">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;This allows you to fix Uru to play on a non 4/3 monitor. It does so by modifying a LOT of game files, which means it&apos;s 100% incompatible with Shards, so DON&apos;T EVEN TRY using it for Shards.&#xa;&lt;br&gt;Do make sure to apply this fix after converting content such as MOUL or Myst V (or simply re-run the utility after that).&#xa;&lt;br&gt;It is highly recommended to backup your whole DAT folder and UruExplorer.exe, so you can revert changes.&#xa;&lt;br&gt;This has only been tested with the Official No-CD patch from 2010, I wouldn&apos;t try it on any other version."/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel91">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Fixes both PRP files and UruExplorer.exe to use a new ratio"/>
-              </Properties>
-            </Component>
-            <Component class="shared.State.CheckboxState" name="checkboxState34">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Also remove limit when looking up or down"/>
-                <Property name="name" type="java.lang.String" value="widescrIncreasePitchAngle" noResource="true"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="FAgePanel">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Fan Age tools">
-                <Property name="tabTitle" type="java.lang.String" value="Fan Age tools"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTabbedPane1" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel97" min="-2" pref="550" max="-2" attributes="0"/>
-                                  <Component id="jButton75" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel96" min="-2" pref="405" max="-2" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="FAToolsAgeName" min="-2" pref="230" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jButton74" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel97" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel96" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="FAToolsAgeName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton74" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jTabbedPane1" min="-2" pref="210" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton75" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="699" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel97">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="These tools use the Uru installation folder specified in the UAM tab"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
-              <SubComponents>
-                <Container class="javax.swing.JPanel" name="jPanel53">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Tasks">
-                        <Property name="tabTitle" type="java.lang.String" value="Tasks"/>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jPanel52" max="32767" attributes="0"/>
-                                  <Component id="jPanel56" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel55" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="425" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel55" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jPanel56" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel52" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="27" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JPanel" name="jPanel52">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Misc"/>
-                          </Border>
-                        </Property>
-                        <Property name="name" type="java.lang.String" value="" noResource="true"/>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="chbFATrembump" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chbFATeditFni" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="chbFATrembump" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chbFATeditFni" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JCheckBox" name="chbFATrembump">
-                          <Properties>
-                            <Property name="selected" type="boolean" value="true"/>
-                            <Property name="text" type="java.lang.String" value="Remove bumpiness in collisions"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATrembumpActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="chbFATeditFni">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Change fog/sky color"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATeditFniActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel55">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Performance"/>
-                          </Border>
-                        </Property>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="chbFATmkMxDist" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="FAToolsMaxDistDeg" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel105" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="chbFATdisshad" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="chbFATdislights" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="chbFATdisspec" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="chbFATdisdynref" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="chbFATdisshad" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chbFATdisspec" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="chbFATdislights" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="chbFATdisdynref" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="chbFATmkMxDist" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="FAToolsMaxDistDeg" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                      <Component id="jLabel105" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JCheckBox" name="chbFATmkMxDist">
-                          <Properties>
-                            <Property name="selected" type="boolean" value="true"/>
-                            <Property name="text" type="java.lang.String" value="Hide small far objects"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATmkMxDistActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="chbFATdisdynref">
-                          <Properties>
-                            <Property name="selected" type="boolean" value="true"/>
-                            <Property name="text" type="java.lang.String" value="Disable dynamic reflections"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATdisdynrefActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="chbFATdislights">
-                          <Properties>
-                            <Property name="selected" type="boolean" value="true"/>
-                            <Property name="text" type="java.lang.String" value="Disable dynamic lights"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATdislightsActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="chbFATdisspec">
-                          <Properties>
-                            <Property name="selected" type="boolean" value="true"/>
-                            <Property name="text" type="java.lang.String" value="Disable glossiness"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATdisspecActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="chbFATdisshad">
-                          <Properties>
-                            <Property name="selected" type="boolean" value="true"/>
-                            <Property name="text" type="java.lang.String" value="Disable dynamic shadows"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATdisshadActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="shared.State.TextfieldState" name="FAToolsMaxDistDeg">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="0.35"/>
-                            <Property name="name" type="java.lang.String" value="FAToolsMaxDistDegrees" noResource="true"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FAToolsMaxDistDegActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel105">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="minimum object size (degrees)"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel56">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Light baking"/>
-                          </Border>
-                        </Property>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chbFATbakesun" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="chbFATbakeao" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="394" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="chbFATbakesun" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chbFATbakeao" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JCheckBox" name="chbFATbakeao">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Bake ambient occlusion"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATbakeaoActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="chbFATbakesun">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Bake sunlight"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbFATbakesunActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel54">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Light baking settings">
-                        <Property name="tabTitle" type="java.lang.String" value="Light baking settings"/>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jPanel57" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel58" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel104" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="excludeObjectsFld" pref="591" max="32767" attributes="0"/>
-                                      <EmptySpace min="-2" pref="274" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel58" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel57" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel104" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="excludeObjectsFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel104">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Excluded objects"/>
-                      </Properties>
-                    </Component>
-                    <Component class="shared.State.TextfieldState" name="excludeObjectsFld">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Welt_Himmel; Welt_WasserGrund"/>
-                        <Property name="name" type="java.lang.String" value="excludeObjectsFld" noResource="true"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excludeObjectsFldActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Container class="javax.swing.JPanel" name="jPanel57">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Sunlight">
-                              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                                <EtchetBorder/>
-                              </Border>
-                            </TitledBorder>
-                          </Border>
-                        </Property>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel98" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel99" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel100" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lightdirFld" min="-2" pref="173" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="sunColFld" min="-2" pref="98" max="-2" attributes="0"/>
-                                              <Component id="ambientColFld" min="-2" pref="98" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jButton76" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jButton177" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel98" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="ambientColFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton76" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel99" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="sunColFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton177" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel100" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lightdirFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel98">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Sky color"/>
-                          </Properties>
-                        </Component>
-                        <Component class="shared.State.TextfieldState" name="ambientColFld">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="92, 98, 127"/>
-                            <Property name="name" type="java.lang.String" value="ambientColFld" noResource="true"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambientColFldActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel99">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Sun color"/>
-                          </Properties>
-                        </Component>
-                        <Component class="shared.State.TextfieldState" name="sunColFld">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="255, 255, 218"/>
-                            <Property name="name" type="java.lang.String" value="sunColFld" noResource="true"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sunColFldActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel100">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Light direction"/>
-                          </Properties>
-                        </Component>
-                        <Component class="shared.State.TextfieldState" name="lightdirFld">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="-0.56, 0.32, -0.77"/>
-                            <Property name="name" type="java.lang.String" value="lightDirFld" noResource="true"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lightdirFldActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton76">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Choose"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton76ActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton177">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Choose"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton177ActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel58">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Ambient occlusion">
-                              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                                <EtchetBorder/>
-                              </Border>
-                            </TitledBorder>
-                          </Border>
-                        </Property>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel103" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel102" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="aoColMinFld" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton178" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                          <Component id="aoReachFld" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="aoIntFld" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel101" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="aoReachFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel102" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="aoIntFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel103" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="aoColMinFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton178" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="29" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel101">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Reach"/>
-                          </Properties>
-                        </Component>
-                        <Component class="shared.State.TextfieldState" name="aoReachFld">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="35"/>
-                            <Property name="name" type="java.lang.String" value="aoReachFld" noResource="true"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aoReachFldActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel102">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Intensity"/>
-                          </Properties>
-                        </Component>
-                        <Component class="shared.State.TextfieldState" name="aoIntFld">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="12"/>
-                            <Property name="name" type="java.lang.String" value="aoIntFld" noResource="true"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aoIntFldActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel103">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Minimal color"/>
-                          </Properties>
-                        </Component>
-                        <Component class="shared.State.TextfieldState" name="aoColMinFld">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="50, 40, 30"/>
-                            <Property name="name" type="java.lang.String" value="aoMinColFld" noResource="true"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aoColMinFldActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton178">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Choose"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton178ActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel59">
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Fog/Sky settings">
-                        <Property name="tabTitle" type="java.lang.String" value="Fog/Sky settings"/>
-                      </JTabbedPaneConstraints>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel106" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel109" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="FATfniMaxDist" pref="50" max="32767" attributes="0"/>
-                                          <Component id="FATfniMinDist" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel108" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel110" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="FATfniSkCol" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton179" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="675" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel106" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="FATfniSkCol" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton179" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel107" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="FATfniMaxDist" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel108" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel109" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="FATfniMinDist" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel110" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="96" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel106">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Color"/>
-                      </Properties>
-                    </Component>
-                    <Component class="shared.State.TextfieldState" name="FATfniSkCol">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="186, 206, 255"/>
-                        <Property name="name" type="java.lang.String" value="FATfniSkCol" noResource="true"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FATfniSkColActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel107">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Max view distance"/>
-                      </Properties>
-                    </Component>
-                    <Component class="shared.State.TextfieldState" name="FATfniMaxDist">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="5000"/>
-                        <Property name="name" type="java.lang.String" value="FATfniMaxDist" noResource="true"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FATfniMaxDistActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel108">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="feet"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel109">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Fog start"/>
-                      </Properties>
-                    </Component>
-                    <Component class="shared.State.TextfieldState" name="FATfniMinDist">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="300"/>
-                        <Property name="name" type="java.lang.String" value="FATfniMinDist" noResource="true"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FATfniMinDistActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel110">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="feet"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButton179">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Choose"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton179ActionPerformed"/>
-                      </Events>
-                    </Component>
-                  </SubComponents>
-                </Container>
-              </SubComponents>
-            </Container>
-            <Component class="javax.swing.JButton" name="jButton75">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="APPLY"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton75ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="shared.State.TextfieldState" name="FAToolsAgeName">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="FAToolsAgeName" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FAToolsAgeNameActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton74">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Select..."/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton74ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel96">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Enter Fan Age name, or select .age file..."/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -3409,7 +2420,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="510" y="20" width="200" height="80"/>
+                      <AbsoluteConstraints x="20" y="10" width="200" height="100"/>
                     </Constraint>
                   </Constraints>
 
@@ -3419,12 +2430,42 @@
                   <SubComponents>
                     <Component class="shared.State.TextfieldState" name="textfieldState12">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="logfile"/>
+                        <Property name="text" type="java.lang.String" value="textfieldState12"/>
                         <Property name="name" type="java.lang.String" value="logFile" noResource="true"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="10" width="84" height="-1"/>
+                          <AbsoluteConstraints x="10" y="20" width="-1" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButton74">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="jButton74"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="100" y="20" width="-1" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButton75">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="jButton75"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="10" y="56" width="80" height="40"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButton76">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="jButton76"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="100" y="60" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -3439,7 +2480,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="30" y="60" width="160" height="-1"/>
+                      <AbsoluteConstraints x="190" y="60" width="160" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -3452,7 +2493,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="30" y="20" width="150" height="-1"/>
+                      <AbsoluteConstraints x="230" y="10" width="150" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -3466,7 +2507,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="260" y="20" width="240" height="80"/>
+                      <AbsoluteConstraints x="310" y="20" width="240" height="80"/>
                     </Constraint>
                   </Constraints>
 
@@ -3486,26 +2527,22 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState11">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="logprefix"/>
+                        <Property name="text" type="java.lang.String" value="textfieldState11"/>
                         <Property name="name" type="java.lang.String" value="logPrefix" noResource="true"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="60" y="10" width="160" height="-1"/>
+                          <AbsoluteConstraints x="70" y="10" width="160" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton73">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="remove all that don&apos;t start with prefix"/>
-                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton73ActionPerformed"/>
-                      </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="50" width="220" height="-1"/>
+                          <AbsoluteConstraints x="10" y="40" width="220" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -3787,7 +2824,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="407" max="32767" attributes="0"/>
+                          <EmptySpace pref="395" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4051,7 +3088,7 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState28">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="c:\u005cpath\u005cto\u005coutfolder" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="c:\path\to\outfolder"/>
                         <Property name="name" type="java.lang.String" value="searchnet" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -4493,13 +3530,13 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState15">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="D:\u005ca\u005cleftoff\u005cdecrypted\u005csdl\u005cpersonal.sdl" containsInvalidXMLChars="true"/>
+                    <Property name="text" type="java.lang.String" value="D:\a\leftoff\decrypted\sdl\personal.sdl"/>
                     <Property name="name" type="java.lang.String" value="encryptionIn" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState16">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="C:\u005cDocuments and Settings\u005cuser\u005cDesktop\u005coutput" containsInvalidXMLChars="true"/>
+                    <Property name="text" type="java.lang.String" value="C:\Documents and Settings\user\Desktop\output"/>
                     <Property name="name" type="java.lang.String" value="encryptionOut" noResource="true"/>
                   </Properties>
                 </Component>
@@ -4573,7 +3610,7 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState21">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="C:/some_file"/>
+                    <Property name="text" type="java.lang.String" value="textfieldState21"/>
                     <Property name="name" type="java.lang.String" value="realmystIn" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -4610,7 +3647,7 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState24">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="C:/some_folder"/>
+                    <Property name="text" type="java.lang.String" value="textfieldState24"/>
                     <Property name="name" type="java.lang.String" value="realmystOut" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -4621,17 +3658,17 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel25">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Nope, still doesn&apos;t work, stop asking."/>
+                    <Property name="text" type="java.lang.String" value="in file:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="10" y="10" width="350" height="-1"/>
+                      <AbsoluteConstraints x="10" y="30" width="100" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel26">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="out/test folder:"/>
+                    <Property name="text" type="java.lang.String" value="out folder:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -4641,7 +3678,7 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState25">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="C:/some_file_to_read"/>
+                    <Property name="text" type="java.lang.String" value="textfieldState25"/>
                     <Property name="name" type="java.lang.String" value="realmystObjFile" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -4753,7 +3790,7 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState29">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="String to search"/>
+                    <Property name="text" type="java.lang.String" value="textfieldState29"/>
                     <Property name="name" type="java.lang.String" value="searchString" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -4764,32 +3801,12 @@
                 </Component>
                 <Component class="shared.State.TextfieldState" name="textfieldState30">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Folder to search in..."/>
+                    <Property name="text" type="java.lang.String" value="textfieldState30"/>
                     <Property name="name" type="java.lang.String" value="searchPath" noResource="true"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="650" y="10" width="130" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel89">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="(won&apos;t produce any output file, just to make sure things are working)"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="250" y="260" width="560" height="-1"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel92">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="in file:"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="10" y="30" width="100" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -4956,7 +3973,7 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState56">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005csomepath\u005c" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\somepath\"/>
                         <Property name="name" type="java.lang.String" value="dssave" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -5029,7 +4046,7 @@
                   <SubComponents>
                     <Component class="shared.State.TextfieldState" name="textfieldState57">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cpath\u005cto\u005cinstallation" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\path\to\installation"/>
                         <Property name="name" type="java.lang.String" value="dsorig" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -5060,7 +4077,7 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState58">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cpath\u005cto\u005cdataserver" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\path\to\dataserver"/>
                         <Property name="name" type="java.lang.String" value="dsout" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -5334,33 +4351,38 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="textfieldState2" pref="429" max="32767" attributes="0"/>
+                                  <Component id="textfieldState3" pref="429" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jButton58" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButton59" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="textfieldState3" max="32767" attributes="0"/>
-                                          <Component id="textfieldState2" pref="395" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jButton55" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jButton56" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton78" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="333" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jPanel51" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jPanel50" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jButton57" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jButton55" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jButton78" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jButton56" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="312" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="825" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -5374,17 +4396,39 @@
                                   <Component id="jButton55" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButton78" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textfieldState3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton56" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jButton57" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jScrollPane5" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jButton58" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jButton59" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textfieldState3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButton56" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace pref="13" max="32767" attributes="0"/>
-                              <Component id="jPanel51" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel50" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -5416,16 +4460,62 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton56ActionPerformed"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JButton" name="jButton57">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Start..."/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton57ActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButton58">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Select All"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton58ActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButton59">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Select None"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton59ActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="shared.State.ListState" name="listState2">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                            <Property name="name" type="java.lang.String" value="myst5list" noResource="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                     <Component class="shared.State.TextfieldState" name="textfieldState2">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cProgram Files\u005cUbisoft\u005cCyan Worlds\u005cMyst V End Of Ages" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\Program Files\Ubisoft\Cyan Worlds\Myst V End Of Ages"/>
                         <Property name="name" type="java.lang.String" value="myst5intext" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState3">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cDocuments and Settings\u005cuser\u005cDesktop\u005coutput" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\Documents and Settings\user\Desktop\output"/>
                         <Property name="name" type="java.lang.String" value="myst5outtext" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel10">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Files to process:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton78">
@@ -5436,164 +4526,6 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton78ActionPerformed"/>
                       </Events>
                     </Component>
-                    <Container class="javax.swing.JPanel" name="jPanel50">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Process a single file..."/>
-                          </Border>
-                        </Property>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="textfieldState74" min="-2" pref="250" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton134" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton174" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="78" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="textfieldState74" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton134" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton174" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="23" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="shared.State.TextfieldState" name="textfieldState74">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Kveer_District_BuiltIn.prp"/>
-                            <Property name="name" type="java.lang.String" value="mystvParticularFile" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton134">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="select..."/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton134ActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton174">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="start..."/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton174ActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel51">
-                      <Properties>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Process a bunch of files..."/>
-                          </Border>
-                        </Property>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton58" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jButton59" pref="105" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane5" pref="359" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jButton57" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton58" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton59" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton57" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel10">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Files to process:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton58">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Select All"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton58ActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jButton59">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Select None"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton59ActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane5">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="shared.State.ListState" name="listState2">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="0"/>
-                                </Property>
-                                <Property name="name" type="java.lang.String" value="myst5list" noResource="true"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JButton" name="jButton57">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Start..."/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton57ActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="jPanel14">
@@ -5629,7 +4561,7 @@
                                   </Group>
                                   <Component id="jButton53" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="377" max="32767" attributes="0"/>
+                              <EmptySpace pref="379" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -5692,13 +4624,13 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState4">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cProgram Files\u005cCrowthistle" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\Program Files\Crowthistle"/>
                         <Property name="name" type="java.lang.String" value="crowintext" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState5">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cDocuments and Settings\u005cuser\u005cDesktop\u005coutput" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\Documents and Settings\user\Desktop\output"/>
                         <Property name="name" type="java.lang.String" value="crowouttext" noResource="true"/>
                       </Properties>
                     </Component>
@@ -5795,7 +4727,7 @@
                   <SubComponents>
                     <Component class="shared.State.TextfieldState" name="textfieldState7">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cDocuments and Settings\u005cuser\u005cDesktop\u005coutput\u005cpots\u005c" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\Documents and Settings\user\Desktop\output\pots\"/>
                         <Property name="name" type="java.lang.String" value="potstext1" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -5894,7 +4826,7 @@
                   <SubComponents>
                     <Component class="shared.State.TextfieldState" name="textfieldState6">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="D:\u005ca\u005cwinedrive\u005cdrive_c\u005cMystOnline\u005cProgram Files\u005cMyst Online" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="D:\a\winedrive\drive_c\MystOnline\Program Files\Myst Online"/>
                         <Property name="name" type="java.lang.String" value="moulintext" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -5905,7 +4837,7 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState8">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cDocuments and Settings\u005cuser\u005cDesktop\u005coutput" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\Documents and Settings\user\Desktop\output"/>
                         <Property name="name" type="java.lang.String" value="moulouttext" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -6259,7 +5191,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="975" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="978" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -6290,7 +5222,7 @@
                                               <Component id="jButton90" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jButton94" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <EmptySpace pref="164" max="32767" attributes="0"/>
                                                   <Component id="jButton99" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -6310,8 +5242,8 @@
                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="textfieldState17" min="-2" pref="108" max="-2" attributes="0"/>
-                                              <Component id="textfieldState18" max="32767" attributes="0"/>
-                                              <Component id="textfieldState54" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="textfieldState18" pref="398" max="32767" attributes="0"/>
+                                              <Component id="textfieldState54" alignment="0" pref="398" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -6408,13 +5340,13 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState18">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="g:\u005cprps\u005cpots\u005cdat\u005cNexus_District_nxusBookMachine.prp" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="g:\prps\pots\dat\Nexus_District_nxusBookMachine.prp"/>
                         <Property name="name" type="java.lang.String" value="translateInput" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState19">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="c:\u005cdocuments and settings\u005cuser\u005cdesktop\u005coutput\u005c" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="c:\documents and settings\user\desktop\output\"/>
                         <Property name="name" type="java.lang.String" value="translateOutput" noResource="true"/>
                       </Properties>
                     </Component>
@@ -6492,7 +5424,7 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState54">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="g:\u005cprps\u005cpots\u005c" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="g:\prps\pots\"/>
                         <Property name="name" type="java.lang.String" value="spmodpots" noResource="true"/>
                       </Properties>
                     </Component>
@@ -6555,7 +5487,7 @@
                                       <Component id="jButton111" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="502" max="32767" attributes="0"/>
+                              <EmptySpace pref="505" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -6655,7 +5587,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="975" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="978" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -6943,7 +5875,7 @@
                   <SubComponents>
                     <Component class="shared.State.TextfieldState" name="textfieldState13">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cDocuments and Settings\u005cuser\u005cDesktop\u005coutput\u005cahny\u005cAhnonay_District_BuiltIn.prp" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\Documents and Settings\user\Desktop\output\ahny\Ahnonay_District_BuiltIn.prp"/>
                         <Property name="name" type="java.lang.String" value="deepViewFilename" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -6989,9 +5921,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JDesktopPane" name="jDesktopPane1">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                            <Property name="useNullLayout" type="boolean" value="true"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -7023,7 +5953,7 @@
                     </Component>
                     <Component class="shared.State.TextfieldState" name="textfieldState14">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="C:\u005cDocuments and Settings\u005cuser\u005cDesktop\u005coutput\u005c" containsInvalidXMLChars="true"/>
+                        <Property name="text" type="java.lang.String" value="C:\Documents and Settings\user\Desktop\output\"/>
                         <Property name="name" type="java.lang.String" value="deepViewOutput" noResource="true"/>
                       </Properties>
                       <Constraints>
@@ -7258,9 +6188,6 @@
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
                   </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jTextArea5.setLineWrap(true);&#xa;jTextArea5.setWrapStyleWord(true);"/>
-                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

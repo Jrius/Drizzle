@@ -31,51 +31,43 @@ import shared.readexception;
 
 public class plDynamicCamMap extends uruobj
 {
-    public plDynamicEnvMap.plRenderTarget target;
-    //public Flt[] u1;
-    public Flt hither, yon, fogStart;
-    public Rgba color;
-    public Flt refreshRate;
-    public byte includeCharacters;
-    public Uruobjectref camera;
-    public Uruobjectref rootNode;
-    public byte numTargetNodes;
-    public Uruobjectref[] targetNodes;
-    public int numVisRegions;
-    public Uruobjectref[] visRegions;
-    public int numVisRegionNames;
-    public Urustring[] visRegionNames;
-    public Uruobjectref disableTexture;
-    public byte numMatLayers;
-    public Uruobjectref[] matLayers;
+    plDynamicEnvMap.plRenderTarget target;
+    Flt[] u1;
+    byte u2;
+    Uruobjectref u3;
+    Uruobjectref u4;
+    byte u5;
+    Uruobjectref[] u6;
+    int u7;
+    Uruobjectref[] u8;
+    int u9;
+    Urustring[] u10;
+    Uruobjectref u11;
+    byte u12;
+    Uruobjectref[] u13;
     
     public plDynamicCamMap(context c) throws readexception
     {
         e.ensure(c.readversion==6||c.readversion==4);
         
         target = new plDynamicEnvMap.plRenderTarget(c);
-        //u1 = c.readArray(Flt.class, 8);
-        hither = new Flt(c);
-        yon = new Flt(c);
-        fogStart = new Flt(c);
-        color = new Rgba(c);
-        refreshRate = new Flt(c);
-        includeCharacters = c.readByte();
-        camera = new Uruobjectref(c);
-        rootNode = new Uruobjectref(c);
-        numTargetNodes = c.readByte();
-        int count = b.ByteToInt32(numTargetNodes); //should this be signed instead?
-        targetNodes = c.readArray(Uruobjectref.class, count);
-        numVisRegions = c.readInt();
-        visRegions = c.readArray(Uruobjectref.class, numVisRegions);
-        numVisRegionNames = c.readInt();
-        visRegionNames = c.readArray(Urustring.class, numVisRegionNames);
-        disableTexture = new Uruobjectref(c);
-        numMatLayers = c.readByte();
-        int count2 = b.ByteToInt32(numMatLayers);
-        matLayers = c.readArray(Uruobjectref.class, count2);
+        u1 = c.readArray(Flt.class, 8);
+        u2 = c.readByte();
+        u3 = new Uruobjectref(c);
+        u4 = new Uruobjectref(c);
+        u5 = c.readByte();
+        int count = b.ByteToInt32(u5); //should this be signed instead?
+        u6 = c.readArray(Uruobjectref.class, count);
+        u7 = c.readInt();
+        u8 = c.readArray(Uruobjectref.class, u7);
+        u9 = c.readInt();
+        u10 = c.readArray(Urustring.class, u9);
+        u11 = new Uruobjectref(c);
+        u12 = c.readByte();
+        int count2 = b.ByteToInt32(u12);
+        u13 = c.readArray(Uruobjectref.class, count2);
         
-        //throw new shared.readwarningexception("plDynamicCamMap: can read okay, but failing in order to ignore.");
+        throw new shared.readwarningexception("plDynamicCamMap: can read okay, but failing in order to ignore.");
     }
     
     public void compile(Bytedeque c)

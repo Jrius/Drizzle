@@ -34,7 +34,7 @@ import shared.b;
 public class x0054LightInfo extends uruobj
 {
     //Objheader xheader;
-    public plObjInterface parent;
+    plObjInterface parent;
     Flt u1a;
     Flt u1b;
     Flt u1c;

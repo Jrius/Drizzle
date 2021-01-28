@@ -138,8 +138,6 @@ public class moul
             "GlobalAnimations_District_FemaleAmazed.prp","GlobalAnimations_District_FemaleAskQuestion.prp","GlobalAnimations_District_FemaleBeckonBig.prp","GlobalAnimations_District_FemaleBeckonSmall.prp","GlobalAnimations_District_FemaleBow.prp","GlobalAnimations_District_FemaleCallMe.prp","GlobalAnimations_District_FemaleCower.prp","GlobalAnimations_District_FemaleCrazy.prp","GlobalAnimations_District_FemaleCringe.prp","GlobalAnimations_District_FemaleCrossArms.prp","GlobalAnimations_District_FemaleDoh.prp","GlobalAnimations_District_FemaleFlinch.prp","GlobalAnimations_District_FemaleGroan.prp","GlobalAnimations_District_FemaleKneel.prp","GlobalAnimations_District_FemaleLeanLeft.prp","GlobalAnimations_District_FemaleLeanRight.prp","GlobalAnimations_District_FemaleLookAround.prp","GlobalAnimations_District_FemaleOkay.prp", /*eyes go funny*/"GlobalAnimations_District_FemaleOverHere.prp","GlobalAnimations_District_FemalePeer.prp","GlobalAnimations_District_FemaleSalute.prp","GlobalAnimations_District_FemaleScratchHead.prp","GlobalAnimations_District_FemaleShakeFist.prp","GlobalAnimations_District_FemaleShoo.prp","GlobalAnimations_District_FemaleSlouchSad.prp","GlobalAnimations_District_FemaleStop.prp","GlobalAnimations_District_FemaleTalkHand.prp","GlobalAnimations_District_FemaleTapFoot.prp","GlobalAnimations_District_FemaleTaunt.prp","GlobalAnimations_District_FemaleThumbsDown.prp","GlobalAnimations_District_FemaleThumbsDown2.prp","GlobalAnimations_District_FemaleThumbsUp.prp","GlobalAnimations_District_FemaleThumbsUp2.prp","GlobalAnimations_District_FemaleWaveLow.prp","GlobalAnimations_District_FemaleWinded.prp",
             "GlobalAnimations_District_MaleAmazed.prp","GlobalAnimations_District_MaleAskQuestion.prp", /*arm doesn't go up correctly.*/"GlobalAnimations_District_MaleBeckonBig.prp","GlobalAnimations_District_MaleBeckonSmall.prp","GlobalAnimations_District_MaleBow.prp","GlobalAnimations_District_MaleCallMe.prp","GlobalAnimations_District_MaleCower.prp", /*eyes go funny*/"GlobalAnimations_District_MaleCrazy.prp", /*face goes funny*/"GlobalAnimations_District_MaleCringe.prp","GlobalAnimations_District_MaleCrossArms.prp", /*arms disappear*/"GlobalAnimations_District_MaleDoh.prp", /*face goes funny*/"GlobalAnimations_District_MaleFlinch.prp", /*face goes funny*/"GlobalAnimations_District_MaleGroan.prp","GlobalAnimations_District_MaleKneel.prp","GlobalAnimations_District_MaleLeanLeft.prp","GlobalAnimations_District_MaleLeanRight.prp","GlobalAnimations_District_MaleLookAround.prp","GlobalAnimations_District_MaleOkay.prp","GlobalAnimations_District_MaleOverHere.prp","GlobalAnimations_District_MalePeer.prp","GlobalAnimations_District_MaleSalute.prp","GlobalAnimations_District_MaleScratchHead.prp","GlobalAnimations_District_MaleShakeFist.prp","GlobalAnimations_District_MaleShoo.prp","GlobalAnimations_District_MaleSlouchSad.prp","GlobalAnimations_District_MaleStop.prp","GlobalAnimations_District_MaleTalkHand.prp","GlobalAnimations_District_MaleTapFoot.prp","GlobalAnimations_District_MaleTaunt.prp","GlobalAnimations_District_MaleThumbsDown.prp","GlobalAnimations_District_MaleThumbsDown2.prp","GlobalAnimations_District_MaleThumbsUp.prp","GlobalAnimations_District_MaleThumbsUp2.prp","GlobalAnimations_District_MaleWaveLow.prp","GlobalAnimations_District_MaleWinded.prp",
             "GlobalAnimations_District_FemaleDance.prp","GlobalAnimations_District_MaleDance.prp", /*arms disappear*/
-            // Jalak column animation (right hand doesn't touch left for both).
-            "GlobalAnimations_District_MaleKITap.prp", "GlobalAnimations_District_FemaleKITap.prp",
         });
         r.addAgeFiles("Neighborhood", new String[]{
             //"Neighborhood_District_nb01BahroPedestalShout.prp", //shouters //disabled for Drizzle25
@@ -225,11 +223,8 @@ public class moul
             public void ModifyPrp(Info info, FileInfo file, prpfile prp) {
                 if(!file.agename.equals("Dereno"))
                 {
-                    // Dereno's DynamicCamMap doesn't look very good when replaced by an envmap, due to the low-resolution mesh.
-                    // So do not process it...
-                    
                     //shared.State.AllStates.setState("removeDynamicCamMap", false);
-                    auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
+                    auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveDynamicCampMap(prp);
                 }
 
                 String newAgename = info.g.getNewAgename(file);
@@ -239,18 +234,16 @@ public class moul
                 String newAgename = (newagename==null)?agename:newagename;
                 if(newagename!=null)
                 {
-                    auto.postmod.PostMod_MystV.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
+                    auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
                 }*/
 
-                //auto.postmod.PostMod_MystV.PostMod_RemoveLadders(prp);
+                //auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveLadders(prp);
 
                 auto.postmod.PostMod_Moul.PostMod_FixTsogalLanguages(prp);
-                
-                auto.postmod.PostMod_Moul.PostMod_FixEnablePhysicalMsg(prp);
 
-                auto.postmod.PostMod_Moul.PostMod_RenameAnimations(prp,newAgename);
+                PostMod_RenameAnimations(prp,newAgename);
 
-                auto.postmod.PostMod_Moul.PostMod_FixMinkata(prp,newAgename,info.outfolder);
+                PostMod_FixMinkata(prp,newAgename,info.outfolder);
 
                 if(file.agename.equals("Neighborhood"))
                 {
@@ -261,13 +254,7 @@ public class moul
                 if(file.agename.equals("EderDelin")||file.agename.equals("EderTsogal"))
                 {
                     //shared.State.AllStates.setState("translateSmartseeks", true);
-                    auto.postmod.PostMod_Moul.PostMod_TranslateSmartseeks(prp);
-                }
-                
-                
-                if(file.agename.equals("Jalak") && prp.header.pagename.toString().equals("jlakArena"))
-                {
-                    auto.postmod.PostMod_Moul.PostMod_TranslateJalakWarpPoints(prp);
+                    PostMod_TranslateSmartseeks(prp);
                 }
 
                 auto.postmod.PostMod_FixSwimRegions.FixSwimRegions(prp);
@@ -277,7 +264,7 @@ public class moul
                 moul.proccessPrp(prp, file.agename, info.g.renameinfo.agenames, info.outfolder, info.infolder, refReassigns);
 
                 //fix subworlds:
-                auto.postmod.PostMod_Moul.PostMod_FixSubworlds(prp);
+                PostMod_FixSubworlds(prp);
             }
         };
         r.addAutomods(moulAutomods);
@@ -634,7 +621,7 @@ public class moul
             //change respondermodifier from Myst to MystMystV.
             plResponderModifier rm = prp.findObject("cRespLinkOutMyst", Typeid.plResponderModifier).castTo();
             PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
-            ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("MystMystV");
+            ltam.ageLinkStruct.xageinfo.ageFilename = Wpstr.create("MystMystV");
             //ltam.ageLinkStruct.xageinfo.ageInstanceName = Wpstr.create("MystMystV");
             int dummy=0;
         }
@@ -689,71 +676,24 @@ public class moul
             pfm2.getListingByIndex(7).xBoolean = 0;
 
             //disable subworld
-            auto.postmod.PostMod_Moul.PostMod_DisableSubworlds(prp);
+            PostMod_DisableSubworlds(prp);
         }
         if(agename.equals("GreatTreePub") && pagename.equals("Pub"))
         {
             //change pythonfilemod from AhnonayCathedral to AhnonayMOUL.
-            PrpRootObject pfmObject = prp.findObject("cPythLinkBookAhnonay", Typeid.plPythonFileMod);
-            if (pfmObject == null)
-            {
-                // Doobes' new version - object names changed...
-                pfmObject = prp.findObject("AhnonayBook01_Python_File", Typeid.plPythonFileMod);
-                plPythonFileMod pfm = pfmObject.castTo();
-                pfm.getListingByIndex(4).xString = Bstr.createFromString("AhnonayMOUL");
+            plPythonFileMod pfm = prp.findObject("cPythLinkBookAhnonay", Typeid.plPythonFileMod).castTo();
+            pfm.getListingByIndex(4).xString = Bstr.createFromString("AhnonayMOUL");
+            
+            //change respondermodifier from AhnonayCathedral to AhnonayMOUL.
+            plResponderModifier rm = prp.findObject("cRespLinkOutAhnonay", Typeid.plResponderModifier).castTo();
+            PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
+            ltam.ageLinkStruct.xageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
 
-                //change respondermodifier from AhnonayCathedral to AhnonayMOUL.
-                plResponderModifier rm = prp.findObject("AhnonayBook01_AhnonayBook01_Responder", Typeid.plResponderModifier).castTo();
-                PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
-                ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
-
-                //change Ahnonay image.
-                x0006Layer layer = prp.findObject("m_1545_Map__69950", Typeid.plLayer).castTo();
-                //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
-                Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
-                layer.texture = mmref;
-                
-                // remove the GUID from the plLinkToAgeMsg to Chiso. This crashes PotS.
-                // (we could completely remove that responder as it's no longer used. I'm a bit wary of null plKeys though.)
-                rm = prp.findObject("ChisoBook_ChisoBook_001_Responder", Typeid.plResponderModifier).castTo();
-                ltam = rm.messages.get(0).commands.get(1).message.castTo();
-                ltam.ageLinkStruct.ageinfo.flags &= ~0x04;
-                ltam.ageLinkStruct.ageinfo.ageInstanceGuid = null;
-                
-                // make the Chiso book use the xSimpleLinkingBook script - this circumvents any potential instancing issues with the linking responder's LinkToAge msg.
-                pfm = prp.findObject("ChisoBook_001_Python_File", Typeid.plPythonFileMod).castTo();
-                pfm.pyfile = Urustring.createFromString("xSimpleLinkingBook");
-                // PFM parameters:
-                // 1 - clickable activator, no need to change
-                // 2 - behaviour (smartseek), conflicts with destination Age string, must change to id 11 (msbSeekBeforeUI)
-                // 3 - linkout responder, conflicts with spawn point, must remove
-                // 4 - left page texture, conflicts with link panel, and is a non-converted tex. Could change to DRCNote03.dds, but has wrong format and crashes the game. Delete.
-                pfm.getListingByIndex(2).index = 11;
-                pfm.removeListingByIndex(3);
-                pfm.removeListingByIndex(4);
-                // missing:
-                // 2 - target Age name
-                // 4 - link panel to use
-                pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(2, Bstr.createFromString("ChisoPreniv")));
-                //pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(4, Bstr.createFromString("LinkingImage_ChisoPreniv")));
-            }
-            else
-            {
-                // old Cyan version
-                plPythonFileMod pfm = pfmObject.castTo();
-                pfm.getListingByIndex(4).xString = Bstr.createFromString("AhnonayMOUL");
-
-                //change respondermodifier from AhnonayCathedral to AhnonayMOUL.
-                plResponderModifier rm = prp.findObject("cRespLinkOutAhnonay", Typeid.plResponderModifier).castTo();
-                PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
-                ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
-
-                //change Ahnonay image.
-                x0006Layer layer = prp.findObject("Map #69950", Typeid.plLayer).castTo();
-                //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
-                Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
-                layer.texture = mmref;
-            }
+            //change Ahnonay image.
+            x0006Layer layer = prp.findObject("Map #69950", Typeid.plLayer).castTo();
+            //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
+            Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
+            layer.texture = mmref;
         
         }
         if(agename.equals("city") && pagename.equals("islmLakeLightMeter"))
@@ -763,9 +703,7 @@ public class moul
         }
         if(!agename.equals("Dereno"))
         {
-            // Dereno's DynamicCamMap doesn't look very good when replaced by an envmap, due to the low-resolution mesh.
-            // So do not process it...
-            auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
+            auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveDynamicCampMap(prp);
         }
     }
     
@@ -1238,17 +1176,17 @@ public class moul
         if(!agename.equals("Dereno"))
         {
             //shared.State.AllStates.setState("removeDynamicCamMap", false);
-            auto.postmod.PostMod_MystV.PostMod_RemoveDynamicCampMap(prp);
+            auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveDynamicCampMap(prp);
         }
 
         String newagename = agenames.get(agename);
         String newAgename = (newagename==null)?agename:newagename;
         if(newagename!=null)
         {
-            auto.postmod.PostMod_MystV.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
+            auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
         }
 
-        //auto.postmod.PostMod_MystV.PostMod_RemoveLadders(prp);
+        //auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveLadders(prp);
 
         PostMod_RenameAnimations(prp,newAgename);
 
@@ -1263,4 +1201,291 @@ public class moul
 
 
     }*/
+
+    public static void PostMod_RenameAnimations(prpfile prp, String newAgename)
+    {
+        if(newAgename.toLowerCase().equals("globalanimations"))
+        {
+            if(prp.header.pagename.toString().equals("FemaleDanceMOUL"))
+            {
+                plEmoteAnim ea = prp.findObject("FemaleDance", Typeid.plEmoteAnim).castTo();
+                ea.parent.parent.name = Urustring.createFromString("FemaleDanceMOUL");
+            }
+            if(prp.header.pagename.toString().equals("MaleDanceMOUL"))
+            {
+                plEmoteAnim ea = prp.findObject("MaleDance", Typeid.plEmoteAnim).castTo();
+                ea.parent.parent.name = Urustring.createFromString("MaleDanceMOUL");
+            }
+        }
+    }
+    public static void PostMod_DisableSubworlds(prpfile prp)
+    {
+        for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plHKPhysical))
+        {
+            plHKPhysical phys = ro.castTo();
+            if(phys.physx.subworld.hasref())
+            {
+                phys.physx.subworld = Uruobjectref.none();
+            }
+        }
+    }
+    public static void PostMod_FixSubworlds(prpfile prp)
+    {
+        class Subworlds
+        {
+            class SubworldInfo
+            {
+                Vector<PrpRootObject> subworldregion = new Vector();
+                Vector<PrpRootObject> subworldphysics = new Vector();
+                Vector<plSubWorldMsg> subworldmsgs = new Vector();
+                Uruobjectref subworld;
+            }
+            public java.util.LinkedHashMap<Uruobjectref,SubworldInfo> worlds = new java.util.LinkedHashMap();
+            private SubworldInfo get(Uruobjectref subworld)
+            {
+                SubworldInfo r = worlds.get(subworld);
+                if(r==null)
+                {
+                    r = new SubworldInfo();
+                    r.subworld = subworld;
+                    worlds.put(subworld, r);
+                }
+                return r;
+            }
+            public void addSubworldRegion(Uruobjectref subworld, PrpRootObject subworldregion)
+            {
+                get(subworld).subworldregion.add(subworldregion);
+            }
+            public void addSubworldPhysics(Uruobjectref subworld, PrpRootObject subworldphysics)
+            {
+                get(subworld).subworldphysics.add(subworldphysics);
+            }
+            public void addSubworldMsg(Uruobjectref subworld, plSubWorldMsg subworldmsg)
+            {
+                get(subworld).subworldmsgs.add(subworldmsg);
+            }
+        }
+
+        Subworlds subworlds = new Subworlds();
+        //find subworlds in plSubworldRegionDetectors
+        //java.util.LinkedHashSet<Uruobjectref> subworlds = new java.util.LinkedHashSet();
+        for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plSubworldRegionDetector))
+        {
+            plSubworldRegionDetector rd = ro.castTo();
+            //subworlds.add(rd.sub); //subworld
+            subworlds.addSubworldRegion(rd.sub, ro);
+        }
+
+        //find subworlds in plHKPhysicals
+        for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plHKPhysical))
+        {
+            plHKPhysical phys = ro.castTo();
+            //phys.convertPXtoHK();
+            if(phys.physx !=null && phys.physx.subworld.hasref())
+            {
+                //subworlds.add(phys.physx.subworld);
+                subworlds.addSubworldPhysics(phys.physx.subworld, ro);
+            }
+        }
+
+        //find subworld msgs
+        //m.marktime("start");
+        /*for(plSubWorldMsg ro: prp.FindAllInstances(plSubWorldMsg.class))
+        {
+            if(ro.subworld.hasref())
+            {
+                subworlds.addSubworldMsg(ro.subworld, ro);
+            }
+        }*/
+        for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plResponderModifier))
+        {
+            plResponderModifier resp = ro.castTo();
+            for(uruobj obj: resp.findMessagesOfType(Typeid.plSubWorldMsg))
+            {
+                plSubWorldMsg msg = (plSubWorldMsg)obj;
+                if(msg.subworld.hasref())
+                {
+                    subworlds.addSubworldMsg(msg.subworld,msg);
+                }
+            }
+        }
+        //m.marktime("end");
+
+        for(Subworlds.SubworldInfo swi: subworlds.worlds.values())
+        {
+            //fix plHKSubworld
+            if(swi.subworld.hasref())
+            {
+                //plSceneObject so = prp.findObjectWithRef(swi.subworld).castTo();
+                PrpRootObject so_ro = prp.findObjectWithRef(swi.subworld);
+                //if(so_ro==null)
+                //{
+                //    m.warn("Subworld not found in this prp: ",swi.subworld.toString());
+                //    continue;
+                //}
+                plSceneObject so = so_ro.castTo();
+                plHKSubWorld sw = plHKSubWorld.createWithSceneobject(swi.subworld);
+                PrpRootObject sw_ro = prp.addObject(Typeid.plHKSubWorld, swi.subworld.xdesc.objectname.toString(), sw);
+                Uruobjectref sw_ref = sw_ro.getref();
+
+                //fix subworld sceneobject
+                so.interfaces.add(sw_ref);
+
+                //fix physics
+                for(PrpRootObject phys_ro: swi.subworldphysics)
+                {
+                    plHKPhysical phys = phys_ro.castTo();
+                    phys.physx.subworld = sw_ref;
+                    //phys.physx.subworld = Uruobjectref.none();
+                }
+
+                //fix subworld regions
+                for(PrpRootObject reg_ro: swi.subworldregion)
+                {
+                    plSubworldRegionDetector reg = reg_ro.castTo();
+                    //reg.sub = sw_ref;
+                }
+
+                //fix subworld msgs
+                for(plSubWorldMsg msg: swi.subworldmsgs)
+                {
+                    //msg.subworld = sw_ref; //neither one crashes on link-in.  We need more info.
+                }
+
+                //find children
+                /*plCoordinateInterface ci = prp.findObjectWithRef(so.coordinateinterface).castTo();
+                for(PrpRootObject child_ro: prp.getAllChildren(swi.subworld))
+                {
+                    plSceneObject child_so = child_ro.castTo();
+                    plHKPhysical phys = child_so.getPhysics(prp);
+
+                    //attach subworld.
+                    if(phys!=null)
+                        phys.physx.subworld = sw_ro.getref();
+                }*/
+            }
+            else
+            {
+                //subworld is none, so starting/default subworld. I.e. this is an exit region.
+                int dummy=0;
+            }
+        }
+        /*for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plHKPhysical))
+        {
+            plHKPhysical phys = ro.castTo();
+            if(phys.physx!=null && phys.physx.subworld.hasref())
+            {
+                PrpRootObject so_ro = prp.findObjectWithRef(phys.physx.subworld);
+                if(so_ro.header.objecttype!=Typeid.plSceneObject)
+                    m.throwUncaughtException("unexpected");
+                plSceneObject so = so_ro.castTo();
+                Uruobjectref sw_ref = so.interfaces.find(Typeid.plHKSubWorld);
+                if(sw_ref==null)
+                    m.throwUncaughtException("unexpected");
+                phys.physx.subworld = sw_ref;
+            }
+        }*/
+
+        //do we need to change it in plSubWorldMsg(probably embedded in a plResponderModifier) like we did with plHKPhysicals?
+        
+    }
+    public static void PostMod_FixMinkata(prpfile prp, String finalname, String outfolder)
+    {
+        if(finalname.toLowerCase().equals("minkata") && prp.header.pagename.toString().toLowerCase().equals("minkexteriorday"))
+        {
+            fixCraters.fixCraters(prp, finalname, "minkDusttestDay", outfolder, Pageid.createFromPrefixPagenum(42, 11));
+
+            //go ahead and make the dummy prp while we're at it.
+            hackFactory.createMinkataClusterGroupPythonMod(outfolder);
+
+            /*PrpRootObject[] clustergroups = prp.FindAllObjectsOfType(Typeid.plClusterGroup);
+            for(PrpRootObject clustergroup: clustergroups)
+            {
+                uru.moulprp.PlClusterGroup plcg = clustergroup.castTo();
+                plcg.count2 = 0;
+                plcg.fRegions = new Uruobjectref[0];
+            }*/
+
+            //fix link in point
+            //auto.mod.AutoMod_Translate.TranslateObject(prp, "LinkInPointDefault", 0, 0, 1.0f);
+
+        }
+
+        if(finalname.toLowerCase().equals("minkata") && prp.header.pagename.toString().toLowerCase().equals("minkcameras"))
+        {
+            //fix link in point
+            auto.mod.AutoMod_Translate.TranslateObject(prp, "LinkInPointDefault", 0, 0, 1.0f);
+        }
+
+        if(finalname.toLowerCase().equals("minkata") && prp.header.pagename.toString().toLowerCase().equals("minkexteriornight"))
+        {
+            fixCraters.fixCraters(prp, finalname, "minkDusttestNight", outfolder, Pageid.createFromPrefixPagenum(42, 12));
+
+            //fix link in point
+            auto.mod.AutoMod_Translate.TranslateObject(prp, "LinkInPointDefault", 0, 0, 1.0f);
+        }
+
+            //disable visregion.
+            /*cgroup.count2 = 0; //disable visregion.
+            cgroup.refs = new Uruobjectref[0]; //disable visregion.*/
+
+            //replace material.
+            /*PrpRootObject[] objs = prputils.FindAllObjectsWithName(prp, "RegMoundNew_3");
+            uru.moulprp.x0007Material mat = objs[0].castTo();
+            Uruobjectdesc desc = objs[0].header.desc;
+            cgroup.ref = Uruobjectref.createFromUruobjectdesc(desc);*/
+
+            //change material flags.
+            /*PrpRootObject obj = cgroup.ref.xdesc.getObjectDescribed(prp);
+            uru.moulprp.x0007Material mat = obj.castTo();
+            for(Uruobjectref layerref: mat.layerrefs)
+            {
+                PrpRootObject layer = layerref.xdesc.getObjectDescribed(prp);
+                uru.moulprp.x0006Layer layer2 = layer.castTo();
+                layer2.flags1 = 8;
+                int dummy=0;
+            }*/
+            int dummy=0;
+        //}
+    }
+    public static void PostMod_TranslateSmartseeks(prpfile prp)
+    {
+        PrpRootObject[] objs = prputils.FindAllObjectsOfType(prp, Typeid.plSceneObject);
+        for(PrpRootObject obj: objs)
+        {
+            prpobjects.plSceneObject so = obj.castTo();
+            for(Uruobjectref ref: so.modifiers)
+            {
+                if(ref.hasref()&&ref.xdesc.objecttype==Typeid.plOneShotMod)
+                {
+                    prpobjects.plOneShotMod osm = prp.findObjectWithDesc(ref.xdesc).castTo();
+                    if(osm.smartseek!=0)
+                    {
+                        //found it!
+                        Uruobjectref coordsref = so.coordinateinterface;
+                        if(coordsref.hasref())
+                        {
+                            m.msg("Translating smartseek for object... ",obj.header.desc.toString());
+                            prpobjects.plCoordinateInterface coords = prp.findObjectWithDesc(coordsref.xdesc).castTo();
+                            Transmatrix m = coords.localToParent;
+                            RealMatrix m2 = m.convertToMatrix();
+                            //org.apache.commons.math.linear.RealMatrixImpl b;
+                            double[][] rawdata = m2.getData();
+                            double scalar = 0.0; //set this to determine the number of feet back from the cloth to be.  A negative value will move you closer.
+                            double height = 0.8; //the height to translate the avatar.  1.0 works.  0.6 is too small for the tsogal cloth on the back of the hood book structure.  0.8 seems just right.
+                            rawdata[0][3] -= scalar*rawdata[1][0];
+                            rawdata[1][3] += scalar*rawdata[0][0];
+                            rawdata[2][3] += height; //set this to move the avatar up.  A negative value will move it down.
+                            m2 = new RealMatrixImpl(rawdata);
+                            coords.localToParent = Transmatrix.createFromMatrix(m2);
+                            coords.localToWorld = coords.localToParent;
+                            RealMatrix m3 = m2.inverse();
+                            coords.parentToLocal = Transmatrix.createFromMatrix(m3);
+                            coords.worldToLocal = coords.parentToLocal;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

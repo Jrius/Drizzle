@@ -40,16 +40,6 @@ public class plConditionalObject extends uruobj
         
     }
     
-    public static plConditionalObject createDefault()
-    {
-        plConditionalObject e = new plConditionalObject();
-        e.satisfied = 1;
-        e.toggle = 0;
-        return e;
-    }
-
-    private plConditionalObject() {}
-    
     public void compile(Bytedeque c)
     {
         c.writeByte(satisfied);

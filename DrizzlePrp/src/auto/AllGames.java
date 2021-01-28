@@ -242,18 +242,8 @@ public class AllGames
             m.state.push();
             m.state.curstate.showConsoleMessages = true;
             m.state.curstate.showErrorMessages = true;
-            
-            boolean debugging = false; // easier to keep track of what Drizzle does to the PRPs
-            if (debugging)
-            {
-                m.state.curstate.showNormalMessages = true;
-                m.state.curstate.showWarningMessages = true;
-            }
-            else
-            {
-                m.state.curstate.showNormalMessages = false;
-                m.state.curstate.showWarningMessages = false;
-            }
+            m.state.curstate.showNormalMessages = false;
+            m.state.curstate.showWarningMessages = false;
             m.state.curstate.showStatusMessages = true;
 
             //verify folders
@@ -285,20 +275,10 @@ public class AllGames
         }
         public void ConvertFiles(String infolder, String outfolder, Vector<String> files)
         {
-            m.state.push();
-            m.state.curstate.showConsoleMessages = true;
-            m.state.curstate.showErrorMessages = true;
-
-            m.state.curstate.showNormalMessages = true;
-            m.state.curstate.showWarningMessages = true;
-            m.state.curstate.showStatusMessages = true;
-
             conversion.Info info = new conversion.Info();
             info.infolder = infolder;
             info.outfolder = outfolder;
             info.g = g;
-            
-            m.status("Conversion of files...");
             for(String filename: files)
             {
                 conversion.FileInfo fi = new conversion.FileInfo();
@@ -306,12 +286,8 @@ public class AllGames
                 fi.guessFiletype();
                 //fi.agename = null; //is this a problem?  yes it is.
                 fi.guessAgename();
-                m.status("Conversion of " + fi.filename);
                 conversion.convertFile(info, fi);
             }
-            
-            m.state.pop();
-            m.status("Conversion completed!");
         }
         public void ExtractPak(String pakfile, String outfolder)
         {

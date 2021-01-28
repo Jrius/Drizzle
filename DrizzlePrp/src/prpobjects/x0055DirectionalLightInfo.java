@@ -33,7 +33,7 @@ import shared.b;
 public class x0055DirectionalLightInfo extends uruobj
 {
     //Objheader xheader;
-    public x0054LightInfo parent;
+    x0054LightInfo parent;
     
     public x0055DirectionalLightInfo(context c) throws readexception
     {

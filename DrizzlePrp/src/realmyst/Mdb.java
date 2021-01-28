@@ -9,11 +9,6 @@ import shared.*;
 import shared.e;
 import export3ds.*;
 
-
-/**
- * realMyst MeshDataBase.
- * Just one mesh.
- */
 public class Mdb
 {
     //public int tag;
@@ -25,14 +20,14 @@ public class Mdb
     //public Bstr u3;
     //public int strCount; //number of Bstrs that follow
     //public Bstr[] strs;
-    public byte b3;
-    public int u4;
-    public int u5;
-    public int u6;
-    public int u7;
-    public int u8;
-    public int u9;
-    public int u10;
+    byte b3;
+    int u4;
+    int u5;
+    int u6;
+    int u7;
+    int u8;
+    int u9;
+    int u10;
     public Sixlet start;
     public Sixlet[] bunch;
     public Quat[] quats;

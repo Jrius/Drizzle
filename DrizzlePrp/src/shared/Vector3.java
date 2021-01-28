@@ -59,11 +59,6 @@ public class Vector3
     {
         return getSubtract(v2).getLength();
     }
-    public Vector3 getNormalized()
-    {
-        float length = getLength();
-        return new Vector3(x/length, y/length, z/length);
-    }
     public String toString()
     {
         return Float.toString(x)+", "+Float.toString(y)+", "+Float.toString(z);

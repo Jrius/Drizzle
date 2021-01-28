@@ -24,7 +24,7 @@ public class pfGUIControlMod extends uruobj
      //Urustring xstr1;
      //byte xb4;
      //byte xb5;
-    public pfGUIColorScheme colorScheme;
+    pfGUIColorScheme wha1;
     byte b4;
     int[] ints1;
     //HsBitVector bv1;
@@ -50,7 +50,7 @@ public class pfGUIControlMod extends uruobj
         b3 = c.readByte();
         if(b3!=0)
         {
-            colorScheme = new pfGUIColorScheme(c);
+            wha1 = new pfGUIColorScheme(c);
         }
         b4 = c.readByte();
         //if(b4!=0)
@@ -82,7 +82,7 @@ public class pfGUIControlMod extends uruobj
         c.writeByte(b3);
         if(b3!=0)
         {
-            colorScheme.compile(c);
+            wha1.compile(c);
         }
         c.writeByte((byte)ints1.length);
         //if(b4!=0)
@@ -96,17 +96,17 @@ public class pfGUIControlMod extends uruobj
         }
         ref2.compile(c);
     }
-    public static class pfGUIColorScheme //was whattheheck
+    static class pfGUIColorScheme //was whattheheck
     {
         //Flt[] xflts;
-        public RGBA foregroundColor;
-        public RGBA backgroundColor;
-        public RGBA selectedForegroundColor;
-        public RGBA selectedBackgroundColor;
-        public int transparent;
-        public Urustring font;
-        public byte fontsize;
-        public byte fontflags;
+        RGBA foregroundColor;
+        RGBA backgroundColor;
+        RGBA selectedForegroundColor;
+        RGBA selectedBackgroundColor;
+        int transparent;
+        Urustring font;
+        byte fontsize;
+        byte fontflags;
 
         public pfGUIColorScheme(context c) throws readexception
         {

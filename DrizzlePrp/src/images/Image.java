@@ -280,21 +280,7 @@ public class Image
             {
                 int levelwidth = texwidth >>> curLevel;
                 int levelheight = texheight >>> curLevel;
-                
-                if (levelwidth == 0 || levelheight == 0)
-                {
-                    // some extra mip levels with null width or height... this happens with Korman sometimes.
-                    // I have no idea how much data we're supposed to read in this case, so
-                    // we'll just delete those mip levels and call it a day.
-                    // (this will display a warning in Drizzle but should be harmless.)
-                    this.numLevels = curLevel - 1;
-                    Level[] tmpLevels = new Level[this.numLevels];
-                    System.arraycopy(levels, 0, tmpLevels, 0, tmpLevels.length);
-                    levels = tmpLevels;
-                    break;
-                }
-                else
-                    levels[curLevel] = new Level(data, levelwidth, levelheight, texelsize);
+                levels[curLevel] = new Level(data, levelwidth, levelheight, texelsize);
                 /*int levelsize; //number of bytes of raw data.
                 
                 if(levelwidth<3 || levelheight<3)

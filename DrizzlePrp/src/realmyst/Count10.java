@@ -55,21 +55,6 @@ public class Count10
         type = Typeid.read(c); e.ensure(type==Typeid.count10);
         size = c.readInt(); //size of this object (including type).
         
-        /*
-        IBytestream f = c.Fork();
-        byte[] data = f.readBytes(size-8);
-        
-        String tmp = new String(data);
-        if (tmp.contains("bird_toy03"))
-        {
-            m.msg("FOUND BIRD_TOY03 10");
-            IBytedeque out = new Bytedeque2(shared.Format.realmyst);
-            out.writeBytes(data);
-            byte[] filedata = out.getAllBytes();
-
-            FileUtils.WriteFile("out.dat", filedata);
-        }//*/
-        
         u1 = c.readInt(); e.ensure(u1,1);
         s1 = new Bstr(c);
         b1 = c.readByte(); e.ensure((int)b1,16);

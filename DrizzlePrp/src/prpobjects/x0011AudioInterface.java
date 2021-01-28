@@ -34,7 +34,7 @@ public class x0011AudioInterface extends uruobj
 {
     //Objheader xheader;
     plObjInterface parent;
-    public Uruobjectref soundlink;
+    Uruobjectref soundlink;
     
     public x0011AudioInterface(context c) throws readexception
     {

@@ -30,11 +30,11 @@ import shared.readexception;
 
 public class plDetectorModifier extends uruobj
 {
-    public plSingleModifier parent;
-    public int count;
-    public Uruobjectref[] refs;
-    public Uruobjectref ref2;
-    public Uruobjectref ref3;
+    plSingleModifier parent;
+    int count;
+    Uruobjectref[] refs;
+    Uruobjectref ref2;
+    Uruobjectref ref3;
     
     public plDetectorModifier(context c) throws readexception
     {
@@ -45,17 +45,6 @@ public class plDetectorModifier extends uruobj
         ref3 = new Uruobjectref(c);
         
     }
-    
-    public static plDetectorModifier createDefault()
-    {
-        plDetectorModifier e = new plDetectorModifier();
-        e.parent = plSingleModifier.createDefault();
-        e.ref2 = Uruobjectref.none();
-        e.ref3 = Uruobjectref.none();
-        return e;
-    }
-
-    private plDetectorModifier() {}
     
     public void compile(Bytedeque c)
     {

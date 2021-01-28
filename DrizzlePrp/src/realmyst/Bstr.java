@@ -24,7 +24,8 @@ import shared.b;
 import shared.*;
 
 /**
- * realMyst string
+ *
+ * @author user
  */
 public class Bstr
 {

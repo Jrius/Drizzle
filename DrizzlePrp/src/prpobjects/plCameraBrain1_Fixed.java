@@ -34,8 +34,8 @@ public class plCameraBrain1_Fixed extends uruobj
 {
     //Objheader xheader;
     
-    public plCameraBrain1 parent;
-    public Uruobjectref targetPoint;
+    plCameraBrain1 parent;
+    Uruobjectref targetPoint;
     
     public plCameraBrain1_Fixed(context c) throws readexception
     {

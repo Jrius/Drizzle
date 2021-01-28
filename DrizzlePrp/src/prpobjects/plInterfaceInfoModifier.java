@@ -30,9 +30,9 @@ import shared.readexception;
 
 public class plInterfaceInfoModifier extends uruobj
 {
-    public plSingleModifier parent;
-    public int count;
-    public Uruobjectref[] logicmodifiers; //according to cobbs these are LogicModifiers
+    plSingleModifier parent;
+    int count;
+    Uruobjectref[] logicmodifiers; //according to cobbs these are LogicModifiers
     
     public plInterfaceInfoModifier(context c) throws readexception
     {
@@ -41,15 +41,6 @@ public class plInterfaceInfoModifier extends uruobj
         logicmodifiers = c.readArray(Uruobjectref.class, count);
         
     }
-    
-    public static plInterfaceInfoModifier createDefault()
-    {
-        plInterfaceInfoModifier e = new plInterfaceInfoModifier();
-        e.parent = plSingleModifier.createDefault();
-        return e;
-    }
-
-    private plInterfaceInfoModifier() {}
     
     public void compile(Bytedeque c)
     {

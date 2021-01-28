@@ -48,10 +48,7 @@ public class pfGUIDynDisplayCtrl extends uruobj
         }
         else
         {
-            //m.throwUncaughtException("unhandled");
-            
-            // looks like it's just exactly the same as in other Uru versions anyway.
-            xmaterials = new Refvector(c);
+            m.throwUncaughtException("unhandled");
         }
     }
     

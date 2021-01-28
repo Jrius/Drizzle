@@ -51,8 +51,6 @@ public class Double64 extends uruobj
                 break;
         }
     }*/
-
-    private Double64() {}
     
     public void compile(Bytedeque deque)
     {
@@ -74,15 +72,6 @@ public class Double64 extends uruobj
         long value = b.BytesToInt64(rawdata,0);
         double result = java.lang.Double.longBitsToDouble(value);
         return result;
-    }
-    
-    public static Double64 fromJavaDouble(double v)
-    {
-        Double64 r = new Double64();
-        //r.rawdata = b.Int64IntoBytes(value, bytes, offset)
-        long val = Double.doubleToLongBits(v);
-        b.Int64IntoBytes(val, r.rawdata, 0);
-        return r;
     }
 
 }

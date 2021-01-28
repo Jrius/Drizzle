@@ -9,11 +9,14 @@ import shared.Flt;
 import prpobjects.*;
 import shared.m;
 import prpobjects.plPythonFileMod.Pythonlisting;
+import java.io.File;
+import java.util.Vector;
 import shared.*;
+import java.util.HashMap;
+import uru.UruCrypt;
+import uru.context;
 import auto.conversion.FileInfo;
 import auto.conversion.Info;
-import auto.postmod.PostMod_MystV_WhiteBox;
-import java.io.File;
 import prpobjects.textfile;
 
 
@@ -23,13 +26,12 @@ public class mystv //was myst5Fixes
     {
         AllGames.GameInfo r = new AllGames.GameInfo();
         r.GameName = "MystV";
-        r.DetectionFile = "eoa.exe";
+        r.DetectionFile = "MystV.exe";
         r.prpMarkerForAgename = "_";
         r.format = shared.Format.crowthistle;
         r.PythonVersion = 23;
         r.game = Game.mystv;
         r.agemodifier = new conversion.AgeModifier() {
-            @Override
             public void ModifyAge(Info info, FileInfo file, textfile tf) {
                 final String[][] alcugsOptionals = {
                     {"Descent","Page=dsntFootRgns,97,1"},
@@ -79,23 +81,7 @@ public class mystv //was myst5Fixes
                     tf.appendLine("Page=dusttest,90");
                     //decryptedData = agefile.saveToBytes();
                 }
-                // add SlatePower pages
-                if (file.agename.equals("Todelmer"))
-                    tf.appendLine("Page=tdlmSlatePower,91");
-                if (file.agename.equals("Tahgira"))
-                    tf.appendLine("Page=thgrSlatePower,91");
-                if (file.agename.equals("Laki"))
-                {
-                    tf.appendLine("Page=lakiSlatePower,91");
-                    
-                    // auto-load pirbirdactor
-                    for(textfile.textline line: tf.getLines())
-                    {
-                        String l = line.getString();
-                        if(l.startsWith("Page=PirBirdActor"))
-                            line.setString("Page=PirBirdActor,17"); // remove ",1" that prevents it from loading
-                    }
-                }
+
             }
         };
         r.renameinfo.prefices.put("Descent", 94);
@@ -109,16 +95,6 @@ public class mystv //was myst5Fixes
         r.renameinfo.agenames.put("Descent", "DescentMystV");
         r.renameinfo.agenames.put("Kveer", "KveerMystV");
         r.renameinfo.agenames.put("Myst", "MystMystV");
-        
-        // slates, avatars and things we might want to have fun with
-        r.renameinfo.prefices.put("Global", 82);
-        r.renameinfo.agenames.put("Global", "Slates");
-        //r.renameinfo.pagenames.put("GUI", "BkBookImages", "BkBookImagesEoA");
-        // handles PotS pagenum rule (probably some kind of overflow somewhere)... Below 10 or above 90 = deleted
-        //r.renameinfo.pagenums.put("GUI", 16, 34); // bkBookImages (EoA)
-        r.renameinfo.pagenums.put("GUI", 9, 34); // xSpecialEffectGlare
-        r.renameinfo.pagenums.put("GUI", 7, 22); // srlnBahroSlate
-        
         r.addAgeFiles("Descent", new String[]{
             "Descent.age",
             "Descent.fni",
@@ -181,31 +157,8 @@ public class mystv //was myst5Fixes
         r.addEmbeddedFile("/files/myst5/Todelmer_District_dusttest.prp", "/dat/Todelmer_District_dusttest.prp");
         //"MystMystV_District_Additions.prp","Direbo_District_Additions.prp", //original authored material.
         
-        // add SlatePower files
-        r.addEmbeddedFile("/files/myst5/Tahgira_District_thgrSlatePower.prp", "/dat/Tahgira_District_thgrSlatePower.prp");
-        r.addEmbeddedFile("/files/myst5/Todelmer_District_tdlmSlatePower.prp", "/dat/Todelmer_District_tdlmSlatePower.prp");
-        r.addEmbeddedFile("/files/myst5/Laki_District_lakiSlatePower.prp", "/dat/Laki_District_lakiSlatePower.prp");
-        
-        // add BuiltIn SDL hooks
-        r.addEmbeddedFile("/files/myst5/Tahgira_District_BuiltIn.prp", "/dat/Tahgira_District_BuiltIn.prp");
-        r.addEmbeddedFile("/files/myst5/Todelmer_District_BuiltIn.prp", "/dat/Todelmer_District_BuiltIn.prp");
-        r.addEmbeddedFile("/files/myst5/Siralehn_District_BuiltIn.prp", "/dat/Siralehn_District_BuiltIn.prp");
-        r.addEmbeddedFile("/files/myst5/Laki_District_BuiltIn.prp", "/dat/Laki_District_BuiltIn.prp");
-        
-        r.addEmbeddedFile("/files/myst5/DescentMystV_District_BuiltIn.prp", "/dat/DescentMystV_District_BuiltIn.prp");
-        r.addEmbeddedFile("/files/myst5/Direbo_District_BuiltIn.prp", "/dat/Direbo_District_BuiltIn.prp");
-        r.addEmbeddedFile("/files/myst5/KveerMystV_District_BuiltIn.prp", "/dat/KveerMystV_District_BuiltIn.prp");
-        r.addEmbeddedFile("/files/myst5/MystMystV_District_BuiltIn.prp", "/dat/MystMystV_District_BuiltIn.prp");
-        
-        // GUI
-        r.addAgeFiles("GUI", new String[] {
-            "GUI_xSpecialEffectGlare.prp",
-        });
-        
         r.addAviFiles(new String[]{
             "direbo.bik","restStop1.bik","restStop2.bik","restStop3.bik","restStop4.bik","direboWithAlpha.bik","mystWithAlpha.bik",
-            "dsntRestStop1WithAlpha.bik", "dsntRestStop2WithAlpha.bik", "dsntRestStop3WithAlpha.bik", "dsntRestStop4WithAlpha.bik",
-            "dsntYeesha-Imager01_eng.bik", "dsntYeesha-Imager02.bik", "dsntYeesha-Imager03.bik", // for imagers in descent
         });
 
         r.MusicFiles = new String[]{
@@ -294,45 +247,35 @@ public class mystv //was myst5Fixes
             "tdlmAirLockdoor_Close.ogg","tdlmAirLockDoor_Open.ogg","tdlmAmb01_Loop.ogg","tdlmAmbMusic01_loop.ogg","tdlmAmbWind01_Loop.ogg","tdlmBigScopeCables_loop.ogg","tdlmCableBrake.ogg","tdlmCableSway-Fast_loop.ogg","tdlmCableSway_Loop.ogg","tdlmCableSway_Loop02.ogg","tdlmclockFast_loop.ogg","tdlmClockTurn01.ogg","tdlmClockTurn02.ogg","tdlmClockTurn03.ogg","tdlmDock-Handle_loop.ogg","tdlmDock-Pump02_loop.ogg","tdlmDock-PumpBeginning.ogg","tdlmEsher-TodelmerP1_Mx.ogg","tdlmInsideGUILevers01.ogg","tdlmInsideGUILevers02.ogg","tdlmInsideGUILevers03.ogg","tdlmJoySticksDragLoop.ogg","tdlmPodAmb_Loop.ogg","tdlmPodRand_01.ogg","tdlmPodRand_02.ogg","tdlmPodRand_03.ogg","tdlmPodRand_04.ogg","tdlmPodRand_05.ogg","tdlmPodRand_06.ogg","tdlmPower-Ring_Loop.ogg","tdlmPower-Ring_off.ogg","tdlmPower-Ring_Start.ogg","tdlmPowerOn_Loop.ogg","tdlmScope-ZoomButton.ogg","tdlmScopeGUI-Sliders.ogg","tdlmScreenStatic_loop.ogg","tdlmSpeedUpAmb.ogg","tdlmStoneStairs_Hide.ogg","tdlmStoneStairs_Unhide.ogg","tdlmTram-BigSpool_loop.ogg","tdlmTramCar-Lever_loop.ogg","tdlmTramCar-MidtoP1.ogg","tdlmTramCar-MidTurn.ogg","tdlmTramCar-P3toMid.ogg","tdlmTramCarDoors_close.ogg","tdlmTramCarDoors_open.ogg","tdlmTramDockCables.ogg","tdlm_BahroCommandTime.ogg",
             "thgrDistantAmb.ogg","thgrGeyser_Loop.ogg","thgrIceCaveAmb02_Loop.ogg","thgrIceCaveWind_Loop.ogg","thgrIceCave_Loop.ogg","thgrIceCrack01.ogg","thgrIceCrack02.ogg","thgrIceCrack03.ogg","thgrIceCrack04.ogg","thgrIceCrack05.ogg","thgrIceCrack06.ogg","thgrIceCrack07.ogg","thgrIceCrack08.ogg","thgrIceFieldBubbles_loop.ogg","thgrIceFildsMx_loop.ogg","thgrIceWaves01.ogg","thgrKeepBreakaway.ogg","thgrRandomIce01.ogg","thgrRandomIce02.ogg","thgrRandomIce03.ogg","thgrRandomIce04.ogg","thgrRandomIce05.ogg","thgrRandomIce06.ogg","thgrRandomIce07.ogg","thgrRandomIce08.ogg","thgrSteamPipe01_Loop.ogg","thgrSteamPipe02_Loop.ogg","thgrSteamVents_Loop.ogg","thgrSteamVents_Loop02.ogg","thgrThermalLeverDrag.ogg","thgrThrmlActivity_loop01.ogg","thgrWaterFieldHandle_Down.ogg","thgrWaterFieldHandle_Up.ogg","thgrWind_Loop01.ogg","thgr_BahroCommandHeat.ogg",
             "xAudioBubble_Enter.ogg","xAudioBubble_Exit.ogg","xBahro51.ogg","xBahro52.ogg","xBahro54.ogg","xBahro55.ogg","xBahro56.ogg","xBahro58.ogg","xBahro59.ogg","xBahro62.ogg","xBahro64.ogg","xBahro69.ogg","xBahro70.ogg","xBahroConfused.ogg","xBahroFriendship.ogg","xBahroLink.ogg","xBahroPickup01.ogg","xBahroPickup02.ogg","xBahroReturn01.ogg","xBahroReturn02.ogg","xBahroReturn03.ogg","xBahroSing.ogg","xBahroSlate-Draw_Loop.ogg","xBahrosnake.ogg","xBahroTimid19.ogg","xBahroTimid20.ogg","xBahroTorture.ogg","xBhroLinkIn_Clean.ogg","xBhroLinkIn_Scared.ogg","xbhroPlaceSlate01b.ogg","xBubbleAmb_loop.ogg","xBubbleMusic.ogg","xCameraPickUp.ogg","xdrboIntBubbleAmb.ogg","xFlySwarm.ogg","xKeepUnlock.ogg","xLakiBubKeepAmb_Loop.ogg","xOptionScreenSFX01.ogg","xOptionScreenSFX02.ogg","xOptionScreenSFX03.ogg","xScreenshot.ogg","xSlateVaporToSolid.ogg","xSpecialTransitionEffect03.ogg","xSrlnBubKeepAmb_Loop.ogg","xTakeSymbolGlow.ogg","xTdlmBubKeepAmb_Loop.ogg","xThgrBubKeepAmb_Loop.ogg",
-            
-            // bring back yeesha imagers
-            "dsntYeesha-Imager01_eng.ogg", "dsntYeesha-Imager01_fre.ogg", "dsntYeesha-Imager01_ger.ogg", "dsntYeesha-Imager02_eng.ogg", "dsntYeesha-Imager02_fre.ogg", "dsntYeesha-Imager02_ger.ogg", "dsntYeesha-Imager03_eng.ogg", "dsntYeesha-Imager03_fre.ogg", "dsntYeesha-Imager03_ger.ogg",
         });
         r.fnimodifier = new conversion.FniModifier() {
-            @Override
             public void ModifyFni(Info info, FileInfo file, textfile tf) {
                 if(file.agename.equals("Laki"))
                 {
-                    // Myst V defaults fog settings when linking to a new Age if these are not present.
-                    // In Uru, it will just keep the previous' Age fog settings, so we need
-                    // to give Laki its own settings so it doesn't copy the ones from the Relto.
-                    
                     //textfile fnifile = textfile.createFromBytes(decryptedData);
                     //fnifile.appendLine("Graphics.Renderer.SetClearColor 0 0 0");
                     //fnifile.appendLine("Graphics.Renderer.Fog.SetDefColor 0 0 0");
                     tf.appendLine("Graphics.Renderer.Fog.SetDefLinear 0 0 0");
                     //decryptedData = fnifile.saveToBytes();
                 }
-                if (file.agename.equals("DescentMystV") || file.agename.equals("Descent"))
-                {
-                    // Makes fog black in descent, instead of the default supernatural green.
-                    // I see absolutely no reason to remove this. However, if you still prefer the old
-                    // fog color, please tell Sirius he is a thickheaded nerd, and revert the changes.
-                    for(textfile.textline line: tf.getLines())
-                    {
-                        String linestr = line.getString();
-                        if(linestr.startsWith("Graphics.Renderer.Fog.SetDefColor") || linestr.startsWith("Graphics.Renderer.SetClearColor")) //otherwise it disables gamma in the engine.
-                        {
-                            line.setString("#"+linestr);
-                        }
-                    }
-                    tf.appendLine("Graphics.Renderer.Fog.SetDefColor 0 0 0");
-                    tf.appendLine("Graphics.Renderer.SetClearColor 0 0 0");
-                }
             }
         };
         r.prpmodifier = new conversion.PostConversionModifier() {
             public void ModifyPrp(Info info, FileInfo file, prpfile prp) {
+                auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveDynamicCampMap(prp);
+
+                //moved to conversion:
+                /*String newagename = agenames.get(agename);
+                if(newagename!=null)
+                {
+                    auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
+                }
+                String newAgename = (newagename==null)?agename:newagename;*/
+
+                auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveLadders(prp);
+
+                PostMod_InvertEnvironmaps2(prp);
+
                 String newAgename = info.g.getNewAgename(file);
                 PostMod_AutomateMyst5(prp,info.infolder,newAgename);
             }
@@ -406,6 +349,7 @@ public class mystv //was myst5Fixes
         //m.status("Dont forget to run SoundDecompress.exe; the button is at UAM->SoundDecompress. (If SoundDecompress crashes, it means you have to log into Uru, quit, then try again.)");
         m.status("Conversion completed!");
     }*/
+    
     public static void fixBinks(String finalname, prpfile prp, String infolder)
     {
         String agename = finalname.toLowerCase();
@@ -424,8 +368,6 @@ public class mystv //was myst5Fixes
                 float length = binkfile.getLengthInSeconds();
                 length = length*59.0f/60.0f; //Cyan's timing seems to be off by this much.
                 m.msg("Modifying bink: ",pathtobinkfile," length=",Float.toString(length));
-                // animated panels should only play when the player enters a region. However,
-                // the bink layer MUST be set as autostart, otherwise regions will have no effect (seems like a bug with Plasma).
                 binkobj.parent.parent.tc.flags &= ~0x1; //turn off the "stopped" flag.
                 //binkobj.parent.parent.tc.flags |= 0x20; //turn on the easingIn flag.
                 //binkobj.parent.parent.tc.flags = 0x22; //can this be removed?
@@ -448,92 +390,6 @@ public class mystv //was myst5Fixes
         }
     }
 
-    public static void fixLinks(String newAgename, prpfile prp)
-    {
-        PrpRootObject[] objs = prputils.FindAllObjectsOfType(prp, Typeid.plPythonFileMod);
-        for(PrpRootObject obj: objs)
-        {
-            plPythonFileMod pfm = obj.castTo();
-            if(newAgename.toLowerCase().equals("descentmystv")||newAgename.toLowerCase().equals("direbo"))
-            {
-                if(pfm.pyfile.toString().toLowerCase().equals("xlinkingbookguipopup"))
-                {
-                    String oldlink = pfm.listings.get(2).xString.toString();
-                    String age;
-                    String spawnpoint;
-                    if(oldlink.equals("DireboLaki"))
-                    {
-                        age = "Direbo";
-                        spawnpoint = "LinkInPoint2";
-                    }
-                    else if(oldlink.equals("DireboSrln"))
-                    {
-                        age = "Direbo";
-                        spawnpoint = "LinkInPoint1";
-                    }
-                    else if(oldlink.equals("DireboThgr"))
-                    {
-                        age = "Direbo";
-                        spawnpoint = "LinkInPoint4";
-                    }
-                    else if(oldlink.equals("DireboTdlm"))
-                    {
-                        age = "Direbo";
-                        spawnpoint = "LinkInPoint3";
-                    }
-                    else if(oldlink.equals("DescentRestAreaA"))
-                    {
-                        age = "DescentMystV";
-                        spawnpoint = "LinkInFromThgrDirebo";
-                    }
-                    else if(oldlink.equals("DescentRestAreaB"))
-                    {
-                        age = "DescentMystV";
-                        spawnpoint = "LinkInFromTdlmDirebo";
-                    }
-                    else if(oldlink.equals("DescentRestAreaC"))
-                    {
-                        age = "DescentMystV";
-                        spawnpoint = "LinkInFromSrlnDirebo";
-                    }
-                    else if(oldlink.equals("DescentRestAreaD"))
-                    {
-                        age = "DescentMystV";
-                        spawnpoint = "LinkInFromLakiDirebo";
-                    }
-                    else
-                    {
-                        m.err("Broken linking book in prpprocess.");
-                        age="";
-                        spawnpoint="";
-                    }
-                    pfm.pyfile = Urustring.createFromString("dusttest");
-                    pfm.clearListings();
-                    //pfm.listcount = 3;
-                    //pfm.listings = new Pythonlisting[3];
-                    pfm.addListing(Pythonlisting.createWithString(4, 1, Bstr.createFromString("linktoage")));
-                    pfm.addListing(Pythonlisting.createWithString(4, 2, Bstr.createFromString(age)));
-                    pfm.addListing(Pythonlisting.createWithString(4, 3, Bstr.createFromString(spawnpoint)));
-                    /*pfm.listings[0] = new Pythonlisting();
-                    pfm.listings[0].index = 1;
-                    pfm.listings[0].type = 4; //string
-                    pfm.listings[0].xString = Bstr.createFromString("linktoage");
-                    pfm.listings[1] = new Pythonlisting();
-                    pfm.listings[1].index = 2;
-                    pfm.listings[1].type = 4; //string
-                    pfm.listings[1].xString = Bstr.createFromString(age);
-                    pfm.listings[2] = new Pythonlisting();
-                    pfm.listings[2].index = 3;
-                    pfm.listings[2].type = 4; //string
-                    pfm.listings[2].xString = Bstr.createFromString(spawnpoint);*/
-
-                    //Vector<Pythonlisting> pls = new Vector<Pythonlisting>();
-                    //for(Pythonlisting pl: pfm.listings)
-                }
-            }
-        }
-    }
-    
     public static void fixClickables(String finalname, prpfile prp)
     {
         //restore limited clickables
@@ -787,115 +643,477 @@ public class mystv //was myst5Fixes
             }
         }
     }
-    
-    
+    //public static void convertMyst5ToPots(String infolder, String outfolder, Vector<String> files, boolean makeMinimalReleeshan)
+    //{
+        /*class compileDecider implements uru.moulprp.prputils.Compiler.Decider
+        {
+            public boolean isObjectToBeIncluded(Uruobjectdesc desc)
+            {
+            }
+        }*/
+
+        //if(!makeMinimalReleeshan) m.warn("Currently, making a KveerMystV that isn't just releeshan isn't supported.  Nag Dustin to fix it!");
+
+        //HashMap<String, Integer> prefices = new HashMap<String, Integer>();
+        //prefices.put("Descent", 94);
+        //prefices.put("Direbo", 93);
+        //prefices.put("Kveer", 92);
+        //prefices.put("Laki", 91);
+        //prefices.put("Myst", 90);
+        //prefices.put("Siralehn", 89);
+        //prefices.put("Tahgira", 88);
+        //prefices.put("Todelmer", 87);
+
+        //HashMap<String, String> agenames = new HashMap<String, String>();
+        //agenames.put("Descent", "DescentMystV");
+        //agenames.put("Kveer", "KveerMystV");
+        //agenames.put("Myst", "MystMystV");
+
+        /*cmap<String,cmap<String,Integer>> authored = new cmap();
+        //authored.put("Myst","Additions",89);
+        authored.put("Myst","FootRgns",89);
+        authored.put("Direbo","Additions",98);
+        authored.put("Descent","FootRgns",97);
+        authored.put("Tahgira","FootRgns",97);
+        authored.put("Todelmer","FootRgns",92);
+        authored.put("Kveer","FootRgns",97); //Releeshan*/
+
+        //Typeid[] readable = mystAutomation.moulReadable;
+
+        //create folders...
+        //FileUtils.CreateFolder(outfolder+"/dat/");
+
+        //Handle .bik files...
+        /*Vector<String> bikfiles = common.filterFilenamesByExtension(files, ".bik");
+        for(String filename: bikfiles)
+        {
+            String infile = infolder + "/avi/" + filename;
+            String outfile = outfolder + "/avi/" + filename;
+
+            FileUtils.CopyFile(infile, outfile, true, false);
+        }*/
+
+        //Handle .ogg files...
+        /*Vector<String> oggfiles = common.filterFilenamesByExtension(files, ".ogg");
+        for(String filename: oggfiles)
+        {
+            String infile = infolder + "/sfx/" + filename;
+            String outfile = outfolder + "/sfx/" + filename;
+
+            FileUtils.CopyFile(infile, outfile, true, false);
+        }*/
+
+        //Handle .fni files...
+        /*Vector<String> fnifiles = common.filterFilenamesByExtension(files, ".fni");
+        for(String filename: fnifiles)
+        {
+            String agename = common.getAgenameFromFilename(filename);
+            String infile = infolder + "/dat/" + filename;
+            String outfile = outfolder + "/dat/" + common.replaceAgenameIfApplicable(filename, AllGames.getMystV().g.renameinfo.agenames);
+
+            Bytes encryptedData = FileUtils.ReadFileAsBytes(infile);
+            Bytes decryptedData = UruCrypt.DecryptEoa(encryptedData);
+
+            //laki needs these lines.
+            if(agename.toLowerCase().equals("laki"))
+            {
+                textfile fnifile = textfile.createFromBytes(decryptedData);
+                //fnifile.appendLine("Graphics.Renderer.SetClearColor 0 0 0");
+                //fnifile.appendLine("Graphics.Renderer.Fog.SetDefColor 0 0 0");
+                fnifile.appendLine("Graphics.Renderer.Fog.SetDefLinear 0 0 0");
+                decryptedData = fnifile.saveToBytes();
+            }
+
+            Bytes wdysData = UruCrypt.EncryptWhatdoyousee(decryptedData);
+            FileUtils.WriteFile(outfile, wdysData);
+        }*/
+
+
+        //Handle .age files...
+        //AllGames.getMystV().ConvertGame(infolder, outfolder);
+        /*Vector<String> agefiles = common.filterFilenamesByExtension(files, ".age");
+        for(String filename: agefiles)
+        {
+            String agename = common.getAgenameFromFilename(filename);
+            String infile = infolder + "/dat/" + filename;
+            String outfile = outfolder + "/dat/" + common.replaceAgenameIfApplicable(filename, agenames);
+
+            Bytes encryptedData = FileUtils.ReadFileAsBytes(infile);
+            Bytes decryptedData = UruCrypt.DecryptEoa(encryptedData);
+
+            //modify sequence prefix if Age is in list.
+            Integer prefix = prefices.get(agename);
+            if(prefix!=null)
+            {
+                textfile agefile = textfile.createFromBytes(decryptedData);
+                agefile.setVariable("SequencePrefix", Integer.toString(prefix));
+                decryptedData = agefile.saveToBytes();
+            }
+
+            //Remove all the KveerMystV pages except kverReleeshan and dusttest from the .age file.
+            if(makeMinimalReleeshan)
+            {
+                if(agename.equals("Kveer"))
+                {
+                    textfile agefile = textfile.createFromBytes(decryptedData);
+                    for(textfile.textline line: agefile.getLines())
+                    {
+                        String l = line.getString();
+                        if(l.startsWith("Page="))
+                        {
+                            line.setString("#"+l); //comment it out.
+                        }
+                    }
+                    agefile.appendLine("Page=kverReleeshan,22"); //remove the ,1 from the end so that it loads.
+                    //agefile.appendLine("Page=dusttest,90"); //leave it alone.
+                    decryptedData = agefile.saveToBytes();
+                }
+            }
+
+            //add dusttest page, dynamically loaded.
+            if(agename.equals("Descent") || agename.equals("Todelmer") || agename.equals("Tahgira") || agename.equals("Siralehn") || agename.equals("Laki") || agename.equals("Kveer"))
+            {
+                textfile agefile = textfile.createFromBytes(decryptedData);
+                agefile.appendLine("Page=dusttest,90");
+                decryptedData = agefile.saveToBytes();
+            }*/
+
+            //add any pages that are authored.*/
+            /*if(shared.State.AllStates.getStateAsBoolean("includeAuthoredMaterial") && authored.get(agename) != null)
+            {
+                //for(Pair<String,Integer> curauthprp: authored.get(agename))
+                for(Pair<String,Integer> curauthprp: authored.get(agename).getAllElements())
+                {
+                    String pagename = curauthprp.left;
+                    int pagenum = curauthprp.right;
+
+                    textfile agefile = textfile.createFromBytes(decryptedData);
+                    agefile.appendLine("Page="+pagename+","+Integer.toString(pagenum));
+                    decryptedData = agefile.saveToBytes();
+                }
+
+                //if(agename.equals("Myst"))
+                //{
+                //    textfile agefile = textfile.createFromBytes(decryptedData);
+                //    agefile.appendLine("Page=Additions,89");
+                //    decryptedData = agefile.saveToBytes();
+                //}
+                //if(agename.equals("Direbo"))
+                //{
+                //    textfile agefile = textfile.createFromBytes(decryptedData);
+                //    agefile.appendLine("Page=Additions,98");
+                //    decryptedData = agefile.saveToBytes();
+                //}
+            }*/
+
+
+            /*Bytes wdysData = UruCrypt.EncryptWhatdoyousee(decryptedData);
+            FileUtils.WriteFile(outfile, wdysData);
+        }*/
+
+
+        //Handle .(others) files...
+        //Vector<String> otherfiles = common.filterFilenamesByExtension(files, ".(others)");
+        //for(String filename: otherfiles)
+        //{
+        //    String agename = common.getAgenameFromFilename(filename);
+
+            /*if(shared.State.AllStates.getStateAsBoolean("includeAuthoredMaterial") && authored.get(agename) != null)
+            {
+                for(Pair<String,Integer> curauthprp: authored.get(agename).getAllElements())
+                {
+                    String pagename = curauthprp.left;
+                    int pagenum = curauthprp.right;
+
+                    String outfilename = common.replaceAgenameIfApplicable(agename, agenames)+"_District_"+pagename+".prp";
+                    String outfile = outfolder + "/dat/" + outfilename;
+
+                    Bytes bytes = shared.GetResource.getResourceAsBytes("/files/authored/"+outfilename);
+                    bytes.saveAsFile(outfile);
+                }
+            }*/
+
+        //}
+
+
+        //Handle .prp files...
+        /*Vector<String> prpfiles = common.filterFilenamesByExtension(files, ".prp");
+        for(String filename: prpfiles)
+        {
+
+            String agename = common.getAgenameFromFilename(filename);
+            String infile = infolder + "/dat/" + filename;
+            String outfilename = common.replaceAgenameIfApplicable(filename, AllGames.getMystV().g.renameinfo.agenames).replaceFirst("_", "_District_");
+            String outfile = outfolder + "/dat/" + outfilename;
+
+            if(shared.GetResource.hasResource("/files/myst5/"+outfilename))
+            {
+                Bytes bytes = shared.GetResource.getResourceAsBytes("/files/myst5/"+outfilename);
+                bytes.saveAsFile(outfile);
+            }
+            //else if(shared.GetResource.hasResource("files/authored/"+outfilename))
+            //{
+            //    if(shared.State.AllStates.getStateAsBoolean("includeAuthoredMaterial"))
+            //    {
+            //        Bytes bytes = shared.GetResource.getResourceAsBytes("/files/authored/"+outfilename);
+            //        bytes.saveAsFile(outfile);
+            //    }
+            //}
+            else
+            {
+                //Bytes prpdata = Bytes.createFromFile(infile);
+                //Bytestream bytestream = Bytestream.createFromBytes(prpdata);
+                IBytestream bytestream = shared.SerialBytestream.createFromFilename(infile);
+                context c = context.createFromBytestream(bytestream);
+                c.curFile = filename; //helpful for debugging.
+
+                //modify sequence prefix if Age is in list.
+                Integer prefix = AllGames.getMystV().g.renameinfo.prefices.get(agename);
+                if(prefix!=null)
+                {
+                    c.sequencePrefix = prefix;
+                }
+
+                //modify agename if Age is in list.
+                /*String newAgename = AllGames.getMystV().g.renameinfo.agenames.get(agename);
+                if(newAgename!=null)
+                {
+                    c.ageName = newAgename;
+                }*/
+
+                //prpfile prp = prpfile.createFromContext(c, readable);
+
+                //myst5ProcessPrp(prp,agename,AllGames.getMystV().g.renameinfo.agenames,outfolder,infolder);
+
+                //Bytes prpoutputbytes = prp.saveAsBytes(new compileDecider());
+                //prpoutputbytes.saveAsFile(outfile);
+                //prp.saveAsBytes(new compileDecider()).writeAllBytesToFile(outfile);
+
+                //c.close();
+           // }
+        //}
+
+
+        //Handle .sum files...
+        /*Vector<String> sumfiles = common.filterFilenamesByExtension(files, ".sum");
+        for(String filename: sumfiles)
+        {
+            String agename = common.getAgenameFromFilename(filename);
+            //Bytes sum1 = uru.moulprp.sumfile.createSumfile(outfolder+"/dat/", common.replaceAgenameIfApplicable(agename, agenames));
+            Bytes sum1 = uru.moulprp.sumfile.createEmptySumfile();
+            FileUtils.WriteFile(outfolder+"/dat/"+common.replaceAgenameIfApplicable(filename, AllGames.getMystV().g.renameinfo.agenames), sum1);
+        }*/
+
+        //Handle .sdl files...
+        /*Vector<String> sdlfiles = common.filterFilenamesByExtension(files, ".sdl");
+        for(String filename: sdlfiles)
+        {
+            String agename = common.getAgenameFromFilename(filename);
+            String infile = infolder + "/sdl/" + filename;
+            String outfile = outfolder + "/sdl/" + common.replaceAgenameIfApplicable(filename, agenames);
+
+            Bytes encryptedData = FileUtils.ReadFileAsBytes(infile);
+            Bytes decryptedData = UruCrypt.DecryptEoa(encryptedData);
+
+            uru.moulprp.sdlfile sdl = new uru.moulprp.sdlfile(decryptedData);
+
+            Bytes wdysData = UruCrypt.EncryptWhatdoyousee(decryptedData);
+            FileUtils.WriteFile(outfile, wdysData);
+        }*/
+
+
+        //All done!
+        //m.msg("Done MystV work!");
+    //}
+    /*public static void myst5ProcessPrp(prpfile prp, String agename, HashMap<String, String> agenames,String outfolder, String infolder)
+    {
+        auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveDynamicCampMap(prp);
+
+        String newagename = agenames.get(agename);
+        if(newagename!=null)
+        {
+            auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
+        }
+        String newAgename = (newagename==null)?agename:newagename;
+
+        auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveLadders(prp);
+
+        PostMod_InvertEnvironmaps2(prp);
+
+        PostMod_AutomateMyst5(prp,infolder,newAgename);
+
+    }*/
+    public static void PostMod_InvertEnvironmaps2(prpfile prp)
+    {
+        String age = prp.header.agename.toString();
+        String page = prp.header.pagename.toString();
+        //instead of a manual list, does it depend on a layer flag?
+        //this works, but it's simpler to just use the manual list, so we don't have to hop accross different prps.
+        boolean manual = true;
+        if(!manual)
+        {
+            for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plLayer))
+            {
+                prpobjects.x0006Layer layer = ro.castTo();
+                if(layer.texture.hasref() && layer.texture.xdesc.objecttype==Typeid.plCubicEnvironMap)
+                {
+                    if((layer.flags5&0x400000)!=0) //kMiscCam2Screen flag
+                    {
+                        //do something!
+                        m.status("flagset: "+age+": "+layer.texture.toString());
+                        int dummy=0;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(page.equals("Textures"))
+            {
+                if(age.equals("Direbo"))
+                {
+                    PostMod_InvertEnvironmaps(prp,"xbublakitake_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubsrlntake_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubtdlmtake_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubthgrtake_fr*0.hsm");
+                }
+                if(age.equals("KveerMystV")) //we don't really need to do this one, because we just do the Releeshan part.
+                {
+                    PostMod_InvertEnvironmaps(prp,"xbublakikeep_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubsrlnkeep_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubtdlmkeep_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubthgrkeep_fr*0.hsm");
+                }
+                if(age.equals("Siralehn"))
+                {
+                    PostMod_InvertEnvironmaps(prp,"xbubdrbotake01_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubkverkeep_fr*0.hsm");
+                }
+                if(age.equals("Laki"))
+                {
+                    PostMod_InvertEnvironmaps(prp,"xbubdrbotake01_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubkverkeep_fr*0.hsm");
+                }
+                if(age.equals("Tahgira"))
+                {
+                    PostMod_InvertEnvironmaps(prp,"xbubdrbotake01_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubkverkeep_fr*0.hsm");
+                }
+                if(age.equals("Todelmer"))
+                {
+                    PostMod_InvertEnvironmaps(prp,"xbubdrbotake01_fr*0.hsm");
+                    PostMod_InvertEnvironmaps(prp,"xbubkverkeep_fr*0.hsm");
+                }
+            }
+        }
+    }
+    public static void PostMod_InvertEnvironmaps(prpfile prp, String objname)
+    {
+        PrpRootObject ro = prp.findObject(objname, Typeid.plCubicEnvironMap);
+        prpobjects.x0005Environmap em = ro.castTo();
+        em.invert();
+    }
     public static void PostMod_AutomateMyst5(prpfile prp, String infolder, String newAgename)
     {
-        auto.postmod.PostMod_MystV.PostMod_RemoveLadders(prp);
-        
-        // not the best solution, but works 100% fine
-        auto.postmod.PostMod_MystV.PostMod_InvertEnvironmaps2(prp);
-        
-        // in Myst V, using start/stop responders was enough, but not here...
+        mystv.fixClickables(newAgename, prp);
         mystv.fixBinks(newAgename, prp, infolder);
-        
-        
-        // BEGIN Sirius' MV fixes
-        
-        // fix cast flags for respmod, logicmod, animevmod
-        auto.postmod.PostMod_MystV.PostMod_FixCastFlags(prp);
-        // fix for incidental sound
-        auto.postmod.PostMod_MystV.PostMod_FixIncidentalSounds(prp);
-        // fix for PFM variable names
-        auto.postmod.PostMod_MystV.PostMod_FixPythonFileMods(prp);
-        // fix for dynamiccammaps and dynamicenvmaps
-        auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
-        // fix for echo effect (doubt anyone still have an old enough pc for these... T_T)
-        auto.postmod.PostMod_MystV.PostMod_FixEchoEffects(prp);
-        // fix for camera references (has changed since Uru, but is basically the same)
-        auto.postmod.PostMod_MystV.PostMod_FixCameraReferences(prp);
-        // fix for clickables crashing game (Tahgira)
-        auto.postmod.PostMod_MystV.PostMod_FixInvalidLogicModConditions(prp);
-        // fix for pedestals
-        auto.postmod.PostMod_MystV.PostMod_FixPedestals(prp);
-        // fix for direbo responders
-        auto.postmod.PostMod_MystV.PostMod_FixLinkResponderNames(prp);
-        // makes objects such as Siralehn rock send notifies to their Python scripts
-        auto.postmod.PostMod_MystV.PostMod_AddAnimEventForDraggables(prp);
-        // fixes visregion, rootnode n'stuff
-        auto.postmod.PostMod_MystV.PostMod_TweakEnvmapSettings(prp);
-        
-        // fix for door button not compatible with PotS' avatar
-        if (prp.header.pagename.toString().startsWith("InteriorPillar"))
-            auto.postmod.PostMod_MystV.PostMod_FixTdlmDoors(prp);
-        // fix for tram lever moving on its own
-        if (prp.header.agename.toString().equals("Todelmer") && prp.header.pagename.toString().equals("Exterior"))
-            auto.postmod.PostMod_MystV.PostMod_FixTdlmTramLevers(prp);
-        
-        // adjust a few animations used by draggables
-        auto.postmod.PostMod_MystV.PostMod_FixTdlmPowerDraggables(prp);
-        // fade bubble interior, just because it looks cool
-        auto.postmod.PostMod_MystV.PostMod_FadeBubble(prp);
-        // replace DynamicMusicSound for some voices and brings back Laki arena music
-        auto.postmod.PostMod_MystV.PostMod_ReplaceDirectMusicSound(prp);
-        
-        
-        // remove annoying physical
-        if (newAgename.equals("MystMystV") && prp.header.pagename.toString().equals("Island"))
-            prp.markObjectDeleted(Typeid.plSceneObject, "PlanetariumDoorBlocker");
-        
-        // fix laki buttons facing the wrong direction
-        if (newAgename.equals("Laki") && prp.header.pagename.toString().equals("LakiMaze"))
-            auto.postmod.PostMod_MystV.PostMod_FixLakiMazeButtons(prp);
-        
-        // fix descent elevators and floor
-        if (newAgename.equals("DescentMystV") && prp.header.pagename.toString().equals("dsntUpperShaft"))
-            auto.postmod.PostMod_MystV.PostMod_FixDescentElev(prp);
-        if (newAgename.equals("DescentMystV") && prp.header.pagename.toString().equals("dsntGreatShaftLowerRm"))
-            auto.postmod.PostMod_MystV.PostMod_FixDescentFloor(prp);
-        // fix Lakis so that the python can find their animations
-        auto.postmod.PostMod_MystV.PostMod_FixLakiCreatures(prp);
-        // fix cameras (especially Todelmer ones)
-        auto.postmod.PostMod_MystV.PostMod_FixCameraTargetPoints(prp);
-        // flyovers
-        auto.postmod.PostMod_MystV.PostMod_MakeFlyOvers(prp);
-        // Laki pirhana bird
-        auto.postmod.PostMod_MystV.PostMod_FixPirahnaBird(prp);
-        
-        // adjust those thrice-damned draggables
-        auto.postmod.PostMod_MystV.PostMod_AdjustDraggableAnimations(prp);
-        
-        // put laki column sp at correct height (was too low)
-        if (newAgename.equals("Laki") && prp.header.pagename.toString().equals("LakiArenaVillaInt"))
-            auto.postmod.PostMod_MystV.PostMod_FixLakiElev(prp);
-        
-        
-        // MAKE GOG COMPATIBLE WITH WHITE
-        PostMod_MystV_WhiteBox.MakeWhite(prp, new File(infolder + "/MystV.exe").exists());
-        
-        
-        // END Sirius' MV fixes
-        
-        
-        if (false)
+        //fix direbo links.
+        PrpRootObject[] objs = prputils.FindAllObjectsOfType(prp, Typeid.plPythonFileMod);
+        for(PrpRootObject obj: objs)
         {
-            // this is a collections of hacks to make walking around ages a bit easier, but it breaks things when fully fixing logic
-            // Shouldn't be required once we convert things properly
-            mystv.fixClickables(newAgename, prp);
-            
-            //fix direbo links. Doesn't look too good, we'll find a better way to do this (maybe based off my handy-dandy xSimpleLinkingBook).
-            mystv.fixLinks(newAgename, prp);
-            
-            // hack: convert a detector region to a collider so we can walk on something.
-            if(newAgename.toLowerCase().equals("descentmystv") && prp.header.pagename.toString().toLowerCase().equals("dsntgreatshaftlowerrm"))
+            plPythonFileMod pfm = obj.castTo();
+            if(newAgename.toLowerCase().equals("descentmystv")||newAgename.toLowerCase().equals("direbo"))
             {
-                plHKPhysical erf = prp.findObject("ElevRisingFloor", Typeid.plHKPhysical).castTo();
-                erf.ode.convertee.coltype = 0x200;
-                erf.ode.convertee.LOSDB = 0x44;
-                erf.ode.convertee.group = new HsBitVector(4);
-                erf.ode.convertee.flagsdetect = 0x0;
-                erf.ode.convertee.mass = Flt.one();
+                if(pfm.pyfile.toString().toLowerCase().equals("xlinkingbookguipopup"))
+                {
+                    String oldlink = pfm.listings.get(2).xString.toString();
+                    String age;
+                    String spawnpoint;
+                    if(oldlink.equals("DireboLaki"))
+                    {
+                        age = "Direbo";
+                        spawnpoint = "LinkInPoint2";
+                    }
+                    else if(oldlink.equals("DireboSrln"))
+                    {
+                        age = "Direbo";
+                        spawnpoint = "LinkInPoint1";
+                    }
+                    else if(oldlink.equals("DireboThgr"))
+                    {
+                        age = "Direbo";
+                        spawnpoint = "LinkInPoint4";
+                    }
+                    else if(oldlink.equals("DireboTdlm"))
+                    {
+                        age = "Direbo";
+                        spawnpoint = "LinkInPoint3";
+                    }
+                    else if(oldlink.equals("DescentRestAreaA"))
+                    {
+                        age = "DescentMystV";
+                        spawnpoint = "LinkInFromThgrDirebo";
+                    }
+                    else if(oldlink.equals("DescentRestAreaB"))
+                    {
+                        age = "DescentMystV";
+                        spawnpoint = "LinkInFromTdlmDirebo";
+                    }
+                    else if(oldlink.equals("DescentRestAreaC"))
+                    {
+                        age = "DescentMystV";
+                        spawnpoint = "LinkInFromSrlnDirebo";
+                    }
+                    else if(oldlink.equals("DescentRestAreaD"))
+                    {
+                        age = "DescentMystV";
+                        spawnpoint = "LinkInFromLakiDirebo";
+                    }
+                    else
+                    {
+                        m.err("Broken linking book in prpprocess.");
+                        age="";
+                        spawnpoint="";
+                    }
+                    pfm.pyfile = Urustring.createFromString("dusttest");
+                    pfm.clearListings();
+                    //pfm.listcount = 3;
+                    //pfm.listings = new Pythonlisting[3];
+                    pfm.addListing(Pythonlisting.createWithString(4, 1, Bstr.createFromString("linktoage")));
+                    pfm.addListing(Pythonlisting.createWithString(4, 2, Bstr.createFromString(age)));
+                    pfm.addListing(Pythonlisting.createWithString(4, 3, Bstr.createFromString(spawnpoint)));
+                    /*pfm.listings[0] = new Pythonlisting();
+                    pfm.listings[0].index = 1;
+                    pfm.listings[0].type = 4; //string
+                    pfm.listings[0].xString = Bstr.createFromString("linktoage");
+                    pfm.listings[1] = new Pythonlisting();
+                    pfm.listings[1].index = 2;
+                    pfm.listings[1].type = 4; //string
+                    pfm.listings[1].xString = Bstr.createFromString(age);
+                    pfm.listings[2] = new Pythonlisting();
+                    pfm.listings[2].index = 3;
+                    pfm.listings[2].type = 4; //string
+                    pfm.listings[2].xString = Bstr.createFromString(spawnpoint);*/
+
+                    //Vector<Pythonlisting> pls = new Vector<Pythonlisting>();
+                    //for(Pythonlisting pl: pfm.listings)
+                }
             }
+        }
+
+        //pd1 = prp.findObjectWithRef(aco1.pickingdetectors[0]).castTo();
+        //pd2 = prp.findObjectWithRef(aco2.pickingdetectors[0]).castTo();
+        //lm2.parent.u2 = 0; //set disabled to false.
+        int dummy=0;
+
+        if(newAgename.toLowerCase().equals("descentmystv") && prp.header.pagename.toString().toLowerCase().equals("dsntgreatshaftlowerrm"))
+        {
+            plHKPhysical erf = prp.findObject("ElevRisingFloor", Typeid.plHKPhysical).castTo();
+            erf.ode.convertee.coltype = 0x200;
+            erf.ode.convertee.LOSDB = 0x44;
+            erf.ode.convertee.group = new HsBitVector(4);
+            erf.ode.convertee.flagsdetect = 0x0;
+            erf.ode.convertee.mass = Flt.one();
         }
     }
 }

@@ -111,17 +111,17 @@ public class crowthistle
         r.prpmodifier = new conversion.PostConversionModifier() {
 
             public void ModifyPrp(Info info, FileInfo file, prpfile prp) {
-                auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
+                auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveDynamicCampMap(prp);
 
                 //moved to conversion:
                 /*String newagename = agenames.get(agename);
                 if(newagename!=null)
                 {
-                    auto.postmod.PostMod_MystV.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
+                    auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
                 }*/
 
                 //shouldn't be needed because Crowthistle has no ladders:
-                auto.postmod.PostMod_MystV.PostMod_RemoveLadders(prp);
+                auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveLadders(prp);
             }
         };
         return r;
@@ -385,16 +385,16 @@ public class crowthistle
     //}
     /*public static void crowProcessPrp(prpfile prp, String agename, HashMap<String, String> agenames,String outfolder, String infolder)
     {
-        auto.postmod.PostMod_MystV.PostMod_RemoveDynamicCampMap(prp);
+        auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveDynamicCampMap(prp);
 
         String newagename = agenames.get(agename);
         if(newagename!=null)
         {
-            auto.postmod.PostMod_MystV.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
+            auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_ChangeVerySpecialPython(prp, agename, newagename);
         }
 
         //shouldn't be needed because Crowthistle has no ladders:
-        auto.postmod.PostMod_MystV.PostMod_RemoveLadders(prp);
+        auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveLadders(prp);
         
     }*/
 }

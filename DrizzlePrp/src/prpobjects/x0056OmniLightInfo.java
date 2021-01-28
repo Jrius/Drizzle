@@ -34,7 +34,7 @@ import shared.b;
 public class x0056OmniLightInfo extends uruobj
 {
     //Objheader xheader;
-    public x0054LightInfo parent;
+    x0054LightInfo parent;
     Flt att1; //attenuation constant 1.
     Flt att2; //attenuation constant 2.
     Flt att3; //attenuation constant 3.

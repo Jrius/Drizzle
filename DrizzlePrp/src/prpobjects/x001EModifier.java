@@ -34,7 +34,7 @@ import shared.b;
 public class x001EModifier extends uruobj
 {
     //Objheader xheader;
-    public plSynchedObject parent;
+    plSynchedObject parent;
     
     public x001EModifier(context c)//,boolean hasHeader)
     {

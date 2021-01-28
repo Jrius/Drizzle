@@ -139,22 +139,22 @@ public class plAGAnim extends uruobj
     }
     public static class plMatrixControllerChannel extends uruobj
     {
-        public Urustring channel;
-        public PrpTaggedObject controller;
-        public PrpController.affinePart affineParts;
+        public Urustring u1;
+        public PrpTaggedObject u2;
+        public PrpController.uk u3;
         
         public plMatrixControllerChannel(context c) throws readexception
         {
-            channel = new Urustring(c);
-            controller = new PrpTaggedObject(c);
-            affineParts = new PrpController.affinePart(c);
+            u1 = new Urustring(c);
+            u2 = new PrpTaggedObject(c);
+            u3 = new PrpController.uk(c);
         }
         
         public void compile(Bytedeque c)
         {
-            channel.compile(c);
-            controller.compile(c);
-            affineParts.compile(c);
+            u1.compile(c);
+            u2.compile(c);
+            u3.compile(c);
         }
     }
     public static class plParticlePPSApplicator extends uruobj

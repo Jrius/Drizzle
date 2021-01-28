@@ -31,24 +31,24 @@ import shared.readexception;
 
 public class plPostEffectMod extends uruobj
 {
-    public plSingleModifier parent;
-    public HsBitVector u1;
-    public Flt hither;
-    public Flt yon;
-    public Flt fovX;
-    public Flt fovY;
-    public Uruobjectref ref;
-    public Transmatrix t1;
-    public Transmatrix t2;
+    plSingleModifier parent;
+    HsBitVector u1;
+    Flt f1;
+    Flt f2;
+    Flt f3;
+    Flt f4;
+    Uruobjectref ref;
+    Transmatrix t1;
+    Transmatrix t2;
     
     public plPostEffectMod(context c) throws readexception
     {
         parent = new plSingleModifier(c);
         u1 = new HsBitVector(c);
-        hither = new Flt(c);
-        yon = new Flt(c);
-        fovX = new Flt(c);
-        fovY = new Flt(c);
+        f1 = new Flt(c);
+        f2 = new Flt(c);
+        f3 = new Flt(c);
+        f4 = new Flt(c);
         ref = new Uruobjectref(c);
         t1 = new Transmatrix(c);
         t2 = new Transmatrix(c);
@@ -58,10 +58,10 @@ public class plPostEffectMod extends uruobj
     {
         parent.compile(c);
         u1.compile(c);
-        hither.compile(c);
-        yon.compile(c);
-        fovX.compile(c);
-        fovY.compile(c);
+        f1.compile(c);
+        f2.compile(c);
+        f3.compile(c);
+        f4.compile(c);
         ref.compile(c);
         t1.compile(c);
         t2.compile(c);

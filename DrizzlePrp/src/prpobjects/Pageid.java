@@ -195,8 +195,7 @@ public class Pageid extends uruobj implements java.io.Serializable
 
             if(shift==8 && _pagenum<-10)
             {
-                m.err("unsure what to do with a shift of 8 and a pagenum below -10");
-                m.err("3dsMax users converting to PotS: make SURE your sequence prefix is above 100 and under 32000...");
+                m.throwUncaughtException("unsure");
             }
             //if(shift==8 && _pagenum>200)
             //{

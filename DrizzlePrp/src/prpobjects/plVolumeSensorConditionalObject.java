@@ -30,10 +30,10 @@ import shared.readexception;
 
 public class plVolumeSensorConditionalObject extends uruobj
 {
-    public plConditionalObject parent;
-    public int u3;
-    public int direction; //according to cobbs, 1=enter, 2=leave
-    public byte u4;
+    plConditionalObject parent;
+    int u3;
+    int direction; //according to cobbs, 1=enter, 2=leave
+    byte u4;
     
     public plVolumeSensorConditionalObject(context c) throws readexception
     {
@@ -43,18 +43,6 @@ public class plVolumeSensorConditionalObject extends uruobj
         u4 = c.readByte();
         
     }
-    
-    public static plVolumeSensorConditionalObject createDefault()
-    {
-        plVolumeSensorConditionalObject e = new plVolumeSensorConditionalObject();
-        e.direction = 1;
-        e.u3 = -1;
-        e.u4 = 0;
-        e.parent = plConditionalObject.createDefault();
-        return e;
-    }
-
-    private plVolumeSensorConditionalObject() {}
     
     public void compile(Bytedeque c)
     {

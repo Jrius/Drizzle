@@ -1,2 +1,0 @@
-- find someone who knows how to + wants to + has time to reverse-engineer realMyst
-- make sense of the read classes to be able to convert it to PlasmaV2

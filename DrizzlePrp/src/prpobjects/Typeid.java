@@ -371,9 +371,6 @@ public enum Typeid implements compilable, java.io.Serializable
     plParticleScaleMinApplicator,
 
     plDecalEnableMod,
-    
-    // more GUI from MV
-    pfGUISketchCtrl,
 
 
     ;
@@ -488,7 +485,7 @@ public enum Typeid implements compilable, java.io.Serializable
         tri( 0x0A4, 0x0A4, 0x08A, -2, plExcludeRegionModifier ), //3rd code from myst5
         tri( 0x0A6, 0x0A6, 0x08C, 0x08C, plVolumeSensorConditionalObject ), //3rd code from myst5
         tri( 0x0A8, 0x0A8, 0x08E, 0x08E, plMsgForwarder ),
-        tri( 0x0AD, 0x0AD, 0x093, 0x093, plDynamicTextMap ),
+        tri( 0x0AD, 0x0AD, -2, 0x093, plDynamicTextMap ),
         tri( 0x0AE, 0x0AE, -2, -2, plSittingModifier ),
         tri( 0x0B2, 0x0B2, -2, -2, plAvLadderMod ),
         tri( 0x0C0, 0x0C0, -2, -2, plRailCameraMod ),
@@ -554,7 +551,7 @@ public enum Typeid implements compilable, java.io.Serializable
         tri( 0x2E8, 0x2ED, 0x272, 0x272, plNotifyMsg ),
         tri( 0x2F0, 0x2F5, -2, -2, plVolumeIsect ),
         tri( 0x2F5, 0x2FA, 0x27C, 0x27C, plConvexIsect ),
-        tri( 0x2FD, 0x302, 0x283, -2, plResponderEnableMsg ),
+        tri( 0x2FD, 0x302, -2, -2, plResponderEnableMsg ),
         tri( 0x302, 0x307, -2, 0x285, plOneShotMsg ),
         tri( 0x330, 0x335, 0x2A2, -2, plExcludeRegionMsg ), //3rd code from myst5
         tri( 0x331, 0x336, 0x2A3, -2, plOneTimeParticleGenerator ), //3rd code from myst5
@@ -623,7 +620,7 @@ public enum Typeid implements compilable, java.io.Serializable
         tri( 0x0F0, 0x0F0, -2, -2, plLayerSDLAnimation),
         
         tri( 0x0B9, 0x0B9, -2, -2, pfGUIDragBarCtrl),
-        tri( 0x0BA, 0x0BA, 0x9c, -2, pfGUICheckBoxCtrl),
+        tri( 0x0BA, 0x0BA, -2, -2, pfGUICheckBoxCtrl),
         tri( 0x0BB, 0x0BB, -2, -2, pfGUIRadioGroupCtrl),
         tri( 0x119, 0x119, -2, -2, pfGUIPopUpMenu),
         
@@ -713,10 +710,10 @@ public enum Typeid implements compilable, java.io.Serializable
         tri( -2, 0x36B, -2, -2, plAvAnimTask),
         
         tri( 0x0AC, 0x0AC, -2, -2, pfGUIEditBoxMod),
-        tri( 0x062, 0x062, 0x57, -2, pfGUIClickMapCtrl),
+        tri( 0x062, 0x062, -2, -2, pfGUIClickMapCtrl),
         tri( 0x0AA, 0x0AA, -2, -2, pfGUIListBoxMod),
-        tri( 0x0BD, 0x0BD, 0x9e, -2, pfGUIDynDisplayCtrl),
-        tri( 0x10C, 0x10C, 0xe0, -2, pfGUIProgressCtrl),
+        tri( 0x0BD, 0x0BD, -2, -2, pfGUIDynDisplayCtrl),
+        tri( 0x10C, 0x10C, -2, -2, pfGUIProgressCtrl),
         tri( 0x0EE, 0x0EE, -2, -2, pfGUIMultiLineEditCtrl),
         tri( 0x0C6, 0x0C6, -2, -2, pfGUISkin),
         tri( 0x0AF, 0x0AF, -2, -2, pfGUIUpDownPairMod),
@@ -731,9 +728,6 @@ public enum Typeid implements compilable, java.io.Serializable
         tri( 0x31B, -2, -2, -2, plSplineEaseCurve), //Teledahn
         tri( 0x339, -2, -2, -2, plParticleScaleMinApplicator), //Teledahn
         tri( 0x0EB, 0x0EB, -2, -2, plDecalEnableMod), //3dsmax
-        
-        // added: things for MV slates (just for debugging purpose, cannot be converted to anything anyway...)
-        tri( -2, -2, 0x094, -2, pfGUISketchCtrl),
 
         tri( 0x8000, 0x8000, 0x8000, 0x8000, nil ),
         //cc -> moul -> mv -> hexisle

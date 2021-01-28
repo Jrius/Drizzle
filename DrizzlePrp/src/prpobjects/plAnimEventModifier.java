@@ -30,34 +30,25 @@ import shared.readexception;
 
 public class plAnimEventModifier extends uruobj
 {
-    public plSingleModifier parent;
-    public int numreceivers;
-    public Uruobjectref[] receivers;
-    public PrpTaggedObject message;
+    plSingleModifier parent;
+    int count;
+    Uruobjectref[] refs;
+    PrpTaggedObject emb;
     
     public plAnimEventModifier(context c) throws readexception
     {
         parent = new plSingleModifier(c);
-        numreceivers = c.readInt();
-        receivers = c.readArray(Uruobjectref.class, numreceivers);
-        message = new PrpTaggedObject(c);
-    }
-
-    private plAnimEventModifier() {
-        
-    }
-    
-    public static plAnimEventModifier createEmpty()
-    {
-        return new plAnimEventModifier();
+        count = c.readInt();
+        refs = c.readArray(Uruobjectref.class, count);
+        emb = new PrpTaggedObject(c);
     }
     
     public void compile(Bytedeque c)
     {
         parent.compile(c);
-        c.writeInt(numreceivers);
-        c.writeArray2(receivers);
-        message.compile(c);
+        c.writeInt(count);
+        c.writeArray2(refs);
+        emb.compile(c);
     }
     
 }

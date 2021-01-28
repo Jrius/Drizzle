@@ -34,7 +34,7 @@ import java.util.Vector;
 public class plSceneObject extends uruobj
 {
     //Objheader xheader;
-    public plSynchedObject parent;
+    plSynchedObject parent;
     public Uruobjectref drawinterface; //draw //was spaninfo
     public Uruobjectref simulationinterface; //simulation //was animationinfo
     public Uruobjectref coordinateinterface; //coordinate //was regioninfo

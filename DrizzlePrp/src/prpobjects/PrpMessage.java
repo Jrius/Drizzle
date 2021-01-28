@@ -58,7 +58,7 @@ public abstract class PrpMessage extends PrpTaggedObject
     
     public static class PlResponderEnableMsg extends uruobj
     {
-        public plMessage parent;
+        plMessage parent;
         byte b1;
 
         public PlResponderEnableMsg(context c) throws readexception
@@ -75,19 +75,13 @@ public abstract class PrpMessage extends PrpTaggedObject
     }
     public static class PlSimSuppressMsg extends uruobj
     {
-        public plMessage parent;
-        public byte b1;
+        plMessage parent;
+        byte b1;
         
         public PlSimSuppressMsg(context c) throws readexception
         {
             parent = new plMessage(c);
             b1 = c.readByte();
-        }
-        
-        private PlSimSuppressMsg() {}
-
-        public static PlSimSuppressMsg createEmpty() {
-            return new PlSimSuppressMsg();
         }
         
         public void compile(Bytedeque c)
@@ -99,7 +93,7 @@ public abstract class PrpMessage extends PrpTaggedObject
     
     public static class PlDampMsg extends uruobj
     {
-        public plMessage parent;
+        plMessage parent;
         int u1;
         
         public PlDampMsg(context c) throws readexception
@@ -117,7 +111,7 @@ public abstract class PrpMessage extends PrpTaggedObject
     
     public static class PlRideAnimatedPhysMsg extends uruobj
     {
-        public plMessage parent;
+        plMessage parent;
         byte u1;
         Uruobjectref u2;
         
@@ -132,7 +126,7 @@ public abstract class PrpMessage extends PrpTaggedObject
     }
     public static class PlCameraMsg extends uruobj
     {
-        public plMessage parent;
+        plMessage parent;
         HsBitVector cmd;
         Double64 transtime;
         byte activated;
@@ -252,9 +246,9 @@ public abstract class PrpMessage extends PrpTaggedObject
     //I reverse-engineered this myself, via decompilation.
     public static class PlTimerCallbackMsg extends uruobj
     {
-        public plMessage parent;
-        public int u1;
-        public Flt u2;
+        plMessage parent;
+        int u1;
+        Flt u2;
         
         public PlTimerCallbackMsg(context c) throws readexception
         {
@@ -274,80 +268,16 @@ public abstract class PrpMessage extends PrpTaggedObject
     //I reverse-engineered this myself, via decompilation.
     public static class PlAnimCmdMsg extends uruobj
     {
-        
-        // These names come from HSPlasma.
-        
-        public static final int kNone = 0x0;
-        public static final int kContinue = 0x1;
-        public static final int kStop = 0x2;
-        public static final int kSetLooping = 0x4;
-        public static final int kUnSetLooping = 0x8;
-        public static final int kSetBegin = 0x10;
-        public static final int kSetEnd = 0x20;
-        public static final int kSetLoopEnd = 0x40;
-        public static final int kSetLoopBegin = 0x80;
-        public static final int kSetSpeed = 0x100;
-        public static final int kGoToTime = 0x200;
-        public static final int kSetBackwards = 0x400;
-        public static final int kSetForwards = 0x800;
-        public static final int kToggleState = 0x1000;
-        public static final int kAddCallbacks = 0x2000;
-        public static final int kRemoveCallbacks = 0x4000;
-        public static final int kGoToBegin = 0x8000;
-        public static final int kGoToEnd = 0x10000;
-        public static final int kGoToLoopBegin = 0x20000;
-        public static final int kGoToLoopEnd = 0x40000;
-        public static final int kIncrementForward = 0x80000;
-        public static final int kIncrementBackward = 0x100000;
-        public static final int kRunForward = 0x200000;
-        public static final int kRunBackward = 0x400000;
-        public static final int kPlayToTime = 0x800000;
-        public static final int kPlayToPercentage = 0x1000000;
-        public static final int kFastForward = 0x2000000;
-        public static final int kGoToPercent = 0x4000000;
-        public static final int kNumCmds = 0x8000000;
-        
         public PlMessageWithCallbacks parent;
-        
-        public HsBitVector command;
-        public Flt begin;
-        public Flt end;
-        public Flt loopBegin;
-        public Flt loopEnd;
-        public Flt speed;
-        public Flt speedChangeRate;
-        public Flt time;
-        public Urustring animName;
-        public Urustring loopName;
+        public HsBitVector u1;
+        public Flt[] u2;
+        public Urustring u3;
+        public Urustring u4;
         
         public PlAnimCmdMsg(context c) throws readexception
         {
             parent = new PlMessageWithCallbacks(c);
-            command = new HsBitVector(c);
-            
-            if(c.readversion==3||c.readversion==6)
-            {
-                begin = new Flt(c);
-                end = new Flt(c);
-                loopBegin = new Flt(c);
-                loopEnd = new Flt(c);
-                speed = new Flt(c);
-                speedChangeRate = new Flt(c);
-                time = new Flt(c);
-            }
-            else if(c.readversion==4||c.readversion==7) // it seems neither MystV(CT) nor HexIsle have these anymore. Doesn't make much of
-            {                                           // a difference, since it seems it was always unused
-                begin = new Flt(0);
-                end = new Flt(0);
-                loopBegin = new Flt(0);
-                loopEnd = new Flt(0);
-                speed = new Flt(0);
-                speedChangeRate = new Flt(0);
-                time = new Flt(0);
-            }
-            
-            
-            /*
+            u1 = new HsBitVector(c);
             if(c.readversion==3||c.readversion==6)
             {
                 //this is correct.
@@ -373,37 +303,20 @@ public abstract class PrpMessage extends PrpTaggedObject
                     if((flags&0x01000000)!=0) u2[4] = new Flt(c);
                     if((flags&0x01000000)!=0) u2[5] = new Flt(c);
                     //if((flags&0x02000000)!=0 || (flags&0x3252534F)!=0 || (flags&0x01000000)!=0) u2[6] = new Flt(c); //0x3252534F="OSR2"
-                    if((flags&0x02000000)!=0 || (flags&0x3252534F)!=0 || (flags&0x01000000)!=0) u2[6] = new Flt(c); //0x3252534F="OSR2"* /
+                    if((flags&0x02000000)!=0 || (flags&0x3252534F)!=0 || (flags&0x01000000)!=0) u2[6] = new Flt(c); //0x3252534F="OSR2"*/
                 }
             }
-            //*/
-            animName = new Urustring(c);
-            loopName = new Urustring(c);
-        }
-        
-        public static PlAnimCmdMsg createEmpty()
-        {
-            return new PlAnimCmdMsg();
-        }
-
-        private PlAnimCmdMsg() {
-            
+            u3 = new Urustring(c);
+            u4 = new Urustring(c);
         }
         
         public void compile(Bytedeque c)
         {
             parent.compile(c);
-            command.compile(c);
-            
-            begin.compile(c);
-            end.compile(c);
-            loopBegin.compile(c);
-            loopEnd.compile(c);
-            speed.compile(c);
-            speedChangeRate.compile(c);
-            time.compile(c);
-            animName.compile(c);
-            loopName.compile(c);
+            u1.compile(c);
+            c.writeArray(u2);
+            u3.compile(c);
+            u4.compile(c);
         }
     }
 
@@ -411,211 +324,137 @@ public abstract class PrpMessage extends PrpTaggedObject
     public static class PlLinkToAgeMsg extends uruobj
     {
         public plMessage parent;
-        public byte streamVersion;              //only used by PotS
+        public byte u1;
         public PlAgeLinkStruct ageLinkStruct;
-        public Urustring linkInAnimName;        // probably LinkInAnimName. Should be followed by 4 bool in non-uru version
+        public Urustring ustr;
+        
+        HsBitVector xbv;
+        Wpstr xs1;
+        Wpstr xs2;
+        HsBitVector xbv2;
+        Wpstr xs3;
+        Wpstr xs4;
+        Wpstr xs5;
+        HsBitVector xbv3;
+        Wpstr xs6;
+        int xi1;
+        int xi2;
+        int xi3;
+        int xi4;
+        byte xb;
         
         public PlLinkToAgeMsg(context c) throws readexception
         {
             parent = new plMessage(c);
             if(c.readversion==6||c.readversion==3)
             {
-                streamVersion = c.readByte();
+                u1 = c.readByte();
                 ageLinkStruct = new PlAgeLinkStruct(c);
                 //c.readBytes(31);
-                linkInAnimName = new Urustring(c);
+                ustr = new Urustring(c);
             }
             else if(c.readversion==4)
             {
-                HsBitVector ageInfoFlags;
-                Wpstr ageFilename = null;
-                Wpstr ageInstanceName = null;
-                HsBitVector spawnPointFlags;
-                Wpstr spTitle = null;
-                Wpstr spName = null;
-                Wpstr spCamStack = null;
-                HsBitVector linkEffectsFlags;
-                Urustring linkInAnimNameMV = null;
-                int bool1;
-                int bool2;
-                int bool3;
-                int bool4;
-                byte EoAUnknown;
-                
-                
-                /* first, read the content of the link responder */
-                
-                ageInfoFlags = new HsBitVector(c); // often 7
-                int flag = ageInfoFlags.get(0);
-                
-                
-                if((flag&1)!=0) ageFilename = new Wpstr(c);
-                if((flag&2)!=0) ageInstanceName = new Wpstr(c);
+                xbv = new HsBitVector(c);
+                int flag = xbv.get(0);
+                if((flag&1)!=0) xs1 = new Wpstr(c);
+                if((flag&2)!=0) xs2 = new Wpstr(c);
                 if((flag&4)!=0)
                 {
-                    spawnPointFlags = new HsBitVector(c); // often 7
-                    int flag2 = spawnPointFlags.get(0);
-                    if((flag2&1)!=0) spTitle = new Wpstr(c);
-                    if((flag2&2)!=0) spName = new Wpstr(c);
-                    if((flag2&4)!=0) spCamStack = new Wpstr(c);
+                    xbv2 = new HsBitVector(c);
+                    int flag2 = xbv2.get(0);
+                    if((flag2&1)!=0) xs3 = new Wpstr(c);
+                    if((flag2&2)!=0) xs4 = new Wpstr(c);
+                    if((flag2&4)!=0) xs5 = new Wpstr(c);
                 
                 }
-                linkEffectsFlags = new HsBitVector(c); // often 1e
-                int flag3 = linkEffectsFlags.get(0);
-                if((flag3&1)!=0) linkInAnimNameMV = new Urustring(c);
-                if((flag3&2)!=0) bool1 = c.readInt(); // often 1 (these booleans only exist in MV and aren't of much use)
-                if((flag3&4)!=0) bool2 = c.readInt(); // often 1
-                if((flag3&8)!=0) bool3 = c.readInt(); // often 1
-                if((flag3&16)!=0) bool4 = c.readInt(); // often 1
-                EoAUnknown = c.readByte(); // often 0
-                
-                
-                
-                /* then, put this content into our variables */
-                
-                streamVersion = 0;
-                ageLinkStruct = new PlAgeLinkStruct();
-                
-                ageLinkStruct.flags = PlAgeLinkStruct.kHasAgeInfo |
-                                    PlAgeLinkStruct.kHasLinkingRules |
-                                    //PlAgeLinkStruct.kHasSpawnPt_DEAD |
-                                    //PlAgeLinkStruct.kHasSpawnPt_DEAD2 |
-                                    //PlAgeLinkStruct.kHasAmCCR |
-                                    PlAgeLinkStruct.kHasSpawnPt;
-                                    //PlAgeLinkStruct.kHasParentAgeFilename;
-                
-                
-                // IMPORTANT - WILL NEED TO FIND APPROPRIATE DEFAULT LINKING RULES FOR MV RESPONDERS
-                ageLinkStruct.linkingRules = PlAgeLinkStruct.kLinkRuleBasicLink; // for now, this will make sure we don't fry up the vault
-//                ageLinkStruct.sp_dead = ???;
-//                ageLinkStruct.sp_dead2 = ???;
-//                ageLinkStruct.sp_dead3 = ???;
-                ageLinkStruct.spawnPointFlags = new HsBitVector(PlAgeLinkStruct.kSpawnPtHasTitle |
-                                                                PlAgeLinkStruct.kSpawnPtHasSpawnPt |
-                                                                PlAgeLinkStruct.kSpawnPtHasCameraStack);
-                ageLinkStruct.spTitle = spTitle;
-                ageLinkStruct.spName = spName;
-                ageLinkStruct.camStack = spCamStack;
-//                ageLinkStruct.amCCR = ???;
-//                ageLinkStruct.parentAgeFilename = ???;
-                
-                
-                // create the age info
-                ageLinkStruct.ageinfo = new PlAgeInfoStruct();
-                ageLinkStruct.ageinfo.flags = PlAgeInfoStruct.kHasAgeInstanceName | PlAgeInfoStruct.kHasAgeFilename;
-                ageLinkStruct.ageinfo.ageFilename = ageFilename;
-                ageLinkStruct.ageinfo.ageInstanceName = ageInstanceName;
-//                ageLinkStruct.xageinfo.ageInstanceGuid = ???;
-//                ageLinkStruct.xageinfo.ageUserDefinedName = ???;
-//                ageLinkStruct.xageinfo.ageSequenceNumber = ???;
-//                ageLinkStruct.xageinfo.ageDescription = ???;
-//                ageLinkStruct.xageinfo.ageLanguage = ???;
-                
-                
-                if (linkInAnimNameMV != null)
-                    linkInAnimName = linkInAnimNameMV;
-                else
-                    //linkInAnimName = Urustring.createFromString("");
-                    linkInAnimName = Urustring.createFromString("LinkOut");
+                xbv3 = new HsBitVector(c);
+                int flag3 = xbv3.get(0);
+                if((flag3&1)!=0) xs6 = new Wpstr(c);
+                if((flag3&2)!=0) xi1 = c.readInt();
+                if((flag3&4)!=0) xi1 = c.readInt();
+                if((flag3&8)!=0) xi1 = c.readInt();
+                if((flag3&16)!=0) xi1 = c.readInt();
+                xb = c.readByte();
+                throw new shared.readwarningexception("PlLinkToAgeMsg: can read okay but failing in order to ignore.");
             }
         }
         
         public void compile(Bytedeque c)
         {
             parent.compile(c);
-            c.writeByte(streamVersion);
+            c.writeByte(u1);
             ageLinkStruct.compile(c);
-            linkInAnimName.compile(c);
+            ustr.compile(c);
         }
         
         public static class PlAgeLinkStruct extends uruobj
         {
-            public static final int kHasAgeInfo = 0x1,
-                                    kHasLinkingRules = 0x2,
-                                    kHasSpawnPt_DEAD = 0x4,
-                                    kHasSpawnPt_DEAD2 = 0x8,
-                                    kHasAmCCR = 0x10,
-                                    kHasSpawnPt = 0x20,
-                                    kHasParentAgeFilename = 0x40;
-            
-            public static final int kLinkRuleBasicLink = 0x1,
-                                    kLinkRuleOriginalBook = 0x2,
-                                    kLinkRuleSubAgeBook = 0x4,
-                                    kLinkRuleOwnedBook = 0x8,
-                                    kLinkRuleVisitBook = 0x10,
-                                    kLinkRuleChildAgeBook = 0x20;
-            
-            public static final int kSpawnPtHasTitle = 0x1,
-                                    kSpawnPtHasSpawnPt = 0x2,
-                                    kSpawnPtHasCameraStack = 0x4;
-            
             public short flags;
-            public PlAgeInfoStruct ageinfo;
-            byte linkingRules;
-            Wpstr sp_dead;
-            Wpstr sp_dead2;
-            Wpstr sp_dead3;
-            HsBitVector spawnPointFlags;
-            Wpstr spTitle;
-            Wpstr spName;
-            Wpstr camStack;
-            byte amCCR;
-            Wpstr parentAgeFilename;
-            
-            public PlAgeLinkStruct(){}
+            public PlAgeInfoStruct xageinfo;
+            byte xu1;
+            Wpstr xu2;
+            Wpstr xu3;
+            Wpstr xu4;
+            HsBitVector xu5;
+            Wpstr xu5a;
+            Wpstr xu5b;
+            Wpstr xu5c;
+            byte xu6;
+            Wpstr xu7;
             
             public PlAgeLinkStruct(context c) throws readexception
             {
                 flags = c.readShort();
                 int test = b.Int16ToInt32(flags);
-                if((test&kHasAgeInfo)!=0)
+                if((test&0x01)!=0)
                 {
-                    ageinfo = new PlAgeInfoStruct(c);
+                    xageinfo = new PlAgeInfoStruct(c);
                 }
-                if((test&kHasLinkingRules)!=0)
+                if((test&0x02)!=0)
                 {
-                    linkingRules = c.readByte();
+                    xu1 = c.readByte();
                 }
-                if((test&kHasSpawnPt_DEAD)!=0) // hopefully never used
+                if((test&0x04)!=0)
                 {
-                    sp_dead = new Wpstr(c);
-                    test = test & 0xFFFB | kHasSpawnPt; //removes this flag and adds a later one. Why?
+                    xu2 = new Wpstr(c);
+                    test = test & 0xFFFB | 0x20; //removes this flag and adds a later one. Why?
                 }
-                if((test&kHasSpawnPt_DEAD2)!=0) // hopefully never used
+                if((test&0x08)!=0)
                 {
-                    sp_dead2 = new Wpstr(c);
-                    sp_dead3 = new Wpstr(c);
-                    test = test & 0xFFF7 | kHasSpawnPt; //removes this flag and adds a later one. Why?
+                    xu3 = new Wpstr(c);
+                    xu4 = new Wpstr(c);
+                    test = test & 0xFFF7 | 0x20; //removes this flag and adds a later one. Why?
                 }
                 else
                 {
-                    if((test&kHasSpawnPt)!=0)
+                    if((test&0x20)!=0)
                     {
                         //function sub_6f16c0 here is a little weird.
                         //I had to figure this out on my own.
-                        spawnPointFlags = new HsBitVector(c);
-                        int test2 = spawnPointFlags.get(0);
-                        if((test2&kSpawnPtHasTitle)!=0)
+                        xu5 = new HsBitVector(c); //decompiled version has a bunch of junk here.
+                        int test2 = xu5.get(0);
+                        if((test2&0x01)!=0)
                         {
-                            spTitle = new Wpstr(c);
+                            xu5a = new Wpstr(c);
                         }
-                        if((test2&kSpawnPtHasSpawnPt)!=0)
+                        if((test2&0x02)!=0)
                         {
-                            spName = new Wpstr(c);
+                            xu5b = new Wpstr(c);
                         }
-                        if((test2&kSpawnPtHasCameraStack)!=0)
+                        if((test2&0x04)!=0)
                         {
-                            camStack = new Wpstr(c);
+                            xu5c = new Wpstr(c);
                         }
                     }
                 }
-                if((test&kHasAmCCR)!=0)
+                if((test&0x10)!=0)
                 {
-                    amCCR = c.readByte();
+                    xu6 = c.readByte();
                 }
-                if((test&kHasParentAgeFilename)!=0)
+                if((test&0x40)!=0)
                 {
-                    parentAgeFilename = new Wpstr(c);
+                    xu7 = new Wpstr(c);
                 }
             }
             
@@ -625,21 +464,21 @@ public abstract class PrpMessage extends PrpTaggedObject
                 int test = b.Int16ToInt32(flags);
                 if((test&0x01)!=0)
                 {
-                    ageinfo.compile(c);
+                    xageinfo.compile(c);
                 }
                 if((test&0x02)!=0)
                 {
-                    c.writeByte(linkingRules);
+                    c.writeByte(xu1);
                 }
                 if((test&0x04)!=0)
                 {
-                    sp_dead.compile(c);
+                    xu2.compile(c);
                     test = test & 0xFFFB | 0x20; //removes this flag and adds a later one. Why?
                 }
                 if((test&0x08)!=0)
                 {
-                    sp_dead2.compile(c);
-                    sp_dead3.compile(c);
+                    xu3.compile(c);
+                    xu4.compile(c);
                     test = test & 0xFFF7 | 0x20; //removes this flag and adds a later one. Why?
                 }
                 else
@@ -648,43 +487,35 @@ public abstract class PrpMessage extends PrpTaggedObject
                     {
                         //function sub_6f16c0 here is a little weird.
                         //I had to figure this out on my own.
-                        spawnPointFlags.compile(c); //decompiled version has a bunch of junk here.
-                        int test2 = spawnPointFlags.get(0);
+                        xu5.compile(c); //decompiled version has a bunch of junk here.
+                        int test2 = xu5.get(0);
                         if((test2&0x01)!=0)
                         {
-                            spTitle.compile(c);
+                            xu5a.compile(c);
                         }
                         if((test2&0x02)!=0)
                         {
-                            spName.compile(c);
+                            xu5b.compile(c);
                         }
                         if((test2&0x04)!=0)
                         {
-                            camStack.compile(c);
+                            xu5c.compile(c);
                         }
                     }
                 }
                 if((test&0x10)!=0)
                 {
-                    c.writeByte(amCCR);
+                    c.writeByte(xu6);
                 }
                 if((test&0x40)!=0)
                 {
-                    parentAgeFilename.compile(c);
+                    xu7.compile(c);
                 }
             }
         }
         
         public static class PlAgeInfoStruct extends uruobj
         {
-            public static final int kHasAgeFilename = 0x1,
-                                    kHasAgeInstanceName = 0x2,
-                                    kHasAgeInstanceGuid = 0x4,
-                                    kHasAgeUserDefinedName = 0x8,
-                                    kHasAgeSequenceNumber = 0x10,
-                                    kHasAgeDescription = 0x20,
-                                    kHasAgeLanguage = 0x40;
-            
             public byte flags;
             public Wpstr ageFilename;
             public Wpstr ageInstanceName;
@@ -727,8 +558,6 @@ public abstract class PrpMessage extends PrpTaggedObject
                     ageLanguage = c.readInt();
                 }
             }
-
-            private PlAgeInfoStruct() {}
             
             public void compile(Bytedeque c)
             {
@@ -767,7 +596,7 @@ public abstract class PrpMessage extends PrpTaggedObject
     }
     public static class plEventCallbackSetupMsg extends uruobj //not in pots
     {
-        public plMessage parent;
+        plMessage parent;
         int count;
         PlOneShotMsg.PlOneShotCallback[] callbacks;
 
@@ -784,7 +613,7 @@ public abstract class PrpMessage extends PrpTaggedObject
     }
     public static class PlOneShotMsg extends uruobj
     {
-        public plMessage parent;
+        plMessage parent;
         int count;
         PlOneShotCallback[] callbacks;
         
@@ -889,8 +718,6 @@ public abstract class PrpMessage extends PrpTaggedObject
             result.state = Flt.zero();
             result.count = 0;
             result.events = new proEventData[0];
-            result.type = 0;
-            result.id = 0;
             return result;
         }
         
@@ -1137,24 +964,17 @@ public abstract class PrpMessage extends PrpTaggedObject
     public static class PlEnableMsg extends uruobj
     {
         //which bit is set: 0th bit, 1st bit, etc.
-//        public static final int kDisable = 0; //0x1  //1
-//        public static final int kEnable = 1;  //0x2  //2
-//        public static final int kDrawable = 2;//0x4  //4
-//        public static final int kPhysical = 3;//0x8  //8
-//        public static final int kAudible = 4; //0x10 //16
-//        public static final int kAll = 5;     //0x20 //32
-//        public static final int kByType = 6;  //0x40 //64
-        public static final int kDisable    = 0x1;  //1
-        public static final int kEnable     = 0x2;  //2
-        public static final int kDrawable   = 0x4;  //4
-        public static final int kPhysical   = 0x8;  //8
-        public static final int kAudible    = 0x10; //16
-        public static final int kAll        = 0x20; //32
-        public static final int kByType     = 0x40; //64
+        public static final int kDisable = 0; //0x1  //1
+        public static final int kEnable = 1;  //0x2  //2
+        public static final int kDrawable = 2;//0x4  //4
+        public static final int kPhysical = 3;//0x8  //8
+        public static final int kAudible = 4; //0x10 //16
+        public static final int kAll = 5;     //0x20 //32
+        public static final int kByType = 6;  //0x40 //64
         
-        public plMessage parent;
-        public HsBitVector cmd;
-        public HsBitVector types;
+        plMessage parent;
+        HsBitVector cmd;
+        HsBitVector types;
         
         public PlEnableMsg(context c) throws readexception
         {
@@ -1172,7 +992,7 @@ public abstract class PrpMessage extends PrpTaggedObject
     }
     public static class PlActivatorMsg extends uruobj
     {
-        public plMessage parent;
+        plMessage parent;
         int u1;
         Vertex u2;
         
@@ -1212,7 +1032,7 @@ public abstract class PrpMessage extends PrpTaggedObject
     }
     public static class PlExcludeRegionMsg extends uruobj
     {
-        public plMessage parent;
+        plMessage parent;
         
         byte u1;
         int u2;
@@ -1255,15 +1075,6 @@ public abstract class PrpMessage extends PrpTaggedObject
             callbacks = c.readVector(PrpTaggedObject.class, count);
         }
         
-        public static PlMessageWithCallbacks createEmpty()
-        {
-            return new PlMessageWithCallbacks();
-        }
-
-        private PlMessageWithCallbacks() {
-            
-        }
-        
         public void compile(Bytedeque c)
         {
             parent.compile(c);
@@ -1275,43 +1086,19 @@ public abstract class PrpMessage extends PrpTaggedObject
     }
     public static class PlSoundMsg extends uruobj
     {
-        public PlMessageWithCallbacks parent;
-        public HsBitVector cmd;
-        public Double64 begin;
-        public Double64 end;
-        public byte loop;
-        public byte playing;
-        public Flt speed;
-        public Double64 time;
-        public int index;
-        public int repeats;
-        public int namestr;
-        public Flt volume;
-        public byte fadetype;
-        
-        
-        public static final int kPlay = 0x1,
-                                kStop = 0x2,
-                                kSetLooping = 0x4,
-                                kUnSetLooping = 0x8,
-                                kSetBegin = 0x10,
-                                kToggleState = 0x20,
-                                kAddCallbacks = 0x40,
-                                kRemoveCallbacks = 0x80,
-                                kGetStatus = 0x100,
-                                kNumSounds = 0x200,
-                                kStatusReply = 0x400,
-                                kGoToTime = 0x800,
-                                kSetVolume = 0x1000,
-                                kSetTalkIcon = 0x2000,
-                                kClearTalkIcon = 0x4000,
-                                kSetFadeIn = 0x8000,
-                                kSetFadeOut = 0x10000,
-                                kIsLocalOnly = 0x20000,
-                                kSelectFromGroup = 0x40000,
-                                kNumCmds = 0x80000,
-                                kFastForwardPlay = 0x100000,
-                                kFastForwardToggle = 0x200000;
+        PlMessageWithCallbacks parent;
+        HsBitVector cmd;
+        Double64 begin;
+        Double64 end;
+        byte loop;
+        byte playing;
+        Flt speed;
+        Double64 time;
+        int index;
+        int repeats;
+        int namestr;
+        Flt volume;
+        byte fadetype;
         
         public PlSoundMsg(context c) throws readexception
         {
@@ -1328,13 +1115,6 @@ public abstract class PrpMessage extends PrpTaggedObject
             namestr = c.readInt();
             volume = new Flt(c);
             fadetype = c.readByte();
-        }
-
-        private PlSoundMsg() {}
-        
-        public static PlSoundMsg createEmpty()
-        {
-            return new PlSoundMsg();
         }
         
         public void compile(Bytedeque c)

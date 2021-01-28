@@ -74,21 +74,6 @@ Ceci produit un rapport sur un ou des Ages.
 2) Cliquez sur "Rapport".
 
 
-Écran large:
-------------------
-Cet onglet contient des modifications pour jouer à Uru sur écran 16/9e (ou n'importe que autre ratio du genre), ainsi que de supprimer la limite pour regarder vers le haut ou le bas.
-(d'ailleurs, même sur écran 4/3, ceci permet de supprimer un léger étirement vertical du jeu de base)
-Changer directement la résolution du jeu n'est pas possible pour le moment, voir le lien dans l'onglet.
-Vu que ceci nécessite beaucoup de modifications, il est préférable de lancer cet utilitaire en dernier.
-
-
-Outils pour Fan-Ages:
---------------
-Cet onglet donne accès à quelques outils d'édition de Fan-Ages - ceci peut être utile aussi bien pour les auteurs que pour les joueurs.
-Ceci vous permet de réduire énormément les ralentissements dans certains Âges, ainsi que d'augmenter la distance d'affichage, ou même ajouter de faux effets de lumière pour rendre l'Âge plus réaliste !
-Voir sur la GoW pour une description plus ample des options.
-
-
 Information sur Drizzle:
 -------------
 Licence: GPLv3, ou subséquente, à votre choix.
@@ -98,5 +83,4 @@ Contributeurs(liste incomplète):
   Dustin(aka ddb174): conversion et programmation
   L.K.: traduction allemande
   Chacal: traduction française
-  Wodan, Erik: traduction hollandais
-  Sirius: programmation additionnelle, traduction française
+  Wodan,Erik: traduction hollandais

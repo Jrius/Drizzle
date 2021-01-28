@@ -20,7 +20,6 @@ package prpobjects;
 
 import shared.Vertex;
 import shared.Flt;
-import shared.Format;
 import uru.context; import shared.readexception;
 import uru.Bytestream;
 import uru.Bytedeque;
@@ -33,98 +32,40 @@ import shared.readexception;
 
 public class plDynamicEnvMap extends uruobj
 {
-    public plCubicRenderTarget faces;
+    ithinkthisisPlCubicRenderTarget u1;
     public Vertex fPos;
-    //Flt[] u3; //8
-    public Flt hither, yon, fogStart;
-    public Rgba color;
-    public Flt refreshRate;
-    public byte includeCharacters;
-    public int numVisRegions;
-    public Uruobjectref[] visRegions;
-    public int numVisRegionNames;
-    public Urustring[] visRegionNames;
-    public Uruobjectref rootNode;
+    Flt[] u3; //8
+    byte u4;
+    int refcount;
+    Uruobjectref[] refs;
+    int xsubcount;
+    Urustring[] xsubs;
+    Uruobjectref xref2;
     
     public plDynamicEnvMap(context c) throws readexception
     {
-        faces = new plCubicRenderTarget(c);
+        u1 = new ithinkthisisPlCubicRenderTarget(c);
         fPos = new Vertex(c);
-        //u3 = c.readArray(Flt.class, 8);
-        hither = new Flt(c);
-        yon = new Flt(c);
-        fogStart = new Flt(c);
-        color = new Rgba(c);
-        refreshRate = new Flt(c);
-        includeCharacters = c.readByte();
-        numVisRegions = c.readInt();
-        visRegions = c.readArray(Uruobjectref.class, numVisRegions);
+        u3 = c.readArray(Flt.class, 8);
+        u4 = c.readByte();
+        refcount = c.readInt();
+        refs = c.readArray(Uruobjectref.class, refcount);
         if(c.readversion==6||c.readversion==4||c.readversion==7)
         {
-            numVisRegionNames = c.readInt();
-            visRegionNames = c.readArray(Urustring.class, numVisRegionNames);
-            rootNode = new Uruobjectref(c);
+            xsubcount = c.readInt();
+            xsubs = c.readArray(Urustring.class, xsubcount);
+            xref2 = new Uruobjectref(c);
         }
-    }
-
-    private plDynamicEnvMap() {}
-    
-    public static plDynamicEnvMap createEmpty()
-    {
-        return new plDynamicEnvMap();
-    }
-    
-    public static plDynamicEnvMap createFromCamMap(prpobjects.plDynamicCamMap dcm, prpfile prp)
-    {
-        plDynamicEnvMap result = plDynamicEnvMap.createEmpty();
-        
-        result.faces = plCubicRenderTarget.createFromRenderTarget(dcm.target);
-        
-        PrpRootObject rn = prp.findObjectWithRef(dcm.rootNode);
-        if (rn != null && rn.castToSceneObject().coordinateinterface.hasref())
-        {
-            prpobjects.plCoordinateInterface ci = prp.findObjectWithRef(rn.castToSceneObject().coordinateinterface).castTo();
-            float x = Float.intBitsToFloat(ci.localToWorld.xmatrix[3]);
-            float y = Float.intBitsToFloat(ci.localToWorld.xmatrix[7]);
-            float z = Float.intBitsToFloat(ci.localToWorld.xmatrix[11]);
-            
-            result.fPos = new Vertex(x, y, z);
-        }
-        else
-            result.fPos = new Vertex(0,0,0);
-        
-        result.hither = dcm.hither;
-        result.yon = dcm.yon;
-        result.fogStart = dcm.fogStart;
-        result.color = Rgba.createFromVals(dcm.color.r.toJavaFloat(), dcm.color.g.toJavaFloat(), dcm.color.b.toJavaFloat(), dcm.color.a.toJavaFloat());
-        //result.refreshRate = dcm.refreshRate; // generally bad practice
-        result.refreshRate = Flt.zero(); // FPS friendly
-        //result.u4 = dcm.includeCharacters; // generally bad practice
-        result.includeCharacters = 0; // no giant looking avatars in the reflection
-        
-        result.numVisRegions = dcm.numVisRegions;
-        result.visRegions = new Uruobjectref[result.numVisRegions];
-        System.arraycopy(dcm.visRegions, 0, result.visRegions, 0, result.numVisRegions);
-        
-        //result.numVisRegionNames = ; // bah, don't bother, PotS doesn't have it.
-        //result.visRegionNames = ;
-        //result.rootNode = ;
-        return result;
     }
     
     public void compile(Bytedeque c)
     {
-        faces.compile(c);
+        u1.compile(c);
         fPos.compile(c);
-        //c.writeArray(u3);
-        hither.compile(c);
-        yon.compile(c);
-        fogStart.compile(c);
-        color.compile(c);
-        refreshRate.compile(c);
-        c.writeByte(includeCharacters);
-        c.writeInt(numVisRegions);
-        c.writeArray2(visRegions);
+        c.writeArray(u3);
+        c.writeByte(u4);
+        c.writeInt(refcount);
+        c.writeArray2(refs);
         //skip this next block, since it's moul-only.
         /*if(c.readversion==6)
         {
@@ -133,17 +74,17 @@ public class plDynamicEnvMap extends uruobj
             xref2 = new Uruobjectref(c);
         }*/
     }
-    public static class plCubicRenderTarget extends uruobj //plCubicRenderTarget probably.
+    public static class ithinkthisisPlCubicRenderTarget extends uruobj //plCubicRenderTarget probably.
     {
-        public plRenderTarget parent; //sub_566C80
-        public plRenderTarget child1;
-        public plRenderTarget child2;
-        public plRenderTarget child3;
-        public plRenderTarget child4;
-        public plRenderTarget child5;
-        public plRenderTarget child6;
+        plRenderTarget parent; //sub_566C80
+        plRenderTarget child1;
+        plRenderTarget child2;
+        plRenderTarget child3;
+        plRenderTarget child4;
+        plRenderTarget child5;
+        plRenderTarget child6;
         
-        public plCubicRenderTarget(context c) throws readexception
+        public ithinkthisisPlCubicRenderTarget(context c) throws readexception
         {
             //sub4e0580 in hexisle
             parent = new plRenderTarget(c);
@@ -172,26 +113,6 @@ public class plDynamicEnvMap extends uruobj
                 child6 = new plRenderTarget(c);
             }
         }
-
-        private plCubicRenderTarget() {}
-
-        public static plCubicRenderTarget createEmpty()
-        {
-            return new plCubicRenderTarget();
-        }
-
-        public static plCubicRenderTarget createFromRenderTarget(plRenderTarget tgt)
-        {
-            plCubicRenderTarget result = plCubicRenderTarget.createEmpty();
-            result.parent = tgt;
-            result.child1 = tgt;
-            result.child2 = tgt;
-            result.child3 = tgt;
-            result.child4 = tgt;
-            result.child5 = tgt;
-            result.child6 = tgt;
-            return result;
-        }
         
         public void compile(Bytedeque c)
         {
@@ -208,20 +129,20 @@ public class plDynamicEnvMap extends uruobj
     //sub_566C80
     public static class plRenderTarget extends uruobj
     {
-        public x0003Bitmap parent;
-        public short u1;
-        public short u2;
-        public byte u3;
-        public Flt xu4;
-        public Flt xu5;
-        public Flt xu6;
-        public Flt xu7;
-        public short xu8;
-        public short xu9;
-        public short xu10;
-        public short xu11;
-        public byte u12;
-        public byte u13;
+        x0003Bitmap parent;
+        short u1;
+        short u2;
+        byte u3;
+        Flt xu4;
+        Flt xu5;
+        Flt xu6;
+        Flt xu7;
+        short xu8;
+        short xu9;
+        short xu10;
+        short xu11;
+        byte u12;
+        byte u13;
         
         public plRenderTarget(context c)
         {
@@ -250,20 +171,6 @@ public class plDynamicEnvMap extends uruobj
             }
             u12 = c.readByte();
             u13 = c.readByte();
-        }
-
-        private plRenderTarget() {}
-
-        public static plRenderTarget createEmpty()
-        {
-            return new plRenderTarget();
-        }
-
-        public static plRenderTarget createDefault()
-        {
-            plRenderTarget result = plRenderTarget.createEmpty();
-            
-            return result;
         }
         
         public void compile(Bytedeque c)

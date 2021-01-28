@@ -11,9 +11,6 @@ import java.io.ByteArrayOutputStream;
 //import java.util.zip.
 import shared.e;
 
-/**
- * Structure used by dirtfile to decompile DNI file
- */
 public class ObjFile
 {
     byte[] rawdata;

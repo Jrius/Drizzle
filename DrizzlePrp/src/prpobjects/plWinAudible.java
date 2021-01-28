@@ -33,10 +33,10 @@ import shared.b;
 public class plWinAudible extends uruobj
 {
     //Objheader xheader;
-    public x0012Audible parent; //this is empty; do we need it?
-    public int count;
-    public Uruobjectref[] objectrefs;
-    public Uruobjectref scenenode;
+    x0012Audible parent; //this is empty; do we need it?
+    int count;
+    Uruobjectref[] objectrefs;
+    Uruobjectref scenenode;
     
     public plWinAudible(context c) throws readexception //,boolean hasHeader)
     {

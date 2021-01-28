@@ -318,10 +318,10 @@ public class AutoMod_Translate
                                         Vector<plAGAnim.plMatrixControllerChannel> mccs = shared.FindAllDescendants.FindAllDescendantsByClass(plAGAnim.plMatrixControllerChannel.class, anim);
                                         for(plAGAnim.plMatrixControllerChannel mcc: mccs)
                                         {
-                                            m.msg("Changing ATCAnim plMatrixControllerChannel's uk("+animroot.toString()+") from:"+mcc.affineParts.u1.toString());
+                                            m.msg("Changing ATCAnim plMatrixControllerChannel's uk("+animroot.toString()+") from:"+mcc.u3.u1.toString());
                                             //change the uk
                                             animroot.hasChanged = true;
-                                            mcc.affineParts.u1.addModify(translationvertex);
+                                            mcc.u3.u1.addModify(translationvertex);
                                             //mcc.u3.u1.addModify(Vertex.createFromFloats(0, 0, -1));
                                         }
 

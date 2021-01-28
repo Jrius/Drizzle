@@ -34,18 +34,11 @@ public class plWin32Sound extends uruobj
         parent = new PlSound(c);
         channel = c.readByte();
     }
-
-    private plWin32Sound() {}
     
     public void compile(Bytedeque c)
     {
         parent.compile(c);
         c.writeByte(channel);
-    }
-    
-    public static plWin32Sound createEmpty()
-    {
-        return new plWin32Sound();
     }
     
     public static class PlSound extends uruobj
@@ -74,15 +67,8 @@ public class plWin32Sound extends uruobj
         //short xu1;
         Urustring xu1;
 
-        public static final int kProp3D = 0x1;
-        public static final int kPropDisableLOD = 0x2;
         public static final int kPropLooping = 0x4;
         public static final int kPropAutoStart = 0x8;
-        public static final int kPropLoadOnly = 0x10;
-        public static final int kPropLoadOnlyOnCall = 0x20;
-        public static final int kPropFullyDisabled = 0x40;
-        public static final int kPropDontFade = 0x80;
-        public static final int kPropIncidental = 0x100;
 
 
         public PlSound(context c) throws readexception
@@ -150,13 +136,13 @@ public class plWin32Sound extends uruobj
     
     public static class plFadeParams extends uruobj
     {
-        public Flt lengthInSecs;
-        public Flt volStart;
-        public Flt volEnd;
-        public byte type;
-        public Flt curTime;
-        public int stopWhenDone;
-        public int fadeSoftVol;
+        Flt lengthInSecs;
+        Flt volStart;
+        Flt volEnd;
+        byte type;
+        Flt curTime;
+        int stopWhenDone;
+        int fadeSoftVol;
         
         public plFadeParams(context c)
         {
@@ -192,13 +178,13 @@ public class plWin32Sound extends uruobj
         byte roomAuto;
         byte roomHFAuto;
         short outsideVolHF;
-        public Flt airAbsorptionFactor;
-        public Flt roomRolloffFactor;
-        public Flt dopplerFactor;
-        public Flt rolloffFactor;
-        public plEAXSourceSoftSettings softStarts;
-        public plEAXSourceSoftSettings softEnds;
-        public Flt occlusionSoftValue;
+        Flt airAbsorptionFactor;
+        Flt roomRolloffFactor;
+        Flt dopplerFactor;
+        Flt rolloffFactor;
+        plEAXSourceSoftSettings softStarts;
+        plEAXSourceSoftSettings softEnds;
+        Flt occlusionSoftValue;
         
         Flt xu1;
         plEAXSourceSoftSettings xsoft;
@@ -231,15 +217,9 @@ public class plWin32Sound extends uruobj
                     if(shared.State.AllStates.getStateAsBoolean("reportEaxSourceSettings")) m.msg("PlEaxSourceSettings(crow/mystv): ",xu1.toString()+" : "+xsoft.toString());
                     
                     //set values for writing...
-                    occlusionSoftValue = xu1;
-                    softStarts = xsoft;
-                    softEnds = new plEAXSourceSoftSettings();
-                    softEnds.occlusion = 0;
-                    softEnds.occlusionDirectRatio = new Flt((float)1.0);
-                    softEnds.occlusionLFRatio = new Flt((float)0.25);
-                    softEnds.occlusionRoomRatio = new Flt((float)1.5);
-                    
-                    /*
+                    //occlusionSoftValue = xu1;
+                    //softStarts = xsoft;
+                    //softEnds = new plEAXSourceSoftSettings();
                     occlusionSoftValue = Flt.zero();
                     softStarts = new plEAXSourceSoftSettings();
                     softStarts.occlusion = 0;
@@ -248,8 +228,8 @@ public class plWin32Sound extends uruobj
                     softStarts.occlusionRoomRatio = new Flt((float)1.5);
                     softEnds = softStarts;
                     
-                    m.warn("Sound: Fudging some eax settings.");
-                    //throw new readexception("plEAXSourceSetting: can read, but throwing error to skip."); //*/
+                    m.warn("Sound: Fudging some sound settings.");
+                    //throw new readexception("plEAXSourceSetting: can read, but throwing error to skip.");
                 }
                 else
                 {

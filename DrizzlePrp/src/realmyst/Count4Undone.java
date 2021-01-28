@@ -20,15 +20,10 @@ package realmyst;
 
 import shared.*;
 
-
-/*
-Rarely used.
-*/
 public class Count4Undone
 {
     Typeid type;
     int size;
-    public final byte[] rawdata;
     
     public Count4Undone(IBytestream c)
     {
@@ -36,14 +31,6 @@ public class Count4Undone
         size = c.readInt();
         
         //skip the rest.
-        rawdata = c.readBytes(size-8);
-        
-//    
-//        String out = new String();
-//        
-//        for (byte b: rawdata)
-//            out += (char)b;
-//        
-//        m.msg(out);
+        c.readBytes(size-8);
     }
 }

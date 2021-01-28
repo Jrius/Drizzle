@@ -202,10 +202,10 @@ public class plPythonFileMod extends uruobj
                     break;
                 case 4:
                 case 13:
-//                    if(type==4 && c.readversion==4)
-//                    {
-//                        m.warn("          Changing ptAttribDropDownList to ptAttribString, it needs to be accounted for in the .py file as well.");
-//                    }
+                    if(type==4 && c.readversion==4)
+                    {
+                        m.warn("          Changing ptAttribDropDownList to ptAttribString, it needs to be accounted for in the .py file as well.");
+                    }
                     xString = new Bstr(c);
                     if(shared.State.AllStates.getStateAsBoolean("reportPythonFileMod")) m.msg("PythonFileMod:     string="+xString.toString());
                     break;
@@ -216,7 +216,7 @@ public class plPythonFileMod extends uruobj
                         xString = new Bstr(c);
                         if(shared.State.AllStates.getStateAsBoolean("reportPythonFileMod")) m.msg("PythonFileMod:     string="+xString.toString());
                         //m.warn("PythonFileMod: usinng a case that differs between versions.");
-//                        m.warn("          Changing ptAttribGlobalSDLVar to ptAttribString, it needs to be accounted for in the .py file as well.");
+                        m.warn("          Changing ptAttribGlobalSDLVar to ptAttribString, it needs to be accounted for in the .py file as well.");
                         //throw new shared.readwarningexception("PythonFileMod: can read okay, but throwing error to ignore.");
                     }
                     else if(c.readversion==6||c.readversion==3)

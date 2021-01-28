@@ -31,8 +31,8 @@ import shared.*;
 
 public class plArmatureEffectFootSound extends uruobj
 {
-    public byte b1;
-    public Uruobjectref[] refs;
+    byte b1;
+    Uruobjectref[] refs;
     
     public plArmatureEffectFootSound(context c) throws readexception
     {
