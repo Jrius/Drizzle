@@ -421,6 +421,7 @@ public class plHKPhysical extends uruobj
             pots.zzzu3 = 0x0;
             pots.zzzLOSDB = LOSDB;
             pots.zzzgroup0 = group0;
+            pots.givemass = true;
         }
         else if( u14==0x6 && u15==0x0 && group0==0x80 )
         {
