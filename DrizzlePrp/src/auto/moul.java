@@ -692,7 +692,7 @@ public class moul
                 //change respondermodifier from AhnonayCathedral to AhnonayMOUL.
                 plResponderModifier rm = prp.findObject("AhnonayBook01_AhnonayBook01_Responder", Typeid.plResponderModifier).castTo();
                 PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
-                ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
+                ltam.ageLinkStruct.xageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
 
                 //change Ahnonay image.
                 x0006Layer layer = prp.findObject("m_1545_Map__69950", Typeid.plLayer).castTo();
@@ -704,8 +704,8 @@ public class moul
                 // (we could completely remove that responder as it's no longer used. I'm a bit wary of null plKeys though.)
                 rm = prp.findObject("ChisoBook_ChisoBook_001_Responder", Typeid.plResponderModifier).castTo();
                 ltam = rm.messages.get(0).commands.get(1).message.castTo();
-                ltam.ageLinkStruct.ageinfo.flags &= ~0x04;
-                ltam.ageLinkStruct.ageinfo.ageInstanceGuid = null;
+                ltam.ageLinkStruct.xageinfo.flags &= ~0x04;
+                ltam.ageLinkStruct.xageinfo.ageInstanceGuid = null;
                 
                 // make the Chiso book use the xSimpleLinkingBook script - this circumvents any potential instancing issues with the linking responder's LinkToAge msg.
                 pfm = prp.findObject("ChisoBook_001_Python_File", Typeid.plPythonFileMod).castTo();
@@ -733,7 +733,7 @@ public class moul
                 //change respondermodifier from AhnonayCathedral to AhnonayMOUL.
                 plResponderModifier rm = prp.findObject("cRespLinkOutAhnonay", Typeid.plResponderModifier).castTo();
                 PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
-                ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
+                ltam.ageLinkStruct.xageinfo.ageFilename = Wpstr.create("AhnonayMOUL");
 
                 //change Ahnonay image.
                 x0006Layer layer = prp.findObject("Map #69950", Typeid.plLayer).castTo();
