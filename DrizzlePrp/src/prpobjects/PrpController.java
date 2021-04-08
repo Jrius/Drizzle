@@ -143,6 +143,15 @@ public class PrpController extends uruobj
                 value = new plQuatController(c);
             }
         }
+        
+        public void compile(Bytedeque c)
+        {
+            c.writeInt(flag);
+            if(flag!=0)
+            {
+                value.compile(c);
+            }
+        }
     }
     
     public static class plQuatController extends uruobj
@@ -161,6 +170,16 @@ public class PrpController extends uruobj
             for(int i=0;i<count;i++)
             {
                 keys[i] = new hsQuatKey(c);
+            }
+        }
+        
+        public void compile(Bytedeque c)
+        {
+            parent.compile(c);
+            c.writeInt(count);
+            for (hsQuatKey key : keys)
+            {
+                key.compile(c);
             }
         }
     }
@@ -183,6 +202,12 @@ public class PrpController extends uruobj
             {
                 int dummy=0;
             }
+        }
+        
+        public void compile(Bytedeque c)
+        {
+            keyframe.compile(c);
+            value.compile(c);
         }
     }
     public static class plCompoundRotController extends uruobj
