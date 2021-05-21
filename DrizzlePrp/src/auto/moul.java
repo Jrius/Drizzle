@@ -228,7 +228,7 @@ public class moul
                 }
 
                 String newAgename = info.g.getNewAgename(file);
-                
+
                 //moved to conversion:
                 /*String newagename = info.g.renameinfo.agenames.get(file.agename);
                 String newAgename = (newagename==null)?agename:newagename;
@@ -258,7 +258,7 @@ public class moul
                 }
 
                 auto.postmod.PostMod_FixSwimRegions.FixSwimRegions(prp);
-                
+
                 //all the crazy stuff, should be cleaned up:
                 HashMap<Uruobjectdesc, Uruobjectdesc> refReassigns = new HashMap();
                 moul.proccessPrp(prp, file.agename, info.g.renameinfo.agenames, info.outfolder, info.infolder, refReassigns);
@@ -325,7 +325,7 @@ public class moul
         r.agenames.put("Personal", "PersonalMOUL");
         r.agenames.put("Ahnonay", "AhnonayMOUL");
         r.agenames.put("Neighborhood", "NeighborhoodMOUL"); //Drizzle25
-        
+
         // Drizzle27
         r.pagenames.put("Neighborhood", "nb01Ayhoheek5Man1Dead", "nb01MOULAyhoheek5Man1Dead");
         r.pagenames.put("Neighborhood", "nb01Ayhoheek5Man1State", "nb01MOULAyhoheek5Man1State");
@@ -518,8 +518,8 @@ public class moul
         m.state.curstate.showWarningMessages = false;
         m.state.curstate.showStatusMessages = true;
 
-        
-        
+
+
         //shared.State.AllStates.push();
         //shared.State.AllStates.revertToDefaults();
         //shared.State.AllStates.setState("removeDynamicCamMap", true);
@@ -530,12 +530,12 @@ public class moul
         //shared.State.AllStates.setState("automateMystV", true);
         //shared.State.AllStates.setState("includeAuthoredMaterial", shared.State.AllStates.getStateAsBoolean("includeAuthoredMaterial")); //this line doesn't really do anything, just there to remind you.
         //shared.State.AllStates.setState("includeAuthoredMaterial", false);
-        
+
         //verify folders
         m.status("Checking the folders you gave...");
         if(!auto.AllGames.getMoul().isFolderX(myst5folder)) return;
         if(!auto.AllGames.getPots().isFolderX(potsfolder)) return;
-        
+
         m.status("Starting conversion...");
         Vector<String> files = fileLists.moulSimplicityList();
         boolean skipmainfiles = false;
@@ -553,14 +553,14 @@ public class moul
         {
             auto.mod.AutoMod.SimplicityAutoMod(myst5folder, potsfolder, file);
         }
-        
+
         //shared.State.AllStates.pop();
         m.state.pop();
         m.status("Dont forget to run SoundDecompress.exe in your Pots folder, in order to get the sounds working!  (You can also click the SoundDecompress button on the form if you prefer.) (If SoundDecompress crashes, it means you have to log into Uru, quit, then try again.)");
         //m.status("Dont forget to run SoundDecompress.exe; the button is at UAM->SoundDecompress. (If SoundDecompress crashes, it means you have to log into Uru, quit, then try again.)");
         m.status("Conversion completed!");
     }*/
-    
+
     //static HashMap<Uruobjectdesc, Uruobjectdesc> refReassigns;
     public static void proccessPrp(prpfile prp, String agename, HashMap<String, String> agenames, String outfolder, String infolder, HashMap<Uruobjectdesc, Uruobjectdesc> refReassigns)
     {
@@ -584,7 +584,7 @@ public class moul
         {
             prpfile textprp = prpfile.createFromFile(infolder + "/dat/Neighborhood_District_Textures.prp", true);
             //prpdistiller.distiller.distillTextures(prp, textprp, new String[]{}, refReassigns);
-            
+
             prpfile prp1 = prpfile.createFromFile(infolder + "/dat/Neighborhood_District_nb01.prp", false);
             Vector<prpfile> prpfiles = new Vector();
             prpfiles.add(prp1);
@@ -617,7 +617,7 @@ public class moul
             //change pythonfilemod from Myst to MystMystV.
             plPythonFileMod pfm = prp.findObject("cPythLinkBookMyst", Typeid.plPythonFileMod).castTo();
             pfm.getListingByIndex(4).xString = Bstr.createFromString("MystMystV");
-            
+
             //change respondermodifier from Myst to MystMystV.
             plResponderModifier rm = prp.findObject("cRespLinkOutMyst", Typeid.plResponderModifier).castTo();
             PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
@@ -653,7 +653,7 @@ public class moul
             //just disable these objects, so user's can't click them.
             prp.markObjectDeleted(Typeid.plHKPhysical, "SaveClothClkRegion");
             prp.markObjectDeleted(Typeid.plHKPhysical, "BahroRockBook");
-            
+
             //set new python files:
             prpobjects.plPythonFileMod pfm1 = prp.findObject("cPythDoorConsole", Typeid.plPythonFileMod).castTo();
             pfm1.pyfile = Urustring.createFromString("ahnyKadishDoorMOUL");
@@ -670,7 +670,7 @@ public class moul
         {
             prpobjects.plPythonFileMod pfm = prp.findObject("PythVogondolaRide", Typeid.plPythonFileMod).castTo();
             pfm.pyfile = Urustring.createFromString("ahnyVogondolaRideV2MOUL.py");
-            
+
             //set initialiseOnFirstUpdate to false, so that it does ServerInitComplete.
             prpobjects.plPythonFileMod pfm2 = prp.findObject("cPythRigAnims", Typeid.plPythonFileMod).castTo();
             pfm2.getListingByIndex(7).xBoolean = 0;
@@ -699,10 +699,13 @@ public class moul
                 //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
                 Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
                 layer.texture = mmref;
-                
+
                 // remove the GUID from the plLinkToAgeMsg to Chiso. This crashes PotS.
                 // (we could completely remove that responder as it's no longer used. I'm a bit wary of null plKeys though.)
-                rm = prp.findObject("ChisoBook_ChisoBook_001_Responder", Typeid.plResponderModifier).castTo();
+                PrpRootObject rmro = prp.findObject("ChisoBook_ChisoBook_001_Responder", Typeid.plResponderModifier);
+                if (rmro == null) // newer version (circa 20/05/2021)
+                    rmro = prp.findObject("ChisoBook_ChisoBook.001_Responder", Typeid.plResponderModifier);
+                rm = rmro.castTo();
                 ltam = rm.messages.get(0).commands.get(1).message.castTo();
                 ltam.ageLinkStruct.xageinfo.flags &= ~0x04;
                 ltam.ageLinkStruct.xageinfo.ageInstanceGuid = null;
@@ -741,7 +744,7 @@ public class moul
                 Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
                 layer.texture = mmref;
             }
-        
+
         }
         if(agename.equals("city") && pagename.equals("islmLakeLightMeter"))
         {
@@ -753,7 +756,7 @@ public class moul
             auto.postmod.PostMod_RemoveDynamicCamMap.PostMod_RemoveDynamicCampMap(prp);
         }
     }
-    
+
     /*public static void convertMoulToPots(String infolder, String outfolder, Vector<String> files)
     {
         class compileDecider implements uru.moulprp.prputils.Compiler.Decider
@@ -783,12 +786,12 @@ public class moul
         prefices.put("Neighborhood02",86);
         prefices.put("Personal",85);
         prefices.put("GreatTreePub",84);
-        
+
         HashMap<String, String> agenames = new HashMap<String, String>();
         agenames.put("Kveer", "KveerMOUL");
         agenames.put("Neighborhood02", "KirelMOUL");
         agenames.put("Personal", "PersonalMOUL");
-        
+
         //these map from filename to oldpagenum to newpagenum
         //HashMap<String, HashMap<Integer,Integer>> suffices = new HashMap();
         //suffices.put("GUI_District_YeeshaPageGUI.prp", new Pair(50,86));
@@ -891,12 +894,12 @@ public class moul
         pagenums.put( "GlobalAnimations", 308, 388); //FemaleWinded
         pagenums.put( "GlobalAnimations", 324, 389); //
         //include kg*
-        
+
         Typeid[] readable = mystAutomation.moulReadable;
-        
+
         //create folders...
         FileUtils.CreateFolder(outfolder+"/dat/");
-        
+
         //Handle .fni files...
         Vector<String> fnifiles = common.filterFilenamesByExtension(files, ".fni");
         for(String filename: fnifiles)
@@ -904,14 +907,14 @@ public class moul
             String agename = common.getAgenameFromFilename(filename);
             String infile = infolder + "/dat/" + filename;
             String outfile = outfolder + "/dat/" + common.replaceAgenameIfApplicable(filename, agenames);
-            
+
             byte[] encryptedData = FileUtils.ReadFile(infile);
             byte[] decryptedData = uru.UruCrypt.DecryptWhatdoyousee(encryptedData);// UruCrypt.DecryptEoa(encryptedData);
             byte[] wdysData = uru.UruCrypt.EncryptWhatdoyousee(decryptedData);
             FileUtils.WriteFile(outfile, wdysData);
         }
-        
-        
+
+
         //Handle .age files...
         Vector<String> agefiles = filterFilenamesByExtension(files, ".age");
         for(String filename: agefiles)
@@ -919,12 +922,12 @@ public class moul
             String agename = getAgenameFromFilename(filename);
             String infile = infolder + "/dat/" + filename;
             String outfile = outfolder + "/dat/" + replaceAgenameIfApplicable(filename, agenames);
-            
+
             if(agename.toLowerCase().equals("personal")) m.warn("Relto may corrupt your savegame, be sure to back up your /sav folder!");
-            
+
             byte[] encryptedData = FileUtils.ReadFile(infile);
             byte[] decryptedData = UruCrypt.DecryptWhatdoyousee(encryptedData); //UruCrypt.DecryptEoa(encryptedData);
-            
+
             //modify sequence prefix if Age is in list.
             Integer prefix = prefices.get(agename);
             if(prefix!=null)
@@ -933,7 +936,7 @@ public class moul
                 agefile.setVariable("SequencePrefix", Integer.toString(prefix));
                 decryptedData = agefile.saveToByteArray();
             }
-            
+
             //modify Minkata's Age file.
             if(agename.toLowerCase().equals("minkata"))
             {
@@ -943,12 +946,12 @@ public class moul
                 agefile.appendLine("Page=minkDusttest,10");
                 decryptedData = agefile.saveToByteArray();
             }
-            
+
             byte[] wdysData = UruCrypt.EncryptWhatdoyousee(decryptedData);
             FileUtils.WriteFile(outfile, wdysData);
         }
-        
-        
+
+
         //Handle .prp files...
         Vector<String> prpfiles = filterFilenamesByExtension(files, ".prp");
         for(String filename: prpfiles)
@@ -956,26 +959,26 @@ public class moul
             String agename = getAgenameFromFilename(filename);
             String infile = infolder + "/dat/" + filename;
             String outfile = outfolder + "/dat/" + replaceAgenameIfApplicable(filename, agenames);//.replace("_", "_District_");
-            
+
             Bytes prpdata = Bytes.createFromFile(infile);
             Bytestream bytestream = Bytestream.createFromBytes(prpdata);
             context c = context.createFromBytestream(bytestream);
             c.curFile = filename; //helpful for debugging.
-            
+
             //modify sequence prefix if Age is in list.
             Integer prefix = prefices.get(agename);
             if(prefix!=null)
             {
                 c.sequencePrefix = prefix;
             }
-            
+
             //modify sequence suffix if Age is in list.
             cmap<Integer,Integer> suffix = pagenums.get(agename);
             if(suffix!=null)
             {
                 c.pagenumMap = suffix;
             }
-            
+
             //modify agename if Age is in list.
             String newAgename = agenames.get(agename);
             if(newAgename!=null)
@@ -984,14 +987,14 @@ public class moul
             }
 
             prpfile prp = prpfile.createFromContext(c, readable);
-            
+
             processPrp(prp,agename,agenames,outfolder,infolder);
-            
+
             Bytes prpoutputbytes = prp.saveAsBytes(new compileDecider());
             prpoutputbytes.saveAsFile(outfile);
         }
-        
-        
+
+
         //Handle .sum files...
         Vector<String> sumfiles = filterFilenamesByExtension(files, ".sum");
         for(String filename: sumfiles)
@@ -1000,8 +1003,8 @@ public class moul
             Bytes sum1 = uru.moulprp.sumfile.createSumfile(outfolder+"/dat/", replaceAgenameIfApplicable(agename, agenames));
             FileUtils.WriteFile(outfolder+"/dat/"+replaceAgenameIfApplicable(filename, agenames), sum1);
         }
-        
-        
+
+
         //All done!
         m.msg("Done Moul work!");
     }
