@@ -110,8 +110,13 @@ public class textfile
         //    text = Bytes.create(filecontents);
         //}
         //text.split((byte)0x0d);
-        text = text.remove((byte)0x0a);
-        result.lines = text.split((byte)0x0d);
+        // We can find any of the three major types of line feed in those files...
+        // Replace \r\n → \n (windows to unix)
+        text = text.replace(Bytes.create((byte)0x0d, (byte)0x0a), Bytes.create((byte)0x0a));
+        // Replace \r → \n (osx crap to unix)
+        text = text.replace(Bytes.create((byte)0x0d), Bytes.create((byte)0x0a));
+        // And split on \n
+        result.lines = text.split((byte)0x0a);
         
         return result;
     }
