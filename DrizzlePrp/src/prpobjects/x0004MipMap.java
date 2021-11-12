@@ -19,6 +19,13 @@
 package prpobjects;
 
 import images.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import uru.context; import shared.readexception;
 import uru.Bytestream;
 import uru.Bytedeque;
@@ -26,8 +33,10 @@ import shared.b;
 import shared.e;
 import shared.m;
 import java.util.Vector;
+import javax.imageio.ImageIO;
 import uru.generics;
 import shared.Bytes;
+import shared.IBytestream;
 
 /*BASE
 DWORD TexWidth
@@ -84,6 +93,7 @@ public class x0004MipMap extends uruobj
     public byte[][] xagrb;
     //byte[][] xtexel;
     public Image.Dxt xDxt;
+    public BufferedImage xPng;
     
     public void invert()
     {
@@ -136,6 +146,7 @@ public class x0004MipMap extends uruobj
     private x0004MipMap(){}
     public x0004MipMap(context c) throws readexception //,boolean hasHeader)
     {
+        String texName = c.curRootObject.objectname.toString();
         shared.IBytestream data = c.in;
         //if(hasHeader) xheader = new Objheader(c);
         parent = new x0003Bitmap(c);//,false);
@@ -157,27 +168,14 @@ public class x0004MipMap extends uruobj
                 }
                 break;
             case 0x01:
-                //xmipmaplevels = data.readByte();
-                xDxt = new Image.Dxt(data, xmipmaplevels,texwidth,texheight,parent.xtexel_size);
-                /*xtexel = new byte[xmipmaplevels][];
-                for(int i=0;i<xmipmaplevels;i++)
-                {
-                    //see ptMipMap in pyprp
-                    e.ensure(texwidth!=0);
-                    e.ensure(texheight!=0);
-                    int levelsize;
-                    int levelwidth = texwidth >>> i;
-                    int levelheight = texheight >>> i;
-                    if(levelwidth<3 || levelheight<3)
-                    {
-                        levelsize = levelwidth * levelheight * 4; //not enough for a texel, so just use raw data.
-                    }
-                    else
-                    {
-                        levelsize = levelwidth * levelheight * b.ByteToInt32(parent.xtexel_size) / 16; //16 pixels per texel.
-                    }
-                    xtexel[i] = data.readBytes(levelsize);
-                }*/
+                // Cyan's code declares the correct number of mipmaps, but doesn't actually generate the data for the lowest level.
+                // HSPlasma declares the correct number of mipmaps too, but it DOES generate that lowest level.
+                // Since some objects string together multiple bitmaps (ex: x0005Environmap),
+                // we want to make sure we advance the stream by the exact correct number of bytes.
+                // So we read in advance the exact memorysize, which we then pass as a bytestream to
+                // the Dxt class. The latter will stop reading if there are not enough bytes available for the lowest mipmap.
+                shared.IBytestream subStream = shared.ByteArrayBytestream.createFromByteArray(data.readBytes(memorysize));
+                xDxt = new Image.Dxt(subStream, xmipmaplevels,texwidth,texheight,parent.xtexel_size);
                 break;
             case 0x02:
                 xtype = data.readByte();
@@ -256,8 +254,43 @@ public class x0004MipMap extends uruobj
                         break;
                 }*/
                 break;
+            case 0x03:
+                // PNG compression
+                if (xmipmaplevels != 1)
+                {
+                    m.warn(String.format("x0004mipmap: PNG texture has %d mip levels ?...", xmipmaplevels));
+                    break;
+                }
+                
+                // We want to advance the stream by exactly the size of the PNG. However,
+                // this is a bit complex when using Java's ImageIO.
+                // So we will manually skim the PNG until we come across the END chunk,
+                // then feed the read bytes into ImageIO.
+                // Note that the memorysize variable does NOT correspond to what we're looking for.
+                IBytestream f = data.Fork();
+                e.ensure(Arrays.equals(f.readBytes(8), new byte[] { (byte)0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A }));
+                String chunkType;
+                int totalLength = 8;
+                do {
+                    // read a chunk
+                    int chunkLength = f.readIntBigEndian();
+                    chunkType = new String(f.readBytes(4), StandardCharsets.US_ASCII);
+                    f.readBytes(chunkLength); // chunk data
+                    f.readBytes(4); // CRC
+                    totalLength += 12 + chunkLength;
+                } while (!chunkType.equals("IEND"));
+                
+                byte[] pngData = data.readBytes(totalLength);
+                try {
+                    xPng = ImageIO.read(new ByteArrayInputStream(pngData));
+                } catch (IOException ioex) {
+                    m.warn(String.format("x0004mipmap: failed to read PNG ! %s", ioex.getMessage()));
+                }
+                
+                break;
+
             default:
-                m.msg("x0004mipmap: mystery!");
+                m.warn(String.format("x0004mipmap: unknown compression type %s", parent.type));
                 break;
         }
     }
@@ -358,14 +391,46 @@ public class x0004MipMap extends uruobj
                         break;
                 }*/
                 break;
+            case 0x03:
+                // PNG compression
+                // PotS doesn't support it. Write it uncompressed.
+                if (xmipmaplevels != 1)
+                {
+                    m.warn(String.format("x0004mipmap: PNG texture has %d mip levels ?...", xmipmaplevels));
+                    break;
+                }
+                byte[] pixelData = ((DataBufferByte) xPng.getRaster().getDataBuffer()).getData();
+                // Swizzle components, ARGB -> RGBA
+                for (int i = 0; i < pixelData.length / 4; i++)
+                {
+                    byte a = pixelData[i * 4];
+                    byte r = pixelData[i * 4 + 1];
+                    byte g = pixelData[i * 4 + 2];
+                    byte b = pixelData[i * 4 + 3];
+                    
+                    pixelData[i * 4] = r;
+                    pixelData[i * 4 + 1] = g;
+                    pixelData[i * 4 + 2] = b;
+                    pixelData[i * 4 + 3] = a;
+                }
+                subdeque.writeBytes(pixelData);
+                resetmemorysize = true;
+                break;
             default:
-                m.msg("x0004mipmap: mystery!");
+                m.msg(String.format("x0004mipmap: unknown compression type %s", parent.type));
                 break;
         }
         byte[] subdequebytes = subdeque.getAllBytes();
 
         //m.err("fixme");
+        byte oldType = parent.type;
+        if (parent.type == 0x03)
+        {
+            // force uncompressed since PNG isn't supported by PotS
+            parent.type = 0x0;
+        }
         parent.compile(deque);
+        parent.type = oldType;
         deque.writeInt(texwidth);
         deque.writeInt(texheight);
         deque.writeInt(stride);

@@ -49,13 +49,22 @@ public class Image
                 numTexelsHigh = height/4;
                 if(numTexelsWide==0 || numTexelsHigh==0)
                 {
-                    if(width==0 || height==0)
+                    width = Integer.max(width, 1);
+                    height = Integer.max(height, 1);
+                    int remaining = data.getBytesRemaining();
+                    if (remaining >= width * height * 4)
+                        extraPixels = data.readMultiDimensionInts(width, height);
+                    else if (remaining != 0)
                     {
-                        throw new readexception("Dxt: Unhandled case.");
+                        // nb01clocknumbers*40#0.hsm in Neighborhood_District_Textures.prp from MOULa as of 12 nov 2021. Corrupt mipmap for rectangle textures ?
+                        m.warn("DDS: remaining bytes, but not enough for mip level. WTF ?");
+                        e.ensure(remaining % 4 == 0);
+                        extraPixels = data.readMultiDimensionInts(1, remaining / 4);
                     }
                     else
                     {
-                        extraPixels = data.readMultiDimensionInts(width, height);
+                        // We may not have enough bytes for the last mipmap level - see x0004MipMap's constructor for details.
+                        extraPixels = new int[0][];
                     }
                 }
                 else
@@ -281,34 +290,7 @@ public class Image
                 int levelwidth = texwidth >>> curLevel;
                 int levelheight = texheight >>> curLevel;
                 
-                if (levelwidth == 0 || levelheight == 0)
-                {
-                    // some extra mip levels with null width or height... this happens with Korman sometimes.
-                    // I have no idea how much data we're supposed to read in this case, so
-                    // we'll just delete those mip levels and call it a day.
-                    // (this will display a warning in Drizzle but should be harmless.)
-                    this.numLevels = curLevel - 1;
-                    Level[] tmpLevels = new Level[this.numLevels];
-                    System.arraycopy(levels, 0, tmpLevels, 0, tmpLevels.length);
-                    levels = tmpLevels;
-                    break;
-                }
-                else
-                    levels[curLevel] = new Level(data, levelwidth, levelheight, texelsize);
-                /*int levelsize; //number of bytes of raw data.
-                
-                if(levelwidth<3 || levelheight<3)
-                {
-                    m.err("Image convert not implemented.");
-                    levelsize = levelwidth * levelheight * 4; //not enough for a texel, so just use raw data.
-                    
-                }
-                else
-                {
-                    levelsize = levelwidth * levelheight * Bytes.ByteToInt32(texelsize) / 16; //16 pixels per texel.
-                    number o
-                }*/
-                
+                levels[curLevel] = new Level(data, levelwidth, levelheight, texelsize);
             }
         }
         
