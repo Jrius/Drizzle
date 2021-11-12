@@ -730,15 +730,29 @@ public class moul
                 // 1 - clickable activator, no need to change
                 // 2 - behaviour (smartseek), conflicts with destination Age string, must change to id 11 (msbSeekBeforeUI)
                 // 3 - linkout responder, conflicts with spawn point, must remove
-                // 4 - left page texture, conflicts with link panel, and is a non-converted tex. Could change to DRCNote03.dds, but has wrong format and crashes the game. Delete.
+                // 4 - left page texture, but the actual value is some kind of identifier for the Python script in MOUL,
+                //     while it's the name of the texture in PotS. Also, it's ID 6 in PotS.
                 pfm.getListingByIndex(2).index = 11;
                 pfm.removeListingByIndex(3);
-                pfm.removeListingByIndex(4);
+                pfm.getListingByIndex(4).xString = Bstr.createFromString("xlinkpanelchisopreniv*1#0.hsm");
                 // missing:
                 // 2 - target Age name
-                // 4 - link panel to use
                 pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(2, Bstr.createFromString("ChisoPreniv")));
-                //pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(4, Bstr.createFromString("LinkingImage_ChisoPreniv")));
+                pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString("xFanAgeStamp02*1#0.hsm")));
+                
+                // Fix the Watcher's journals. Not sure if we'll leave those visible by default, but at least they're there...
+                pfm = prp.findObject("Words01_Python_File", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words1");
+                pfm = prp.findObject("Words02_Python_File", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words2");
+                pfm = prp.findObject("Words03_Python_File", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words3");
+                pfm = prp.findObject("Words04_Python_File", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words4");
+                pfm = prp.findObject("Words05_Python_File", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words5");
+                pfm = prp.findObject("DRCNotebook_Python_File", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("WatcherPubInfo");
             }
             else
             {
@@ -756,8 +770,21 @@ public class moul
                 //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
                 Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
                 layer.texture = mmref;
+                
+                // Fix the Watcher's journals.
+                pfm = prp.findObject("cPythWatchersJournal01", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words1");
+                pfm = prp.findObject("cPythWatchersJournal02", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words2");
+                pfm = prp.findObject("cPythWatchersJournal03", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words3");
+                pfm = prp.findObject("cPythWatchersJournal04", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words4");
+                pfm = prp.findObject("cPythWatchersJournal05", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words5");
+                pfm = prp.findObject("cPythDRCWatchersJournal", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(3).xString = Bstr.createFromString("WatcherPubInfo");
             }
-
         }
         if(agename.equals("city") && pagename.equals("islmLakeLightMeter"))
         {
