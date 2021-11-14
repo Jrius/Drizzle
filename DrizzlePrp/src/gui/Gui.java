@@ -75,6 +75,7 @@ public class Gui extends javax.swing.JFrame {
         shared.translation.enable("/gui/");
         settingsfile = FileUtils.GetPresentWorkingDirectory()+"/"+settingsfilename; //+"drizzlesettings.canbedeleted.dat";
         initComponents();
+        fixComponents();
         int maxwidth = 1024; int maxheight = 740; //don't change these.
         //int width = 1016; int height = 732; //border of 4
         int width = 1016; int height = 726;
@@ -5652,6 +5653,43 @@ public class Gui extends javax.swing.JFrame {
                                     pack();
                                 }// </editor-fold>//GEN-END:initComponents
 
+    /** Recent versions of the form designer generate buttons squished vertically. Absolute mess to fix.
+     * Drizzle31: height of all buttons in code set to 36 pixels. Effective GUI button heights: 22 pixels.
+     * Drizzle32: height of all buttons in code set to 23 pixels. Effective GUI button heights: 9 pixels.
+     * This only affects buttons using a DesignAbsoluteLayout (which is most of them).
+     * Haven't found the exact cause, so instead let's just manually reset their height to 36 pixels like in Drizzle31.
+     */
+    private void fixComponents()
+    {
+        javax.swing.JButton[] buttons = new javax.swing.JButton[] {
+            jButton1, jButton100, jButton101, jButton102, jButton103, jButton104,
+            jButton105, jButton106, jButton107, jButton108, jButton109, jButton110,
+            jButton114, jButton115, jButton116, jButton117, jButton118, jButton119,
+            jButton120, jButton121, jButton122, jButton123, jButton124, jButton125,
+            jButton126, jButton127, jButton129, jButton130, jButton131, jButton132,
+            jButton133, jButton135, jButton136, jButton137, jButton139, jButton140,
+            jButton141, jButton142, jButton145, jButton148, jButton149, jButton15,
+            jButton150, jButton151, jButton152, jButton153, jButton154, jButton155,
+            jButton156, jButton157, jButton158, jButton159, jButton16, jButton160,
+            jButton161, jButton162, jButton163, jButton164, jButton165, jButton166,
+            jButton167, jButton168, jButton169, jButton170, jButton171, jButton172,
+            jButton173, jButton18, jButton19, jButton2, jButton20, jButton22,
+            jButton23, jButton24, jButton25, jButton26, jButton27, jButton28,
+            jButton29, jButton30, jButton31, jButton34, jButton36, jButton37,
+            jButton38, jButton40, jButton45, jButton46, jButton54, jButton6,
+            jButton61, jButton62, jButton63, jButton64, jButton65, jButton69,
+            jButton70, jButton71, jButton72, jButton73, jButton77, jButton79,
+            jButton80, jButton81, jButton82, jButton83, jButton84, jButton85,
+            jButton87, jButton91, jButton95, jButton96, jButton97, jButton98
+        };
+        for (javax.swing.JButton button : buttons)
+        {
+            java.awt.Rectangle bounds = button.getBounds();
+            bounds.height = 36;
+            button.setBounds(bounds);
+        }
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //this.jTextArea1.setText("");
         logBoxStateless1.ClearAll();
@@ -6036,8 +6074,8 @@ public class Gui extends javax.swing.JFrame {
             double curangle;
             double curdist;
             try{
-                curangle = new Double(nums[0]);
-                curdist = new Double(nums[1]);
+                curangle = Double.parseDouble(nums[0]);
+                curdist = Double.parseDouble(nums[1]);
             }catch(Exception e){
                 m.err("Invalid line: ",line);
                 return;
@@ -7562,7 +7600,7 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
                     , null);
         float[] col = parseColString(ambientColFld.getText());
         colorPickerAmb.setColor(new java.awt.Color(col[0], col[1], col[2]));
-        colorPickerAmbDial.show();
+        colorPickerAmbDial.setVisible(true);
     }//GEN-LAST:event_jButton76ActionPerformed
 
     private void ambientColFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ambientColFldActionPerformed
@@ -7592,7 +7630,7 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
         
         float[] col = parseColString(sunColFld.getText());
         colorPickerSun.setColor(new java.awt.Color(col[0], col[1], col[2]));
-        colorPickerSunDial.show();
+        colorPickerSunDial.setVisible(true);
     }//GEN-LAST:event_jButton177ActionPerformed
 
     private void lightdirFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_lightdirFldActionPerformed
@@ -7627,7 +7665,7 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
         
         float[] col = parseColString(aoColMinFld.getText());
         colorPickerAO.setColor(new java.awt.Color(col[0], col[1], col[2]));
-        colorPickerAODial.show();
+        colorPickerAODial.setVisible(true);
     }//GEN-LAST:event_jButton178ActionPerformed
 
     private void aoColMinFldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aoColMinFldActionPerformed
@@ -7692,7 +7730,7 @@ private void checkboxState33ActionPerformed(java.awt.event.ActionEvent evt) {//G
         
         float[] col = parseColString(FATfniSkCol.getText());
         colorPickerFNI.setColor(new java.awt.Color(col[0], col[1], col[2]));
-        colorPickerFNIDial.show();
+        colorPickerFNIDial.setVisible(true);
     }//GEN-LAST:event_jButton179ActionPerformed
 
     private void chbFATeditFniActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_chbFATeditFniActionPerformed
