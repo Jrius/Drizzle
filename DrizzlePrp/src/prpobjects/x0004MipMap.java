@@ -146,7 +146,6 @@ public class x0004MipMap extends uruobj
     private x0004MipMap(){}
     public x0004MipMap(context c) throws readexception //,boolean hasHeader)
     {
-        String texName = c.curRootObject.objectname.toString();
         shared.IBytestream data = c.in;
         //if(hasHeader) xheader = new Objheader(c);
         parent = new x0003Bitmap(c);//,false);

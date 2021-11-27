@@ -42,7 +42,6 @@ public class x0003Bitmap extends uruobj
     
     public x0003Bitmap(context c)//,boolean hasHeader)
     {
-        String texName = c.curRootObject.objectname.toString();
         shared.IBytestream data = c.in;
         //if(hasHeader) xheader = new Objheader(c);
         //parent = new x0002Keyedobject(data);
