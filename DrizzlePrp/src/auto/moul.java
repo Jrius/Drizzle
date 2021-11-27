@@ -702,7 +702,6 @@ public class moul
 
                 //change Ahnonay image.
                 x0006Layer layer = prp.findObject("m_1545_Map__69950", Typeid.plLayer).castTo();
-                //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
                 Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelahnonayvortex*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
                 layer.texture = mmref;
 
@@ -746,6 +745,10 @@ public class moul
                 pfm.getListingByIndex(3).xString = Bstr.createFromString("Words5");
                 pfm = prp.findObject("DRCNotebook_Python_File", Typeid.plPythonFileMod).castTo();
                 pfm.getListingByIndex(3).xString = Bstr.createFromString("WatcherPubInfo");
+                
+                // remove yeesha share texture
+                layer = prp.findObject("m_4650_Map__20030", Typeid.plLayer).castTo();
+                layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page_0_0.dds", Pageid.createFromPrefixPagenum(84, -1), Pagetype.createWithType(8));
             }
             else
             {
@@ -777,6 +780,10 @@ public class moul
                 pfm.getListingByIndex(3).xString = Bstr.createFromString("Words5");
                 pfm = prp.findObject("cPythDRCWatchersJournal", Typeid.plPythonFileMod).castTo();
                 pfm.getListingByIndex(3).xString = Bstr.createFromString("WatcherPubInfo");
+                
+                // remove yeesha share texture
+                layer = prp.findObject("Map #20030", Typeid.plLayer).castTo();
+                layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page*0#0.hsm", Pageid.createFromPrefixPagenum(84, -1), Pagetype.createWithType(8));
             }
         }
         if(agename.equals("city") && pagename.equals("islmLakeLightMeter"))
