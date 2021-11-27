@@ -6,8 +6,6 @@
 package auto;
 
 import shared.*;
-import java.io.File;
-import java.util.Vector;
 import java.util.HashMap;
 import prpobjects.Typeid;
 import prpobjects.Uruobjectdesc;
@@ -15,14 +13,9 @@ import prpobjects.Pageid;
 import prpobjects.prpfile;
 import prpobjects.*;
 import uru.context;
-import uru.UruCrypt;
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.RealMatrixImpl;
 import auto.conversion.FileInfo;
 import auto.conversion.Info;
 import auto.conversion.RenameInfo;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 
 public class moul
 {
@@ -796,6 +789,24 @@ public class moul
             // Dereno's DynamicCamMap doesn't look very good when replaced by an envmap, due to the low-resolution mesh.
             // So do not process it...
             auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
+        }
+        if (agename.equals("Negilahn") && pagename.equals("Textures"))
+        {
+            // Change the yeesha page texture to the old PotS one...
+            // The texture can be found in K'veer's texture file, but we embed it in Drizzle itself to make things easier.
+            try {
+                // load our new tex
+                Bytes bytes = shared.GetResource.getResourceAsBytes("/files/pots/uof/yeeshapage_lush.uof");
+                context c = context.createFromBytestream(ByteArrayBytestream.createFromByteArray(bytes.getByteArray()));
+                c.readversion = 3;
+                // read the mipmap
+                PrpRootObject mipObject = new PrpRootObject(c, false, bytes.length());
+                PrpRootObject curMipObject = prp.findObject("xyeeshapagealphasketchlushrelto*0#0.hsm", Typeid.plMipMap);
+                curMipObject.prpobject.object = mipObject.prpobject.object;
+                curMipObject.markAsChanged();
+            } catch (readexception ex) {
+                m.throwUncaughtException("YP resource not present ! Ex: " + ex.getMessage());
+            }
         }
     }
 
