@@ -5,6 +5,7 @@
 
 package auto;
 
+import java.util.Comparator;
 import java.util.Vector;
 
 public class fileLists
@@ -73,11 +74,23 @@ public class fileLists
     {
         Vector<String> result = uru.generics.convertArrayToVector(moulSimplicityList2);
         result.addAll(uru.generics.convertArrayToVector(moulSupportedList2));
+        result.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.toLowerCase().compareTo(o2.toLowerCase());
+            }
+        });
         return result;
     }
     
     public static Vector<String> mystvSupportedList() {
         Vector<String> result = uru.generics.convertArrayToVector(mystvSupportedList);
+        result.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.toLowerCase().compareTo(o2.toLowerCase());
+            }
+        });
         return result;
     }
     
