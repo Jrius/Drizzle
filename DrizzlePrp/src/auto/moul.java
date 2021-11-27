@@ -628,22 +628,17 @@ public class moul
             plResponderModifier rm = prp.findObject("cRespLinkOutMyst", Typeid.plResponderModifier).castTo();
             PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
             ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("MystMystV");
-            //ltam.ageLinkStruct.xageinfo.ageInstanceName = Wpstr.create("MystMystV");
-            int dummy=0;
-        }
-        if(agename.equals("Kveer") && pagename.equals("KveerHalls"))
-        {
+            
             //GUI_District_BkBookImages:  Pots -2:55(type4) Moul -2:57(type4) Shard -2:55(type4
             x0006Layer layer = prp.findObject("Map #6995", Typeid.plLayer).castTo();
-            //String texturefilename = infolder+"/dat/"+agename+"_District_Textures.prp";
-            //String texturefilename = infolder+"/dat/GUI_District_BkBookImages.prp";
-            //prpfile textureprp = prpfile.readHeaderAndIndexFromFile(texturefilename);
-            //Uruobjectdesc mipmap = textureprp.findDescInIndex("xlinkpanelmystisland*1#0.hsm", Typeid.plMipMap);
-            //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePrp(Typeid.plMipMap, "xlinkpanelmystisland*1#0.hsm", textureprp);
-            //Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelmystisland*1#0.hsm", Pageid.createFromPrefixSuffix(-2, 55), Pagetype.createWithType(4));
             Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelmystisland*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
-            //layer.texture = mipmap.toRef();
             layer.texture = mmref;
+            
+            // myst book: remove yeesha share texture
+            layer = prp.findObject("Map #2003", Typeid.plLayer).castTo();
+            layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page*0#3.hsm", Pageid.createFromPrefixPagenum(98, -1), Pagetype.createWithType(8));
+            layer = prp.findObject("Map #20040", Typeid.plLayer).castTo();
+            layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page1*0#3.hsm", Pageid.createFromPrefixPagenum(98, -1), Pagetype.createWithType(8));
         }
         if(agename.equals("EderDelin") && pagename.equals("garden"))
         {
