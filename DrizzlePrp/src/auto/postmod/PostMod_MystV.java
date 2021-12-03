@@ -591,7 +591,7 @@ public class PostMod_MystV
 
     public static void PostMod_FixEchoEffects(prpfile prp)
     {
-        // don't know why I bothered. No one still has XP or a creative audio card...
+        // will require the DSOUND/DSOAL fix
         for (PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plSceneObject))
         {
             prpobjects.plSceneObject so = ro.castTo();

@@ -112,6 +112,9 @@ public class crowthistle
 
             public void ModifyPrp(Info info, FileInfo file, prpfile prp) {
                 auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
+                
+                // fix for echo effect
+                auto.postmod.PostMod_MystV.PostMod_FixEchoEffects(prp);
 
                 //moved to conversion:
                 /*String newagename = agenames.get(agename);

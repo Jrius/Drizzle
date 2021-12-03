@@ -810,7 +810,7 @@ public class mystv //was myst5Fixes
         auto.postmod.PostMod_MystV.PostMod_FixPythonFileMods(prp);
         // fix for dynamiccammaps and dynamicenvmaps
         auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
-        // fix for echo effect (doubt anyone still have an old enough pc for these... T_T)
+        // fix for echo effect
         auto.postmod.PostMod_MystV.PostMod_FixEchoEffects(prp);
         // fix for camera references (has changed since Uru, but is basically the same)
         auto.postmod.PostMod_MystV.PostMod_FixCameraReferences(prp);
