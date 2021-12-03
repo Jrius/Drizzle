@@ -111,10 +111,25 @@ public class crowthistle
         r.prpmodifier = new conversion.PostConversionModifier() {
 
             public void ModifyPrp(Info info, FileInfo file, prpfile prp) {
-                auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
+                // fix cast flags for respmod, logicmod, animevmod
+                auto.postmod.PostMod_MystV.PostMod_FixCastFlags(prp);
+                // fix for incidental sound
+                auto.postmod.PostMod_MystV.PostMod_FixIncidentalSounds(prp);
                 
+                // fix for dynamiccammaps and dynamicenvmaps
+                auto.postmod.PostMod_MystV.PostMod_FixDynamicMaps(prp);
                 // fix for echo effect
                 auto.postmod.PostMod_MystV.PostMod_FixEchoEffects(prp);
+                // fix for camera references (has changed since Uru, but is basically the same)
+                auto.postmod.PostMod_MystV.PostMod_FixCameraReferences(prp);
+                // fix for clickables crashing game (Tahgira)
+                auto.postmod.PostMod_MystV.PostMod_FixInvalidLogicModConditions(prp);
+                
+                // replace DynamicMusicSound for some voices and brings back Laki arena music
+                auto.postmod.PostMod_MystV.PostMod_ReplaceDirectMusicSound(prp);
+                
+                // fix cameras (especially Todelmer ones)
+                auto.postmod.PostMod_MystV.PostMod_FixCameraTargetPoints(prp);
 
                 //moved to conversion:
                 /*String newagename = agenames.get(agename);
