@@ -870,8 +870,8 @@ public class mystv //was myst5Fixes
             auto.postmod.PostMod_MystV.PostMod_FixLakiElev(prp);
         
         
-        // MAKE GOG COMPATIBLE WITH WHITE
-        PostMod_MystV_WhiteBox.MakeWhite(prp, new File(infolder + "/MystV.exe").exists());
+        // MAKE GOG COMPATIBLE WITH WHITEBOX VERSION
+        PostMod_MystV_WhiteBox.ConvertToWhitebox(prp, new File(infolder + "/MystV.exe").exists());
         
         
         // END Sirius' MV fixes

@@ -23,7 +23,7 @@ public class PostMod_MystV_WhiteBox
      * This is useful so that anyone can play on Shards, as these won't accept two different versions of the same file
      * (even if the differences are minor).
      * 
-     * Must be run on both the original ("White") version of the file, and the new (GOG, possibly Steam) versions.
+     * Must be run on both the original ("Whitebox") version of the file, and the new (GOG, possibly Steam) versions.
      * 
      * Things it changes:
      * - removes additional translations (such as Russian), since Uru doesn't support these.
@@ -36,13 +36,10 @@ public class PostMod_MystV_WhiteBox
      *      However fixing it is pretty simple by altering the rawdata...
      * 
      * @param prp the prp to modify
-     * @param isAlreadyWhite true if this PRP comes from the original version of the game, false if it comes from GOG/Steam
+     * @param isAlreadyConverted true if this PRP comes from the original version of the game, false if it comes from GOG/Steam
      */
-    public static void MakeWhite(prpfile prp, boolean isAlreadyWhite)
+    public static void ConvertToWhitebox(prpfile prp, boolean isAlreadyConverted)
     {
-        // well, not completely white, but closer to white anyway...
-        // (future me: wtf is wrong with me ??? did I really write that sentence ? I must have had a deathwish...)
-        
         prp.markAsChanged();
         
         // eax soft values never match
@@ -120,7 +117,7 @@ public class PostMod_MystV_WhiteBox
                 }
             }
             
-            if (!isAlreadyWhite && phys.havok != null)
+            if (!isAlreadyConverted && phys.havok != null)
             {
                 Flt buf = phys.havok.orientation.w;
                 phys.havok.orientation.w = phys.havok.orientation.z;
