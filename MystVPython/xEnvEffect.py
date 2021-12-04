@@ -59,7 +59,7 @@ class xEnvEffect(ptResponder):
     def OnNotify(self, state, id, events):
         global boolIsRunningEnvEffect
         print("xEnvEffect: Received notify, state=%s, id=%d" % (state, id))
-        if id == actRunEffect.id and state and PtWasLocallyNotified(self.key) and PtFindAvatar(events) == PtGetLocalAvatar() and not boolIsRunningEnvEffect:
+        if id == actRunEffect.id and state and PtWasLocallyNotified(self.key) and not boolIsRunningEnvEffect:
             for event in events:
                 if (event[1] == 1):
                     self.runEnvEffect()
