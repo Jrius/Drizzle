@@ -22,7 +22,7 @@ class xLinkInFlyover(ptResponder):
         self.version = 1
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         try:
             spointName = spawnPointName.value
         except:
@@ -46,10 +46,6 @@ class xLinkInFlyover(ptResponder):
                 avatar.physics.suppress(1)
                 avatar.avatar.registerForBehaviorNotify(self.key)
                 PtAtTimeCallback(self.key, 25, 2)
-
-
-    def OnServerInitComplete(self):
-        pass
 
 
     def OnBehaviorNotify(self, type, id, state):

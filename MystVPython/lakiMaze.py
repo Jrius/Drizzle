@@ -74,7 +74,7 @@ class lakiMaze(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global btnList
         global respList
         global boolDoor
@@ -112,7 +112,7 @@ class lakiMaze(ptResponder):
             ageSDL[SDLDoor.value] = (0,)
         boolGate1 = ageSDL[SDLGate1.value][0]
         boolGate2 = ageSDL[SDLGate2.value][0]
-        
+
         # elev
         if PtIsSinglePlayerMode():
             RespBigBlocker.run(self.key, "off", fastforward=1)
@@ -133,7 +133,7 @@ class lakiMaze(ptResponder):
         elif (byteLev == 2):
             RespLevAtStart.run(self.key, state='upper', fastforward=1)
         leverSet = byteLev
-        
+
         soElevatorParent = PtFindSceneobject("MazeElevPillar", "Laki")
 
 
@@ -154,8 +154,8 @@ class lakiMaze(ptResponder):
                 RespDoor.run(self.key, state='open')
                 PtAtTimeCallback(self.key, kExitDoorSecs, kExitDoorID)
                 i = 0
+                print 'lakiMaze.OnSDLNotify(): disabling all button-light clickables'
                 for btn in ActButtons.value:
-                    print 'lakiMaze.OnSDLNotify(): disabling all button-light clickables'
                     ActButtons.value[i].disable()
                     i += 1
             else:

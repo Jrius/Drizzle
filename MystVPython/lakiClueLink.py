@@ -2,6 +2,8 @@ from Plasma import *
 from PlasmaTypes import *
 act = ptAttribActivator(1, 'Lookatcloth activator')
 
+inRegion = 0
+
 class lakiClueLink(ptResponder):
     def __init__(self):
         ptResponder.__init__(self)
@@ -10,13 +12,33 @@ class lakiClueLink(ptResponder):
         self.version = 1
 
 
+    def OnServerInitComplete(self):
+        ageSDL = PtGetAgeSDL()
+        ageSDL.sendToClients("runEnvEffect")
+        ageSDL.setFlags("runEnvEffect", 1, 1)
+        ageSDL.setNotify(self.key, "runEnvEffect", 0.0)
+
+
     def OnNotify(self, state, id, events):
-        if PtWasLocallyNotified(self.key) and PtFindAvatar(events) == PtGetLocalAvatar():
-            if id == act.id:
-                ageSDL = PtGetAgeSDL()
-                if ageSDL["runEnvEffect"][0]:
-                    print("Clue seen, enabling link to distant island")
-                    ageSDL["LakiActivePedestalsKeep"] = (1,)
+        global inRegion
+        if id == act.id and PtWasLocallyNotified(self.key) and PtFindAvatar(events) == PtGetLocalAvatar():
+            for event in events:
+                inRegion = event[1] == 1
+                if inRegion:
+                    ageSDL = PtGetAgeSDL()
+                    if ageSDL["runEnvEffect"][0]:
+                        print("Clue seen (entered region), enabling link to distant island")
+                        ageSDL["LakiActivePedestalsKeep"] = (1,)
+
+
+    def OnSDLNotify(self, VARname, SDLname, playerID, tag):
+        global inRegion
+        if VARname == "runEnvEffect":
+            ageSDL = PtGetAgeSDL()
+            on = ageSDL[VARname][0]
+            if on and inRegion:
+                print("Clue seen (env effect triggered), enabling link to distant island")
+                ageSDL["LakiActivePedestalsKeep"] = (1,)
 
 
 

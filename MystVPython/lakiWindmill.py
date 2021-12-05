@@ -117,7 +117,7 @@ class lakiWindmill(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global boolWind
         global boolGear
         global boolDoor1

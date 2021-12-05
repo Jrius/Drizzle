@@ -15,7 +15,7 @@ class drboGate(ptModifier):
         print self.version
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
         ageSDL.sendToClients(sdlGateVar.value)
         ageSDL.setFlags(sdlGateVar.value, 1, 1)

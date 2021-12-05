@@ -13,10 +13,6 @@ class xSlateHandler(ptResponder):
         self.version = 1
 
 
-    def OnFirstUpdate(self):
-        pass
-
-
     def OnServerInitComplete(self):
         PtAtTimeCallback(self.key, 0, 0)
 
@@ -27,7 +23,7 @@ class xSlateHandler(ptResponder):
 
     def OnSDLNotify(self, VARname, SDLname, playerID, tag):
         pass
-    
+
     def OnTimer(self, id):
         if id == 0:
             resp1.run(self.key, state="1")

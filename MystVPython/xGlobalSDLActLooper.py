@@ -33,7 +33,7 @@ class xGlobalSDLActLooper(ptModifier):
         print ('xGlobalSDLActLooper.__init__: version - %d' % self.version)
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
         print ('xGlobalSDLActLooper.OnAgeDataInitialized: current value of %s is - %d' % (sdlVar.value, ageSDL[sdlVar.value][0]))
         if boolResetOnInit.value:

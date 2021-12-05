@@ -28,7 +28,7 @@ class tdlmDoorStairs(ptResponder):
         print '.3'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
         ageSDL.sendToClients(DoorSDL.value)
         ageSDL.setFlags(DoorSDL.value, 1, 1)

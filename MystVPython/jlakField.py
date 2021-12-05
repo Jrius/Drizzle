@@ -115,11 +115,6 @@ class jlakField(ptResponder,):
         self.bulkMove = 0
 
 
-
-    def OnFirstUpdate(self):
-        pass
-
-
     def OnServerInitComplete(self):
         global byteRect
         global boolGUILock
@@ -477,14 +472,14 @@ class jlakField(ptResponder,):
                 newPos = (oldPos + 1)
             else:
                 print 'but already at max'
-                return 
+                return
         else:
             op = 'down'
             if (oldPos > kMinPos):
                 newPos = (oldPos - 1)
             else:
                 print 'but already at min'
-                return 
+                return
         PendingCol = id
         PendingPos = newPos
         PendingDir = op
@@ -497,7 +492,7 @@ class jlakField(ptResponder,):
         print mode
         if boolGUILock:
             print "jlakField.AutoColumns():  but a previous move is currently in-progress... so it's DENIED!"
-            return 
+            return
         anythingMoved = 0
         if (mode == 0):
             newPos = kMinPos
@@ -516,7 +511,7 @@ class jlakField(ptResponder,):
         elif (mode == 5):
             if (preset == None):
                 print 'no preset, ignoring'
-                return 
+                return
             else:
                 print 'running preset...'
         i = 0
@@ -776,7 +771,7 @@ class jlakField(ptResponder,):
             fRead = file(fName, 'r')
         except:
             print ("jlakField.LoadColumns():  ERROR!  File '%s' not found, load canceled." % fName)
-            return 
+            return
         preset = []
         i = 0
         for line in fRead:
@@ -785,7 +780,7 @@ class jlakField(ptResponder,):
                 print ('jlakField.LoadColumns():  ERROR!  Column %d has an invalid position of %d, must be an integer between 0 and 19.  Load canceled.' % (i,
                  pos))
                 fRead.close()
-                return 
+                return
             else:
                 preset.append(pos)
             i += 1
@@ -810,7 +805,7 @@ class jlakField(ptResponder,):
                 print kMinPos,
                 print ' and ',
                 print kMaxPos
-                return 
+                return
             newPos = param
             anythingMoved = 0
             i = 0

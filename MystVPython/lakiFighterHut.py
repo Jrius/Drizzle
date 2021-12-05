@@ -48,7 +48,7 @@ class lakiFighterHut(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global respList
         global boolBig1
         global boolBig2
@@ -127,16 +127,16 @@ class lakiFighterHut(ptResponder):
         if (state and ((id == evntBig1.id) or ((id == evntBig2.id) or ((id == evntMed1.id) or ((id == evntMed2.id) or ((id == evntMed3.id) or ((id == evntSmall1.id) or (id == evntSmall2.id)))))))):
             if WaitToChange:
                 return
-        
+
         if not PtWasLocallyNotified(self.key): return
-        
+
         if (id == respDoors.id):
             print 'lakiFighterHut.OnNotify(): callback from respDoors'
             self.IToggleRopes(1)
             ropeNum = -1
-        
+
         if PtGetLocalAvatar() != PtFindAvatar(events): return
-        
+
         ageSDL = PtGetAgeSDL()
         if ((id == evntBig1.id) and state):
             ropeNum = 0
@@ -199,7 +199,7 @@ class lakiFighterHut(ptResponder):
         thisSDL = VARname
         print 'lakiFighterHut.OnSDLNotify(): SDL for ',
         print thisSDL,
-        print ' changed' 
+        print ' changed'
         WaitToChange = 1
         PtAtTimeCallback(self.key, 0.1, 1)
         sdlVal = ageSDL[VARname][0]

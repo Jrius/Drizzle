@@ -41,7 +41,7 @@ class kverQuake(ptResponder):
         print '.6'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         xRandom.seed((PtGetDniTime() % 256))
         whrandom.seed()
         PtClearTimerCallbacks(self.key)

@@ -82,7 +82,7 @@ class thgrWaterField(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global boolThermalValveW1
         global boolThermalValveW2
         global boolThermalValveW3
@@ -121,7 +121,7 @@ class thgrWaterField(ptResponder):
             ageSDL.sendToClients(sdlvar.value)
             ageSDL.setFlags(sdlvar.value, 1, 1)
             ageSDL.setNotify(self.key, sdlvar.value, 0.0)
-        
+
         boolThermalValveW1 = ageSDL[SDLThermalValveW1.value][0]
         boolThermalValveW2 = ageSDL[SDLThermalValveW2.value][0]
         boolThermalValveW3 = ageSDL[SDLThermalValveW3.value][0]
@@ -137,9 +137,9 @@ class thgrWaterField(ptResponder):
         byteFieldValveE3 = ageSDL[SDLFieldValveE3.value][0]
         listWestSDLVals = [boolThermalValveW1, boolThermalValveW2, boolThermalValveW3]
         listEastSDLVals = [boolThermalValveE1, boolThermalValveE2, boolThermalValveE3]
-        print 'thgrWaterField.OnFirstUpdate(): thermal valve West SDL list = ',
+        print 'thgrWaterField.OnServerInitComplete(): thermal valve West SDL list = ',
         print listWestSDLVals
-        print 'thgrWaterField.OnFirstUpdate(): thermal valve East SDL list = ',
+        print 'thgrWaterField.OnServerInitComplete(): thermal valve East SDL list = ',
         print listEastSDLVals
         self.UpdateControls('west', 1)
         self.UpdateControls('east', 1)
@@ -149,22 +149,22 @@ class thgrWaterField(ptResponder):
         oldFieldValveE1 = byteFieldValveE1
         oldFieldValveE2 = byteFieldValveE2
         oldFieldValveE3 = byteFieldValveE3
-        print 'thgrWaterField.OnFirstUpdate(): field valve W1 = ',
+        print 'thgrWaterField.OnServerInitComplete(): field valve W1 = ',
         print byteFieldValveW1
-        print 'thgrWaterField.OnFirstUpdate(): field valve W2 = ',
+        print 'thgrWaterField.OnServerInitComplete(): field valve W2 = ',
         print byteFieldValveW2
-        print 'thgrWaterField.OnFirstUpdate(): field valve W3 = ',
+        print 'thgrWaterField.OnServerInitComplete(): field valve W3 = ',
         print byteFieldValveW3
-        print 'thgrWaterField.OnFirstUpdate(): field valve E1 = ',
+        print 'thgrWaterField.OnServerInitComplete(): field valve E1 = ',
         print byteFieldValveE1
-        print 'thgrWaterField.OnFirstUpdate(): field valve E2 = ',
+        print 'thgrWaterField.OnServerInitComplete(): field valve E2 = ',
         print byteFieldValveE2
-        print 'thgrWaterField.OnFirstUpdate(): field valve E3 = ',
+        print 'thgrWaterField.OnServerInitComplete(): field valve E3 = ',
         print byteFieldValveE3
         for resp in RespWaterField.value:
             thisResp = resp.getName()
             listRespWaterField.append(thisResp)
-        print 'thgrWaterField.OnFirstUpdate(): listRespWaterField =',
+        print 'thgrWaterField.OnServerInitComplete(): listRespWaterField =',
         print listRespWaterField
         if (byteFieldValveW1 == 1):
             listCurStates[0] = 'left_on'
@@ -219,9 +219,9 @@ class thgrWaterField(ptResponder):
             for state in listCurStates:
                 listCurStates[n] = 'left_off'
                 n += 1
-            print 'thgrWaterField.OnFirstUpdate(): listCurStates = ',
+            print 'thgrWaterField.OnServerInitComplete(): listCurStates = ',
             print listCurStates
-            #print 'thgrWaterField.OnFirstUpdate(): field is NOT active, so we\'ll make sure the \'above\' and \'below\' nodes are disabled'
+            #print 'thgrWaterField.OnServerInitComplete(): field is NOT active, so we\'ll make sure the \'above\' and \'below\' nodes are disabled'
             #NodeRgnAbove.value.disable()
             #NodeRgnBelow.value.disable()
             return
@@ -234,9 +234,9 @@ class thgrWaterField(ptResponder):
                 listCurStates[3] = 'left_off'
                 listCurStates[4] = 'left_off'
                 listCurStates[5] = 'left_off'
-            print 'thgrWaterField.OnFirstUpdate(): listCurStates = ',
+            print 'thgrWaterField.OnServerInitComplete(): listCurStates = ',
             print listCurStates
-            #print 'thgrWaterField.OnFirstUpdate(): field is NOT active, so we\'ll make sure the \'above\' nodes are disabled'
+            #print 'thgrWaterField.OnServerInitComplete(): field is NOT active, so we\'ll make sure the \'above\' nodes are disabled'
             #NodeRgnAbove.value.disable()
             #NodeRgnBelow.value.disable()
             return
@@ -244,7 +244,7 @@ class thgrWaterField(ptResponder):
             if (byteFieldValveW1 == 1):
                 initState = 'left_on'
                 RespWaterField.run(self.key, objectName=listRespWaterField[0], state=initState, fastforward=1)
-                print 'thgrWaterField.OnFirstUpdate(): will run',
+                print 'thgrWaterField.OnServerInitComplete(): will run',
                 print listRespWaterField[0],
                 print 'with state: ',
                 print initState
@@ -252,7 +252,7 @@ class thgrWaterField(ptResponder):
             elif (byteFieldValveW1 == 2):
                 initState = 'right_on'
                 RespWaterField.run(self.key, objectName=listRespWaterField[0], state=initState, fastforward=1)
-                print 'thgrWaterField.OnFirstUpdate(): will run',
+                print 'thgrWaterField.OnServerInitComplete(): will run',
                 print listRespWaterField[0],
                 print 'with state: ',
                 print initState
@@ -261,7 +261,7 @@ class thgrWaterField(ptResponder):
                     if (byteFieldValveW2 == 1):
                         initState2 = 'left_on'
                         RespWaterField.run(self.key, objectName=listRespWaterField[1], state=initState2, fastforward=1)
-                        print 'thgrWaterField.OnFirstUpdate(): will run',
+                        print 'thgrWaterField.OnServerInitComplete(): will run',
                         print listRespWaterField[1],
                         print 'with state: ',
                         print initState2
@@ -270,7 +270,7 @@ class thgrWaterField(ptResponder):
                             if (byteFieldValveW3 == 1):
                                 initState3 = 'left_on'
                                 RespWaterField.run(self.key, objectName=listRespWaterField[2], state=initState3, fastforward=1)
-                                print 'thgrWaterField.OnFirstUpdate(): will run',
+                                print 'thgrWaterField.OnServerInitComplete(): will run',
                                 print listRespWaterField[2],
                                 print 'with state: ',
                                 print initState3
@@ -278,7 +278,7 @@ class thgrWaterField(ptResponder):
                             elif (byteFieldValveW3 == 2):
                                 initState3 = 'right_on'
                                 RespWaterField.run(self.key, objectName=listRespWaterField[2], state=initState3, fastforward=1)
-                                print 'thgrWaterField.OnFirstUpdate(): will run',
+                                print 'thgrWaterField.OnServerInitComplete(): will run',
                                 print listRespWaterField[2],
                                 print 'with state: ',
                                 print initState3
@@ -286,7 +286,7 @@ class thgrWaterField(ptResponder):
                     elif (byteFieldValveW2 == 2):
                         initState2 = 'right_on'
                         RespWaterField.run(self.key, objectName=listRespWaterField[1], state=initState2, fastforward=1)
-                        print 'thgrWaterField.OnFirstUpdate(): will run',
+                        print 'thgrWaterField.OnServerInitComplete(): will run',
                         print listRespWaterField[1],
                         print 'with state: ',
                         print initState2
@@ -295,7 +295,7 @@ class thgrWaterField(ptResponder):
             if (byteFieldValveE1 == 1):
                 initState = 'left_on'
                 RespWaterField.run(self.key, objectName=listRespWaterField[3], state=initState, fastforward=1)
-                print 'thgrWaterField.OnFirstUpdate(): will run',
+                print 'thgrWaterField.OnServerInitComplete(): will run',
                 print listRespWaterField[3],
                 print 'with state: ',
                 print initState
@@ -304,7 +304,7 @@ class thgrWaterField(ptResponder):
                     if (byteFieldValveE2 == 1):
                         initState2 = 'left_on'
                         RespWaterField.run(self.key, objectName=listRespWaterField[4], state=initState2, fastforward=1)
-                        print 'thgrWaterField.OnFirstUpdate(): will run',
+                        print 'thgrWaterField.OnServerInitComplete(): will run',
                         print listRespWaterField[4],
                         print 'with state: ',
                         print initState2
@@ -312,7 +312,7 @@ class thgrWaterField(ptResponder):
                     elif (byteFieldValveE2 == 2):
                         initState2 = 'right_on'
                         RespWaterField.run(self.key, objectName=listRespWaterField[4], state=initState2, fastforward=1)
-                        print 'thgrWaterField.OnFirstUpdate(): will run',
+                        print 'thgrWaterField.OnServerInitComplete(): will run',
                         print listRespWaterField[4],
                         print 'with state: ',
                         print initState2
@@ -321,7 +321,7 @@ class thgrWaterField(ptResponder):
                             if (byteFieldValveE3 == 1):
                                 initState3 = 'left_on'
                                 RespWaterField.run(self.key, objectName=listRespWaterField[5], state=initState3, fastforward=1)
-                                print 'thgrWaterField.OnFirstUpdate(): will run',
+                                print 'thgrWaterField.OnServerInitComplete(): will run',
                                 print listRespWaterField[5],
                                 print 'with state: ',
                                 print initState3
@@ -329,7 +329,7 @@ class thgrWaterField(ptResponder):
                             elif (byteFieldValveE3 == 2):
                                 initState3 = 'right_on'
                                 RespWaterField.run(self.key, objectName=listRespWaterField[5], state=initState3, fastforward=1)
-                                print 'thgrWaterField.OnFirstUpdate(): will run',
+                                print 'thgrWaterField.OnServerInitComplete(): will run',
                                 print listRespWaterField[5],
                                 print 'with state: ',
                                 print initState3
@@ -337,12 +337,12 @@ class thgrWaterField(ptResponder):
             elif (byteFieldValveE1 == 2):
                 initState = 'right_on'
                 RespWaterField.run(self.key, objectName=listRespWaterField[3], state=initState, fastforward=1)
-                print 'thgrWaterField.OnFirstUpdate(): will run',
+                print 'thgrWaterField.OnServerInitComplete(): will run',
                 print listRespWaterField[3],
                 print 'with state: ',
                 print initState
                 listCurStates[3] = initState
-        print 'thgrWaterField.OnFirstUpdate(): listCurStates = ',
+        print 'thgrWaterField.OnServerInitComplete(): listCurStates = ',
         print listCurStates
         #CurField = 0
         #for state in listCurStates:
@@ -351,10 +351,10 @@ class thgrWaterField(ptResponder):
         #        break
         #PtAtTimeCallback(self.key, 0, 1)
         #if CurField:
-            #print 'thgrWaterField.OnFirstUpdate(): field is active, so will enable \'above\' nodes'
+            #print 'thgrWaterField.OnServerInitComplete(): field is active, so will enable \'above\' nodes'
             #NodeRgnAbove.value.enable()
         #else:
-            #print 'thgrWaterField.OnFirstUpdate(): field is NOT active, so we\'ll make sure the \'above\' nodes are disabled'
+            #print 'thgrWaterField.OnServerInitComplete(): field is NOT active, so we\'ll make sure the \'above\' nodes are disabled'
             #NodeRgnAbove.value.disable()
 
 

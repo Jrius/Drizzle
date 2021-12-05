@@ -37,7 +37,7 @@ class lakiVilla(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global btnList
         global respList
         global objList
@@ -85,8 +85,8 @@ class lakiVilla(ptResponder):
         global respList
         if ((id == ActButtons.id) and state):
             i = 0
+            print 'lakiVilla.OnNotify: disabling 5 button clickables'
             for btn in ActButtons.value:
-                print 'lakiVilla.OnNotify: disabling 5 button clickables'
                 ActButtons.value[i].disable()
                 i += 1
             for event in events:
@@ -103,15 +103,15 @@ class lakiVilla(ptResponder):
                     print 'btnNum =',
                     print (btnNum + 1)
                     RespButtons.run(self.key, objectName=respList[btnNum])
-        
+
         if not PtWasLocallyNotified(self.key): return
-        
+
         if (id == RespButtons.id):
             self.CheckButtons()
         if (id == RespDoor.id):
             i = 0
+            print 'lakiVilla.OnNotify: callback from Door resp, reenabling 5 button clickables'
             for btn in ActButtons.value:
-                print 'lakiVilla.OnNotify: callback from Door resp, reenabling 5 button clickables'
                 ActButtons.value[i].enable()
                 i += 1
 

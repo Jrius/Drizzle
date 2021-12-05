@@ -23,7 +23,7 @@ class tdlmNodeToggle(ptResponder):
 
 
     pass
-    """def OnFirstUpdate(self):
+    """def OnServerInitComplete(self):
         return
         ageSDL = PtGetAgeSDL()
         print ' tdlmNodeToggle: When I got here, ',

@@ -41,18 +41,19 @@ class xYeeshaBinderFragment(ptModifier):
         self.id = 6405
         self.version = 2
         print ('xYeeshaBinderFragment.__init__: version - %d' % self.version)
-    
-    
+
+
     def OnServerInitComplete(self):
         PtLoadDialog('bkYeeshaBinder')
-    
-    
+
+
     def __del__(self):
         PtUnloadDialog('bkYeeshaBinder')
 
 
     def OnNotify(self, state, id, events):
-        if (id == actClickable.id):
+        if (not PtWasLocallyNotified(self.key)) or (PtFindAvatar(events) != PtGetLocalAvatar()): return
+        if (id == actClickable.id and state):
             if state:
                 print ('xYeeshaBinderFragment.OnNotify(): reading fragment ' + fragmentName.value)
                 self.IOpenYeeshaBook()
@@ -62,8 +63,8 @@ class xYeeshaBinderFragment(ptModifier):
         if fragmentNumber == -1:
             return (gFragmentHeader[0] + localizedContent.xYeeshaJournals[0])
         return (gFragmentHeader[fragmentNumber] + localizedContent.xYeeshaJournals[fragmentNumber])
-    
-    
+
+
     def IOpenYeeshaBook(self):
         global gJournalBook
         gJournalBook = ptBook(self.IGetContents(binderPosition.value), self.key)

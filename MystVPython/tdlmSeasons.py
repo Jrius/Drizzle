@@ -25,18 +25,18 @@ class tdlmSeasons(ptResponder):
         print '.6'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global AlreadyChanging
         ageSDL = PtGetAgeSDL()
-        
+
         ageSDL.sendToClients(SlateSDL.value)
         ageSDL.setFlags(SlateSDL.value, 1, 1)
         ageSDL.setNotify(self.key, SlateSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(SeasonSDL.value)
         ageSDL.setFlags(SeasonSDL.value, 1, 1)
         ageSDL.setNotify(self.key, SeasonSDL.value, 0.0)
-        
+
         PtClearTimerCallbacks(self.key)
         print 'tdlmSeasons.OnInit: SeasonSDL = ',
         print ageSDL[SeasonSDL.value][0]

@@ -73,13 +73,13 @@ class thgrCave(ptResponder):
     def OnNotify(self, state, id, events):
         global byteCrack
         global responderEnabled
-        
+
         if (id == respCrack.id):
             for event in events:
                 if (event[0] == kCallbackEvent):
                     print "Got callback from crack responder."
                     responderEnabled = 1
-        
+
         if ((id == actCrack.id) and state):
             for event in events:
                 if (event[0] == kCollisionEvent):
@@ -127,8 +127,8 @@ class thgrCave(ptResponder):
                     responderEnabled=0
             else:
                 respCrack.run(self.key, state='none')
-    
-    
+
+
     def OnBehaviorNotify(self,type,id,state):
         global byteCrack
         global ignoreJumpEvent
@@ -146,8 +146,8 @@ class thgrCave(ptResponder):
                     PtGetAgeSDL()[sdlCrack.value] = (3,)
                 ignoreJumpEvent = 1
                 PtAtTimeCallback(self.key, 2, 1)
-    
-    
+
+
     def OnTimer(self, id):
         global ignoreJumpEvent
         ignoreJumpEvent = 0

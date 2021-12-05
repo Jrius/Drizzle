@@ -49,12 +49,12 @@ class Siralehn(ptResponder):
             print "I'm not the master, but I might be someday."
             PtAtTimeCallback(self.key, 30, checkMasterTimerID)
             return
-        
+
         ageSDL = PtGetAgeSDL()
         if ageSDL['runEnvEffect'][0] and not len(PtGetPlayerList()):
             print "Huh, no one in the Age but rain is on. Turning off."
             ageSDL['runEnvEffect'] = (0,)
-        
+
         print "I'm master, I decide when to turn the rain on."
         self.DelayBeforeRainStart()
 

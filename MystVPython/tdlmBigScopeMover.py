@@ -31,7 +31,7 @@ class tdlmBigScopeMover(ptResponder):
         print '.8'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global kSolution02H
         global kSolution02Threshhold
         global k02HorizCorrect

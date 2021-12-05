@@ -27,7 +27,7 @@ class tdlmCableSway(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
         ageSDL.sendToClients(SlateSDL.value)
         ageSDL.setFlags(SlateSDL.value, 1, 1)

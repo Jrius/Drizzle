@@ -13,7 +13,7 @@ import whrandom
 sdlCanQuake = ptAttribString(1, 'SDL: Can Quake')
 respBaseStart = ptAttribResponder(2, 'resp: Base Sfx start')
 respBaseStop = ptAttribResponder(3, 'resp: Base Sfx stop')
-respPeakStart = ptAttribResponder(4, 'resp: Peak Sfx start') 
+respPeakStart = ptAttribResponder(4, 'resp: Peak Sfx start')
 respPeakStop = ptAttribResponder(5, 'resp: Peak Sfx stop')
 minDelay = 180
 maxDelay = 300

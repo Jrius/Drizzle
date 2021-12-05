@@ -82,14 +82,23 @@ class lakiCreatures(ptResponder):
             print initBeh
             fish.run(self.key, state=('%s' % initBeh))
             x += 1
-        
+
         # force the bird over the network, to make sure it's ok to everyone
         soBird.value.netForce(1)
-    
-    
+
+
     def OnTimer(self, id):
         global birdBrain
         birdBrain.OnTimer(id)
+
+
+    def EnsureBirdSpawned():
+        if (not (isBirdSpawned)):
+            print 'lakiCreatures: Spawning creature...'
+            #soBird = ptSceneobject.getSpawnedNPC(SpawnBird.value)
+            soBird = soBird.value
+            birdBrain = PirBirdBrain(self.key)
+            isBirdSpawned = 1
 
 
     def OnNotify(self, state, id, events):
@@ -100,16 +109,11 @@ class lakiCreatures(ptResponder):
         if (not (state)):
             return
         if ((id == Act1Bird.id) or ((id == Act2Bird.id) or ((id == Act3Bird.id) or (id == Act4Bird.id)))):
-            
+
             if PtFindAvatar(events) != PtGetLocalAvatar() or not PtWasLocallyNotified(self.key) or not self.sceneobject.isLocallyOwned():
                 return
-            
-            if (not (isBirdSpawned)):
-                print 'lakiCreatures.OnNotify(): some region triggered.  Spawning creature...'
-                #soBird = ptSceneobject.getSpawnedNPC(SpawnBird.value)
-                soBird = soBird.value
-                birdBrain = PirBirdBrain(self.key)
-                isBirdSpawned = 1
+
+            EnsureBirdSpawned()
             if (id == Act1Bird.id):
                 if (birdRegion != 1):
                     print 'lakiCreatures.OnNotify(): region 1 triggered.  Warping creature...'
@@ -186,13 +190,14 @@ class lakiCreatures(ptResponder):
                     else:
                         newState = 'beh2'
                     respFishBeh3.run(self.key, state=('%s' % newState))
-        
+
         elif id == birdAnims["chomp"].id \
             or id == birdAnims["idle"].id \
             or id == birdAnims["swallow"].id \
             or id == birdAnims["vocalize"].id \
             or id == birdAnims["walk"].id:
-            print "Got callback from bird. Id =", id
+            # print "Got callback from bird. Id =", id
+            EnsureBirdSpawned()
             birdBrain.OnBirdAnimDone(id)
 
 
@@ -204,95 +209,95 @@ class PirBirdBrain:
     - bird animations are random
     - bird only spawns in the ribcage of an old Laki. It offers him shelter from those nasty avatars.
     - bird will start shouting when avatars are nearby.
-    
+
     If anyone reading this wants to rescript the whole bird AI and walking behavior, best of luck.
     """
-    
+
     def __init__(self, timerkey):
         self.pos = soBird.position()    # current position for the bird
         self.key = timerkey             # key to use for AtTimeCallback()
-        
+
         self.tooCloseAv = []            # avatars the bird is shouting at
-    
-    
+
+
     def OnBirdAnimDone(self, animid):
         if len(self.tooCloseAv):
             #self.msg("Bird worried, will shout at avatar")
             self.animate("vocalize")
             return
-        
+
         else:
             if animid == chompId:
                 # chances are:
                 # - swallow (50%)
                 # - chomp   (30%)
                 # - idle    (15%)
-                
+
                 p = xRandom.randint(0, 99)
-                
+
                 if p < 60:
                     self.animate("swallow")
                 elif p < 85:
                     self.animate("chomp")
                 else:
                     self.animate("idle")
-            
+
             elif animid == idleId:
                 # chances are:
                 # - idle    (50%)
                 # - chomp   (30%)
                 # - swallow (0%)
-                
+
                 p = xRandom.randint(0, 99)
-                
+
                 if p < 50:
                     self.animate("idle")
                 else:
                     self.animate("chomp")
-            
+
             elif animid == swallowId:
                 # chances are:
                 # - chomp   (50%)
                 # - idle    (30%)
                 # - swallow (20%)
-                
+
                 p = xRandom.randint(0, 99)
-                
+
                 if p < 50:
                     self.animate("chomp")
                 elif p < 80:
                     self.animate("idle")
                 else:
                     self.animate("swallow")
-            
+
             elif animid == vocalizeId:
                 pass
                 # chances are:
                 # - idle    (%)
                 # - chomp   (%)
                 # - swallow (%)
-                
+
                 #-#-# DO SOMETHING HERE #-#-#
                 #self.msg("Vocalizing: uuhh, why would I do that ?")
-            
+
             elif animid == walkId:
                 pass
                 #self.msg("Bird: Why whould I be walking ???")
-    
+
     def animate(self, action):
         if action == "walk":
             birdAnims[action].run(self.key, "run")
         else:
             birdAnims[action].run(self.key)
         #self.msg("Bird: now doing %s." % action)
-    
+
     def OnRegionChange(self):
         # reset bird here
         self.animate("idle") # reset bird behavior
-    
+
     def OnTimer(self, id):
         pass
-    
+
     #def msg(self, m):
     #    print m
     #    PtSendKIMessage(25, str(m))

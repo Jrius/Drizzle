@@ -45,16 +45,16 @@ class tdlmBigScopeZoom(ptResponder):
         print '__init__tdlmBigScopeZoom v.',
         print version,
         print '.1'
-    
-    
-    def OnFirstUpdate(self):
+
+
+    def OnServerInitComplete(self):
         global amLookingAtScope
         global podCamera
         global currentSeasonIsPod
         global scopeAlignWPod
         global usingPodCam
         global curZoomLevel
-        
+
         ageSDL = PtGetAgeSDL()
         ageSDL.sendToClients(ZoomSDL.value)
         ageSDL.setFlags(ZoomSDL.value, 1, 1)
@@ -86,11 +86,11 @@ class tdlmBigScopeZoom(ptResponder):
             ageSDL.sendToClients("runEnvEffect")
             ageSDL.setFlags("runEnvEffect", 1, 1)
             ageSDL.setNotify(self.key, "runEnvEffect", 0.0)
-            
+
             currentSeasonIsPod = self.isPodSeason()
             scopeAlignWPod = self.isScopeAligned()
-    
-    
+
+
     def OnTimer(self, id):
         global amLookingAtScope
         global podCamera
@@ -98,7 +98,7 @@ class tdlmBigScopeZoom(ptResponder):
         global scopeAlignWPod
         global usingPodCam
         global curZoomLevel
-        
+
         if id == 1:
             print "tdlmBigScopeZoom: OnTimer: switching to scope cam."
             ## engage telescope
@@ -118,19 +118,19 @@ class tdlmBigScopeZoom(ptResponder):
                 usingPodCam = False
                 virtCam.save(camera.sceneobject.getKey())
             PtEnableControlKeyEvents(self.key)
-            
+
             PtLoadDialog("telescope",self.key)
             if PtIsDialogLoaded("telescope"):
                 PtShowDialog("telescope")
-                
+
             PtSendKIMessage(kDisableKIandBB,0)
             amLookingAtScope = True
-            
+
             ## we MUST wait a while before updating the camera (probably 1 frame). Otherwise, it totally screws up the previous cam.
             PtAtTimeCallback(self.key, .3, 3)
-            
+
             PtFadeIn(.3, 1)
-        
+
         elif id == 2:
             print "tdlmBigScopeZoom: OnTimer: returning to normal"
             ## quit scope
@@ -145,12 +145,12 @@ class tdlmBigScopeZoom(ptResponder):
             cam.enableFirstPersonOverride()
             PtSendKIMessage(kEnableKIandBB,0)
             PtFadeIn(.3, 1)
-        
+
         elif id == 3:
             if usingPodCam:
                 ptCamera().setFOV(50, 0.3)
                 return
-            
+
             print "updating camera fov"
             ageSDL = PtGetAgeSDL()
             if curZoomLevel == 0:
@@ -163,15 +163,15 @@ class tdlmBigScopeZoom(ptResponder):
             act00.enable()
             act01.enable()
             act02.enable()
-    
-    
+
+
     def OnGUINotify(self,id,control,event):
         "Notifications from the vignette"
         if event == kDialogLoaded:
             print "tdlmBigScopeZoom: OnGUINotify: showing telescope dialog"
             control.show()
 
-    
+
     def OnControlKeyEvent(self,controlKey,activeFlag):
         global amLookingAtScope
         if not activeFlag: return
@@ -187,16 +187,16 @@ class tdlmBigScopeZoom(ptResponder):
             amLookingAtScope = false
             PtFadeOut(.3, 1)
             PtAtTimeCallback(self.key, .3, 2)
-    
+
 
     def OnNotify(self, state, id, events):
         print "tdlmBigScopeZoom: OnNotify: state", state, ", id", id
         if (not (state)):
             return
         if not (PtFindAvatar(events) == PtGetLocalAvatar()) or not (PtWasLocallyNotified(self.key)): return
-        
+
         print "tdlmBigScopeZoom: OnNotify: You clicked:", id
-        
+
         ageSDL = PtGetAgeSDL()
         if (id == act00.id):
             self.disableInput()
@@ -207,13 +207,13 @@ class tdlmBigScopeZoom(ptResponder):
         elif (id == act02.id):
             self.disableInput()
             ageSDL[ZoomSDL.value] = (2,)
-        
+
         if ageSDL["MainPower01"][0]:
             print "Since power is on, switching to telescope cam."
             PtFadeOut(.3, 1)
             PtAtTimeCallback(self.key, .3, 1)
-    
-    
+
+
     def isScopeAligned(self):
         ageSDL = PtGetAgeSDL()
         if (abs((ageSDL["BigScope01Horiz"][0] - 0.17)) > 0.005):
@@ -224,8 +224,8 @@ class tdlmBigScopeZoom(ptResponder):
             return False
         print "BigScope 01 is aligned with pod."
         return True
-    
-    
+
+
     def isPodSeason(self):
         ageSDL = PtGetAgeSDL()
         if (ageSDL["CurrentSeason"][0] != 2):
@@ -236,8 +236,8 @@ class tdlmBigScopeZoom(ptResponder):
             return False
         print "Season OK, not changing: pod viewable"
         return True
-    
-    
+
+
     def OnSDLNotify(self, VARname, SDLname, playerID, tag):
         global amLookingAtScope
         global podCamera
@@ -245,10 +245,10 @@ class tdlmBigScopeZoom(ptResponder):
         global scopeAlignWPod
         global usingPodCam
         global curZoomLevel
-        
+
         ageSDL = PtGetAgeSDL()
         newVal = ageSDL[VARname][0]
-        
+
         if not amLookingAtScope:
             if VARname == ZoomSDL.value:
                 if newVal == 0:
@@ -262,10 +262,11 @@ class tdlmBigScopeZoom(ptResponder):
             elif VARname in ("BigScope01Horiz", "BigScope01Vert"):
                 scopeAlignWPod = self.isScopeAligned()
             return
-        
+
         if VARname == ZoomSDL.value:
             if newVal != curZoomLevel:
                 curZoomLevel = newVal
+                virtCam = ptCamera()
                 if usingPodCam:
                     print "Zoom changed to %d, switching back to normal scope cam" % curZoomLevel
                     usingPodCam = False
@@ -273,7 +274,7 @@ class tdlmBigScopeZoom(ptResponder):
                     virtCam.save(camera.sceneobject.getKey())
                     # update FOV once we switched to new camera
                     PtAtTimeCallback(self.key, .3, 3)
-                
+
                 elif currentSeasonIsPod and scopeAlignWPod and curZoomLevel == 2 and ZoomSDL.value == "BigScope01Zoom":
                     print "Zoom changed to 2, switching to pod view"
                     usingPodCam = True
@@ -283,18 +284,18 @@ class tdlmBigScopeZoom(ptResponder):
                         print "First time viewing pod, unlocking link to it."
                         ageSDL["TdlmActivePedestalsKeep"] = (1,)
                     PtAtTimeCallback(self.key, .3, 3)
-                
+
                 else:
                     print "Zoom changed to ", curZoomLevel
                     PtAtTimeCallback(self.key, 0, 3)
-                
+
                 if newVal == 0:
                     self.Zoom0()
                 elif newVal == 1:
                     self.Zoom1()
                 else:
                     self.Zoom2()
-        
+
         elif VARname == "CurrentSeason":
             if usingPodCam:
                 currentSeasonIsPod = self.isPodSeason()
@@ -318,7 +319,7 @@ class tdlmBigScopeZoom(ptResponder):
                                 print "First time viewing pod, unlocking link to it."
                                 ageSDL["TdlmActivePedestalsKeep"] = (1,)
                             PtAtTimeCallback(self.key, .3, 3)
-        
+
         elif VARname == "runEnvEffect":
             if newVal == 0 and ZoomSDL.value == "BigScope01Zoom":
                 if not usingPodCam:
@@ -334,7 +335,7 @@ class tdlmBigScopeZoom(ptResponder):
                                     print "First time viewing pod, unlocking link to it."
                                     ageSDL["TdlmActivePedestalsKeep"] = (1,)
                                 PtAtTimeCallback(self.key, .3, 3)
-        
+
         elif VARname in ("BigScope01Horiz", "BigScope01Vert") and ZoomSDL.value == "BigScope01Zoom":
             if not scopeAlignWPod:
                 scopeAlignWPod = self.isScopeAligned()
@@ -358,8 +359,8 @@ class tdlmBigScopeZoom(ptResponder):
                         virtCam.save(camera.sceneobject.getKey())
                         # update FOV once we switched to new camera
                         PtAtTimeCallback(self.key, .3, 3)
-    
-    
+
+
     def Zoom0(self):
         global curZoomLevel
         curZoomLevel = 0
@@ -380,8 +381,8 @@ class tdlmBigScopeZoom(ptResponder):
         anim00.animation.playToTime(0)
         anim01.animation.playToTime(0)
         anim02.animation.playToTime(0.5)
-    
-    
+
+
     def disableInput(self):
         act00.disable()
         act01.disable()

@@ -71,7 +71,8 @@ class lakiArena(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
+        global PedInMotion
         global byteWeight1
         global byteWeight2
         global byteWeight3
@@ -154,14 +155,12 @@ class lakiArena(ptResponder):
         elif (intRegister < self.calcWeight()):
             respPedestal.run(self.key, state='MedToLow', fastforward=1)
             PedestalPos = 'low'
-        
+
         # release arena blockers
         respBleacherLeft.run(self.key, state='off')
         respBleacherRight.run(self.key, state='off')
 
 
-    def OnServerInitComplete(self):
-        global PedInMotion
         print 'lakiArena.OnPlayerSpawned(): Weight = ',
         print self.calcWeight()
         PedInMotion = 0

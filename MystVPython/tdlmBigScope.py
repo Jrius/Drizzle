@@ -52,7 +52,7 @@ class tdlmBigScope(ptResponder):
         print '.7'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global HorizSDLPrevVal
         global VertSDLPrevVal
         ageSDL = PtGetAgeSDL()
@@ -62,14 +62,14 @@ class tdlmBigScope(ptResponder):
         ageSDL.sendToClients(VertSDL.value)
         ageSDL.setFlags(VertSDL.value, 1, 1)
         ageSDL.setNotify(self.key, VertSDL.value, 0.0)
-        
+
         HorizSDLPrevVal = ageSDL[HorizSDL.value][0]
         VertSDLPrevVal  = ageSDL[VertSDL .value][0]
-        
+
         # hack to make buttons usable
         horizSliderProgress = ageSDL[HorizSDL.value + "Slider"][0]
         vertSliderProgress  = ageSDL[VertSDL .value + "Slider"][0]
-        
+
         HorizDragAnim   .animation.skipToTime(float( horizSliderProgress       * (10 / 3.0) ))
         HorizAnim       .animation.skipToTime(float( ageSDL[HorizSDL.value][0] * (10 / 3.0) ))
         VertDragAnim.animation.skipToTime(float( vertSliderProgress       * (10 / 3.0) ))
@@ -85,13 +85,13 @@ class tdlmBigScope(ptResponder):
         if (not (state)):
             return
         ageSDL = PtGetAgeSDL()
-        
+
         if (not PtWasLocallyNotified(self.key) or PtFindAvatar(events) != PtGetLocalAvatar()): return
-        
+
         if ((id == HorizDrag.id) or (id == VertDrag.id)):
             print "Notify from draggable activator"
             raise RuntimeError("WHAT ?!")
-            
+
             """EnterShouldBlink = true
             if (ageSDL[PowerSDL.value][0] == 0):
                 print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
@@ -105,16 +105,16 @@ class tdlmBigScope(ptResponder):
             #elif (id == VertDrag.id):
             #    respVertSfx.run(self.key)
             #"""
-        
+
         elif (id == actEnter.id):
             if (ageSDL[PowerSDL.value][0] == 0):
                 print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t respond.'
             else:
                 EnterShouldBlink = false
-                
+
                 horizSliderProgress = ageSDL[HorizSDL.value + "Slider"][0]
                 vertSliderProgress  = ageSDL[VertSDL .value + "Slider"][0]
-                
+
                 print 'Enter button pressed. Current value of draggables:'
                 if (WhichScope.value == 'Yup'):
                     if ((horizSliderProgress > (PodViewH - ThresholdH)) and (horizSliderProgress < (PodViewH + ThresholdH))):
@@ -137,24 +137,24 @@ class tdlmBigScope(ptResponder):
                 if ((ageSDL[HorizSDL.value][0] == newvalueH) and (ageSDL[VertSDL.value][0] == newvalueV)):
                     print 'Nothing moved... turn off blink'
                     respEnterOff.run(self.key)
-                
+
                 if not (PtFindAvatar(events) == PtGetLocalAvatar()) or not (PtWasLocallyNotified(self.key)): return
-                
+
                 ageSDL[HorizSDL.value] = (newvalueH,)
                 ageSDL[VertSDL.value]  = (newvalueV,)
         elif id != -1:
             print "tdlmBigScope: notify from id", id
-            
+
             EnterShouldBlink = true
             if (ageSDL[PowerSDL.value][0] == 0):
                 print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
             else:
                 respEnterBlink.run(self.key, netForce=1)
-            
+
             # Not readable, I know, but I like to show off
             ageSDL[ (VertSDL, HorizSDL) [id%2] .value + "Slider" ] = \
                     ( actSliderSteps[ (id-1, id)[id%2] ] ,)
-            
+
             print "Sliders progress now = (%s, %s)" % (ageSDL[HorizSDL.value + "Slider"][0], ageSDL[VertSDL.value + "Slider"])
 
 
@@ -182,9 +182,9 @@ class tdlmBigScope(ptResponder):
             HorizAnim.value.speed(scopespeed)
             HorizAnim.animation.playToTime(float((newhoriz * 3.33)))
             Htransitiontime = ((abs((HorizSDLPrevVal - ageSDL[VARname][0])) * 3.33) / scopespeed)
-            
+
             HorizSDLPrevVal = ageSDL[HorizSDL.value][0]
-            
+
             if (Htransitiontime > TransitionTime):
                 print 'Horiz transition to ',
                 print ageSDL[VARname][0],
@@ -206,9 +206,9 @@ class tdlmBigScope(ptResponder):
             VertAnim.value.speed(scopespeed)
             VertAnim.animation.playToTime(float((newvert * 3.33)))
             Vtransitiontime = ((abs((VertSDLPrevVal - ageSDL[VARname][0])) * 3.33) / scopespeed)
-            
+
             VertSDLPrevVal  = ageSDL[VertSDL.value][0]
-            
+
             if (Vtransitiontime > TransitionTime):
                 print 'Vert transition to ',
                 print ageSDL[VARname][0],

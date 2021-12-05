@@ -60,12 +60,12 @@ class dsntElevator(ptResponder):
         ageSDL.setFlags(ElevatorSDL.value, 1, 1)
         ageSDL.sendToClients(ElevatorSDL.value)
         ageSDL.setNotify(self.key, ElevatorSDL.value, 0.0)
-        
+
         ## lower speed to counterpart speeded animation
         animTop.animation.speed(0.3)
         animInside.animation.speed(0.3)
         animBottom.animation.speed(0.3)
-        
+
         print 'dsntElevator: When I got here',
         print ElevatorSDL.value,
         print ' value was ',
@@ -79,7 +79,7 @@ class dsntElevator(ptResponder):
             print '\tRaising the Top Station Safety rail.'
             xRgnReleaseBottom.run(self.key)
             animSafetyTop.animation.playToTime(1)
-        
+
         if ElevatorSDL.value == "ElevatorARaised":
             isTopElev = True
             soCamera1 = PtFindSceneobject("ElevCamATop", "DescentMystV")
@@ -259,7 +259,7 @@ class dsntElevator(ptResponder):
                 print '\tPlayer has reached his destination. Popping camera back to avatar POV.'
                 cam = ptCamera()
                 cam.enableFirstPersonOverride()
-                
+
                 # workaround for camera reset
                 if todown:
                     if isTopElev:
@@ -275,17 +275,17 @@ class dsntElevator(ptResponder):
                     else:
                         #cam.restore(soCamera2.getKey())
                         soCamera2.popCamera(PtGetLocalAvatar().getKey())
-                
+
                 #if todown:
                 #    respCamGoingDown.run(self.key, 'reset')
                 #else:
                 #    respCamGoingUp.run(self.key, 'reset')
-                
+
                 #PtForceFirstPersonCam()
                 #print '\tRe-enabling menus now that the rider gotten off the elevator.'
                 #PtSendPythonNotify('Show', 'Menu Bar', self.key)
                 #PtSendPythonNotify('Show', 'Bahro Slate', self.key)
-                
+
                 if riding:
                     PtEnableMovementKeys()
         elif (id == 3):
@@ -294,10 +294,10 @@ class dsntElevator(ptResponder):
                 animSafetyTop.animation.playToTime(1)
             else:
                 animSafetyBottom.animation.playToTime(1)
-            
+
             if riding:
                 PtDisableMovementKeys()
-            
+
             xRgnClearBoth.run(self.key)
         elif id == 999:
             cam = ptCamera()

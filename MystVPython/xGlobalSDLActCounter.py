@@ -32,7 +32,7 @@ class xGlobalSDLActCounter(ptModifier):
         print ('xGlobalSDLActCounter.__init__: version - %d' % self.version)
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
         if boolResetOnInit.value:
             ageSDL[sdlVar.value] = (intInit.value,)

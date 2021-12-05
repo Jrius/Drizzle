@@ -62,27 +62,27 @@ class drboPedestal(ptModifier):
         global ignoreThird
         isDirebo = (PtGetAgeName() == "Direbo")
         ignoreThird = (PtGetAgeName() in ["Todelmer", "Siralehn"])
-        
+
         if isDirebo:
             return
-        
+
         self.activeList = []
         ageSDL = PtGetAgeSDL()
         for suffix in ["01", "02", "03", "Keep"]:
             if ignoreThird and suffix=="03": continue
-            
+
             ageSDL.sendToClients(sdlActivePedestals.value + suffix)
             ageSDL.setFlags(sdlActivePedestals.value + suffix, 1, 1)
             ageSDL.setNotify(self.key, sdlActivePedestals.value + suffix, 0.0)
-            
+
             if ageSDL[sdlActivePedestals.value + suffix][0]:
                 respSymbolGlow.run(self.key, state=suffix, fastforward=1)
                 actDict[suffix].enable()
                 self.activeList.append(suffix)
-        
+
         print "drboPedestal: activeList=", self.activeList
-    
-    
+
+
     def OnTimer(self, id):
         if id == 625:
             PtFadeIn(1.5, 1)
@@ -92,7 +92,7 @@ class drboPedestal(ptModifier):
 
     def OnNotify(self, state, id, events):
         if (not PtWasLocallyNotified(self.key)) or (PtFindAvatar(events) != PtGetLocalAvatar()): return
-        
+
         if (actDict.has_key(id) and state):
             actDict[actDict[id]].disable()
             # prevents reloading Age when we can fakelink

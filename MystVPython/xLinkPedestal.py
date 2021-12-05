@@ -40,7 +40,7 @@ class xLinkPedestal(ptModifier):
             PtAtTimeCallback(self.key, 1, 2)
         elif (id == 2):
             actLink.enable()
-            
+
             ageSDL = PtGetAgeSDL()
             if ageSDL[sdlPedEnabled.value + pedName.value][0]:
                 print "Already saved pedestal", pedName.value

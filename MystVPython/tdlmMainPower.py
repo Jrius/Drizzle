@@ -49,7 +49,7 @@ class tdlmMainPower(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global joyHOk
         global joyVOk
         ageSDL = PtGetAgeSDL()

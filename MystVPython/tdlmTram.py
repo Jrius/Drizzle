@@ -75,7 +75,7 @@ class tdlmTram(ptResponder):
         print '.1'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global boolPower1
         global boolPower2
         global byteCarLever
@@ -100,17 +100,17 @@ class tdlmTram(ptResponder):
             ageSDL.sendToClients(varname.value)
             ageSDL.setFlags(varname.value, 1, 1)
             ageSDL.setNotify(self.key, varname.value, 0.0)
-        
+
         ## lower speed to counterpart speeded animation
         animDock1Pump.animation.speed(0.1)
         animDock3Pump.animation.speed(0.1)
-        
-        
+
+
         ladders = [PtFindSceneobject("TramLdr1b", "Todelmer"),
                    PtFindSceneobject("TramLdr1t", "Todelmer"),
                    PtFindSceneobject("TramLdr2b", "Todelmer"),
                    PtFindSceneobject("TramLdr2t", "Todelmer")]
-        
+
         boolPower1 = ageSDL[sdlPower1.value][0]
         boolPower2 = ageSDL[sdlPower2.value][0]
         byteCarLever = ageSDL[sdlCarLever.value][0]

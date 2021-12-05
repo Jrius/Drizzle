@@ -33,25 +33,25 @@ class tdlmPodView(ptResponder):
         print '.2'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
-        
+
         ageSDL.sendToClients(Zoom.value)
         ageSDL.setFlags(Zoom.value, 1, 1)
         ageSDL.setNotify(self.key, Zoom.value, 0.0)
-        
+
         ageSDL.sendToClients(SDLSeason.value)
         ageSDL.setFlags(SDLSeason.value, 1, 1)
         ageSDL.setNotify(self.key, SDLSeason.value, 0.0)
-        
+
         ageSDL.sendToClients(SlateSDL.value)
         ageSDL.setFlags(SlateSDL.value, 1, 1)
         ageSDL.setNotify(self.key, SlateSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(HorizSDL.value)
         ageSDL.setFlags(HorizSDL.value, 1, 1)
         ageSDL.setNotify(self.key, HorizSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(VertSDL.value)
         ageSDL.setFlags(VertSDL.value, 1, 1)
         ageSDL.setNotify(self.key, VertSDL.value, 0.0)

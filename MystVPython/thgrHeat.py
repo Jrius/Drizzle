@@ -31,7 +31,7 @@ class thgrHeat(ptResponder):
         print '.0'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global boolHeat
         global boolBerg
         global OnInit
@@ -44,7 +44,7 @@ class thgrHeat(ptResponder):
         ageSDL.setNotify(self.key, sdlBerg.value, 0.0)
         boolHeat = ageSDL[sdlHeat.value][0]
         boolBerg = ageSDL[sdlBerg.value][0]
-        
+
         """direboSDL = xAgeSDL.xAgeSDL("Direbo")
         for i in range(5):
             activePed = direboSDL.getValue(sdlActivePeds.value, i)

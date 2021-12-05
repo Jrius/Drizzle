@@ -31,7 +31,7 @@ class xEnvEffect(ptResponder):
 
     def OnServerInitComplete(self):
         PtLoadDialog("xSpecialEffectGlare", self.key)
-        
+
         SlateSDLvalue = PtGetAgeSDL()[strSDLName][0]
         if SlateSDLvalue:
             curTime = PtGetDniTime()
@@ -43,12 +43,12 @@ class xEnvEffect(ptResponder):
         else:
             if respEffectOff:
                 respEffectOff.run(self.key, fastforward=True)
-        
+
         if PtGetAgeName() == "Tahgira":
             # MOAR time for Tahgira. Because ghost trigger is farther away from puzzle.
             effectLength = 180
-    
-    
+
+
     def __del__(self):
         PtHideDialog("xSpecialEffectGlare")
         PtUnloadDialog("xSpecialEffectGlare")
@@ -59,7 +59,7 @@ class xEnvEffect(ptResponder):
     def OnNotify(self, state, id, events):
         global boolIsRunningEnvEffect
         print("xEnvEffect: Received notify, state=%s, id=%d" % (state, id))
-        if id == actRunEffect.id and state and PtWasLocallyNotified(self.key) and not boolIsRunningEnvEffect:
+        if id == actRunEffect.id and state and not boolIsRunningEnvEffect:
             for event in events:
                 if (event[1] == 1):
                     self.runEnvEffect()
@@ -70,52 +70,52 @@ class xEnvEffect(ptResponder):
 
     def OnSDLNotify(self, VARname, SDLname, playerID, tag):
         pass
-    
-    
+
+
     def runEnvEffect(self):
         global boolIsRunningEnvEffect
         global strSDLName
         global effectLength
         print("#-#-# RUNNING SPECIAL EFFECT. HELL YEAH #-#-#")
-        
+
         ## start env effect
         ageSDL = PtGetAgeSDL()
         if self.sceneobject.isLocallyOwned():
             ageSDL[strSDLName] = (PtGetDniTime()+effectLength,) ## we could use only 1 but Todelmer's season are a bit more complex...
-        
+
         ## make glare thing
         PtShowDialog("xSpecialEffectGlare")
         respSpecialEffect.run(self.key)
         if respEffectOn:
             respEffectOn.run(self.key)
-        
+
         ## come back when it will be done
         PtAtTimeCallback(self.key, effectLength, 1)
-        
+
         boolIsRunningEnvEffect = True
-    
-    
+
+
     def stopEnvEffect(self):
         global boolCanRunEnvEffect
         global boolIsRunningEnvEffect
         global strSDLName
-        
+
         print "#-#-# STOPPING ENV EFFECT #-#-#"
-        
+
         ## stop env effect
         ageSDL = PtGetAgeSDL()
         if self.sceneobject.isLocallyOwned():
             ageSDL[strSDLName] = (0,)
-        
+
         ## make glare thing
         PtShowDialog("xSpecialEffectGlare")
         respSpecialEffect.run(self.key)
         if respEffectOff:
             respEffectOff.run(self.key)
-        
+
         boolIsRunningEnvEffect = False
-    
-    
+
+
     def OnTimer(self, id):
         if id == 1:
             self.stopEnvEffect()

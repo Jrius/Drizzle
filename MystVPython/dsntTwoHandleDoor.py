@@ -30,11 +30,11 @@ class dsntTwoHandleDoor(ptResponder):
         ageSDL.sendToClients(AgeSDLdoor.value)
         ageSDL.setNotify(self.key, AgeSDLdoor.value, 0.0)
         self.DisableHandles()
-        
+
         ## lower speed to counterpart speeded animation
         animHandle01.animation.speed(0.3)
         animHandle02.animation.speed(0.3)
-        
+
         if (ageSDL[AgeSDLdoor.value][0] == 1):
             print 'dsntTwoHandleDoor.OnInit: Door',
             print AgeSDLdoor.value,

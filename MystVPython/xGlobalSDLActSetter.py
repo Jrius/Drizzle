@@ -30,7 +30,7 @@ class xGlobalSDLActSetter(ptModifier):
         print ('xGlobalSDLActSetter.__init__: version - %d' % self.version)
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
         print ('xGlobalSDLActSetter.OnAgeDataInitialized: current value of %s is - %d' % (sdlVar.value, ageSDL[sdlVar.value][0]))
 

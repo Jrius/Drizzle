@@ -27,7 +27,7 @@ class DescentMystV(ptResponder):
         print '.1'
 
 
-    """def OnFirstUpdate(self):
+    """def OnServerInitComplete(self):
         global DoScene
         mgr = ptNetLinkingMgr()
         linkInfo = mgr.getCurrAgeLink()
@@ -37,17 +37,14 @@ class DescentMystV(ptResponder):
             ageSDL = PtGetAgeSDL()
             DoScene = ageSDL[sdlScene.value][0]
             if (DoScene == 1):
-                print 'DescentMystV.OnFirstUpdate():',
+                print 'DescentMystV.OnServerInitComplete():',
                 print sdlScene.value,
                 print 'SDL says first time in Descent - will play intro'
             elif (not (DoScene)):
-                print 'DescentMystV.OnFirstUpdate():',
+                print 'DescentMystV.OnServerInitComplete():',
                 print sdlScene.value,
                 print 'SDL says intro done - will do nothing'
 
-
-    def OnServerInitComplete(self):
-        global DoScene
         if (DoScene == 1):
             print 'DescentMystV.OnServerInitComplete(): will run intro setup resp'
             print "Not playing scene since Escher is on vacation."

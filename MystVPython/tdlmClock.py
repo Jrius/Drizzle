@@ -1,5 +1,5 @@
 """
-Note: no PtGetGlobalSDLVar for timeElapsed, so wil have to find some sort of solution.
+Note: no PtGetGlobalSDLVar for timeElapsed, so will have to find some sort of solution.
 
 
 #"""
@@ -34,24 +34,24 @@ class tdlmClock(ptResponder):
         print '.2b'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
         ageSDL.sendToClients(SlateSDL.value)
         ageSDL.setFlags(SlateSDL.value, 1, 1)
         ageSDL.setNotify(self.key, SlateSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(PowerSDL.value)
         ageSDL.setFlags(PowerSDL.value, 1, 1)
         ageSDL.setNotify(self.key, PowerSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(WhichFaceSDL.value)
         ageSDL.setFlags(WhichFaceSDL.value, 1, 1)
         ageSDL.setNotify(self.key, WhichFaceSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(SlateSDL.value)
         ageSDL.setFlags(SlateSDL.value, 1, 1)
         ageSDL.setNotify(self.key, SlateSDL.value, 0.0)
-        
+
         if (ageSDL[SlateSDL.value][0] == 0):
             print ' tdlmClock: When I got here, ',
             print WhichFaceSDL.value,

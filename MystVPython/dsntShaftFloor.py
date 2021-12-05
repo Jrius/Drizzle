@@ -90,13 +90,13 @@ class dsntShaftFloor(ptResponder):
         print FloorRaisedSDL.value,
         print ' value was ',
         print ageSDL[FloorRaisedSDL.value][0]
-        
+
         try:
             climbLadders = (PtFindSceneobject('Region.003_bottom', 'DescentMystV'), PtFindSceneobject('Region.003_top', 'DescentMystV'), PtFindSceneobject('Region.004_bottom', 'DescentMystV'), PtFindSceneobject('Region.004_top', 'DescentMystV'), PtFindSceneobject('Region.005_bottom', 'DescentMystV'), PtFindSceneobject('Region.005_top', 'DescentMystV'))
             floorCollision = PtFindSceneobject('NewFloorProxy', 'DescentMystV')
         except: pass
         floorParent = PtFindSceneobject('NewFloorParent', 'DescentMystV')
-        
+
         PtClearTimerCallbacks(self.key)
         if (ageSDL[FloorRaisedSDL.value][0] == 1):
             print '\tRaising the Great Shaft Floor'

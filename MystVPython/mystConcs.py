@@ -64,7 +64,7 @@ class mystConcs(ptResponder):
         print '.1'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global SoEsher
         global AnimKey
         global byteEsherInMyst
@@ -101,7 +101,7 @@ class mystConcs(ptResponder):
                 actNoTablet.disableActivator()
                 #PtSendPythonNotify('Hide', 'Menu Bar', self.key)
                 #self.IDoEsher(1)
-                
+
                 ## run the responder, if fastforwarded, will run nice trapped music,
                 ## if not, will run escher's creepy music AND run nice trapped music
                 ## don't run the GotTablet state, it's too much for exploration.

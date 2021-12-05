@@ -23,7 +23,7 @@ class xGlobalSDLRespRun(ptModifier):
         print ('xGlobalSDLRespRun.__init__: version - %d' % self.version)
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         stateStr = strRunStates.value
         stateList = stateStr.split(',')
         for state in stateList:

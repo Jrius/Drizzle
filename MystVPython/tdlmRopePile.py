@@ -43,33 +43,33 @@ class tdlmRopePile(ptResponder):
         print '.4'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         global HorizSDLPrevVal
         global VertSDLPrevVal
         ageSDL = PtGetAgeSDL()
-        
+
         ageSDL.sendToClients(PileSDL.value)
         ageSDL.setFlags(PileSDL.value, 1, 1)
         ageSDL.setNotify(self.key, PileSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(PowerSDL.value)
         ageSDL.setFlags(PowerSDL.value, 1, 1)
         ageSDL.setNotify(self.key, PowerSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(HorizSDL.value)
         ageSDL.setFlags(HorizSDL.value, 1, 1)
         ageSDL.setNotify(self.key, HorizSDL.value, 0.0)
-        
+
         ageSDL.sendToClients(VertSDL.value)
         ageSDL.setFlags(VertSDL.value, 1, 1)
         ageSDL.setNotify(self.key, VertSDL.value, 0.0)
-        
+
         HorizSDLPrevVal = ageSDL[HorizSDL.value][0]
         VertSDLPrevVal  = ageSDL[VertSDL .value][0]
-        
+
         horizSliderProgress = ageSDL[HorizSDL.value + "Slider"][0]
         vertSliderProgress  = ageSDL[VertSDL .value + "Slider"][0]
-        
+
         # not sure we're running correct animation... whatever
         HorizAnim.animation.skipToTime((horizSliderProgress * (10 / 3.0)))
         VertAnim .animation.skipToTime((vertSliderProgress * (10 / 3.0)))
@@ -79,14 +79,14 @@ class tdlmRopePile(ptResponder):
         global EnterShouldBlink
         if (not (state)):
             return
-            
+
         if (not PtWasLocallyNotified(self.key) or PtFindAvatar(events) != PtGetLocalAvatar()): return
-        
+
         ageSDL = PtGetAgeSDL()
         if ((id == HorizDrag.id) or (id == VertDrag.id)):
             print "Notify from draggable activator"
             raise RuntimeError("WHAT ?!")
-            
+
             """EnterShouldBlink = true
             if (ageSDL[PowerSDL.value][0] == 0):
                 print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink.'
@@ -103,10 +103,10 @@ class tdlmRopePile(ptResponder):
                 print 'tdlmRopePile: Pillar 1 power is off, so the enter button doesn\'t respond.'
             else:
                 EnterShouldBlink = false
-                
+
                 horizSliderProgress = ageSDL[HorizSDL.value + "Slider"][0]
                 vertSliderProgress  = ageSDL[VertSDL .value + "Slider"][0]
-                
+
                 print 'tldmRopePile: Enter button pressed. Current value of draggables:'
                 print '\tHoriz = ',
                 print horizSliderProgress
@@ -116,17 +116,17 @@ class tdlmRopePile(ptResponder):
                 ageSDL[VertSDL.value] = (vertSliderProgress,)
         elif id != -1:
             print "tdlmBigScope: notify from id", id
-            
+
             EnterShouldBlink = true
             if (ageSDL[PowerSDL.value][0] == 0):
                 print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
             else:
                 respEnterBlink.run(self.key, netForce=1)
-            
+
             # Not readable, I know, but I like to show off
             ageSDL[ (VertSDL, HorizSDL) [id%2] .value + "Slider" ] = \
                     ( actSliderSteps[ (id-1, id)[id%2] ] ,)
-            
+
             print "Sliders progress now = (%s, %s)" % (ageSDL[HorizSDL.value + "Slider"][0], ageSDL[VertSDL.value + "Slider"])
 
 
@@ -157,9 +157,9 @@ class tdlmRopePile(ptResponder):
         if (VARname == HorizSDL.value):
             newhoriz = ageSDL[HorizSDL.value][0]
             Htransitiontime = ((abs((HorizSDLPrevVal - ageSDL[VARname][0])) * 3.33) / scopespeed)
-            
+
             HorizSDLPrevVal = ageSDL[HorizSDL.value][0]
-            
+
             if (Htransitiontime > TransitionTime):
                 TransitionTime = Htransitiontime
                 respCablesStart.run(self.key)
@@ -174,9 +174,9 @@ class tdlmRopePile(ptResponder):
         elif (VARname == VertSDL.value):
             newvert = ageSDL[VertSDL.value][0]
             Vtransitiontime = ((abs((VertSDLPrevVal - ageSDL[VARname][0])) * 3.33) / scopespeed)
-            
+
             VertSDLPrevVal  = ageSDL[VertSDL.value][0]
-            
+
             if (newvert <= 0.33):
                 print '\tThere should be LOTS of rope pile.'
                 ageSDL[PileSDL.value] = (0,)
@@ -186,7 +186,7 @@ class tdlmRopePile(ptResponder):
             elif (newvert >= 0.66):
                 print '\tThere should be NO pile.'
                 ageSDL[PileSDL.value] = (2,)
-            
+
             if (Vtransitiontime > TransitionTime):
                 TransitionTime = Vtransitiontime
                 respCablesStart.run(self.key)

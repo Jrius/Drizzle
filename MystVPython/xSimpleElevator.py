@@ -6,14 +6,14 @@ objParent = ptAttribSceneobject(2, "obj to parent to")
 
 
 class xSimpleElevator(ptResponder):
-    
-    
+
+
     def __init__(self):
         ptResponder.__init__(self)
         self.id = -1
         self.version = 1
-    
-    
+
+
     def OnNotify(self, state, id, events):
         if (not (state)):
             return

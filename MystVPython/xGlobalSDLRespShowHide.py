@@ -30,7 +30,7 @@ class xGlobalSDLRespShowHide(ptMultiModifier):
         self.sceneobject.physics.suppress(1)
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         stateStr = strShownStates.value
         stateList = stateStr.split(',')
         for state in stateList:

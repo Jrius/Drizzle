@@ -59,7 +59,7 @@ class tdlmMiniScope(ptResponder):
         print '.12'
 
 
-    def OnFirstUpdate(self):
+    def OnServerInitComplete(self):
         ageSDL = PtGetAgeSDL()
         ageSDL.sendToClients(SpinSDL.value)
         ageSDL.setFlags(SpinSDL.value, 1, 1)
@@ -87,7 +87,7 @@ class tdlmMiniScope(ptResponder):
         print ZoomSDL.value,
         print ') was ',
         print ageSDL[ZoomSDL.value][0]
-        
+
         #TiltAnim.animation.speed(116) # allow us to rotate it fast
         #SpinAnim.animation.speed(116)
 
@@ -153,7 +153,7 @@ class tdlmMiniScope(ptResponder):
             SpinSlider = ptGUIControlKnob(control.getControlFromTag(kTagIDSpin))
             TiltSlider = ptGUIControlKnob(control.getControlFromTag(kTagIDVert))
             ZoomSlider = ptGUIControlKnob(control.getControlFromTag(kTagIDZoom))
-            
+
             ageSDL = PtGetAgeSDL()
             curSpin = ageSDL[SpinSDL.value][0]
             curTilt = ageSDL[TiltSDL.value][0]
@@ -163,7 +163,7 @@ class tdlmMiniScope(ptResponder):
             ZoomSlider.setValue(curZoom)
             scopecamera = ptCamera()
             scopecamera.setFOV(curZoom, 0)
-            
+
             SpinSlider.disable()
             TiltSlider.disable()
             ZoomSlider.disable()
@@ -180,6 +180,8 @@ class tdlmMiniScope(ptResponder):
             if (GUI.value == 'MiniScope03'):
                 if PtIsSinglePlayerMode():
                     ageSDL[SpinSDL.value] = (newvalue,)
+                else:
+                    SpinAnim.animation.skipToTime((newvalue / 30))
                 curSpin = newvalue
             elif ((newvalue > (SolutionH - ThresholdH)) and (newvalue < (SolutionH + ThresholdH)) and doAutoAim):
                 ## this is wrong, because it means it will autoaim on two lines forming a +. We want it to focus on a dot.
@@ -188,29 +190,42 @@ class tdlmMiniScope(ptResponder):
                 print newvalue
                 if PtIsSinglePlayerMode():
                     ageSDL[SpinSDL.value] = (SolutionH,)
+                else:
+                    SpinAnim.animation.skipToTime((SolutionH / 30))
                 curSpin = newvalue
             else:
                 if PtIsSinglePlayerMode():
                     ageSDL[SpinSDL.value] = (newvalue,)
+                else:
+                    SpinAnim.animation.skipToTime((newvalue / 30))
                 curSpin = newvalue
         elif (contTag == kTagIDVert):
             if (GUI.value == 'MiniScope03'):
                 if PtIsSinglePlayerMode():
                     ageSDL[TiltSDL.value] = (newvalue,)
+                else:
+                    TiltAnim.animation.skipToTime((newvalue / 30))
                 curTilt = newvalue
             elif ((newvalue > (SolutionV - ThresholdV)) and (newvalue < (SolutionV + ThresholdV)) and doAutoAim):
                 print 'AutoAiming Tilt value! newvalue WAS ',
                 print newvalue
                 if PtIsSinglePlayerMode():
                     ageSDL[TiltSDL.value] = (SolutionV,)
+                else:
+                    TiltAnim.animation.skipToTime((SolutionV / 30))
                 curTilt = newvalue
             else:
                 if PtIsSinglePlayerMode():
                     ageSDL[TiltSDL.value] = (newvalue,)
+                else:
+                    TiltAnim.animation.skipToTime((newvalue / 30))
                 curTilt = newvalue
         elif (contTag == kTagIDZoom):
             if PtIsSinglePlayerMode():
                 ageSDL[ZoomSDL.value] = (int(newvalue),)
+            else:
+                scopecamera = ptCamera()
+                scopecamera.setFOV(newvalue, 0.1) # setting the changetime to 0.1 gives us a much smoother transition
             curZoom = newvalue
         elif (contTag == kTagIDExitGUI):
             print '\tThe MiniScope GUI should now be hidden.'
@@ -236,7 +251,7 @@ class tdlmMiniScope(ptResponder):
             print ZoomSDL.value,
             print ') was ',
             print ageSDL[ZoomSDL.value][0]
-        
+
         ## always check solution view
         self.CheckPedestalSight()
 
@@ -262,8 +277,8 @@ class tdlmMiniScope(ptResponder):
             if engaged:
                 scopecamera = ptCamera()
                 scopecamera.setFOV(ageSDL[VARname][0], 0.1) # setting the changetime to 0.1 gives us a much smoother transition
-    
-    
+
+
     def CheckPedestalSight(self):
         global Solution01H
         global Solution01V
@@ -275,7 +290,7 @@ class tdlmMiniScope(ptResponder):
         global curSpin
         global curZoom
         ageSDL = PtGetAgeSDL()
-        
+
         if (GUI.value == 'MiniScope01'):
             if not ageSDL["MiniScope01LOS"][0]:
                 #print "Ped not visible from here."
@@ -290,15 +305,15 @@ class tdlmMiniScope(ptResponder):
                     if curZoom < 18: ## should be the last ticks of the slider (which goes all the way down to 2 degrees)
                         print "Now seeing first pedestal ! Unlocking link to it..."
                         ageSDL["TdlmActivePedestals01"] = (1,)
-        
-        
+
+
         elif (GUI.value == 'MiniScope02'):
             print "Checking scope 2..."
-            
+
             if ageSDL["TdlmActivePedestals02"][0]:
                 #print "Ped already enabled."
                 return
-            
+
             if (curSpin > (Solution02H - ThresholdH)) \
                         and (curSpin < (Solution02H + ThresholdH)):
                 if (curTilt > (Solution02V - ThresholdV)) \
@@ -315,7 +330,7 @@ class tdlmMiniScope(ptResponder):
                         bs3v = float(ageSDL["BigScope03Vert"][0])
                         if bs2h > .3 or bs3h < .8 or bs3v < .32 or bs3v > .67:
                             return
-                        
+
                         # you're seeing the damn thing, congrats !
                         print "Now seeing second pedestal ! Unlocking link to it..."
                         ageSDL["TdlmActivePedestals02"] = (1,)
