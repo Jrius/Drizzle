@@ -380,7 +380,8 @@ public class PostMod_MystV
                         }
                         else if (msgtype == Typeid.plSoundMsg)
                         {
-                            for (int i=0; i<(((prpobjects.PrpMessage.PlSoundMsg)c.message.castTo()).parent.callbacks.size()); i++)
+                            prpobjects.PrpMessage.PlSoundMsg soundMsg = c.message.castTo();
+                            for (int i=0; i<(soundMsg.parent.callbacks.size()); i++)
                             {
                                 prpobjects.PrpMessage.PlEventCallbackMsg cb = ((prpobjects.PrpMessage.PlSoundMsg)c.message.castTo()).parent.callbacks.get(i).castTo();
                                 if (cb.parent.broadcastFlags == prpobjects.plMessage.kBCastNone)
@@ -388,6 +389,14 @@ public class PostMod_MystV
                                     cb.parent.broadcastFlags = prpobjects.plMessage.kLocalPropagate;
                                 else
                                     m.warn("Unexpected flags " + msg.broadcastFlags + " in responder callback " + ro.header.desc.objectname + ". Doing nothing.");
+                            }
+                            
+                            // While we're at it - and not really related to cast flags...
+                            // Remove the kIsLocalOnly (0x20000) command - if the responder was triggered by someone else,
+                            // this would prevent the sound from playing on other clients.
+                            if (soundMsg.cmd != null) // (Laki's crossfade message is replaced by soundmsg, but it's not setup yet... sorry about that !)
+                            {
+                                soundMsg.cmd.values[0] &= ~(1 << 17);
                             }
                         }
                     }
@@ -401,21 +410,43 @@ public class PostMod_MystV
             prpobjects.plLogicModifier lo = ro.castTo();
             prpobjects.plMessage msg = ((prpobjects.PrpMessage.PlNotifyMsg)lo.parent.message.castTo()).parent;
             
-            if (msg.broadcastFlags == prpobjects.plMessage.kBCastNone)
-                // that's a regular logic mod
-                msg.broadcastFlags = prpobjects.plMessage.kLocalPropagate | prpobjects.plMessage.kNetPropagate;
+            boolean hasAxisAnim = false;
+            for (Uruobjectref recv : msg.receivers)
+            {
+                if (recv.xdesc.objecttype == Typeid.plAxisAnimModifier)
+                {
+                    hasAxisAnim = true;
+                    break;
+                }
+            }
+            
+            if (hasAxisAnim)
+            {
+                // AxisAnim modifiers are NOT multiplayer aware. Don't broadcast the message on the network.
+                if (msg.broadcastFlags == prpobjects.plMessage.kBCastNone)
+                    msg.broadcastFlags = prpobjects.plMessage.kLocalPropagate;
+                else
+                    m.warn("Unexpected flags " + msg.broadcastFlags + " in logic modifier to axis anim " + ro.header.desc.objectname + ". Doing nothing.");
+            }
             else
-                m.warn("Unexpected flags " + msg.broadcastFlags + " in logic modifier " + ro.header.desc.objectname + ". Doing nothing.");
+            {
+                if (msg.broadcastFlags == prpobjects.plMessage.kBCastNone)
+                    // that's a regular logic mod
+                    msg.broadcastFlags = prpobjects.plMessage.kLocalPropagate | prpobjects.plMessage.kNetPropagate;
+                else
+                    m.warn("Unexpected flags " + msg.broadcastFlags + " in logic modifier " + ro.header.desc.objectname + ". Doing nothing.");
+            }
         }
         
-        // axis anim modifiers: local propagate + net propagate
+        // axis anim modifiers: local propagate
+        // Don't use netpropagate - this makes everyone's cursor hook to the draggable even though they didn't click it...
         for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plAxisAnimModifier))
         {
             prpobjects.plAxisAnimModifier aa = ro.castTo();
             prpobjects.PrpMessage.PlNotifyMsg msg = aa.message.castTo();
             
             if (msg.parent.broadcastFlags == prpobjects.plMessage.kBCastNone)
-                msg.parent.broadcastFlags = prpobjects.plMessage.kLocalPropagate | prpobjects.plMessage.kNetPropagate;
+                msg.parent.broadcastFlags = prpobjects.plMessage.kLocalPropagate;
             else
                 m.warn("Unexpected flags " + msg.parent.broadcastFlags + " in axis anim modifier " + ro.header.desc.objectname + ". Doing nothing.");
         }
@@ -2295,7 +2326,7 @@ public class PostMod_MystV
             PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createEmpty();
             nsm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
             nsm.parent.count = 0;
-            nsm.parent.callbacks = new Vector();
+            nsm.parent.callbacks = new Vector<>();
             nsm.parent.parent = plMessage.createWithSenderAndReceiver(
                     Uruobjectref.createDefaultWithTypeNamePage(Typeid.plResponderModifier, "cSfxResp-ArenaRevealStart", prp.header.pageid),
                     Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAudioInterface, "cSfxArenaRevealMusic", prp.header.pageid));
@@ -2335,7 +2366,7 @@ public class PostMod_MystV
                 PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createEmpty();
                 nsm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
                 nsm.parent.count = 0;
-                nsm.parent.callbacks = new Vector();
+                nsm.parent.callbacks = new Vector<>();
                 nsm.parent.parent = plMessage.createWithSenderAndReceiver(
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plResponderModifier, "cRespImager01On", prp.header.pageid),
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAudioInterface, "cSfxYeeshaImager01", Pageid.createFromPrefixPagenum(94, 13)));
@@ -2372,7 +2403,7 @@ public class PostMod_MystV
                 PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createEmpty();
                 nsm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
                 nsm.parent.count = 0;
-                nsm.parent.callbacks = new Vector();
+                nsm.parent.callbacks = new Vector<>();
                 nsm.parent.parent = plMessage.createWithSenderAndReceiver(
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plResponderModifier, "cRespImager02On", prp.header.pageid),
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAudioInterface, "cSfxYeeshaImagerMx02", prp.header.pageid));
@@ -2420,7 +2451,7 @@ public class PostMod_MystV
                 PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createEmpty();
                 nsm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
                 nsm.parent.count = 0;
-                nsm.parent.callbacks = new Vector();
+                nsm.parent.callbacks = new Vector<>();
                 nsm.parent.parent = plMessage.createWithSenderAndReceiver(
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plResponderModifier, "cRespImager03On", prp.header.pageid),
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAudioInterface, "cSfxYeeshaImagerMx03", prp.header.pageid));
