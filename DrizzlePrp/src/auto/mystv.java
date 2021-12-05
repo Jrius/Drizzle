@@ -843,6 +843,8 @@ public class mystv //was myst5Fixes
         // remove annoying physical
         if (newAgename.equals("MystMystV") && prp.header.pagename.toString().equals("Island"))
             prp.markObjectDeleted(Typeid.plSceneObject, "PlanetariumDoorBlocker");
+        if (newAgename.equals("Siralehn") && prp.header.pagename.toString().equals("Exterior"))
+            prp.markObjectDeleted(Typeid.plSceneObject,"LandTopCollision"); //so we can jump off the top
         
         // fix laki buttons facing the wrong direction
         if (newAgename.equals("Laki") && prp.header.pagename.toString().equals("LakiMaze"))
