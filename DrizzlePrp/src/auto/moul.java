@@ -266,7 +266,7 @@ public class moul
                 auto.postmod.PostMod_FixSwimRegions.FixSwimRegions(prp);
 
                 //all the crazy stuff, should be cleaned up:
-                HashMap<Uruobjectdesc, Uruobjectdesc> refReassigns = new HashMap();
+                HashMap<Uruobjectdesc, Uruobjectdesc> refReassigns = new HashMap<>();
                 moul.proccessPrp(prp, file.agename, info.g.renameinfo.agenames, info.outfolder, info.infolder, refReassigns);
 
                 //fix subworlds:
@@ -621,24 +621,53 @@ public class moul
         if(agename.equals("Kveer") && pagename.equals("KveerHalls"))
         {
             //change pythonfilemod from Myst to MystMystV.
-            plPythonFileMod pfm = prp.findObject("cPythLinkBookMyst", Typeid.plPythonFileMod).castTo();
-            pfm.getListingByIndex(4).xString = Bstr.createFromString("MystMystV");
+            PrpRootObject ro = prp.findObject("cPythLinkBookMyst", Typeid.plPythonFileMod);
+            if (ro != null)
+            {
+                // old Cyan version
+                
+                plPythonFileMod pfm = ro.castTo();
+                pfm.getListingByIndex(4).xString = Bstr.createFromString("MystMystV");
 
-            //change respondermodifier from Myst to MystMystV.
-            plResponderModifier rm = prp.findObject("cRespLinkOutMyst", Typeid.plResponderModifier).castTo();
-            PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
-            ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("MystMystV");
-            
-            //GUI_District_BkBookImages:  Pots -2:55(type4) Moul -2:57(type4) Shard -2:55(type4
-            x0006Layer layer = prp.findObject("Map #6995", Typeid.plLayer).castTo();
-            Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelmystisland*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
-            layer.texture = mmref;
-            
-            // myst book: remove yeesha share texture
-            layer = prp.findObject("Map #2003", Typeid.plLayer).castTo();
-            layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page*0#3.hsm", Pageid.createFromPrefixPagenum(98, -1), Pagetype.createWithType(8));
-            layer = prp.findObject("Map #20040", Typeid.plLayer).castTo();
-            layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page1*0#3.hsm", Pageid.createFromPrefixPagenum(98, -1), Pagetype.createWithType(8));
+                //change respondermodifier from Myst to MystMystV.
+                plResponderModifier rm = prp.findObject("cRespLinkOutMyst", Typeid.plResponderModifier).castTo();
+                PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
+                ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("MystMystV");
+
+                //GUI_District_BkBookImages:  Pots -2:55(type4) Moul -2:57(type4) Shard -2:55(type4
+                x0006Layer layer = prp.findObject("Map #6995", Typeid.plLayer).castTo();
+                Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelmystisland*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
+                layer.texture = mmref;
+
+                // myst book: remove yeesha share texture
+                layer = prp.findObject("Map #2003", Typeid.plLayer).castTo();
+                layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page*0#3.hsm", Pageid.createFromPrefixPagenum(98, -1), Pagetype.createWithType(8));
+                layer = prp.findObject("Map #20040", Typeid.plLayer).castTo();
+                layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page1*0#3.hsm", Pageid.createFromPrefixPagenum(98, -1), Pagetype.createWithType(8));
+            }
+            else
+            {
+                // Doobes' 2k21 xmas version
+                
+                plPythonFileMod pfm = prp.findObject("MystLinkingBook_COLLISION_Python_File", Typeid.plPythonFileMod).castTo();
+                pfm.getListingByIndex(4).xString = Bstr.createFromString("MystMystV");
+
+                //change respondermodifier from Myst to MystMystV.
+                plResponderModifier rm = prp.findObject("MystLinkingBook_COLLISION_MystLinkingBook_COLLISION_Responder", Typeid.plResponderModifier).castTo();
+                PrpMessage.PlLinkToAgeMsg ltam = rm.messages.get(0).commands.get(1).message.castTo();
+                ltam.ageLinkStruct.ageinfo.ageFilename = Wpstr.create("MystMystV");
+
+                //Myst linking book texture.
+                x0006Layer layer = prp.findObject("Minkata_Map__6995", Typeid.plLayer).castTo(); // Minkata ? Go figure.
+                Uruobjectref mmref = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "xlinkpanelmystisland*1#0.hsm", Pageid.createFromPrefixPagenum(-2, 54), Pagetype.createWithType(4));
+                layer.texture = mmref;
+
+                // myst book: remove yeesha share texture
+                layer = prp.findObject("m_465_Map__2003", Typeid.plLayer).castTo();
+                layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page_0_3.dds", Pageid.createFromPrefixPagenum(98, -1), Pagetype.createWithType(8));
+                layer = prp.findObject("m_466_Map__20040", Typeid.plLayer).castTo();
+                layer.texture = Uruobjectref.createDefaultWithTypeNamePagePagetype(Typeid.plMipMap, "islmdnibook_page1_0_3.dds", Pageid.createFromPrefixPagenum(98, -1), Pagetype.createWithType(8));
+            }
         }
         if(agename.equals("EderDelin") && pagename.equals("garden"))
         {
