@@ -66,10 +66,7 @@ class xEoAMultiposInteractable(ptResponder):
                     curValueIndex -= 1
                     curDirectionIsForward = False
                 print("xEoaMultiposInteractable: animation synced to %s, which is at value %s. Progressing to %s." % (sdlName.value, oldValueIndex, curValueIndex))
-                if reverse.value:
-                    animation.value.playToPercentage(1 - curValueIndex / float(len(sdlValuesArray) - 1))
-                else:
-                    animation.value.playToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
+                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
         elif id == activatorIncrease.id and interactableType.value == "MultiPos":
             ageSDL = PtGetAgeSDL()
             oldValueIndex = curValueIndex = sdlValuesArray.index(ageSDL[sdlName.value][0])
@@ -77,10 +74,7 @@ class xEoAMultiposInteractable(ptResponder):
             if oldValueIndex + 1 < arrayLength:
                 curValueIndex += 1
                 print("xEoaMultiposInteractable: animation synced to %s, which is at value %s. Increasing to %s." % (sdlName.value, oldValueIndex, curValueIndex))
-                if reverse.value:
-                    animation.value.playToPercentage(1 - curValueIndex / float(len(sdlValuesArray) - 1))
-                else:
-                    animation.value.playToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
+                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
         elif id == activatorDecrease.id and interactableType.value == "MultiPos":
             ageSDL = PtGetAgeSDL()
             oldValueIndex = curValueIndex = sdlValuesArray.index(ageSDL[sdlName.value][0])
@@ -88,10 +82,22 @@ class xEoAMultiposInteractable(ptResponder):
             if oldValueIndex > 0:
                 curValueIndex -= 1
                 print("xEoaMultiposInteractable: animation synced to %s, which is at value %s. Decreasing to %s." % (sdlName.value, oldValueIndex, curValueIndex))
-                if reverse.value:
-                    animation.value.playToPercentage(1 - curValueIndex / float(len(sdlValuesArray) - 1))
-                else:
-                    animation.value.playToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
+                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
+
+    def PlayToPercentage(self, percent):
+        if reverse.value:
+            percent = 1 - percent
+
+        # Note that a bug in Plamza causes playToPercentage() to sometime fail to trigger beginning/end anim event modifiers.
+        # Thus when we're sure to reach 0% or 100%, use regular play() instead.
+        if percent == 0:
+            animation.value.backwards(True)
+            animation.value.play()
+        elif percent == 1:
+            animation.value.backwards(False)
+            animation.value.play()
+        else:
+            animation.value.playToPercentage(percent)
 
 
 
