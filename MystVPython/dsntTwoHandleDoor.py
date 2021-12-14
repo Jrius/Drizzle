@@ -31,7 +31,7 @@ class dsntTwoHandleDoor(ptResponder):
         ageSDL.setNotify(self.key, AgeSDLdoor.value, 0.0)
         self.DisableHandles()
 
-        ## lower speed to counterpart speeded animation
+        ## lower speed to counteract sped animation
         animHandle01.animation.speed(0.3)
         animHandle02.animation.speed(0.3)
 

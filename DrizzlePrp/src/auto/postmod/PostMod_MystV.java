@@ -5,13 +5,120 @@
 
 package auto.postmod;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import prpobjects.*;
 import shared.*;
 import java.util.Vector;
 
 public class PostMod_MystV
 {
+    private enum DraggableType
+    {
+        OneShot,
+        Toggle,
+        MultiPos
+    }
+    
+    private static class Draggable
+    {
+        public String draggableName;
+        public String sdlName;
+        public DraggableType type;
+        public boolean reverse;
+        public float[] sdlValues;
+        
+        public Draggable(String draggableName)
+        {
+            this.draggableName = draggableName;
+            this.type = DraggableType.OneShot;
+            this.sdlValues = null;
+        }
+        
+        public Draggable(String draggableName, String sdlName, DraggableType type, boolean reverse, float[] sdlValues)
+        {
+            this.draggableName = draggableName;
+            this.sdlName = sdlName;
+            this.type = type;
+            this.reverse = reverse;
+            this.sdlValues = sdlValues;
+        }
+    }
+    
+    private static class PrpDraggables
+    {
+        public String ageName;
+        public String pageName;
+        public List<Draggable> draggables;
+        
+        public PrpDraggables(String ageName, String pageName, List<Draggable> draggables)
+        {
+            this.ageName = ageName;
+            this.pageName = pageName;
+            this.draggables = draggables;
+        }
+    }
+    
+    private static List<PrpDraggables> prpDraggablesList = Arrays.asList(
+            new PrpDraggables("DescentMystV", "dsntPostShaftNodeAndTunnels", Arrays.asList(
+                    new Draggable("FanRoomCrank_Drag", "FanOn", DraggableType.Toggle, false, null),
+                    new Draggable("handle01", "ShaftDoorOpen", DraggableType.Toggle, false, null)
+            )),
+            new PrpDraggables("DescentMystV", "dsntShaftGeneratorRoom", Arrays.asList(
+                    new Draggable("GenCrank", "GeneratorOn", DraggableType.Toggle, true, null)
+            )),
+            new PrpDraggables("DescentMystV", "dsntTianaCaveNode2", Arrays.asList(
+                    new Draggable("handle01", "TCaveDoor01Open", DraggableType.Toggle, false, null)
+            )),
+            new PrpDraggables("DescentMystV", "dsntTianaCaveTunnel3", Arrays.asList(
+                    new Draggable("handle02", "TCaveDoor01Open", DraggableType.Toggle, false, null)
+            )),
+            new PrpDraggables("DescentMystV", "dsntUpperShaft", Arrays.asList(
+                    new Draggable("ElevA_PullHandle"),
+                    new Draggable("ElevB_PullHandle"),
+                    new Draggable("LeverElevABottom"),
+                    new Draggable("LeverElevATop"),
+                    new Draggable("LeverElevBBottom"),
+                    new Draggable("LeverElevBTop")
+            )),
+            new PrpDraggables("Laki", "Exterior", Arrays.asList(
+//                    new Draggable("WindmillHeightLever"),
+//                    new Draggable("WindmillRotateLever"),
+//                    new Draggable("WindmillGearLever"),
+                    new Draggable("HutRopeBig1", "boolBigRock1", DraggableType.Toggle, false, null),
+                    new Draggable("HutRopeBig2", "boolBigRock2", DraggableType.Toggle, false, null),
+                    new Draggable("HutRopeMed1", "boolMedRock1", DraggableType.Toggle, false, null),
+                    new Draggable("HutRopeMed2", "boolMedRock2", DraggableType.Toggle, false, null),
+                    new Draggable("HutRopeMed3", "boolMedRock3", DraggableType.Toggle, false, null),
+                    new Draggable("HutRopeSmall1", "boolSmallRock1", DraggableType.Toggle, false, null),
+                    new Draggable("HutRopeSmall2", "boolSmallRock2", DraggableType.Toggle, false, null)
+            )),
+//            new PrpDraggables("Laki", "LakiMaze", Arrays.asList(
+//                    new Draggable("ElevLeverLwr", DraggableType.Toggle, null),
+//                    new Draggable("ElevLeverUpr", DraggableType.Toggle, null)
+//            )),
+            new PrpDraggables("MystMystV", "Island", Arrays.asList(
+                    new Draggable("Marker01Base")
+            )),
+            new PrpDraggables("Siralehn", "Exterior", Arrays.asList(
+                    new Draggable("LadderPullMaster")
+            )),
+            new PrpDraggables("Tahgira", "Exterior", Arrays.asList(
+                    new Draggable("ThermValveDummyE1", "boolThermalE1", DraggableType.Toggle, false, null),
+                    new Draggable("ThermValveDummyE2", "boolThermalE2", DraggableType.Toggle, false, null),
+                    new Draggable("ThermValveDummyE3", "boolThermalE3", DraggableType.Toggle, false, null),
+                    new Draggable("ThermValveDummyW1", "boolThermalW1", DraggableType.Toggle, false, null),
+                    new Draggable("ThermValveDummyW2", "boolThermalW2", DraggableType.Toggle, false, null),
+                    new Draggable("ThermValveDummyW3", "boolThermalW3", DraggableType.Toggle, false, null)
+            )),
+            new PrpDraggables("Todelmer", "Exterior", Arrays.asList(
+                    new Draggable("HandCrankDir1", "CrankDir1", DraggableType.Toggle, false, null),
+                    new Draggable("HandCrankDir2", "CrankDir2", DraggableType.Toggle, false, null),
+                    new Draggable("TramCrank01"),
+                    new Draggable("TramCrank02")
+            ))
+    );
+    
     public static void PostMod_ChangeVerySpecialPython(prpfile prp,String oldAgename, String newAgename)
     {
         //String newagename = agenames.get(agename);
@@ -3199,15 +3306,90 @@ public class PostMod_MystV
         for (PrpRootObject ro : prp.FindAllObjectsOfType(Typeid.plSceneObject))
         {
             plSceneObject so = ro.castTo();
-            for (Uruobjectref modref : so.modifiers)
+            for (int i = 0; i < so.modifiers.size(); i++)
             {
+                Uruobjectref modref = so.modifiers.get(i);
                 if (modref.xdesc.objecttype == Typeid.plAxisAnimModifier)
                 {
 //                    MakeDraggableOneShot(prp, ro, modref);
-                    MakeDraggablePingPong(prp, ro, modref);
+//                    MakeDraggablePingPong(prp, ro, modref);
+                    
+                    Draggable draggable = GetDraggable(prp, ro);
+                    if (draggable == null)
+                    {
+                        m.err("Unknown draggable: " + ro.header.desc.objectname.toString() + ", " + prp.header.agename.toString() + "_" + prp.header.pagename.toString());
+                        continue;
+                    }
+                    plPythonFileMod pfm = CreateDefaultAAMReplacementScript(prp, ro, modref);
+                    if (draggable.reverse)
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithBoolean(8, true));
+                    if (draggable.type == DraggableType.OneShot)
+                    {
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(1, Bstr.createFromString("SingleUse")));
+                    }
+                    else if (draggable.type == DraggableType.Toggle)
+                    {
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(1, Bstr.createFromString("MultiPos")));
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(5, Bstr.createFromString(draggable.sdlName)));
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString("0, 1")));
+                    }
+                    else if (draggable.type == DraggableType.MultiPos)
+                    {
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(1, Bstr.createFromString("MultiPos")));
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(5, Bstr.createFromString(draggable.sdlName)));
+                        StringBuilder sb = new StringBuilder();
+                        for (float f : draggable.sdlValues)
+                            sb.append(f);
+                        String valuesStr = sb.toString();
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString(valuesStr)));
+                    }
+                    
+                    /*
+                    Okay, mhm. That's better, but Plasma fails to trigger some events.
+                    This could be because our anim events are on the very first/last frames,
+                    and somehow Plamza doesn't play that last frame on occasions ?
+                    */
                 }
             }
         }
+    }
+    
+    private static Draggable GetDraggable(prpfile prp, PrpRootObject ro)
+    {
+        for (PrpDraggables draggables : prpDraggablesList)
+            if (draggables.ageName.equals(prp.header.agename.toString()) &&
+                    draggables.pageName.equals(prp.header.pagename.toString()))
+                for (Draggable draggable : draggables.draggables)
+                    if (draggable.draggableName.equals(ro.header.desc.objectname.toString()))
+                        return draggable;
+        return null;
+    }
+    
+    private static plPythonFileMod CreateDefaultAAMReplacementScript(prpfile prp, PrpRootObject soRo, Uruobjectref aamRef)
+    {
+        // Remove the axis anim mod from the PRP - we won't use it once ingame.
+        prp.markObjectDeleted(aamRef, true);
+        plAxisAnimModifier aam = prp.findObjectWithRef(aamRef).castTo();
+
+        // Create a new plPythonFileMod to handle clicking the object.
+        plPythonFileMod pfm = plPythonFileMod.createDefault();
+        pfm.pyfile = Urustring.createFromString("xEoAMultiposInteractable");
+        pfm.addListing(plPythonFileMod.Pythonlisting.createWithRef(7, 2, aam.notificationKey));
+        Uruobjectref animRef = (aam.xAnim.hasRef == 1) ? aam.xAnim : aam.yAnim;
+        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(7, Bstr.createFromString(aam.animLabel.toString())));
+        pfm.addListing(plPythonFileMod.Pythonlisting.createWithRef(12, 7, animRef));
+        Uruobjectdesc pfmDesc = Uruobjectdesc.createDefaultWithTypeNamePrp(Typeid.plPythonFileMod, aamRef.xdesc.objectname.toString() + "_axisanim", prp);
+        Uruobjectref pfmRef = Uruobjectref.createFromUruobjectdesc(pfmDesc);
+        prp.addObject(pfmRef, pfm);
+        plSceneObject so = soRo.castTo();
+        so.modifiers.add(pfmRef);
+
+        // Reroute the plNotifyMsg towards our newly created Python file.
+        plLogicModifier logicMod = prp.findObjectWithRef(aam.notificationKey).castTo();
+        PrpMessage.PlNotifyMsg logicModMsg = logicMod.parent.message.castTo();
+        logicModMsg.parent.receivers.set(0, pfmRef);
+        
+        return pfm;
     }
     
     /**
