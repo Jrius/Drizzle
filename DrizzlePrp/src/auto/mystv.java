@@ -867,6 +867,9 @@ public class mystv //was myst5Fixes
         // adjust those thrice-damned draggables
         auto.postmod.PostMod_MystV.PostMod_AdjustDraggableAnimations(prp);
         
+        // remove axisanims altogether (turns out they don't work in multiplayer at all, so all our hard work was for nil T_T)
+        auto.postmod.PostMod_MystV.PostMod_ReplaceAllDraggables(prp);
+        
         // put laki column sp at correct height (was too low)
         if (newAgename.equals("Laki") && prp.header.pagename.toString().equals("LakiArenaVillaInt"))
             auto.postmod.PostMod_MystV.PostMod_FixLakiElev(prp);

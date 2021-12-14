@@ -381,9 +381,21 @@ public abstract class PrpMessage extends PrpTaggedObject
             loopName = new Urustring(c);
         }
         
-        public static PlAnimCmdMsg createEmpty()
+        public static PlAnimCmdMsg createDefault()
         {
-            return new PlAnimCmdMsg();
+            PlAnimCmdMsg result = new PlAnimCmdMsg();
+            result.animName = Urustring.createFromString("");
+            result.command = new HsBitVector();
+            result.begin = Flt.zero();
+            result.end = Flt.zero();
+            result.loopBegin = Flt.zero();
+            result.loopEnd = Flt.zero();
+            result.speed = Flt.zero();
+            result.speedChangeRate = Flt.zero();
+            result.time = Flt.zero();
+            result.loopName = Urustring.createFromString("");
+            result.parent = PrpMessage.PlMessageWithCallbacks.createDefault();
+            return result;
         }
 
         private PlAnimCmdMsg() {
@@ -1255,9 +1267,14 @@ public abstract class PrpMessage extends PrpTaggedObject
             callbacks = c.readVector(PrpTaggedObject.class, count);
         }
         
-        public static PlMessageWithCallbacks createEmpty()
+        public static PlMessageWithCallbacks createDefault()
         {
-            return new PlMessageWithCallbacks();
+            PlMessageWithCallbacks result = new PlMessageWithCallbacks();
+            result.count = 1;
+            result.parent = plMessage.createDefault();
+            result.parent.broadcastFlags = plMessage.kLocalPropagate;
+            result.callbacks = new Vector<PrpTaggedObject>();
+            return result;
         }
 
         private PlMessageWithCallbacks() {
@@ -1332,9 +1349,22 @@ public abstract class PrpMessage extends PrpTaggedObject
 
         private PlSoundMsg() {}
         
-        public static PlSoundMsg createEmpty()
+        public static PlSoundMsg createDefault()
         {
-            return new PlSoundMsg();
+            PlSoundMsg result = new PlSoundMsg();
+            result.parent = PrpMessage.PlMessageWithCallbacks.createDefault();
+            result.cmd = new HsBitVector(0);
+            result.begin = result.end = Double64.fromJavaDouble(0);
+            result.loop = 0;
+            result.playing = 0;
+            result.speed = Flt.createFromJavaFloat(0);
+            result.time = Double64.fromJavaDouble(0);
+            result.index = 0;
+            result.repeats = 0;
+            result.namestr = 0;
+            result.volume = Flt.createFromJavaFloat(0);
+            result.fadetype = 0;
+            return result;
         }
         
         public void compile(Bytedeque c)

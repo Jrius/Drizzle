@@ -52,6 +52,18 @@ public class plResponderModifier extends uruobj
         enabled = c.readByte();
         flags = c.readByte();
     }
+    private plResponderModifier() {}
+    public static plResponderModifier createDefault()
+    {
+        plResponderModifier result = new plResponderModifier();
+        result.parent = plSingleModifier.createDefault();
+        result.count = 0;
+        result.messages = new Vector<>();
+        result.state = 0;
+        result.enabled = 1;
+        result.flags = 1;
+        return result;
+    }
     public void compile(Bytedeque c)
     {
         parent.compile(c);
@@ -110,6 +122,18 @@ public class plResponderModifier extends uruobj
                 u1[i][1] = c.readByte();
             }*/
             waitToCmdTable = c.readVector(WaitToCmd.class, b.ByteToInt32(count2));
+        }
+        private PlResponderState() {}
+        public static PlResponderState createDefault()
+        {
+            PlResponderState result = new PlResponderState();
+            result.numCallbacks = 0;
+            result.switchToState = 0;
+            result.count = 0;
+            result.commands = new Vector<>();
+            result.count2 = 0;
+            result.waitToCmdTable = new Vector<>();
+            return result;
         }
         
         public void compile(Bytedeque c)
@@ -191,12 +215,8 @@ public class plResponderModifier extends uruobj
                 
                 
                 // actually, it's like a sound message ! Grrrrr...
-                PrpMessage.PlSoundMsg sm = PrpMessage.PlSoundMsg.createEmpty();
-                sm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
+                PrpMessage.PlSoundMsg sm = PrpMessage.PlSoundMsg.createDefault();
                 sm.parent.parent = msg;
-                
-                sm.parent.callbacks = new Vector();
-                sm.parent.count = 0;
                 
                 message = PrpTaggedObject.createWithTypeidUruobj(Typeid.plSoundMsg, sm);
             }
@@ -204,6 +224,13 @@ public class plResponderModifier extends uruobj
         }
         
         private PlResponderCmd() {}
+        public static PlResponderCmd createDefaultFromMessage(PrpTaggedObject msg)
+        {
+            PlResponderCmd result = new PlResponderCmd();
+            result.message = msg;
+            result.waitOn = -1;
+            return result;
+        }
 
         public static PlResponderCmd createEmpty() {
             return new PlResponderCmd();

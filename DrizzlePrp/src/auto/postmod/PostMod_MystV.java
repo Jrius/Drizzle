@@ -410,46 +410,24 @@ public class PostMod_MystV
             prpobjects.plLogicModifier lo = ro.castTo();
             prpobjects.plMessage msg = ((prpobjects.PrpMessage.PlNotifyMsg)lo.parent.message.castTo()).parent;
             
-            boolean hasAxisAnim = false;
-            for (Uruobjectref recv : msg.receivers)
-            {
-                if (recv.xdesc.objecttype == Typeid.plAxisAnimModifier)
-                {
-                    hasAxisAnim = true;
-                    break;
-                }
-            }
-            
-            if (hasAxisAnim)
-            {
-                // AxisAnim modifiers are NOT multiplayer aware. Don't broadcast the message on the network.
-                if (msg.broadcastFlags == prpobjects.plMessage.kBCastNone)
-                    msg.broadcastFlags = prpobjects.plMessage.kLocalPropagate;
-                else
-                    m.warn("Unexpected flags " + msg.broadcastFlags + " in logic modifier to axis anim " + ro.header.desc.objectname + ". Doing nothing.");
-            }
+            if (msg.broadcastFlags == prpobjects.plMessage.kBCastNone)
+                // that's a regular logic mod
+                msg.broadcastFlags = prpobjects.plMessage.kLocalPropagate | prpobjects.plMessage.kNetPropagate;
             else
-            {
-                if (msg.broadcastFlags == prpobjects.plMessage.kBCastNone)
-                    // that's a regular logic mod
-                    msg.broadcastFlags = prpobjects.plMessage.kLocalPropagate | prpobjects.plMessage.kNetPropagate;
-                else
-                    m.warn("Unexpected flags " + msg.broadcastFlags + " in logic modifier " + ro.header.desc.objectname + ". Doing nothing.");
-            }
+                m.warn("Unexpected flags " + msg.broadcastFlags + " in logic modifier " + ro.header.desc.objectname + ". Doing nothing.");
         }
         
-        // axis anim modifiers: local propagate
-        // Don't use netpropagate - this makes everyone's cursor hook to the draggable even though they didn't click it...
-        for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plAxisAnimModifier))
-        {
-            prpobjects.plAxisAnimModifier aa = ro.castTo();
-            prpobjects.PrpMessage.PlNotifyMsg msg = aa.message.castTo();
-            
-            if (msg.parent.broadcastFlags == prpobjects.plMessage.kBCastNone)
-                msg.parent.broadcastFlags = prpobjects.plMessage.kLocalPropagate;
-            else
-                m.warn("Unexpected flags " + msg.parent.broadcastFlags + " in axis anim modifier " + ro.header.desc.objectname + ". Doing nothing.");
-        }
+        // axis anim modifiers: this class is too broken to be used in multiplayer. Ignore it.
+//        for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plAxisAnimModifier))
+//        {
+//            prpobjects.plAxisAnimModifier aa = ro.castTo();
+//            prpobjects.PrpMessage.PlNotifyMsg msg = aa.message.castTo();
+//            
+//            if (msg.parent.broadcastFlags == prpobjects.plMessage.kBCastNone)
+//                msg.parent.broadcastFlags = prpobjects.plMessage.kLocalPropagate;
+//            else
+//                m.warn("Unexpected flags " + msg.parent.broadcastFlags + " in axis anim modifier " + ro.header.desc.objectname + ". Doing nothing.");
+//        }
         
         // anim event modifier: local propagate
         for(PrpRootObject ro: prp.FindAllObjectsOfType(Typeid.plAnimEventModifier))
@@ -1447,26 +1425,12 @@ public class PostMod_MystV
         animev.numreceivers = 1;
         animev.receivers = new Uruobjectref[1];
         animev.receivers[0] = Uruobjectref.createDefaultWithTypeNamePage(Typeid.plPythonFileMod, pythonName, prp.header.pageid);
-        PrpMessage.PlAnimCmdMsg msg = PrpMessage.PlAnimCmdMsg.createEmpty();
+        PrpMessage.PlAnimCmdMsg msg = PrpMessage.PlAnimCmdMsg.createDefault();
         msg.animName = Urustring.createFromString(animName);
         msg.command = new HsBitVector(PrpMessage.PlAnimCmdMsg.kAddCallbacks);
-        msg.begin = Flt.zero();
-        msg.end = Flt.zero();
-        msg.loopBegin = Flt.zero();
-        msg.loopEnd = Flt.zero();
-        msg.speed = Flt.zero();
-        msg.speedChangeRate = Flt.zero();
-        msg.time = Flt.zero();
-        msg.loopName = Urustring.createFromString("");
-        msg.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
-        msg.parent.count = 1;
-        msg.parent.parent = plMessage.createDefault();
         msg.parent.parent.broadcastFlags = 0x800;
         msg.parent.parent.sender = Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAnimEventModifier, aeName, prp.header.pageid);
-        msg.parent.parent.timestamp = Timestamp.createDefault();
-        msg.parent.parent.receivers = new ArrayList<Uruobjectref>();
         msg.parent.parent.receivers.add(Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAGMasterMod, agName, prp.header.pageid));
-        msg.parent.callbacks = new Vector<PrpTaggedObject>();
         PrpMessage.PlEventCallbackMsg cb = PrpMessage.PlEventCallbackMsg
                 .createWithSenderAndReceiver(Uruobjectref.none(),
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAnimEventModifier, aeName, prp.header.pageid));
@@ -2323,26 +2287,13 @@ public class PostMod_MystV
             sm.volume = new Flt(0);
             
             // stop already playing music
-            PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createEmpty();
-            nsm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
-            nsm.parent.count = 0;
-            nsm.parent.callbacks = new Vector<>();
+            PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createDefault();
             nsm.parent.parent = plMessage.createWithSenderAndReceiver(
                     Uruobjectref.createDefaultWithTypeNamePage(Typeid.plResponderModifier, "cSfxResp-ArenaRevealStart", prp.header.pageid),
                     Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAudioInterface, "cSfxArenaRevealMusic", prp.header.pageid));
             nsm.parent.parent.broadcastFlags = 0x800;
-            nsm.begin = Double64.fromJavaDouble(0);
             nsm.cmd = new HsBitVector(PrpMessage.PlSoundMsg.kStop | PrpMessage.PlSoundMsg.kIsLocalOnly);
-            nsm.end = Double64.fromJavaDouble(0);
-            nsm.fadetype = 0;
             nsm.index = 1;
-            nsm.loop = 0;
-            nsm.namestr = 0;
-            nsm.playing = 0;
-            nsm.repeats = 0;
-            nsm.speed = new Flt(0);
-            nsm.time = Double64.fromJavaDouble(0);
-            nsm.volume = new Flt(0);
             
             plResponderModifier.PlResponderCmd ncmd = prpobjects.plResponderModifier.PlResponderCmd.createEmpty();
             ncmd.waitOn = -1;
@@ -2363,26 +2314,12 @@ public class PostMod_MystV
                 PrpRootObject ro = prp.findObject("cRespImager01On", Typeid.plResponderModifier);
                 prpobjects.plResponderModifier resp = ro.castTo();
                 
-                PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createEmpty();
-                nsm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
-                nsm.parent.count = 0;
-                nsm.parent.callbacks = new Vector<>();
+                PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createDefault();
                 nsm.parent.parent = plMessage.createWithSenderAndReceiver(
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plResponderModifier, "cRespImager01On", prp.header.pageid),
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAudioInterface, "cSfxYeeshaImager01", Pageid.createFromPrefixPagenum(94, 13)));
                 nsm.parent.parent.broadcastFlags = 0x800;
-                nsm.begin = Double64.fromJavaDouble(0);
                 nsm.cmd = new HsBitVector(PrpMessage.PlSoundMsg.kPlay | PrpMessage.PlSoundMsg.kIsLocalOnly);
-                nsm.end = Double64.fromJavaDouble(0);
-                nsm.fadetype = 0;
-                nsm.index = 0;
-                nsm.loop = 0;
-                nsm.namestr = 0;
-                nsm.playing = 0;
-                nsm.repeats = 0;
-                nsm.speed = new Flt(0);
-                nsm.time = Double64.fromJavaDouble(0);
-                nsm.volume = new Flt(0);
 
                 plResponderModifier.PlResponderCmd ncmd = prpobjects.plResponderModifier.PlResponderCmd.createEmpty();
                 ncmd.waitOn = -1;
@@ -2400,26 +2337,13 @@ public class PostMod_MystV
                 PrpRootObject ro = prp.findObject("cRespImager02On", Typeid.plResponderModifier);
                 prpobjects.plResponderModifier resp = ro.castTo();
                 
-                PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createEmpty();
-                nsm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
-                nsm.parent.count = 0;
-                nsm.parent.callbacks = new Vector<>();
+                PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createDefault();
                 nsm.parent.parent = plMessage.createWithSenderAndReceiver(
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plResponderModifier, "cRespImager02On", prp.header.pageid),
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAudioInterface, "cSfxYeeshaImagerMx02", prp.header.pageid));
                 nsm.parent.parent.broadcastFlags = 0x800;
-                nsm.begin = Double64.fromJavaDouble(0);
                 nsm.cmd = new HsBitVector(PrpMessage.PlSoundMsg.kPlay | PrpMessage.PlSoundMsg.kIsLocalOnly);
-                nsm.end = Double64.fromJavaDouble(0);
-                nsm.fadetype = 0;
                 nsm.index = 4;
-                nsm.loop = 0;
-                nsm.namestr = 0;
-                nsm.playing = 0;
-                nsm.repeats = 0;
-                nsm.speed = new Flt(0);
-                nsm.time = Double64.fromJavaDouble(0);
-                nsm.volume = new Flt(0);
 
                 plResponderModifier.PlResponderCmd ncmd = prpobjects.plResponderModifier.PlResponderCmd.createEmpty();
                 ncmd.waitOn = -1;
@@ -2448,26 +2372,13 @@ public class PostMod_MystV
                 PrpRootObject ro = prp.findObject("cRespImager03On", Typeid.plResponderModifier);
                 prpobjects.plResponderModifier resp = ro.castTo();
                 
-                PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createEmpty();
-                nsm.parent = PrpMessage.PlMessageWithCallbacks.createEmpty();
-                nsm.parent.count = 0;
-                nsm.parent.callbacks = new Vector<>();
+                PrpMessage.PlSoundMsg nsm = PrpMessage.PlSoundMsg.createDefault();
                 nsm.parent.parent = plMessage.createWithSenderAndReceiver(
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plResponderModifier, "cRespImager03On", prp.header.pageid),
                         Uruobjectref.createDefaultWithTypeNamePage(Typeid.plAudioInterface, "cSfxYeeshaImagerMx03", prp.header.pageid));
                 nsm.parent.parent.broadcastFlags = 0x800;
-                nsm.begin = Double64.fromJavaDouble(0);
                 nsm.cmd = new HsBitVector(PrpMessage.PlSoundMsg.kPlay | PrpMessage.PlSoundMsg.kIsLocalOnly);
-                nsm.end = Double64.fromJavaDouble(0);
-                nsm.fadetype = 0;
                 nsm.index = 4;
-                nsm.loop = 0;
-                nsm.namestr = 0;
-                nsm.playing = 0;
-                nsm.repeats = 0;
-                nsm.speed = new Flt(0);
-                nsm.time = Double64.fromJavaDouble(0);
-                nsm.volume = new Flt(0);
 
                 plResponderModifier.PlResponderCmd ncmd = prpobjects.plResponderModifier.PlResponderCmd.createEmpty();
                 ncmd.waitOn = -1;
@@ -3281,5 +3192,111 @@ public class PostMod_MystV
         plCoordinateInterface sp = prp.findObject("LinkInPed2", Typeid.plCoordinateInterface).castTo();
         sp.localToParent.setelement(2, 3, 3.9579f);
         sp.parentToLocal.setelement(2, 3, -3.9579f);
+    }
+    
+    public static void PostMod_ReplaceAllDraggables(prpfile prp)
+    {
+        for (PrpRootObject ro : prp.FindAllObjectsOfType(Typeid.plSceneObject))
+        {
+            plSceneObject so = ro.castTo();
+            for (Uruobjectref modref : so.modifiers)
+            {
+                if (modref.xdesc.objecttype == Typeid.plAxisAnimModifier)
+                {
+//                    MakeDraggableOneShot(prp, ro, modref);
+                    MakeDraggablePingPong(prp, ro, modref);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Replace an AxisAnimModifier with a single-use responder.
+     * @param prp prp in which all dependant objects are located
+     * @param soRo root object of the parent sceneobject
+     * @param aamRef reference to the AxisAnimModifier
+     */
+    private static void MakeDraggableOneShot(prpfile prp, PrpRootObject soRo, Uruobjectref aamRef)
+    {
+        // Remove the axis anim mod from the PRP - we won't use it once ingame.
+        prp.markObjectDeleted(aamRef, true);
+        plAxisAnimModifier aam = prp.findObjectWithRef(aamRef).castTo();
+        
+        // Create a plResponderModifier to handle anim playback on click.
+        plResponderModifier responder = plResponderModifier.createDefault();
+        Uruobjectdesc responderDesc = Uruobjectdesc.createDefaultWithTypeNamePrp(Typeid.plResponderModifier, aamRef.xdesc.objectname.toString() + "_axisanim", prp);
+        Uruobjectref responderRef = Uruobjectref.createFromUruobjectdesc(responderDesc);
+        plResponderModifier.PlResponderState state0 = plResponderModifier.PlResponderState.createDefault();
+        responder.messages.add(state0);
+        PrpMessage.PlAnimCmdMsg animMsg = PrpMessage.PlAnimCmdMsg.createDefault();
+        animMsg.animName = Urustring.createFromString(aam.animLabel.toString());
+        animMsg.command = new HsBitVector(PrpMessage.PlAnimCmdMsg.kContinue);
+        animMsg.parent.parent.sender = responderRef;
+        animMsg.parent.parent.receivers.add((aam.xAnim.hasRef == 1) ? aam.xAnim : aam.yAnim);
+        PrpTaggedObject msgTaggedObject = PrpTaggedObject.createWithTypeidUruobj(Typeid.plAnimCmdMsg, animMsg);
+        plResponderModifier.PlResponderCmd cmd0 = plResponderModifier.PlResponderCmd.createDefaultFromMessage(msgTaggedObject);
+        state0.commands.add(cmd0);
+        prp.addObject(responderRef, responder);
+        aamRef.xdesc = responderDesc;
+        
+        // Reroute the plNotifyMsg towards our newly created responder.
+        plLogicModifier logicMod = prp.findObjectWithRef(aam.notificationKey).castTo();
+        PrpMessage.PlNotifyMsg logicModMsg = logicMod.parent.message.castTo();
+        logicModMsg.parent.receivers.set(0, responderRef);
+    }
+    
+    /**
+     * Replace an AxisAnimModifier with a two-state responder that ping-pongs anytime it's triggered.
+     * @param prp prp in which all dependant objects are located
+     * @param soRo root object of the parent sceneobject
+     * @param aamRef reference to the AxisAnimModifier
+     */
+    private static void MakeDraggablePingPong(prpfile prp, PrpRootObject soRo, Uruobjectref aamRef)
+    {
+        // Works reasonably well, but:
+        // - synced draggables (ex: door handles) may trigger the anim remotely. This screws up
+        //   tracking of which responder state is active
+        // - some objects like the GSLR generator disabling itself after being enabled.
+        // Might need to replace it all with a Python script...
+        
+        // Remove the axis anim mod from the PRP - we won't use it once ingame.
+        prp.markObjectDeleted(aamRef, true);
+        plAxisAnimModifier aam = prp.findObjectWithRef(aamRef).castTo();
+        
+        // Create a plResponderModifier to handle anim playback on click.
+        plResponderModifier responder = plResponderModifier.createDefault();
+        Uruobjectdesc responderDesc = Uruobjectdesc.createDefaultWithTypeNamePrp(Typeid.plResponderModifier, aamRef.xdesc.objectname.toString() + "_axisanim", prp);
+        Uruobjectref responderRef = Uruobjectref.createFromUruobjectdesc(responderDesc);
+        
+        plResponderModifier.PlResponderState state0 = plResponderModifier.PlResponderState.createDefault();
+        state0.switchToState = 1;
+        responder.messages.add(state0);
+        PrpMessage.PlAnimCmdMsg animMsg = PrpMessage.PlAnimCmdMsg.createDefault();
+        animMsg.animName = Urustring.createFromString(aam.animLabel.toString());
+        animMsg.command = new HsBitVector(PrpMessage.PlAnimCmdMsg.kSetForwards | PrpMessage.PlAnimCmdMsg.kContinue);
+        animMsg.parent.parent.sender = responderRef;
+        animMsg.parent.parent.receivers.add((aam.xAnim.hasRef == 1) ? aam.xAnim : aam.yAnim);
+        PrpTaggedObject msgTaggedObject = PrpTaggedObject.createWithTypeidUruobj(Typeid.plAnimCmdMsg, animMsg);
+        plResponderModifier.PlResponderCmd cmd0 = plResponderModifier.PlResponderCmd.createDefaultFromMessage(msgTaggedObject);
+        state0.commands.add(cmd0);
+        
+        plResponderModifier.PlResponderState state1 = plResponderModifier.PlResponderState.createDefault();
+        responder.messages.add(state1);
+        animMsg = PrpMessage.PlAnimCmdMsg.createDefault();
+        animMsg.animName = Urustring.createFromString(aam.animLabel.toString());
+        animMsg.command = new HsBitVector(PrpMessage.PlAnimCmdMsg.kSetBackwards | PrpMessage.PlAnimCmdMsg.kContinue);
+        animMsg.parent.parent.sender = responderRef;
+        animMsg.parent.parent.receivers.add((aam.xAnim.hasRef == 1) ? aam.xAnim : aam.yAnim);
+        msgTaggedObject = PrpTaggedObject.createWithTypeidUruobj(Typeid.plAnimCmdMsg, animMsg);
+        plResponderModifier.PlResponderCmd cmd1 = plResponderModifier.PlResponderCmd.createDefaultFromMessage(msgTaggedObject);
+        state1.commands.add(cmd1);
+        
+        prp.addObject(responderRef, responder);
+        aamRef.xdesc = responderDesc;
+        
+        // Reroute the plNotifyMsg towards our newly created responder.
+        plLogicModifier logicMod = prp.findObjectWithRef(aam.notificationKey).castTo();
+        PrpMessage.PlNotifyMsg logicModMsg = logicMod.parent.message.castTo();
+        logicModMsg.parent.receivers.set(0, responderRef);
     }
 }
