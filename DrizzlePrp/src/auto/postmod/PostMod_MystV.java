@@ -101,7 +101,11 @@ public class PostMod_MystV
                     new Draggable("Marker01Base")
             )),
             new PrpDraggables("Siralehn", "Exterior", Arrays.asList(
-                    new Draggable("LadderPullMaster")
+                    new Draggable("LadderPullMaster"),
+                    new Draggable("PillarTop01", "TurnableRock01", DraggableType.MultiPos, false, new float[] { 0, 1, 2, 3, 4, 5, 6, 7 }),
+                    new Draggable("PillarTop02", "TurnableRock02", DraggableType.MultiPos, false, new float[] { 0, 1, 2, 3, 4, 5, 6, 7 }),
+                    new Draggable("PillarTop03", "TurnableRock03", DraggableType.MultiPos, false, new float[] { 0, 1, 2, 3, 4, 5, 6, 7 }),
+                    new Draggable("PillarTop04", "TurnableRock04", DraggableType.MultiPos, false, new float[] { 0, 1, 2, 3, 4, 5, 6, 7 })
             )),
             new PrpDraggables("Tahgira", "Exterior", Arrays.asList(
                     new Draggable("ThermValveDummyE1", "boolThermalE1", DraggableType.Toggle, false, null),
@@ -109,7 +113,13 @@ public class PostMod_MystV
                     new Draggable("ThermValveDummyE3", "boolThermalE3", DraggableType.Toggle, false, null),
                     new Draggable("ThermValveDummyW1", "boolThermalW1", DraggableType.Toggle, false, null),
                     new Draggable("ThermValveDummyW2", "boolThermalW2", DraggableType.Toggle, false, null),
-                    new Draggable("ThermValveDummyW3", "boolThermalW3", DraggableType.Toggle, false, null)
+                    new Draggable("ThermValveDummyW3", "boolThermalW3", DraggableType.Toggle, false, null),
+                    new Draggable("v-FieldValve_E1", "byteFieldE1", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
+                    new Draggable("v-FieldValve_E2", "byteFieldE2", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
+                    new Draggable("v-FieldValve_E3", "byteFieldE3", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
+                    new Draggable("v-FieldValve_W1", "byteFieldW1", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
+                    new Draggable("v-FieldValve_W2", "byteFieldW2", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
+                    new Draggable("v-FieldValve_W3", "byteFieldW3", DraggableType.MultiPos, false, new float[] { 1, 0, 2 })
             )),
             new PrpDraggables("Todelmer", "Exterior", Arrays.asList(
                     new Draggable("HandCrankDir1", "CrankDir1", DraggableType.Toggle, false, null),
@@ -3339,8 +3349,15 @@ public class PostMod_MystV
                         pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(5, Bstr.createFromString(draggable.sdlName)));
                         StringBuilder sb = new StringBuilder();
                         for (float f : draggable.sdlValues)
-                            sb.append(f);
+                        {
+                            if (f == (int)f)
+                                sb.append((int)f);
+                            else
+                                sb.append(f);
+                            sb.append(',');
+                        }
                         String valuesStr = sb.toString();
+                        valuesStr = valuesStr.substring(0, valuesStr.length() - 1);
                         pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString(valuesStr)));
                     }
                 }

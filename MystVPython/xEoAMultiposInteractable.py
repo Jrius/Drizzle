@@ -66,7 +66,7 @@ class xEoAMultiposInteractable(ptResponder):
                     curValueIndex -= 1
                     curDirectionIsForward = False
                 print("xEoaMultiposInteractable: animation synced to %s, which is at value %s. Progressing to %s." % (sdlName.value, oldValueIndex, curValueIndex))
-                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
+                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1), curDirectionIsForward)
         elif id == activatorIncrease.id and interactableType.value == "MultiPos":
             ageSDL = PtGetAgeSDL()
             oldValueIndex = curValueIndex = sdlValuesArray.index(ageSDL[sdlName.value][0])
@@ -74,7 +74,7 @@ class xEoAMultiposInteractable(ptResponder):
             if oldValueIndex + 1 < arrayLength:
                 curValueIndex += 1
                 print("xEoaMultiposInteractable: animation synced to %s, which is at value %s. Increasing to %s." % (sdlName.value, oldValueIndex, curValueIndex))
-                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
+                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1), True)
         elif id == activatorDecrease.id and interactableType.value == "MultiPos":
             ageSDL = PtGetAgeSDL()
             oldValueIndex = curValueIndex = sdlValuesArray.index(ageSDL[sdlName.value][0])
@@ -82,13 +82,19 @@ class xEoAMultiposInteractable(ptResponder):
             if oldValueIndex > 0:
                 curValueIndex -= 1
                 print("xEoaMultiposInteractable: animation synced to %s, which is at value %s. Decreasing to %s." % (sdlName.value, oldValueIndex, curValueIndex))
-                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1))
+                self.PlayToPercentage(curValueIndex / float(len(sdlValuesArray) - 1), False)
 
-    def PlayToPercentage(self, percent):
+    def PlayToPercentage(self, percent, forward):
+        # We have to ensure we're roughly 1 frame after the requested time, in order to trigger animevents that may be placed on the target frame.
+        if curDirectionIsForward:
+            percent = min(percent + 0.01, 1)
+        else:
+            percent = max(percent - 0.01, 0)
+
         if reverse.value:
             percent = 1 - percent
 
-        # Note that a bug in Plamza causes playToPercentage() to sometime fail to trigger beginning/end anim event modifiers.
+        # Similarly, note that a bug in Plamza causes playToPercentage() to sometime fail to trigger beginning/end anim event modifiers.
         # Thus when we're sure to reach 0% or 100%, use regular play() instead.
         if percent == 0:
             animation.value.backwards(True)
