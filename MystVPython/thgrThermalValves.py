@@ -66,6 +66,7 @@ class thgrThermalValves(ptResponder):
     def OnNotify(self, state, id, events):
         global boolThermalValve
         if (not PtWasLocallyNotified(self.key)) or PtFindAvatar(events) != PtGetLocalAvatar(): return
+        """
         ageSDL = PtGetAgeSDL()
         if ((id == ActThermalValveOn.id) and state):
             if (not (boolThermalValve)):
@@ -73,6 +74,7 @@ class thgrThermalValves(ptResponder):
         elif ((id == ActThermalValveOff.id) and state):
             if boolThermalValve:
                 ageSDL[SDLThermalValve.value] = (0,)
+        #"""
 
 
 glue_cl = None

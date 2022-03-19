@@ -1,8 +1,5 @@
 """
-Now using fancy anim event modifier
-
-Instead of using 40 anim event modifier like I did for scope console, we now only have 6.
-This means joysticks will reset when leaving the Age if the power isn't on.
+Note: no draggables or anim events anymore. All is handled by xEoaDraggable.
 #"""
 
 
@@ -33,8 +30,8 @@ Solution01Threshold = 0.25 # originally .1 in MystV, we're increasing it since D
 Solution03H = 0.62
 Solution03V = 0.78
 Solution03Threshold = 0.25 # same
-joyHOk = false
-joyVOk = false
+# joyHOk = false
+# joyVOk = false
 
 class tdlmMainPower(ptResponder):
 
@@ -53,27 +50,27 @@ class tdlmMainPower(ptResponder):
         global joyHOk
         global joyVOk
         ageSDL = PtGetAgeSDL()
-        #ageSDL.sendToClients(HorizSDL.value)
-        #ageSDL.setFlags(HorizSDL.value, 1, 1)
-        #ageSDL.setNotify(self.key, HorizSDL.value, 0.0)
-        #ageSDL.sendToClients(VertSDL.value)
-        #ageSDL.setFlags(VertSDL.value, 1, 1)
-        #ageSDL.setNotify(self.key, VertSDL.value, 0.0)
+        ageSDL.sendToClients(HorizSDL.value)
+        ageSDL.setFlags(HorizSDL.value, 1, 1)
+        ageSDL.setNotify(self.key, HorizSDL.value, 0.0)
+        ageSDL.sendToClients(VertSDL.value)
+        ageSDL.setFlags(VertSDL.value, 1, 1)
+        ageSDL.setNotify(self.key, VertSDL.value, 0.0)
         ageSDL.sendToClients(MainPowerSDL.value)
         ageSDL.setFlags(MainPowerSDL.value, 1, 1)
         ageSDL.setNotify(self.key, MainPowerSDL.value, 0.0)
         print 'tdlmMainPower: When I got here:'
         if ageSDL[MainPowerSDL.value][0]:
-            joyHOk = true
-            joyVOk = true
+            # joyHOk = true
+            # joyVOk = true
             if WhichPillar.value == 'Pillar01':
                 print "Pillar 1 power was on."
-                HorizDragAnim.animation.skipToTime(Solution01H * (1 / 3.0))
-                VertDragAnim .animation.skipToTime(Solution01V * (1 / 3.0))
+                # HorizDragAnim.animation.skipToTime(Solution01H * (1 / 3.0))
+                # VertDragAnim .animation.skipToTime(Solution01V * (1 / 3.0))
             elif WhichPillar.value == 'Pillar03':
                 print "Pillar 3 power was on."
-                HorizDragAnim.animation.skipToTime(Solution03H * (1 / 3.0))
-                VertDragAnim .animation.skipToTime(Solution03V * (1 / 3.0))
+                # HorizDragAnim.animation.skipToTime(Solution03H * (1 / 3.0))
+                # VertDragAnim .animation.skipToTime(Solution03V * (1 / 3.0))
 
 
     def OnNotify(self, state, id, events):
@@ -82,6 +79,7 @@ class tdlmMainPower(ptResponder):
         if not (PtFindAvatar(events) == PtGetLocalAvatar()) or not (PtWasLocallyNotified(self.key)): return
         if (not (state)):
             return
+        """
         if id == actHorizIn.id:
             joyHOk = true
             ageSDL = PtGetAgeSDL()
@@ -106,6 +104,14 @@ class tdlmMainPower(ptResponder):
             if ageSDL[MainPowerSDL.value][0]:
                 print "Joystick moved, disabling power..."
                 ageSDL[MainPowerSDL.value] = (0,)
+        #"""
+
+
+    def OnSDLNotify(self, VARname, SDLname, playerID, tag):
+        if VARname == MainPowerSDL.value:
+            return None
+        else:
+            self.CheckSolution()
 
 
     def CheckSolution(self):
@@ -115,8 +121,6 @@ class tdlmMainPower(ptResponder):
         global Solution03H
         global Solution03V
         global Solution03Threshold
-        print "ERROR ! This is legacy and should not be called !"
-        return
         ageSDL = PtGetAgeSDL()
         if (WhichPillar.value == 'Pillar01'):
             SolutionH = Solution01H

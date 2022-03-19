@@ -1,5 +1,5 @@
 """
-Note: updated draggables to not use .getDraggableValue()
+Note: no draggables or anim events anymore. All is handled by xEoaDraggable.
 #"""
 
 
@@ -24,11 +24,11 @@ PowerSDL = ptAttribString(15, 'SDL: Pillar 1 Power')
 HorizDragAnim = ptAttribAnimation(16, 'anim: Horiz Drag ')
 VertDragAnim = ptAttribAnimation(17, 'anim: Vert Drag')
 WhichScope = ptAttribDropDownList(18, 'Is This Scope01?', ('Yup', 'Nope'))
-actSliderSteps = {}
-for i in range(21):
-    ptAttribActivator(19+i*2,   'act: Horiz Step %s' % i)
-    ptAttribActivator(19+i*2+1, 'act: Vert  Step %s' % i)
-    actSliderSteps   [19+i*2] = i*(1/21.)
+# actSliderSteps = {}
+# for i in range(21):
+    # ptAttribActivator(19+i*2,   'act: Horiz Step %s' % i)
+    # ptAttribActivator(19+i*2+1, 'act: Vert  Step %s' % i)
+    # actSliderSteps   [19+i*2] = i*(1/21.)
 scopespeed = 0.3
 PodViewH = 0.17
 PodViewV = 0.145
@@ -142,6 +142,7 @@ class tdlmBigScope(ptResponder):
 
                 ageSDL[HorizSDL.value] = (newvalueH,)
                 ageSDL[VertSDL.value]  = (newvalueV,)
+        """
         elif id != -1:
             print "tdlmBigScope: notify from id", id
 
@@ -151,11 +152,16 @@ class tdlmBigScope(ptResponder):
             else:
                 respEnterBlink.run(self.key, netForce=1)
 
-            # Not readable, I know, but I like to show off
-            ageSDL[ (VertSDL, HorizSDL) [id%2] .value + "Slider" ] = \
-                    ( actSliderSteps[ (id-1, id)[id%2] ] ,)
+            if id % 2:
+                sdlName = HorizSDL.value + "Slider"
+                stepId = id
+            else:
+                sdlName = VertSDL.value + "Slider"
+                stepId = id - 1
+            ageSDL[sdlName] = (actSliderSteps[stepId],)
 
-            print "Sliders progress now = (%s, %s)" % (ageSDL[HorizSDL.value + "Slider"][0], ageSDL[VertSDL.value + "Slider"])
+            print "Sliders progress now = (%s, %s)" % (ageSDL[HorizSDL.value + "Slider"][0], ageSDL[VertSDL.value + "Slider"][0])
+            #"""
 
 
     def OnSDLNotify(self, VARname, SDLname, playerID, tag):
@@ -178,6 +184,11 @@ class tdlmBigScope(ptResponder):
                     respEnterBlink.run(self.key)
             return
         if (VARname == HorizSDL.value):
+            EnterShouldBlink = true
+            if (ageSDL[PowerSDL.value][0] == 0):
+                print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
+            else:
+                respEnterBlink.run(self.key, netForce=1)
             newhoriz = ageSDL[HorizSDL.value][0]
             HorizAnim.value.speed(scopespeed)
             HorizAnim.animation.playToTime(float((newhoriz * 3.33)))
@@ -202,6 +213,11 @@ class tdlmBigScope(ptResponder):
                 TransitionTime = 0
                 return
         elif (VARname == VertSDL.value):
+            EnterShouldBlink = true
+            if (ageSDL[PowerSDL.value][0] == 0):
+                print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
+            else:
+                respEnterBlink.run(self.key, netForce=1)
             newvert = ageSDL[VertSDL.value][0]
             VertAnim.value.speed(scopespeed)
             VertAnim.animation.playToTime(float((newvert * 3.33)))

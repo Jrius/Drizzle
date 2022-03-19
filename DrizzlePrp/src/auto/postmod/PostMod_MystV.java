@@ -5,6 +5,7 @@
 
 package auto.postmod;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import prpobjects.*;
@@ -13,35 +14,44 @@ import java.util.Vector;
 
 public class PostMod_MystV
 {
-    private enum DraggableType
-    {
-        OneShot,
-        Toggle,
-        MultiPos
-    }
-
     private static class Draggable
     {
+        // Name of the draggable object
         public String draggableName;
+        // SDL variable bound to this object (none if it's a oneshot anim)
         public String sdlName;
-        public DraggableType type;
+        // True for simple boolean levers where sdl=1 at t=0 and sdl=0 at t=1
         public boolean reverse;
-        public float[] sdlValues;
+        // Whether the draggable loops (Noloben only)
+        public boolean loop;
+        // True if the clickable should be reenabled once the anim is done. False if an external script handles this.
+        // (Only valid for ping-pong boolean levers. Oneshot and multistate handle this differently.)
+        public boolean autoReenable;
+        // "{sdl0: t0, sdl1: t1, etc}"
+        public String sdlValueToTime;
 
+        // Simple oneshot clickable
         public Draggable(String draggableName)
         {
             this.draggableName = draggableName;
-            this.type = DraggableType.OneShot;
-            this.sdlValues = null;
         }
 
-        public Draggable(String draggableName, String sdlName, DraggableType type, boolean reverse, float[] sdlValues)
+        // Two-states boolean clickables that ping-pongs between two states
+        public Draggable(String draggableName, String sdlName, boolean reverse, boolean autoReenable)
         {
             this.draggableName = draggableName;
             this.sdlName = sdlName;
-            this.type = type;
             this.reverse = reverse;
-            this.sdlValues = sdlValues;
+            this.autoReenable = autoReenable;
+        }
+
+        // Multi-state control (usually has extra up/down clickables)
+        public Draggable(String draggableName, String sdlName, boolean loop, String sdlValueToTime)
+        {
+            this.draggableName = draggableName;
+            this.sdlName = sdlName;
+            this.reverse = reverse;
+            this.sdlValueToTime = sdlValueToTime;
         }
     }
 
@@ -61,17 +71,17 @@ public class PostMod_MystV
 
     private static List<PrpDraggables> prpDraggablesList = Arrays.asList(
             new PrpDraggables("DescentMystV", "dsntPostShaftNodeAndTunnels", Arrays.asList(
-                    new Draggable("FanRoomCrank_Drag", "FanOn", DraggableType.Toggle, false, null),
-                    new Draggable("handle01", "ShaftDoorOpen", DraggableType.Toggle, false, null)
+                    new Draggable("FanRoomCrank_Drag", "FanOn", false, true),
+                    new Draggable("handle01", "ShaftDoorOpen", false, false)
             )),
             new PrpDraggables("DescentMystV", "dsntShaftGeneratorRoom", Arrays.asList(
-                    new Draggable("GenCrank", "GeneratorOn", DraggableType.Toggle, true, null)
+                    new Draggable("GenCrank", "GeneratorOn", true, true)
             )),
             new PrpDraggables("DescentMystV", "dsntTianaCaveNode2", Arrays.asList(
-                    new Draggable("handle01", "TCaveDoor01Open", DraggableType.Toggle, false, null)
+                    new Draggable("handle01", "TCaveDoor01Open", false, false)
             )),
             new PrpDraggables("DescentMystV", "dsntTianaCaveTunnel3", Arrays.asList(
-                    new Draggable("handle02", "TCaveDoor01Open", DraggableType.Toggle, false, null)
+                    new Draggable("handle02", "TCaveDoor01Open", false, false)
             )),
             new PrpDraggables("DescentMystV", "dsntUpperShaft", Arrays.asList(
                     new Draggable("ElevA_PullHandle"),
@@ -85,13 +95,13 @@ public class PostMod_MystV
 //                    new Draggable("WindmillHeightLever"),
 //                    new Draggable("WindmillRotateLever"),
 //                    new Draggable("WindmillGearLever"),
-                    new Draggable("HutRopeBig1", "boolBigRock1", DraggableType.Toggle, false, null),
-                    new Draggable("HutRopeBig2", "boolBigRock2", DraggableType.Toggle, false, null),
-                    new Draggable("HutRopeMed1", "boolMedRock1", DraggableType.Toggle, false, null),
-                    new Draggable("HutRopeMed2", "boolMedRock2", DraggableType.Toggle, false, null),
-                    new Draggable("HutRopeMed3", "boolMedRock3", DraggableType.Toggle, false, null),
-                    new Draggable("HutRopeSmall1", "boolSmallRock1", DraggableType.Toggle, false, null),
-                    new Draggable("HutRopeSmall2", "boolSmallRock2", DraggableType.Toggle, false, null)
+                    new Draggable("HutRopeBig1", "boolBigRock1", false, true),
+                    new Draggable("HutRopeBig2", "boolBigRock2", false, true),
+                    new Draggable("HutRopeMed1", "boolMedRock1", false, true),
+                    new Draggable("HutRopeMed2", "boolMedRock2", false, true),
+                    new Draggable("HutRopeMed3", "boolMedRock3", false, true),
+                    new Draggable("HutRopeSmall1", "boolSmallRock1", false, true),
+                    new Draggable("HutRopeSmall2", "boolSmallRock2", false, true)
             )),
 //            new PrpDraggables("Laki", "LakiMaze", Arrays.asList(
 //                    new Draggable("ElevLeverLwr", DraggableType.Toggle, null),
@@ -102,30 +112,49 @@ public class PostMod_MystV
             )),
             new PrpDraggables("Siralehn", "Exterior", Arrays.asList(
                     new Draggable("LadderPullMaster"),
-                    new Draggable("PillarTop01", "TurnableRock01", DraggableType.MultiPos, false, new float[] { 0, 1, 2, 3, 4, 5, 6, 7 }),
-                    new Draggable("PillarTop02", "TurnableRock02", DraggableType.MultiPos, false, new float[] { 0, 1, 2, 3, 4, 5, 6, 7 }),
-                    new Draggable("PillarTop03", "TurnableRock03", DraggableType.MultiPos, false, new float[] { 0, 1, 2, 3, 4, 5, 6, 7 }),
-                    new Draggable("PillarTop04", "TurnableRock04", DraggableType.MultiPos, false, new float[] { 0, 1, 2, 3, 4, 5, 6, 7 })
+                    new Draggable("PillarTop01", "TurnableRock01", true, "{0: 0.0, 1: 0.833, 2: 1.666, 3: 2.5, 4: 3.333, 5: 4.166, 6: 5, 7: 5.833}"),
+                    new Draggable("PillarTop02", "TurnableRock02", true, "{0: 0.0, 1: 0.833, 2: 1.666, 3: 2.5, 4: 3.333, 5: 4.166, 6: 5, 7: 5.833}"),
+                    new Draggable("PillarTop03", "TurnableRock03", true, "{0: 0.0, 1: 0.833, 2: 1.666, 3: 2.5, 4: 3.333, 5: 4.166, 6: 5, 7: 5.833}"),
+                    new Draggable("PillarTop04", "TurnableRock04", true, "{0: 0.0, 1: 0.833, 2: 1.666, 3: 2.5, 4: 3.333, 5: 4.166, 6: 5, 7: 5.833}")
             )),
             new PrpDraggables("Tahgira", "Exterior", Arrays.asList(
-                    new Draggable("ThermValveDummyE1", "boolThermalE1", DraggableType.Toggle, false, null),
-                    new Draggable("ThermValveDummyE2", "boolThermalE2", DraggableType.Toggle, false, null),
-                    new Draggable("ThermValveDummyE3", "boolThermalE3", DraggableType.Toggle, false, null),
-                    new Draggable("ThermValveDummyW1", "boolThermalW1", DraggableType.Toggle, false, null),
-                    new Draggable("ThermValveDummyW2", "boolThermalW2", DraggableType.Toggle, false, null),
-                    new Draggable("ThermValveDummyW3", "boolThermalW3", DraggableType.Toggle, false, null),
-                    new Draggable("v-FieldValve_E1", "byteFieldE1", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
-                    new Draggable("v-FieldValve_E2", "byteFieldE2", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
-                    new Draggable("v-FieldValve_E3", "byteFieldE3", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
-                    new Draggable("v-FieldValve_W1", "byteFieldW1", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
-                    new Draggable("v-FieldValve_W2", "byteFieldW2", DraggableType.MultiPos, false, new float[] { 1, 0, 2 }),
-                    new Draggable("v-FieldValve_W3", "byteFieldW3", DraggableType.MultiPos, false, new float[] { 1, 0, 2 })
+                    new Draggable("ThermValveDummyE1", "boolThermalE1", false, true),
+                    new Draggable("ThermValveDummyE2", "boolThermalE2", false, true),
+                    new Draggable("ThermValveDummyE3", "boolThermalE3", false, true),
+                    new Draggable("ThermValveDummyW1", "boolThermalW1", false, true),
+                    new Draggable("ThermValveDummyW2", "boolThermalW2", false, true),
+                    new Draggable("ThermValveDummyW3", "boolThermalW3", false, true),
+                    new Draggable("v-FieldValve_E1", "byteFieldE1", false, "{1: 0, 0: 0.5, 2: 1}"),
+                    new Draggable("v-FieldValve_E2", "byteFieldE2", false, "{1: 0, 0: 0.5, 2: 1}"),
+                    new Draggable("v-FieldValve_E3", "byteFieldE3", false, "{1: 0, 0: 0.5, 2: 1}"),
+                    new Draggable("v-FieldValve_W1", "byteFieldW1", false, "{1: 0, 0: 0.5, 2: 1}"),
+                    new Draggable("v-FieldValve_W2", "byteFieldW2", false, "{1: 0, 0: 0.5, 2: 1}"),
+                    new Draggable("v-FieldValve_W3", "byteFieldW3", false, "{1: 0, 0: 0.5, 2: 1}")
             )),
             new PrpDraggables("Todelmer", "Exterior", Arrays.asList(
-                    new Draggable("HandCrankDir1", "CrankDir1", DraggableType.Toggle, false, null),
-                    new Draggable("HandCrankDir2", "CrankDir2", DraggableType.Toggle, false, null),
+                    new Draggable("HandCrankDir1", "CrankDir1", false, true),
+                    new Draggable("HandCrankDir2", "CrankDir2", false, true),
                     new Draggable("TramCrank01"),
                     new Draggable("TramCrank02")
+                    //new Draggable("TramCarLever")
+            )),
+            new PrpDraggables("Todelmer", "InteriorPillar1", Arrays.asList(
+                    // power joystick... let's say 10 steps
+                    new Draggable("PowerJoystickLeftRight", "MainPower01LeftRight", false, "{0.0: 0.0, 0.111: 0.037, 0.222: 0.074, 0.333: 0.111, 0.444: 0.148, 0.556: 0.185, 0.667: 0.222, 0.778: 0.259, 0.889: 0.296, 1.0: 0.333}"),
+                    new Draggable("PowerJoystickUpDown",    "MainPower01UpDown",    false, "{0.0: 0.0, 0.111: 0.037, 0.222: 0.074, 0.333: 0.111, 0.444: 0.148, 0.556: 0.185, 0.667: 0.222, 0.778: 0.259, 0.889: 0.296, 1.0: 0.333}"),
+                    // all the annoying scopes: 25 steps to match the GUI
+                    new Draggable("Scope01Horiz", "BigScope01HorizSlider", false, "{0.0: 0.0, 0.042: 0.139, 0.083: 0.278, 0.125: 0.417, 0.167: 0.556, 0.208: 0.694, 0.25: 0.833, 0.292: 0.972, 0.333: 1.111, 0.375: 1.25, 0.417: 1.389, 0.458: 1.528, 0.5: 1.667, 0.542: 1.806, 0.583: 1.944, 0.625: 2.083, 0.667: 2.222, 0.708: 2.361, 0.75: 2.5, 0.792: 2.639, 0.833: 2.778, 0.875: 2.917, 0.917: 3.056, 0.958: 3.194, 1.0: 3.333}"),
+                    new Draggable("Scope01Vert",  "BigScope01VertSlider",  false, "{0.0: 0.0, 0.042: 0.139, 0.083: 0.278, 0.125: 0.417, 0.167: 0.556, 0.208: 0.694, 0.25: 0.833, 0.292: 0.972, 0.333: 1.111, 0.375: 1.25, 0.417: 1.389, 0.458: 1.528, 0.5: 1.667, 0.542: 1.806, 0.583: 1.944, 0.625: 2.083, 0.667: 2.222, 0.708: 2.361, 0.75: 2.5, 0.792: 2.639, 0.833: 2.778, 0.875: 2.917, 0.917: 3.056, 0.958: 3.194, 1.0: 3.333}"),
+                    new Draggable("Scope02Horiz", "BigScope02HorizSlider", false, "{0.0: 0.0, 0.042: 0.139, 0.083: 0.278, 0.125: 0.417, 0.167: 0.556, 0.208: 0.694, 0.25: 0.833, 0.292: 0.972, 0.333: 1.111, 0.375: 1.25, 0.417: 1.389, 0.458: 1.528, 0.5: 1.667, 0.542: 1.806, 0.583: 1.944, 0.625: 2.083, 0.667: 2.222, 0.708: 2.361, 0.75: 2.5, 0.792: 2.639, 0.833: 2.778, 0.875: 2.917, 0.917: 3.056, 0.958: 3.194, 1.0: 3.333}"),
+                    new Draggable("Scope02Vert",  "BigScope02VertSlider",  false, "{0.0: 0.0, 0.042: 0.139, 0.083: 0.278, 0.125: 0.417, 0.167: 0.556, 0.208: 0.694, 0.25: 0.833, 0.292: 0.972, 0.333: 1.111, 0.375: 1.25, 0.417: 1.389, 0.458: 1.528, 0.5: 1.667, 0.542: 1.806, 0.583: 1.944, 0.625: 2.083, 0.667: 2.222, 0.708: 2.361, 0.75: 2.5, 0.792: 2.639, 0.833: 2.778, 0.875: 2.917, 0.917: 3.056, 0.958: 3.194, 1.0: 3.333}"),
+                    new Draggable("Scope03Horiz", "BigScope03HorizSlider", false, "{0.0: 0.0, 0.042: 0.139, 0.083: 0.278, 0.125: 0.417, 0.167: 0.556, 0.208: 0.694, 0.25: 0.833, 0.292: 0.972, 0.333: 1.111, 0.375: 1.25, 0.417: 1.389, 0.458: 1.528, 0.5: 1.667, 0.542: 1.806, 0.583: 1.944, 0.625: 2.083, 0.667: 2.222, 0.708: 2.361, 0.75: 2.5, 0.792: 2.639, 0.833: 2.778, 0.875: 2.917, 0.917: 3.056, 0.958: 3.194, 1.0: 3.333}"),
+                    new Draggable("Scope03Vert",  "BigScope03VertSlider",  false, "{0.0: 0.0, 0.042: 0.139, 0.083: 0.278, 0.125: 0.417, 0.167: 0.556, 0.208: 0.694, 0.25: 0.833, 0.292: 0.972, 0.333: 1.111, 0.375: 1.25, 0.417: 1.389, 0.458: 1.528, 0.5: 1.667, 0.542: 1.806, 0.583: 1.944, 0.625: 2.083, 0.667: 2.222, 0.708: 2.361, 0.75: 2.5, 0.792: 2.639, 0.833: 2.778, 0.875: 2.917, 0.917: 3.056, 0.958: 3.194, 1.0: 3.333}"),
+                    new Draggable("Scope04Horiz", "BigScope04HorizSlider", false, "{0.0: 0.0, 0.042: 0.139, 0.083: 0.278, 0.125: 0.417, 0.167: 0.556, 0.208: 0.694, 0.25: 0.833, 0.292: 0.972, 0.333: 1.111, 0.375: 1.25, 0.417: 1.389, 0.458: 1.528, 0.5: 1.667, 0.542: 1.806, 0.583: 1.944, 0.625: 2.083, 0.667: 2.222, 0.708: 2.361, 0.75: 2.5, 0.792: 2.639, 0.833: 2.778, 0.875: 2.917, 0.917: 3.056, 0.958: 3.194, 1.0: 3.333}"),
+                    new Draggable("Scope04Vert",  "BigScope04VertSlider",  false, "{0.0: 0.0, 0.042: 0.139, 0.083: 0.278, 0.125: 0.417, 0.167: 0.556, 0.208: 0.694, 0.25: 0.833, 0.292: 0.972, 0.333: 1.111, 0.375: 1.25, 0.417: 1.389, 0.458: 1.528, 0.5: 1.667, 0.542: 1.806, 0.583: 1.944, 0.625: 2.083, 0.667: 2.222, 0.708: 2.361, 0.75: 2.5, 0.792: 2.639, 0.833: 2.778, 0.875: 2.917, 0.917: 3.056, 0.958: 3.194, 1.0: 3.333}")
+            )),
+            new PrpDraggables("Todelmer", "InteriorPillar3", Arrays.asList(
+                    new Draggable("JoystickLeftRightb", "MainPower03LeftRight", false, "{0.0: 0.0, 0.111: 0.037, 0.222: 0.074, 0.333: 0.111, 0.444: 0.148, 0.556: 0.185, 0.667: 0.222, 0.778: 0.259, 0.889: 0.296, 1.0: 0.333}"),
+                    new Draggable("JoystickUpDownb",    "MainPower03UpDown",    false, "{0.0: 0.0, 0.111: 0.037, 0.222: 0.074, 0.333: 0.111, 0.444: 0.148, 0.556: 0.185, 0.667: 0.222, 0.778: 0.259, 0.889: 0.296, 1.0: 0.333}")
             ))
     );
 
@@ -3316,14 +3345,15 @@ public class PostMod_MystV
         for (PrpRootObject ro : prp.FindAllObjectsOfType(Typeid.plSceneObject))
         {
             plSceneObject so = ro.castTo();
+            boolean nukeAnimEvents = false;
+            ArrayList<Uruobjectref> animEvents = new ArrayList<>();
             for (int i = 0; i < so.modifiers.size(); i++)
             {
                 Uruobjectref modref = so.modifiers.get(i);
-                if (modref.xdesc.objecttype == Typeid.plAxisAnimModifier)
+                if (modref.xdesc.objecttype == Typeid.plAnimEventModifier)
+                    animEvents.add(modref);
+                else if (modref.xdesc.objecttype == Typeid.plAxisAnimModifier)
                 {
-//                    MakeDraggableOneShot(prp, ro, modref);
-//                    MakeDraggablePingPong(prp, ro, modref);
-
                     Draggable draggable = GetDraggable(prp, ro);
                     if (draggable == null)
                     {
@@ -3333,33 +3363,30 @@ public class PostMod_MystV
                     plPythonFileMod pfm = CreateDefaultAAMReplacementScript(prp, ro, modref);
                     if (draggable.reverse)
                         pfm.addListing(plPythonFileMod.Pythonlisting.createWithBoolean(8, true));
-                    if (draggable.type == DraggableType.OneShot)
+                    if (draggable.loop)
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithBoolean(9, true));
+                    if (!draggable.autoReenable)
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithBoolean(10, false));
+                    if (draggable.sdlName != null)
                     {
-                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(1, Bstr.createFromString("SingleUse")));
-                    }
-                    else if (draggable.type == DraggableType.Toggle)
-                    {
-                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(1, Bstr.createFromString("MultiPos")));
+                        nukeAnimEvents = true;
                         pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(5, Bstr.createFromString(draggable.sdlName)));
-                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString("0, 1")));
                     }
-                    else if (draggable.type == DraggableType.MultiPos)
-                    {
-                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(1, Bstr.createFromString("MultiPos")));
-                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(5, Bstr.createFromString(draggable.sdlName)));
-                        StringBuilder sb = new StringBuilder();
-                        for (float f : draggable.sdlValues)
-                        {
-                            if (f == (int)f)
-                                sb.append((int)f);
-                            else
-                                sb.append(f);
-                            sb.append(',');
-                        }
-                        String valuesStr = sb.toString();
-                        valuesStr = valuesStr.substring(0, valuesStr.length() - 1);
-                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString(valuesStr)));
-                    }
+                    if (draggable.sdlValueToTime != null)
+                        pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString(draggable.sdlValueToTime)));
+                }
+            }
+            if (nukeAnimEvents)
+            {
+                // Anim events will trigger other scripts which will try to handle SDL variables on their own...
+                // This is going to conflict with our own xEoADraggable script. So silence the anim event modifiers...
+                for (Uruobjectref ref : animEvents)
+                {
+                    PrpRootObject animEventRo = prp.findObjectWithRef(ref);
+                    plAnimEventModifier animEvent = animEventRo.castTo();
+                    animEvent.numreceivers = 0;
+                    animEvent.receivers = new Uruobjectref[0];
+                    animEventRo.markAsChanged();
                 }
             }
         }
@@ -3384,7 +3411,7 @@ public class PostMod_MystV
 
         // Create a new plPythonFileMod to handle clicking the object.
         plPythonFileMod pfm = plPythonFileMod.createDefault();
-        pfm.pyfile = Urustring.createFromString("xEoAMultiposInteractable");
+        pfm.pyfile = Urustring.createFromString("xEoADraggable");
         pfm.addListing(plPythonFileMod.Pythonlisting.createWithRef(7, 2, aam.notificationKey));
         Uruobjectref animRef = (aam.xAnim.hasRef == 1) ? aam.xAnim : aam.yAnim;
         pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(7, Bstr.createFromString(aam.animLabel.toString())));

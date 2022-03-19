@@ -92,7 +92,10 @@ class lakiCreatures(ptResponder):
         birdBrain.OnTimer(id)
 
 
-    def EnsureBirdSpawned():
+    def EnsureBirdSpawned(self):
+        global isBirdSpawned
+        global soBird
+        global birdBrain
         if (not (isBirdSpawned)):
             print 'lakiCreatures: Spawning creature...'
             #soBird = ptSceneobject.getSpawnedNPC(SpawnBird.value)
@@ -113,7 +116,7 @@ class lakiCreatures(ptResponder):
             if PtFindAvatar(events) != PtGetLocalAvatar() or not PtWasLocallyNotified(self.key) or not self.sceneobject.isLocallyOwned():
                 return
 
-            EnsureBirdSpawned()
+            self.EnsureBirdSpawned()
             if (id == Act1Bird.id):
                 if (birdRegion != 1):
                     print 'lakiCreatures.OnNotify(): region 1 triggered.  Warping creature...'
@@ -197,7 +200,7 @@ class lakiCreatures(ptResponder):
             or id == birdAnims["vocalize"].id \
             or id == birdAnims["walk"].id:
             # print "Got callback from bird. Id =", id
-            EnsureBirdSpawned()
+            self.EnsureBirdSpawned()
             birdBrain.OnBirdAnimDone(id)
 
 

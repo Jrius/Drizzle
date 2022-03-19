@@ -802,7 +802,7 @@ public class mystv //was myst5Fixes
         
         // BEGIN Sirius' MV fixes
         
-        // fix cast flags for respmod, logicmod, animevmod
+        // fix cast flags for respmod, logicmod
         auto.postmod.PostMod_MystV.PostMod_FixCastFlags(prp);
         // fix for incidental sound
         auto.postmod.PostMod_MystV.PostMod_FixIncidentalSounds(prp);
@@ -821,7 +821,8 @@ public class mystv //was myst5Fixes
         // fix for direbo responders
         auto.postmod.PostMod_MystV.PostMod_FixLinkResponderNames(prp);
         // makes objects such as Siralehn rock send notifies to their Python scripts
-        auto.postmod.PostMod_MystV.PostMod_AddAnimEventForDraggables(prp);
+        // DISABLED - completely reworked for new draggable Python script.
+        //auto.postmod.PostMod_MystV.PostMod_AddAnimEventForDraggables(prp);
         // fixes visregion, rootnode n'stuff
         auto.postmod.PostMod_MystV.PostMod_TweakEnvmapSettings(prp);
         
@@ -833,7 +834,7 @@ public class mystv //was myst5Fixes
             auto.postmod.PostMod_MystV.PostMod_FixTdlmTramLevers(prp);
         
         // adjust a few animations used by draggables
-        auto.postmod.PostMod_MystV.PostMod_FixTdlmPowerDraggables(prp);
+        //auto.postmod.PostMod_MystV.PostMod_FixTdlmPowerDraggables(prp);
         // fade bubble interior, just because it looks cool
         auto.postmod.PostMod_MystV.PostMod_FadeBubble(prp);
         // replace DynamicMusicSound for some voices and brings back Laki arena music
@@ -880,27 +881,5 @@ public class mystv //was myst5Fixes
         
         
         // END Sirius' MV fixes
-        
-        
-        if (false)
-        {
-            // this is a collections of hacks to make walking around ages a bit easier, but it breaks things when fully fixing logic
-            // Shouldn't be required once we convert things properly
-            mystv.fixClickables(newAgename, prp);
-            
-            //fix direbo links. Doesn't look too good, we'll find a better way to do this (maybe based off my handy-dandy xSimpleLinkingBook).
-            mystv.fixLinks(newAgename, prp);
-            
-            // hack: convert a detector region to a collider so we can walk on something.
-            if(newAgename.toLowerCase().equals("descentmystv") && prp.header.pagename.toString().toLowerCase().equals("dsntgreatshaftlowerrm"))
-            {
-                plHKPhysical erf = prp.findObject("ElevRisingFloor", Typeid.plHKPhysical).castTo();
-                erf.ode.convertee.coltype = 0x200;
-                erf.ode.convertee.LOSDB = 0x44;
-                erf.ode.convertee.group = new HsBitVector(4);
-                erf.ode.convertee.flagsdetect = 0x0;
-                erf.ode.convertee.mass = Flt.one();
-            }
-        }
     }
 }
