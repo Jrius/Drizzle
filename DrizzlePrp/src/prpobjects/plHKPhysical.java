@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/ 
+*/
 
 package prpobjects;
 
@@ -37,13 +37,13 @@ import shared.FileUtils;
 public class plHKPhysical extends uruobj
 {
     public int _version; //do not compile!
-    
+
     //plHKPhysical
     public HKPhysical havok;
-    
+
     //plPXPhysical
     public PXPhysical physx;
-    
+
     //plODEPHysical
     public plODEPhysical ode;
 
@@ -138,7 +138,7 @@ public class plHKPhysical extends uruobj
         int u15 = moul.u15;
         short LOSDB = moul.LOSDB;
         int group0 = moul.group0;
-        
+
         /*if( u14==0x4 && u15==0x0 && LOSDB==0x0 && group0==0x200 )
         {
             //kickable.
@@ -201,7 +201,7 @@ public class plHKPhysical extends uruobj
             pots.zzzLOSDB = LOSDB;
             pots.zzzgroup0 = 0x4; //changed for Drizzle27
 
-            
+
             pots.givemass = true;
         }
         else if( u14==0x6 && u15==0x0 && LOSDB==0x2 && group0==0x0 )
@@ -216,7 +216,7 @@ public class plHKPhysical extends uruobj
             pots.zzzu3 = 0x0;
             pots.zzzLOSDB = 0x2;
             pots.zzzgroup0 = 0x4;
-            
+
             //pots.givemass = true; //delete this.
         }
         else if( u14==0x0 && u15==0x0 && LOSDB==0x45 && group0==0x120 )
@@ -423,9 +423,12 @@ public class plHKPhysical extends uruobj
             pots.zzzgroup0 = group0;
             pots.givemass = true;
         }
-        else if( u14==0x6 && u15==0x0 && group0==0x80 )
+        else if(
+                // GreatTreePub_District_Pub:PlayerBlocker4NoCam and others on MOUL as of Dec 2020 (Doobes' update)
+                (u14==0x6 && u15==0x0 && group0==0x80) ||
+                // both Neighborhood_District_CommonRoom:bevinPodiumButton on MOUL as of Mar 2022
+                (u14==0x5 && u15==0x0 && group0==0x4))
         {
-            // GreatTreePub_District_Pub:PlayerBlocker4NoCam and others on MOUL as of Dec 2020 (Doobes' update)
             pots.zzzu1 = 0x0;
             pots.zzzcoltype = 0x0;
             pots.zzzflagsdetect = 0x0;
@@ -533,7 +536,7 @@ public class plHKPhysical extends uruobj
         }
         return pots;
     }
-    
+
     public static class potsflags
     {
         //int zzzformat = b.ByteToInt32(format);
@@ -546,22 +549,22 @@ public class plHKPhysical extends uruobj
         int zzzLOSDB = 0x0;
         //HsBitVector zzzgroup = new HsBitVector(0x0);
         int zzzgroup0 = 0x0;
-        
+
         //extras
         boolean givemass = false;
-        
+
         public potsflags()
         {
         }
     }
-    
+
     public static class moulflags
     {
         byte u14;
         int u15;
         short LOSDB;
         int group0;
-        
+
         public moulflags()
         {
         }
@@ -610,7 +613,7 @@ public class plHKPhysical extends uruobj
                 }
             }
         }
-        
+
         if(c.readversion==6)
         {
             _version = 6;
@@ -626,7 +629,7 @@ public class plHKPhysical extends uruobj
             _version = 3;
             havok = new HKPhysical(c);
         }
-        
+
     }
 
     public static plHKPhysical createStaticTriangleMeshFromVerticesAndFaces(Vertex[] vertices, ShortTriplet[] faces, Uruobjectref scenenode, Uruobjectref sceneobject)
@@ -684,7 +687,7 @@ public class plHKPhysical extends uruobj
             m.err("plhkphysical: unknown version in compile.");
         }
     }
-    
+
     public static class PXPhysical extends uruobj
     {
         plSynchedObject parent;
@@ -771,7 +774,7 @@ public class plHKPhysical extends uruobj
             {
                 orientation = new Quat(c); //orientation?
             }
-            
+
             group = new HsBitVector(c); //{0} //like u4?
             /*if(group.count!=1)
                 dummy=0;
@@ -800,7 +803,7 @@ public class plHKPhysical extends uruobj
                 //here's a partial attempt: (along with some example values)
                 xu24d = new PXMeshBounds(c);
             }
-            
+
             if(shared.State.AllStates.getStateAsBoolean("reportPhysics"))
             {
                 //String text = "file="+c.curFile+"   objname="+c.curRootObject.objectname.toString()+"   format="+Integer.toHexString(format)+"   u14="+Integer.toHexString(u14)+"   u15="+Integer.toHexString(u15)+"   losdb="+Integer.toHexString(LOSDB)+"   group="+Integer.toHexString(group.values[0]);
@@ -851,7 +854,14 @@ public class plHKPhysical extends uruobj
             byte zzzu3 = pots.zzzu3;
             int zzzLOSDB = pots.zzzLOSDB;
             HsBitVector zzzgroup = new HsBitVector(pots.zzzgroup0);
-            
+
+            if (format == 0x01) //box
+            {
+                zzzgroup.values[0] |= HKPhysical.kPropPinned;
+                if (mass.equals(Flt.zero()))
+                    mass = Flt.one();
+            }
+
             //extras
             if(pots.givemass) mass = Flt.one();
             //if(!RC.approxequals(0.0f) && mass.approxequals(0.0f))
@@ -860,7 +870,7 @@ public class plHKPhysical extends uruobj
             //    mass = Flt.one();
             //}
 
-            
+
             //compile as if it were an HKPhysical.
             parent.compile(c);
             position.compile(c);
@@ -873,18 +883,18 @@ public class plHKPhysical extends uruobj
             mass.compile(c);
             RC.compile(c);
             EL.compile(c);
-            
-            
+
+
             //c.writeInt(zzzformat);
             c.writeInt(b.ByteToInt32(format));
             c.writeShort(zzzu1); // u1; only non-zero on one-object in Cleft.
 
             //coltype: not at all right!
             c.writeShort(zzzcoltype);
-            
+
             //flagsdetect:
             c.writeInt(zzzflagsdetect);
-            /*switch(u15) 
+            /*switch(u15)
             {
                 case 0x00:
                     c.writeInt(0x00);
@@ -903,7 +913,7 @@ public class plHKPhysical extends uruobj
                     m.err("plhkphysical: Unhandled write case.");
                     break;
             }*/
-            
+
             //flagsrespond: this is way off!
             c.writeInt(zzzflagsrespond);
             /*switch(u14)
@@ -938,10 +948,10 @@ public class plHKPhysical extends uruobj
                     c.writeInt(0x00000000);
                     break;
             }*/
-            
+
             c.writeByte(zzzu2); //u2; only non-zero on great-stairs.
             c.writeByte(zzzu3); //u3; only non-zero on great-stairs.
-            
+
             switch(format)
             {
                 case 0x01: //box
@@ -969,7 +979,7 @@ public class plHKPhysical extends uruobj
             subworld.compile(c);
             soundgroup.compile(c);
         }
-        
+
         public HKPhysical convertToHavok()
         {
             //This block converts the flags from moul to pots.
@@ -1120,7 +1130,7 @@ public class plHKPhysical extends uruobj
         {
             m.err("hkphysical: compile not implemented.");
         }
-        
+
         /*public void transformVertices(Transmatrix mat)
         {
             switch(format)
@@ -1145,7 +1155,7 @@ public class plHKPhysical extends uruobj
         }*/
     }
 
-    
+
     public static class HKPhysical extends uruobj
     {
         public static final int kPropDisable = 0x0001,
@@ -1162,7 +1172,7 @@ public class plHKPhysical extends uruobj
                                 kPropSuppressed = 0x0800,
                                 kPropNoOwnershipChange = 0x1000,
                                 kPropAvAnimPushable = 0x2000;
-        
+
         plSynchedObject parent;
         public Vertex position;
         public Quat orientation;
@@ -1187,19 +1197,19 @@ public class plHKPhysical extends uruobj
         public int LOSDB; //45,2,44,5,4,80,40,1,20,41,
         public Uruobjectref subworld;
         Uruobjectref soundgroup;
-        
+
         private HKPhysical(){}
         public static HKPhysical createBlank()
         {
             return new HKPhysical();
         }
-        
+
         public HKPhysical(context c) throws readexception
         {
             if(c.curRootObject.objectname.toString().toLowerCase().startsWith("kirelorange"))
             {
                 int dummy=0;
-            }            
+            }
             parent = new plSynchedObject(c);
             position = new Vertex(c);
             orientation = new Quat(c);
@@ -1268,10 +1278,10 @@ public class plHKPhysical extends uruobj
                 //FileUtils.AppendText(_staticsettings.outputdir+"hkphysical.txt", text+"\n");
                 m.msg(text);
             }
-            
-            
+
+
         }
-        
+
         public void compile(Bytedeque c)
         {
             parent.compile(c);
@@ -1315,7 +1325,7 @@ public class plHKPhysical extends uruobj
             c.writeInt(LOSDB);
             subworld.compile(c);
             soundgroup.compile(c);
-            
+
         }
 
         public void transformVertices(Transmatrix mat)
@@ -1342,9 +1352,9 @@ public class plHKPhysical extends uruobj
                     break;
             }
         }
-        
+
     }
-    
+
     public static class HKBoxBounds extends uruobj
     {
         public HKProxyBounds parent;
@@ -1356,7 +1366,7 @@ public class plHKPhysical extends uruobj
         {
             parent = new HKProxyBounds(c);
         }
-        
+
         public void compile(Bytedeque c)
         {
             parent.compile(c);
@@ -1365,7 +1375,7 @@ public class plHKPhysical extends uruobj
         {
             parent.transformVertices(m);
         }
-        
+
     }
     public static class HKSphereBounds extends uruobj
     {
@@ -1392,7 +1402,7 @@ public class plHKPhysical extends uruobj
         {
             offset = m.mult(offset);
         }
-        
+
     }
     public static class HKHullBounds extends uruobj
     {
@@ -1422,7 +1432,7 @@ public class plHKPhysical extends uruobj
                 vertices[i] = m.mult(vertices[i]);
             }
         }
-        
+
     }
     public static class HKProxyBounds extends uruobj
     {
@@ -1449,7 +1459,7 @@ public class plHKPhysical extends uruobj
         {
             parent.transformVertices(m);
         }
-        
+
     }
     public static class HKExplicitBounds extends uruobj
     {
@@ -1472,18 +1482,18 @@ public class plHKPhysical extends uruobj
             parent.transformVertices(m);
         }
     }
-    
+
     public static class PXSphereBounds
     {
         Flt radius;
         Vertex offset;
-        
+
         public PXSphereBounds(context c) throws readexception
         {
                 radius = new Flt(c);
                 offset = new Vertex(c);
         }
-        
+
         public void compileSpecial(Bytedeque c)
         {
             offset.compile(c);
@@ -1498,32 +1508,40 @@ public class plHKPhysical extends uruobj
             return result;
         }
     }
-    
+
     public static class PXBoxBounds
     {
         Vertex cornervector; //one of these is the center and the other is the half-size.
         Vertex center; //one of these is the center and the other is the half-size.
-        
+
         public PXBoxBounds(context c) throws readexception
         {
                 cornervector = new Vertex(c);
                 center = new Vertex(c);
         }
-        
+
         //This is the exact same ordering used by pots, and the chiralities of all the faces point outwards according to the right-hand rule.
         public void compileSpecial(Bytedeque c)
         {
             int vertexcount = 8;
             int facecount = 12;
             Vertex[] vertices = new Vertex[]{
-                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
-                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
-                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
-                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
-                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
-                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
-                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
-                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
+//                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
+//                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
+//                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
+//                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
+//                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
+//                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
+//                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
+//                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
+                new Vertex(cornervector.x.neg(),cornervector.y.neg(),cornervector.z.neg()),
+                new Vertex(cornervector.x,      cornervector.y.neg(),cornervector.z.neg()),
+                new Vertex(cornervector.x.neg(),cornervector.y,      cornervector.z.neg()),
+                new Vertex(cornervector.x,      cornervector.y,      cornervector.z.neg()),
+                new Vertex(cornervector.x.neg(),cornervector.y.neg(),cornervector.z),
+                new Vertex(cornervector.x,      cornervector.y.neg(),cornervector.z),
+                new Vertex(cornervector.x.neg(),cornervector.y,      cornervector.z),
+                new Vertex(cornervector.x,      cornervector.y,      cornervector.z),
             };
             short[] faces = new short[]{
                 0,2,1,
@@ -1554,10 +1572,10 @@ public class plHKPhysical extends uruobj
                 4,6,7,
                 4,7,5,
             };*/
-            
+
             e.ensure(vertices.length==vertexcount);
             e.ensure(faces.length==facecount*3);
-            
+
             c.writeInt(vertexcount);
             c.writeArray(vertices);
             c.writeInt(facecount);
@@ -1620,7 +1638,7 @@ public class plHKPhysical extends uruobj
             return result;
         }
     }
-    
+
     public static class PXHullBounds
     {
         byte[] yheader1;
@@ -1640,7 +1658,7 @@ public class plHKPhysical extends uruobj
         int y11;
         byte[] xy12a;
         short[] xy12b;
-        
+
         public PXHullBounds(context c) throws readexception
         {
             byte[] headerFirstPart = c.readBytes(4);
@@ -1655,12 +1673,12 @@ public class plHKPhysical extends uruobj
                 surfacecount = 0;
                 return;
             }
-            
+
             byte[] headerSecondPart = c.readBytes(4);
             byte[] combined = new byte[8];
             System.arraycopy(headerFirstPart, 0, combined, 0, 4);
             System.arraycopy(headerSecondPart, 0, combined, 4, 4);
-            
+
             yheader1 = combined; //header "NXS\0x01CVXM
             if(!b.BytesToString(yheader1).equals("NXS\u0001CVXM"))
             {
@@ -1712,7 +1730,7 @@ public class plHKPhysical extends uruobj
             //String text = "   y1="+Integer.toHexString(y1)+"   y2="+Integer.toHexString(y2)+"   y3="+Integer.toString(y3)+"   y4="+Integer.toHexString(y4)+"   vertexcount="+Integer.toHexString(vertexcount)+"   surfacecount="+Integer.toHexString(surfacecount)+"   y7="+Integer.toHexString(y7)+"   y8="+Integer.toHexString(y8)+"   y9="+Integer.toHexString(y9)+"   y10="+Integer.toHexString(y10);
             //FileUtils.AppendText(_staticsettings.outputdir+"pxphysical.txt", text+"\n");
         }
-        
+
         public void compileSpecial(Bytedeque c)
         {
             c.writeInt(vertexcount);
@@ -1728,7 +1746,7 @@ public class plHKPhysical extends uruobj
             return result;
         }
     }
-    
+
     public static class PXMeshBounds
     {
         byte[] header;
@@ -1745,7 +1763,7 @@ public class plHKPhysical extends uruobj
         int u37;
         byte[] xu38a;
         short[] xu38b;
-        
+
         public PXMeshBounds(context c) throws readexception
         {
             byte[] headerFirstPart = c.readBytes(4);
@@ -1775,12 +1793,12 @@ public class plHKPhysical extends uruobj
                 }
                 return;
             }
-            
+
             byte[] headerSecondPart = c.readBytes(4);
             byte[] combined = new byte[8];
             System.arraycopy(headerFirstPart, 0, combined, 0, 4);
             System.arraycopy(headerSecondPart, 0, combined, 4, 4);
-            
+
             header = combined; //header "NXS\0x01MESH
             if(!b.BytesToString(header).equals("NXS\u0001MESH"))
             {
@@ -1816,7 +1834,7 @@ public class plHKPhysical extends uruobj
             {
                 int dummy=0;
             }*/
-            
+
             //read permutation of surface indexes.
             if(surfacecount<=256)
             {
@@ -1829,7 +1847,7 @@ public class plHKPhysical extends uruobj
 
             //String text = "   u28="+Integer.toHexString(u28)+"   u29="+Integer.toHexString(u29)+"   u30="+u30.toString()+"   u31="+Integer.toHexString(u31)+"   u32="+Integer.toHexString(u32)+"   vertexcount="+Integer.toHexString(vertexcount)+"   surfacecount="+Integer.toHexString(surfacecount);
             //FileUtils.AppendText(_staticsettings.outputdir+"pxphysical.txt", text+"\n");
-            
+
         }
 
         public void compileSpecial(Bytedeque c)
@@ -1837,7 +1855,7 @@ public class plHKPhysical extends uruobj
             c.writeInt(vertexcount);
             e.ensure(vertices.length==vertexcount);
             c.writeArray(vertices);
-            
+
             c.writeInt(surfacecount);
             if(vertexcount<=256) //this may need tweeking.
             {
@@ -1902,5 +1920,5 @@ public class plHKPhysical extends uruobj
             return result;
         }
     }
-    
+
 }
