@@ -49,6 +49,7 @@ class xEoADraggable(ptResponder):
         else:
             # not specified ? Assume a simple boolean and ignore time
             sdlValueToTime = [(int(reverse.value), None), (int(not reverse.value), None)]
+        self.DebugLog("sdlValueToTime: %s" % sdlValueToTime)
         if sdlName.value:
             # register SDL notifications
             ageSDL = PtGetAgeSDL()
@@ -194,10 +195,12 @@ class xEoADraggable(ptResponder):
 
     def GetCurIndex(self):
         ageSDL = PtGetAgeSDL()
-        curValue = round(ageSDL[sdlName.value][0], 3)
+        curValue = ageSDL[sdlName.value][0]
+        self.DebugLog("curValue: %s" % curValue)
+        curValue = round(curValue, 3)
         i = 0
         for t in sdlValueToTime:
-            if t[0] == curValue:
+            if abs(t[0] - curValue) <= 0.001:
                 return i
             i += 1
         raise RuntimeError("Couldn't find cur SDL index for var %s with value %s ?..." % (sdlName.value, curValue))

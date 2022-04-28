@@ -834,7 +834,7 @@ public class mystv //was myst5Fixes
             auto.postmod.PostMod_MystV.PostMod_FixTdlmTramLevers(prp);
         
         // adjust a few animations used by draggables
-        //auto.postmod.PostMod_MystV.PostMod_FixTdlmPowerDraggables(prp);
+        auto.postmod.PostMod_MystV.PostMod_FixTdlmPowerDraggables(prp);
         // fade bubble interior, just because it looks cool
         auto.postmod.PostMod_MystV.PostMod_FadeBubble(prp);
         // replace DynamicMusicSound for some voices and brings back Laki arena music
