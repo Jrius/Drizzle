@@ -15,7 +15,7 @@ HorizAnim = ptAttribAnimation(6, 'anim: Camera Horiz')
 VertAnim = ptAttribAnimation(7, 'anim: Camera Vert')
 respCablesStart = ptAttribResponder(8, 'resp: Cable Start')
 respCablesStop = ptAttribResponder(9, 'resp: Cable Stop')
-respEnterOff = ptAttribResponder(10, 'resp: EnterBtn Off')
+respEnterOff = ptAttribResponder(10, 'resp: EnterBtn Off') # for some reason this doesn't actually disable the clickable itself :roll:
 respEnterBlink = ptAttribResponder(11, 'resp: EnterBtn Blink')
 respEnterOn = ptAttribResponder(12, 'resp: EnterBtn On')
 respHorizSfx = ptAttribResponder(13, 'resp: Horiz Drag Sfx')
@@ -24,11 +24,6 @@ PowerSDL = ptAttribString(15, 'SDL: Pillar 1 Power')
 HorizDragAnim = ptAttribAnimation(16, 'anim: Horiz Drag ')
 VertDragAnim = ptAttribAnimation(17, 'anim: Vert Drag')
 WhichScope = ptAttribDropDownList(18, 'Is This Scope01?', ('Yup', 'Nope'))
-# actSliderSteps = {}
-# for i in range(21):
-    # ptAttribActivator(19+i*2,   'act: Horiz Step %s' % i)
-    # ptAttribActivator(19+i*2+1, 'act: Vert  Step %s' % i)
-    # actSliderSteps   [19+i*2] = i*(1/21.)
 scopespeed = 0.3
 PodViewH = 0.17
 PodViewV = 0.145
@@ -62,6 +57,12 @@ class tdlmBigScope(ptResponder):
         ageSDL.sendToClients(VertSDL.value)
         ageSDL.setFlags(VertSDL.value, 1, 1)
         ageSDL.setNotify(self.key, VertSDL.value, 0.0)
+        ageSDL.sendToClients(HorizSDL.value + "Slider")
+        ageSDL.setFlags(HorizSDL.value + "Slider", 1, 1)
+        ageSDL.setNotify(self.key, HorizSDL.value + "Slider", 0.0)
+        ageSDL.sendToClients(VertSDL.value + "Slider")
+        ageSDL.setFlags(VertSDL.value + "Slider", 1, 1)
+        ageSDL.setNotify(self.key, VertSDL.value + "Slider", 0.0)
 
         HorizSDLPrevVal = ageSDL[HorizSDL.value][0]
         VertSDLPrevVal  = ageSDL[VertSDL .value][0]
@@ -70,10 +71,10 @@ class tdlmBigScope(ptResponder):
         horizSliderProgress = ageSDL[HorizSDL.value + "Slider"][0]
         vertSliderProgress  = ageSDL[VertSDL .value + "Slider"][0]
 
-        HorizDragAnim   .animation.skipToTime(float( horizSliderProgress       * (10 / 3.0) ))
-        HorizAnim       .animation.skipToTime(float( ageSDL[HorizSDL.value][0] * (10 / 3.0) ))
-        VertDragAnim.animation.skipToTime(float( vertSliderProgress       * (10 / 3.0) ))
-        VertAnim    .animation.skipToTime(float( ageSDL[VertSDL.value][0] * (10 / 3.0) ))
+        HorizDragAnim.animation.skipToTime(float(horizSliderProgress       * (10 / 3.0)))
+        HorizAnim    .animation.skipToTime(float(ageSDL[HorizSDL.value][0] * (10 / 3.0)))
+        VertDragAnim .animation.skipToTime(float(vertSliderProgress        * (10 / 3.0)))
+        VertAnim     .animation.skipToTime(float(ageSDL[VertSDL.value][0]  * (10 / 3.0)))
 
 
     def OnNotify(self, state, id, events):
@@ -91,20 +92,6 @@ class tdlmBigScope(ptResponder):
         if ((id == HorizDrag.id) or (id == VertDrag.id)):
             print "Notify from draggable activator"
             raise RuntimeError("WHAT ?!")
-
-            """EnterShouldBlink = true
-            if (ageSDL[PowerSDL.value][0] == 0):
-                print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
-            else:
-                for event in events:
-                    if ((event[0] == kCallbackEvent) and (event[1] == PtEventCallbackType.kValueChanged)):
-                        respEnterBlink.run(self.key)
-            # these responders don't actually exist
-            #if (id == HorizDrag.id):
-            #    respHorizSfx.run(self.key)
-            #elif (id == VertDrag.id):
-            #    respVertSfx.run(self.key)
-            #"""
 
         elif (id == actEnter.id):
             if (ageSDL[PowerSDL.value][0] == 0):
@@ -137,31 +124,12 @@ class tdlmBigScope(ptResponder):
                 if ((ageSDL[HorizSDL.value][0] == newvalueH) and (ageSDL[VertSDL.value][0] == newvalueV)):
                     print 'Nothing moved... turn off blink'
                     respEnterOff.run(self.key)
+                    actEnter.disable()
 
                 if not (PtFindAvatar(events) == PtGetLocalAvatar()) or not (PtWasLocallyNotified(self.key)): return
 
                 ageSDL[HorizSDL.value] = (newvalueH,)
                 ageSDL[VertSDL.value]  = (newvalueV,)
-        """
-        elif id != -1:
-            print "tdlmBigScope: notify from id", id
-
-            EnterShouldBlink = true
-            if (ageSDL[PowerSDL.value][0] == 0):
-                print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
-            else:
-                respEnterBlink.run(self.key, netForce=1)
-
-            if id % 2:
-                sdlName = HorizSDL.value + "Slider"
-                stepId = id
-            else:
-                sdlName = VertSDL.value + "Slider"
-                stepId = id - 1
-            ageSDL[sdlName] = (actSliderSteps[stepId],)
-
-            print "Sliders progress now = (%s, %s)" % (ageSDL[HorizSDL.value + "Slider"][0], ageSDL[VertSDL.value + "Slider"][0])
-            #"""
 
 
     def OnSDLNotify(self, VARname, SDLname, playerID, tag):
@@ -175,6 +143,7 @@ class tdlmBigScope(ptResponder):
             if (ageSDL[VARname][0] == 0):
                 print 'tdlmBigScope: Pillar 1 Power just turned off. Turning Enter Btn material off.'
                 respEnterOff.run(self.key)
+                actEnter.disable()
             elif (ageSDL[VARname][0] == 1):
                 if (EnterShouldBlink == true):
                     print 'The slider was moved, or the enter was previous blinking, before the power was turned on.'
@@ -183,12 +152,11 @@ class tdlmBigScope(ptResponder):
                     print ' should now blink.'
                     respEnterBlink.run(self.key)
             return
-        if (VARname == HorizSDL.value):
+        if VARname == HorizSDL.value + "Slider" or VARname == VertSDL.value + "Slider":
             EnterShouldBlink = true
-            if (ageSDL[PowerSDL.value][0] == 0):
-                print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
-            else:
-                respEnterBlink.run(self.key, netForce=1)
+            if (ageSDL[PowerSDL.value][0] != 0):
+                respEnterBlink.run(self.key)
+        elif (VARname == HorizSDL.value):
             newhoriz = ageSDL[HorizSDL.value][0]
             HorizAnim.value.speed(scopespeed)
             HorizAnim.animation.playToTime(float((newhoriz * 3.33)))
@@ -210,14 +178,10 @@ class tdlmBigScope(ptResponder):
             else:
                 print 'Turning off enter. Horiz transtion is moving, but it will be done before the Vertical movement.'
                 respEnterOff.run(self.key)
+                actEnter.disable()
                 TransitionTime = 0
                 return
         elif (VARname == VertSDL.value):
-            EnterShouldBlink = true
-            if (ageSDL[PowerSDL.value][0] == 0):
-                print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
-            else:
-                respEnterBlink.run(self.key, netForce=1)
             newvert = ageSDL[VertSDL.value][0]
             VertAnim.value.speed(scopespeed)
             VertAnim.animation.playToTime(float((newvert * 3.33)))
@@ -239,12 +203,14 @@ class tdlmBigScope(ptResponder):
             else:
                 print 'Turning off enter. Vert transition is moving, but it will be done before the Horizontal movement.'
                 respEnterOff.run(self.key)
+                actEnter.disable()
                 TransitionTime = 0
                 return
         else:
             print 'BigScope: Something other than horz and vert changed:',
             print VARname
             respEnterOff.run(self.key)
+            actEnter.disable()
             TransitionTime = 0
             return
         HorizDrag.disable()
@@ -257,6 +223,7 @@ class tdlmBigScope(ptResponder):
             print 'The big scope finished moving. Stopping cables. Enter button Off.'
             respCablesStop.run(self.key)
             respEnterOff.run(self.key)
+            actEnter.disable()
             HorizDrag.enable()
             VertDrag.enable()
             TransitionTime = 0

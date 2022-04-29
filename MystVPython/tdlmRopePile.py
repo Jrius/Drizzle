@@ -17,11 +17,6 @@ respEnterBlink = ptAttribResponder(13, 'resp: EnterBtn Blink')
 respEnterOn = ptAttribResponder(14, 'resp: EnterBtn On')
 respHorizSfx = ptAttribResponder(15, 'resp: Horiz Drag Sfx')
 respVertSfx = ptAttribResponder(16, 'resp: Vert Drag Sfx')
-actSliderSteps = {}
-for i in range(21):
-    ptAttribActivator(17+i*2,   'act: Horiz Step %s' % i)
-    ptAttribActivator(17+i*2+1, 'act: Vert  Step %s' % i)
-    actSliderSteps   [17+i*2] = i*(1/21.)
 Horiz = false
 Vert = false
 scopespeed = 0.3
@@ -64,6 +59,14 @@ class tdlmRopePile(ptResponder):
         ageSDL.setFlags(VertSDL.value, 1, 1)
         ageSDL.setNotify(self.key, VertSDL.value, 0.0)
 
+        ageSDL.sendToClients(HorizSDL.value + "Slider")
+        ageSDL.setFlags(HorizSDL.value + "Slider", 1, 1)
+        ageSDL.setNotify(self.key, HorizSDL.value + "Slider", 0.0)
+
+        ageSDL.sendToClients(VertSDL.value + "Slider")
+        ageSDL.setFlags(VertSDL.value + "Slider", 1, 1)
+        ageSDL.setNotify(self.key, VertSDL.value + "Slider", 0.0)
+
         HorizSDLPrevVal = ageSDL[HorizSDL.value][0]
         VertSDLPrevVal  = ageSDL[VertSDL .value][0]
 
@@ -86,18 +89,6 @@ class tdlmRopePile(ptResponder):
         if ((id == HorizDrag.id) or (id == VertDrag.id)):
             print "Notify from draggable activator"
             raise RuntimeError("WHAT ?!")
-
-            """EnterShouldBlink = true
-            if (ageSDL[PowerSDL.value][0] == 0):
-                print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink.'
-            else:
-                for event in events:
-                    if ((event[0] == kCallbackEvent) and (event[1] == PtEventCallbackType.kValueChanged)):
-                        respEnterBlink.run(self.key)
-            if (id == HorizDrag.id):
-                respHorizSfx.run(self.key)
-            elif (id == VertDrag.id):
-                respVertSfx.run(self.key) #"""
         elif (id == actEnter.id):
             if (ageSDL[PowerSDL.value][0] == 0):
                 print 'tdlmRopePile: Pillar 1 power is off, so the enter button doesn\'t respond.'
@@ -114,20 +105,6 @@ class tdlmRopePile(ptResponder):
                 print vertSliderProgress
                 ageSDL[HorizSDL.value] = (horizSliderProgress,)
                 ageSDL[VertSDL.value] = (vertSliderProgress,)
-        elif id != -1:
-            print "tdlmBigScope: notify from id", id
-
-            EnterShouldBlink = true
-            if (ageSDL[PowerSDL.value][0] == 0):
-                print 'tdlmBigScope: Pillar 1 power is off, so the enter button doesn\'t blink... yet'
-            else:
-                respEnterBlink.run(self.key, netForce=1)
-
-            # Not readable, I know, but I like to show off
-            ageSDL[ (VertSDL, HorizSDL) [id%2] .value + "Slider" ] = \
-                    ( actSliderSteps[ (id-1, id)[id%2] ] ,)
-
-            print "Sliders progress now = (%s, %s)" % (ageSDL[HorizSDL.value + "Slider"][0], ageSDL[VertSDL.value + "Slider"])
 
 
     def OnSDLNotify(self, VARname, SDLname, playerID, tag):
@@ -141,6 +118,7 @@ class tdlmRopePile(ptResponder):
             if (ageSDL[VARname][0] == 0):
                 print 'tdlmBigScope: Pillar 1 Power just turned off. Turning Enter Btn material off.'
                 respEnterOff.run(self.key)
+                actEnter.disable()
             elif (ageSDL[VARname][0] == 1):
                 if (EnterShouldBlink == true):
                     print 'The slider was moved, or the enter was previous blinking, before the power was turned on.'
@@ -149,6 +127,10 @@ class tdlmRopePile(ptResponder):
                     print ' should now blink.'
                     respEnterBlink.run(self.key)
             return
+        if VARname == HorizSDL.value + "Slider" or VARname == VertSDL.value + "Slider":
+            EnterShouldBlink = true
+            if (ageSDL[PowerSDL.value][0] != 0):
+                respEnterBlink.run(self.key)
         # fixed transition time ? How ugly is that ?!
         #if ((VARname == VertSDL.value) or (VARname == HorizSDL.value)):
         #    respCablesStart.run(self.key)
@@ -169,6 +151,7 @@ class tdlmRopePile(ptResponder):
             else:
                 print 'Turning off enter. Horiz transtion is moving, but it will be done before the Vertical movement.'
                 respEnterOff.run(self.key)
+                actEnter.disable()
                 TransitionTime = 0
                 return
         elif (VARname == VertSDL.value):
@@ -196,6 +179,7 @@ class tdlmRopePile(ptResponder):
             else:
                 print 'Turning off enter. Vert transition is moving, but it will be done before the Horizontal movement.'
                 respEnterOff.run(self.key)
+                actEnter.disable()
                 TransitionTime = 0
                 return
         #elif (VARname == HorizSDL.value):
@@ -211,6 +195,7 @@ class tdlmRopePile(ptResponder):
             print 'The big scope finished moving. Stopping cables. Enter button Off.'
             respCablesStop.run(self.key)
             respEnterOff.run(self.key)
+            actEnter.disable()
             HorizDrag.enable()
             VertDrag.enable()
             TransitionTime = 0
