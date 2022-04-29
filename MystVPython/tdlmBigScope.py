@@ -151,8 +151,7 @@ class tdlmBigScope(ptResponder):
                     print PowerSDL.value,
                     print ' should now blink.'
                     respEnterBlink.run(self.key)
-            return
-        if VARname == HorizSDL.value + "Slider" or VARname == VertSDL.value + "Slider":
+        elif VARname == HorizSDL.value + "Slider" or VARname == VertSDL.value + "Slider":
             EnterShouldBlink = true
             if (ageSDL[PowerSDL.value][0] != 0):
                 respEnterBlink.run(self.key)
@@ -180,7 +179,8 @@ class tdlmBigScope(ptResponder):
                 respEnterOff.run(self.key)
                 actEnter.disable()
                 TransitionTime = 0
-                return
+            HorizDrag.disable()
+            VertDrag.disable()
         elif (VARname == VertSDL.value):
             newvert = ageSDL[VertSDL.value][0]
             VertAnim.value.speed(scopespeed)
@@ -205,16 +205,14 @@ class tdlmBigScope(ptResponder):
                 respEnterOff.run(self.key)
                 actEnter.disable()
                 TransitionTime = 0
-                return
+            HorizDrag.disable()
+            VertDrag.disable()
         else:
             print 'BigScope: Something other than horz and vert changed:',
             print VARname
             respEnterOff.run(self.key)
             actEnter.disable()
             TransitionTime = 0
-            return
-        HorizDrag.disable()
-        VertDrag.disable()
 
 
     def OnTimer(self, id):

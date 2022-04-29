@@ -126,8 +126,7 @@ class tdlmRopePile(ptResponder):
                     print PowerSDL.value,
                     print ' should now blink.'
                     respEnterBlink.run(self.key)
-            return
-        if VARname == HorizSDL.value + "Slider" or VARname == VertSDL.value + "Slider":
+        elif VARname == HorizSDL.value + "Slider" or VARname == VertSDL.value + "Slider":
             EnterShouldBlink = true
             if (ageSDL[PowerSDL.value][0] != 0):
                 respEnterBlink.run(self.key)
@@ -136,7 +135,7 @@ class tdlmRopePile(ptResponder):
         #    respCablesStart.run(self.key)
         #    respEnterOn.run(self.key)
         #    PtAtTimeCallback(self.key, 5, 1)
-        if (VARname == HorizSDL.value):
+        elif (VARname == HorizSDL.value):
             newhoriz = ageSDL[HorizSDL.value][0]
             Htransitiontime = ((abs((HorizSDLPrevVal - ageSDL[VARname][0])) * 3.33) / scopespeed)
 
@@ -153,7 +152,8 @@ class tdlmRopePile(ptResponder):
                 respEnterOff.run(self.key)
                 actEnter.disable()
                 TransitionTime = 0
-                return
+            HorizDrag.disable()
+            VertDrag.disable()
         elif (VARname == VertSDL.value):
             newvert = ageSDL[VertSDL.value][0]
             Vtransitiontime = ((abs((VertSDLPrevVal - ageSDL[VARname][0])) * 3.33) / scopespeed)
@@ -181,12 +181,11 @@ class tdlmRopePile(ptResponder):
                 respEnterOff.run(self.key)
                 actEnter.disable()
                 TransitionTime = 0
-                return
+            HorizDrag.disable()
+            VertDrag.disable()
         #elif (VARname == HorizSDL.value):
         #    print 'tdlmRopePile.OnSDLNotify: New ScopePile Horizontal draggable value = ',
         #    print HorizDrag.getDraggableValue()
-        HorizDrag.disable()
-        VertDrag.disable()
 
 
     def OnTimer(self, id):
