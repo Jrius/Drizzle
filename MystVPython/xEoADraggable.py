@@ -101,6 +101,7 @@ class xEoADraggable(ptResponder):
                 animation.value.playToTime(timeNew)
             else:
                 # run the lever anim
+                animation.value.skipToTime(timeOld)
                 animation.value.playToTime(timeNew)
         else:
             # just play ping-pong

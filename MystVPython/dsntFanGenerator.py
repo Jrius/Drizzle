@@ -60,7 +60,7 @@ class dsntFanGenerator(ptResponder):
             elif (ageSDL[AgeSDLgene.value][0] == 0):
                 print '\tFastforwarding the generator to the OFF state, including the handle.'
                 respFalse.run(self.key, fastforward=1)
-                respRewindCrankAnim.run(self.key, fastforward=1)
+                #respRewindCrankAnim.run(self.key, fastforward=1) # draggable automatically syncs itself to the SDL
         else:
             print 'dsnt Fan: When I got here ',
             print AgeSDLfan.value,
@@ -72,7 +72,7 @@ class dsntFanGenerator(ptResponder):
             elif (ageSDL[AgeSDLfan.value][0] == 0):
                 print '\tFastforwarding the fan to the OFF state.'
                 respFalse.run(self.key, fastforward=1)
-                respRewindCrankAnim.run(self.key, fastforward=1)
+                #respRewindCrankAnim.run(self.key, fastforward=1) # draggable automatically syncs itself to the SDL
             if ((ageSDL[AgeSDLgene.value][0] == 1) and (ageSDL[AgeSDLfan.value][0] == 1)):
                 print '\tBoth the fan and the generator are on. Lowering the solution ladders.'
                 respLaddersDown.run(self.key, fastforward=1)
@@ -99,6 +99,8 @@ class dsntFanGenerator(ptResponder):
                 FanCrankThatDrags.value.draw.disable()
 
 
+    """
+    # No longer used → anim events are removed, and the levers themselves handle toggling SDL vars.
     def OnNotify(self, state, id, events):
         ageSDL = PtGetAgeSDL()
         if (not (state)):
@@ -117,6 +119,7 @@ class dsntFanGenerator(ptResponder):
                 ageSDL[AgeSDLfan.value] = (0,)
             if (id == actFanClickable.id):
                 print 'The fan crank should wiggle.'
+    #"""
 
 
     def EnableDragCrank(self):
@@ -168,7 +171,12 @@ class dsntFanGenerator(ptResponder):
                     self.EnableDragCrank()
                 elif (ageSDL[AgeSDLgene.value][0] == 0):
                     print '\tthe generator turned off above. Rewinding the Fan_Draggable animation below.'
-                    respRewindCrankAnim.run(self.key)
+                    #respRewindCrankAnim.run(self.key) # draggable automatically syncs itself to the SDL
+                    # Note that since we removed anim event modifiers, we have to ensure we also switch off the fan now.
+                    # This isn't ideal as it means all clients will try to set this variable at once.
+                    # Let's just hope Plasma can be lenient and not freak out...
+                    if ageSDL[AgeSDLfan.value][0] != 0:
+                        ageSDL[AgeSDLfan.value] = (0,)
                     self.EnableClickCrank()
             if ((ageSDL[AgeSDLfan.value][0] == 1) and (ageSDL[AgeSDLgene.value][0] == 1)):
                 print '\tThe Generator/Fan puzzle was just solved. Lowering the solution ladders.'

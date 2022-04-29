@@ -71,7 +71,7 @@ public class PostMod_MystV
 
     private static List<PrpDraggables> prpDraggablesList = Arrays.asList(
             new PrpDraggables("DescentMystV", "dsntPostShaftNodeAndTunnels", Arrays.asList(
-                    new Draggable("FanRoomCrank_Drag", "FanOn", false, true),
+                    new Draggable("FanRoomCrank_Drag", "FanOn", false, false),
                     new Draggable("handle01", "ShaftDoorOpen", false, false)
             )),
             new PrpDraggables("DescentMystV", "dsntShaftGeneratorRoom", Arrays.asList(
@@ -95,13 +95,13 @@ public class PostMod_MystV
 //                    new Draggable("WindmillHeightLever"),
 //                    new Draggable("WindmillRotateLever"),
 //                    new Draggable("WindmillGearLever"),
-                    new Draggable("HutRopeBig1", "boolBigRock1", false, true),
-                    new Draggable("HutRopeBig2", "boolBigRock2", false, true),
-                    new Draggable("HutRopeMed1", "boolMedRock1", false, true),
-                    new Draggable("HutRopeMed2", "boolMedRock2", false, true),
-                    new Draggable("HutRopeMed3", "boolMedRock3", false, true),
-                    new Draggable("HutRopeSmall1", "boolSmallRock1", false, true),
-                    new Draggable("HutRopeSmall2", "boolSmallRock2", false, true)
+                    new Draggable("HutRopeBig1", "boolBigRock1", false, false),
+                    new Draggable("HutRopeBig2", "boolBigRock2", false, false),
+                    new Draggable("HutRopeMed1", "boolMedRock1", false, false),
+                    new Draggable("HutRopeMed2", "boolMedRock2", false, false),
+                    new Draggable("HutRopeMed3", "boolMedRock3", false, false),
+                    new Draggable("HutRopeSmall1", "boolSmallRock1", false, false),
+                    new Draggable("HutRopeSmall2", "boolSmallRock2", false, false)
             )),
 //            new PrpDraggables("Laki", "LakiMaze", Arrays.asList(
 //                    new Draggable("ElevLeverLwr", DraggableType.Toggle, null),
