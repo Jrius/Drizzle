@@ -1916,13 +1916,19 @@ public class PostMod_MystV
         anev2.receivers = new Uruobjectref[1];
         anev1.receivers[0] = Uruobjectref.createDefaultWithTypeNamePage(Typeid.plPythonFileMod, "cPythTram", prp.header.pageid);
         anev2.receivers[0] = Uruobjectref.createDefaultWithTypeNamePage(Typeid.plPythonFileMod, "cPythTram", prp.header.pageid);
+        // oh yeah, the event callback for pump on pillar 3 is different from pump on pillar 1, and also doesn't work.
+        // Truly, I marvel that this works at all in Myst V...
+        PrpMessage.PlEventCallbackMsg callback = ((PrpTaggedObject)(((PrpMessage.PlAnimCmdMsg)anev2.message.castTo()).parent.callbacks.get(0))).castTo();
+        callback.event = 6; // called on end rather than on time.
+        callback.eventTime = new Flt(0); // just to keep things clean.
 
         PrpRootObject pyro = prp.findObject("cPythTram", Typeid.plPythonFileMod);
         prpobjects.plPythonFileMod py = pyro.castTo();
 
         for (int i=0; i<py.listings.size(); i++)
         {
-            if (py.listings.get(i).index == 14 || py.listings.get(i).index == 16)
+            plPythonFileMod.Pythonlisting listing = (plPythonFileMod.Pythonlisting)py.listings.get(i);
+            if ((listing.index == 14 || listing.index == 16) && listing.xRef.xdesc.objecttype == Typeid.plAxisAnimModifier)
             {
                 py.listings.remove(i);
                 i--;
@@ -1930,11 +1936,11 @@ public class PostMod_MystV
         }
 
         py.listings.add(
-            prpobjects.plPythonFileMod.Pythonlisting.createWithRef(7, 14, Uruobjectref.createDefaultWithTypeNamePage(
+            prpobjects.plPythonFileMod.Pythonlisting.createWithRef(7, 38, Uruobjectref.createDefaultWithTypeNamePage(
                     Typeid.plAnimEventModifier, "cAnimEvntDraggedDock1", prp.header.pageid)));
 
         py.listings.add(
-            prpobjects.plPythonFileMod.Pythonlisting.createWithRef(7, 16, Uruobjectref.createDefaultWithTypeNamePage(
+            prpobjects.plPythonFileMod.Pythonlisting.createWithRef(7, 39, Uruobjectref.createDefaultWithTypeNamePage(
                     Typeid.plAnimEventModifier, "cAnimEvntDraggedDock3", prp.header.pageid)));
 
 

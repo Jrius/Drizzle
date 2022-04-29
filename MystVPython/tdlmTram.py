@@ -46,6 +46,8 @@ respSfxPumpReset01 = ptAttribResponder(34, 'resp: Pump 1 Reset Sfx')
 respSfxPumpReset03 = ptAttribResponder(35, 'resp: Pump 3 Reset Sfx')
 actLadder01 = ptAttribActivator(36, 'act: Ladder 01')
 actLadder02 = ptAttribActivator(37, 'act: Ladder 02')
+evtCrankArm1 = ptAttribActivator(38, 'anm evt: Tram Pump pulled, Pillar 1')
+evtCrankArm2 = ptAttribActivator(39, 'anm evt: Tram Pump pulled, Pillar 3')
 boolPower1 = 0
 boolPower2 = 0
 byteCarLever = 0
@@ -100,11 +102,6 @@ class tdlmTram(ptResponder):
             ageSDL.sendToClients(varname.value)
             ageSDL.setFlags(varname.value, 1, 1)
             ageSDL.setNotify(self.key, varname.value, 0.0)
-
-        ## lower speed to counterpart speeded animation
-        animDock1Pump.animation.speed(0.1)
-        animDock3Pump.animation.speed(0.1)
-
 
         ladders = [PtFindSceneobject("TramLdr1b", "Todelmer"),
                    PtFindSceneobject("TramLdr1t", "Todelmer"),
@@ -169,6 +166,7 @@ class tdlmTram(ptResponder):
         global AlreadyMoving
         global cranking
         global boolCrankDir1
+        global boolCrankDir2
         global door1
         global door2
         ageSDL = PtGetAgeSDL()
@@ -200,13 +198,12 @@ class tdlmTram(ptResponder):
                     return
                 print 'Car lever set to reverse. 2.'
                 ageSDL[sdlCarLever.value] = (2,)
-        if (id == actCrankArm1.id):
+        if (id == evtCrankArm1.id):
             if state:
                 # ????
                 #if (actCrankArm1.getDraggableValue() != 1):
                 #    return
                 if cranking:
-                    print 'Cranking.'
                     return
                 else:
                     print 'Pump on Dock 1 manipulated. '
@@ -260,10 +257,12 @@ class tdlmTram(ptResponder):
                             print 'Can\'t crank tram backwards anymore. It\'s already at pillar 1.'
                 print 'Trying to animate pump 1 backwards...'
                 actCrankArm1.disable()
+                # draggable animation is sped up, so speed it back down for the duration of the reset
+                animDock1Pump.animation.speed(0.1)
                 animDock1Pump.animation.playToTime(0)
                 respSfxPumpReset01.run(self.key)
                 PtAtTimeCallback(self.key, 4, 2)
-        elif (id == actCrankArm2.id):
+        elif (id == evtCrankArm2.id):
             if state:
                 # ???
                 #if (actCrankArm2.getDraggableValue() != 1):
@@ -271,21 +270,19 @@ class tdlmTram(ptResponder):
                 if cranking:
                     return
                 else:
-                    print '#'
                     print 'Pump on Dock 3 manipulated.'
                     cranking = 1
-                    if (ageSDL[sdlCrankDir2.value][0] == 1):
+                    if (boolCrankDir2 == 1):
                         if (ageSDL[sdlCarPos.value][0] != 1000):
                             respCrankArm2.run(self.key, state='forward')
                             respCarMove.run(self.key, state='forward')
                             print '\t...tram inches forward'
                             PrevPos = ageSDL[sdlCarPos.value][0]
-                            if ((PrevPos + kFramesPerPump) > 1000):
-                                print 'tdlmTram: Can\'t go past Pillar 3. Just going to frame 1000 instead.'
-                                if (PtFindAvatar(events) == PtGetLocalAvatar()) and (PtWasLocallyNotified(self.key)):
+                            if (PtFindAvatar(events) == PtGetLocalAvatar()) and (PtWasLocallyNotified(self.key)):
+                                if ((PrevPos + kFramesPerPump) > 1000):
+                                    print 'tdlmTram: Can\'t go past Pillar 3. Just going to frame 1000 instead.'
                                     ageSDL[sdlCarPos.value] = (1000,)
-                            else:
-                                if (PtFindAvatar(events) == PtGetLocalAvatar()) and (PtWasLocallyNotified(self.key)):
+                                else:
                                     ageSDL[sdlCarPos.value] = ((PrevPos + kFramesPerPump),)
                             if door1:
                                 door1 = 0
@@ -294,8 +291,9 @@ class tdlmTram(ptResponder):
                                 door2 = 0
                                 respDoor2.run(self.key, state='close')
                         else:
-                            print 'Can\'t crank tram forward anymore. It\'s already at pillar 3.'
-                    elif (ageSDL[sdlCrankDir2.value][0] == 0):
+                            print 'Can\'t crank tram forward anymore. It\'s already at pillar 3. sdlCarPos=',
+                            print ageSDL[sdlCarPos.value][0]
+                    elif (boolCrankDir2 == 0):
                         if (ageSDL[sdlCarPos.value][0] != 0):
                             respCrankArm2.run(self.key, state='reverse')
                             respCarMove.run(self.key, state='reverse')
@@ -318,6 +316,8 @@ class tdlmTram(ptResponder):
                             print 'Can\'t crank tram backwards anymore. It\'s already at pillar 1.'
                 print 'Trying to animate pump 3 handle backwards.'
                 actCrankArm2.disable()
+                # draggable animation is sped up, so speed it back down for the duration of the reset
+                animDock3Pump.animation.speed(0.1)
                 animDock3Pump.animation.playToTime(0)
                 respSfxPumpReset03.run(self.key)
                 PtAtTimeCallback(self.key, 4, 3)
@@ -468,6 +468,8 @@ class tdlmTram(ptResponder):
             cranking = 0
             print 'Dock crank 1 fully resets. Tram anim frame = ',
             print ageSDL[sdlCarPos.value][0]
+            # reset animation speed for the draggable
+            animDock1Pump.animation.speed(1)
             actCrankArm1.enable()
             respCarMove.run(self.key, state='stop')
             self.OpenADoor()
@@ -475,6 +477,8 @@ class tdlmTram(ptResponder):
             cranking = 0
             print 'Dock crank 3 fully resets. Tram anim frame = ',
             print ageSDL[sdlCarPos.value][0]
+            # reset animation speed for the draggable
+            animDock3Pump.animation.speed(1)
             actCrankArm2.enable()
             respCarMove.run(self.key, state='stop')
             self.OpenADoor()
