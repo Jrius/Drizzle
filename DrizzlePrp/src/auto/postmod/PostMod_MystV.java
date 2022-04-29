@@ -50,7 +50,7 @@ public class PostMod_MystV
         {
             this.draggableName = draggableName;
             this.sdlName = sdlName;
-            this.reverse = reverse;
+            this.loop = loop;
             this.sdlValueToTime = sdlValueToTime;
         }
     }
