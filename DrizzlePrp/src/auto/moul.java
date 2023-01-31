@@ -24,7 +24,7 @@ public class moul
 
         AllGames.GameInfo r = new AllGames.GameInfo();
         r.GameName = "MOUL";
-        r.DetectionFile = "tos.txt";
+        r.DetectionFile = "TOS.txt";
         r.prpMarkerForAgename = "_District_";
         r.format = shared.Format.moul;
         r.PythonVersion = 23;
