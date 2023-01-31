@@ -731,44 +731,74 @@ public class moul
 
                 // remove the GUID from the plLinkToAgeMsg to Chiso. This crashes PotS.
                 // (we could completely remove that responder as it's no longer used. I'm a bit wary of null plKeys though.)
-                PrpRootObject rmro = prp.findObject("ChisoBook_ChisoBook_001_Responder", Typeid.plResponderModifier);
-                if (rmro == null) // newer version (circa 20/05/2021)
-                    rmro = prp.findObject("ChisoBook_ChisoBook.001_Responder", Typeid.plResponderModifier);
-                rm = rmro.castTo();
-                ltam = rm.messages.get(0).commands.get(1).message.castTo();
-                ltam.ageLinkStruct.ageinfo.flags &= ~0x04;
-                ltam.ageLinkStruct.ageinfo.ageInstanceGuid = null;
+                // (this responder keeps changing names across MOULa versions - just find whichever contains "ChisoBook".)
+                for (PrpRootObject rmro: prp.findObjectsContaining("ChisoBook", Typeid.plResponderModifier))
+                {
+                    rm = rmro.castTo();
+                    for (plResponderModifier.PlResponderCmd cmd: rm.messages.get(0).commands)
+                    {
+                        if (cmd.message.type == Typeid.plLinkToAgeMsg)
+                        {
+                            ltam = cmd.message.castTo();
+                            ltam.ageLinkStruct.ageinfo.flags &= ~0x04;
+                            ltam.ageLinkStruct.ageinfo.ageInstanceGuid = null;
+                        }
+                    }
+                }
 
                 // make the Chiso book use the xSimpleLinkingBook script - this circumvents any potential instancing issues with the linking responder's LinkToAge msg.
-                pfm = prp.findObject("ChisoBook_001_Python_File", Typeid.plPythonFileMod).castTo();
-                pfm.pyfile = Urustring.createFromString("xSimpleLinkingBook");
-                // PFM parameters:
-                // 1 - clickable activator, no need to change
-                // 2 - behaviour (smartseek), conflicts with destination Age string, must change to id 11 (msbSeekBeforeUI)
-                // 3 - linkout responder, conflicts with spawn point, must remove
-                // 4 - left page texture, but the actual value is some kind of identifier for the Python script in MOUL,
-                //     while it's the name of the texture in PotS. Also, it's ID 6 in PotS.
-                pfm.getListingByIndex(2).index = 11;
-                pfm.removeListingByIndex(3);
-                pfm.getListingByIndex(4).xString = Bstr.createFromString("xlinkpanelchisopreniv*1#0.hsm");
-                // missing:
-                // 2 - target Age name
-                pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(2, Bstr.createFromString("ChisoPreniv")));
-                pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString("xFanAgeStamp02*1#0.hsm")));
-                
+                for (PrpRootObject pfmro: prp.findObjectsContaining("ChisoBook", Typeid.plPythonFileMod))
+                {
+                    pfm = pfmro.castTo();
+                    pfm.pyfile = Urustring.createFromString("xSimpleLinkingBook");
+                    // PFM parameters:
+                    // 1 - clickable activator, no need to change
+                    // 2 - behaviour (smartseek), conflicts with destination Age string, must change to id 11 (msbSeekBeforeUI)
+                    // 3 - linkout responder, conflicts with spawn point, must remove
+                    // 4 - left page texture, but the actual value is some kind of identifier for the Python script in MOUL,
+                    //     while it's the name of the texture in PotS. Also, it's ID 6 in PotS.
+                    pfm.getListingByIndex(2).index = 11;
+                    pfm.removeListingByIndex(3);
+                    pfm.getListingByIndex(4).xString = Bstr.createFromString("xlinkpanelchisopreniv*1#0.hsm");
+                    // missing:
+                    // 2 - target Age name
+                    pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(2, Bstr.createFromString("ChisoPreniv")));
+                    pfm.addListing(plPythonFileMod.Pythonlisting.createWithString(6, Bstr.createFromString("xFanAgeStamp02*1#0.hsm")));
+                }
+
                 // Fix the Watcher's journals. Not sure if we'll leave those visible by default, but at least they're there...
-                pfm = prp.findObject("Words01_Python_File", Typeid.plPythonFileMod).castTo();
-                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words1");
-                pfm = prp.findObject("Words02_Python_File", Typeid.plPythonFileMod).castTo();
-                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words2");
-                pfm = prp.findObject("Words03_Python_File", Typeid.plPythonFileMod).castTo();
-                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words3");
-                pfm = prp.findObject("Words04_Python_File", Typeid.plPythonFileMod).castTo();
-                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words4");
-                pfm = prp.findObject("Words05_Python_File", Typeid.plPythonFileMod).castTo();
-                pfm.getListingByIndex(3).xString = Bstr.createFromString("Words5");
-                pfm = prp.findObject("DRCNotebook_Python_File", Typeid.plPythonFileMod).castTo();
-                pfm.getListingByIndex(3).xString = Bstr.createFromString("WatcherPubInfo");
+                PrpRootObject pfmro = prp.findObject("Words01_Python_File", Typeid.plPythonFileMod);
+                if (pfmro != null)
+                {
+                    pfm = pfmro.castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words1");
+                    pfm = prp.findObject("Words02_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words2");
+                    pfm = prp.findObject("Words03_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words3");
+                    pfm = prp.findObject("Words04_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words4");
+                    pfm = prp.findObject("Words05_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words5");
+                    pfm = prp.findObject("DRCNotebook_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("WatcherPubInfo");
+                }
+                else
+                {
+                    // newer version, names changed again...
+                    pfm = prp.findObject("cPythWatchersJournal01_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words1");
+                    pfm = prp.findObject("cPythWatchersJournal02_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words2");
+                    pfm = prp.findObject("cPythWatchersJournal03_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words3");
+                    pfm = prp.findObject("cPythWatchersJournal04_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words4");
+                    pfm = prp.findObject("cPythWatchersJournal05_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("Words5");
+                    pfm = prp.findObject("cPythDRCWatchersJournal_Python_File", Typeid.plPythonFileMod).castTo();
+                    pfm.getListingByIndex(3).xString = Bstr.createFromString("WatcherPubInfo");
+                }
                 
                 // remove yeesha share texture
                 layer = prp.findObject("m_4650_Map__20030", Typeid.plLayer).castTo();

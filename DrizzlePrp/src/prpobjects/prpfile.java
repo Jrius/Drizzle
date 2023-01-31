@@ -440,6 +440,22 @@ public class prpfile
         }
         return null;
     }
+    /**
+     * Return all root objects of the given type whose name contains the given string (case invariant).
+     */
+    public ArrayList<PrpRootObject> findObjectsContaining(String nameContent, Typeid type)
+    {
+        String nameContentLower = nameContent.toLowerCase();
+        ArrayList<PrpRootObject> result = new ArrayList();
+        for(PrpRootObject obj: objects2)
+        {
+            if(obj!=null && obj.header.desc.objectname.toString().toLowerCase().contains(nameContentLower) && obj.header.desc.objecttype.equals(type))
+            {
+                result.add(obj);
+            }
+        }
+        return result;
+    }
     public PrpRootObject findObjectWithRef(Uruobjectref ref)
     {
         if(!ref.hasref())
