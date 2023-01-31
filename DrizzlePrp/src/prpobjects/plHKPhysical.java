@@ -426,6 +426,8 @@ public class plHKPhysical extends uruobj
         else if(
                 // GreatTreePub_District_Pub:PlayerBlocker4NoCam and others on MOUL as of Dec 2020 (Doobes' update)
                 (u14==0x6 && u15==0x0 && group0==0x80) ||
+                // Same as of Jan 2023
+                (u14==0x2 && u15==0x0 && group0==0x80) ||
                 // both Neighborhood_District_CommonRoom:bevinPodiumButton on MOUL as of Mar 2022
                 (u14==0x5 && u15==0x0 && group0==0x4))
         {
