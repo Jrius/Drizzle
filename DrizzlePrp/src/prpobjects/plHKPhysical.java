@@ -857,13 +857,6 @@ public class plHKPhysical extends uruobj
             int zzzLOSDB = pots.zzzLOSDB;
             HsBitVector zzzgroup = new HsBitVector(pots.zzzgroup0);
 
-            if (format == 0x01) //box
-            {
-                zzzgroup.values[0] |= HKPhysical.kPropPinned;
-                if (mass.equals(Flt.zero()))
-                    mass = Flt.one();
-            }
-
             //extras
             if(pots.givemass) mass = Flt.one();
             //if(!RC.approxequals(0.0f) && mass.approxequals(0.0f))
@@ -1528,22 +1521,14 @@ public class plHKPhysical extends uruobj
             int vertexcount = 8;
             int facecount = 12;
             Vertex[] vertices = new Vertex[]{
-//                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
-//                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
-//                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
-//                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
-//                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
-//                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
-//                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
-//                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
-                new Vertex(cornervector.x.neg(),cornervector.y.neg(),cornervector.z.neg()),
-                new Vertex(cornervector.x,      cornervector.y.neg(),cornervector.z.neg()),
-                new Vertex(cornervector.x.neg(),cornervector.y,      cornervector.z.neg()),
-                new Vertex(cornervector.x,      cornervector.y,      cornervector.z.neg()),
-                new Vertex(cornervector.x.neg(),cornervector.y.neg(),cornervector.z),
-                new Vertex(cornervector.x,      cornervector.y.neg(),cornervector.z),
-                new Vertex(cornervector.x.neg(),cornervector.y,      cornervector.z),
-                new Vertex(cornervector.x,      cornervector.y,      cornervector.z),
+                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
+                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.sub(cornervector.z)),
+                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
+                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.sub(cornervector.z)),
+                new Vertex(center.x.sub(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
+                new Vertex(center.x.add(cornervector.x),center.y.sub(cornervector.y),center.z.add(cornervector.z)),
+                new Vertex(center.x.sub(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
+                new Vertex(center.x.add(cornervector.x),center.y.add(cornervector.y),center.z.add(cornervector.z)),
             };
             short[] faces = new short[]{
                 0,2,1,
