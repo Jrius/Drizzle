@@ -103,7 +103,7 @@ xAgeLinkingBooksStatic = {
             (1.0, 1.0,
             (BookStart1 + PageStart + LinkStart + 'xlinkpaneldescentmystv' + LinkEnd + '<img src=\"xLinkingBookIslandSchematic02*1#0.hsm\" pos=128,256 blend=alpha resize=\"no\">'),
             "DescentMystV",
-            "LinkInFromTdmlDirebo"),
+            "LinkInFromTdlmDirebo"),
         'DescentRestAreaC':
             (1.0, 1.0,
             (BookStart1 + PageStart + LinkStart + 'xlinkpaneldescentmystv' + LinkEnd + '<img src=\"xLinkingBookIslandSchematic03*1#0.hsm\" pos=128,256 blend=alpha resize=\"no\">'),
