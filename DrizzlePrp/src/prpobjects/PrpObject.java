@@ -277,6 +277,8 @@ public class PrpObject extends uruobj
                 return new plWaveSet7(c);
             case plDynamicEnvMap:
                 return new plDynamicEnvMap(c);
+            case plOmniApplicator:
+                return new EmbeddedClasses.PlOmniApplicator(c);
             case plOmniSqApplicator:
                 return new EmbeddedClasses.PlOmniSqApplicator(c);
             case plRidingAnimatedPhysicalDetector:

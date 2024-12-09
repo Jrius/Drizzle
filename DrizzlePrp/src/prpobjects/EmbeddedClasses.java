@@ -44,6 +44,24 @@ public class EmbeddedClasses
             c.writeInt(u3);
         }
     }
+    public static class PlOmniApplicator extends uruobj
+    {
+        byte u1;
+        Urustring u2;
+        
+        public PlOmniApplicator(context c) throws readexception
+        {
+            u1 = c.readByte();
+            u2 = new Urustring(c);
+            throw new shared.readwarningexception("PlOmniApplicator: can read okay, but failing in order to ignore.");
+        }
+        
+        public void compile(Bytedeque c)
+        {
+            c.writeByte(u1);
+            u2.compile(c);
+        }
+    }
     public static class PlOmniSqApplicator extends uruobj
     {
         byte u1;

@@ -747,7 +747,7 @@ public class moul
                 }
 
                 // make the Chiso book use the xSimpleLinkingBook script - this circumvents any potential instancing issues with the linking responder's LinkToAge msg.
-                for (PrpRootObject pfmro: prp.findObjectsContaining("ChisoBook", Typeid.plPythonFileMod))
+                for (PrpRootObject pfmro: prp.findObjectsContaining("ChisoBook_Python_File", Typeid.plPythonFileMod))
                 {
                     pfm = pfmro.castTo();
                     pfm.pyfile = Urustring.createFromString("xSimpleLinkingBook");
