@@ -27,7 +27,7 @@ public class GuiThread
     public static class GuiThreadInfo
     {
         public boolean useGlassPane = true;
-        public Vector<RootPaneContainer> rootpanes = new Vector();
+        public Vector<RootPaneContainer> rootpanes = new Vector<>();
         public boolean setWorkingProgressBar = true;
         public boolean setWorkingText = true;
     }
@@ -87,7 +87,7 @@ public class GuiThread
     private static class InvisibleThread extends Thread
     {
         Runnable command;
-        Vector<Component> modal = new Vector();
+        Vector<Component> modal = new Vector<>();
         GuiThreadInfo info;
 
         public InvisibleThread(Runnable command2, GuiThreadInfo info2)
