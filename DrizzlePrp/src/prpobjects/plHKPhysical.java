@@ -528,6 +528,23 @@ public class plHKPhysical extends uruobj
 
             //pots.givemass = true; //delete this.
         }
+        // Various MOUL fan Ages as of Apr 2023.
+        // Untested. We'll just assume it works...
+        else if(
+                (u14==0x0 && u15==0x0 && group0==0x84) ||
+                (u14==0x0 && u15==0x0 && group0==0xa4) ||
+                (u14==0x6 && u15==0x0 && group0==0x24) ||
+                (u14==0x6 && u15==0x0 && group0==0x104))
+        {
+            pots.zzzu1 = 0x0;
+            pots.zzzcoltype = 0x0;
+            pots.zzzflagsdetect = 0x0;
+            pots.zzzflagsrespond = 0x0;
+            pots.zzzu2 = 0x0;
+            pots.zzzu3 = 0x0;
+            pots.zzzLOSDB = LOSDB;
+            pots.zzzgroup0 = group0;
+        }
         else
         {
             //if(shared.State.AllStates.getStateAsBoolean("reportPhysics"))
@@ -982,7 +999,7 @@ public class plHKPhysical extends uruobj
             moul.u14 = u14;
             moul.u15 = u15;
             moul.LOSDB = LOSDB;
-            moul.group0 = group.values[0];
+            moul.group0 = group.values.length > 0 ? group.values[0] : 0x0;
             potsflags pots = plHKPhysical.convertMoulFlagsToPotsFlags(moul,"","");
             if(pots==null)
             {

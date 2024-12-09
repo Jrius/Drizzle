@@ -147,6 +147,7 @@ public class GuiThread
     private static class InvisibleGlassPane extends javax.swing.JPanel implements java.awt.event.MouseListener, java.awt.event.FocusListener, java.awt.event.MouseMotionListener, java.awt.event.KeyListener, java.awt.event.ComponentListener
     {
         java.awt.Component contentPane;
+        javax.swing.LookAndFeel laf = null;
 
         public InvisibleGlassPane(java.awt.Component contentPane, GuiThreadInfo info)
         {
@@ -170,6 +171,14 @@ public class GuiThread
                 label.setNextFocusableComponent(label); //don't lost focus.
                 //boolean likelytosucceed = this.requestFocusInWindow();
                 //int dummy=0;
+            }
+            
+            // See if we are using the motif LAF
+            try {
+                laf = new com.sun.java.swing.plaf.motif.MotifLookAndFeel();
+            } catch (java.lang.IllegalAccessError err)
+            {
+                // Whatever, we'll do without.
             }
         }
 
@@ -250,7 +259,7 @@ public class GuiThread
                 if(//comp instanceof javax.swing.JTextArea ||
                         comp instanceof javax.swing.JTabbedPane ||
                         comp instanceof javax.swing.JScrollBar ||
-                        comp instanceof com.sun.java.swing.plaf.motif.MotifScrollBarButton)
+                        (laf != null && comp instanceof com.sun.java.swing.plaf.motif.MotifScrollBarButton))
                 {
                     sendclick = true;
                 }

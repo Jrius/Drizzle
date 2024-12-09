@@ -22,6 +22,7 @@ package gui;
 import javax.swing.UIManager;
 import shared.m;
 import java.io.File;
+import javax.swing.UIManager.LookAndFeelInfo;
 import shared.FileUtils;
 
 public class Main extends javax.swing.JFrame {
@@ -254,8 +255,21 @@ public class Main extends javax.swing.JFrame {
                     //javax.swing.LookAndFeel laf = new com.jgoodies.looks.plastic.PlasticXPLookAndFeel();
                     javax.swing.LookAndFeel laf;
                     //laf = new com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel();
-                    laf = new com.sun.java.swing.plaf.motif.MotifLookAndFeel();
-                    javax.swing.UIManager.setLookAndFeel(laf);
+                    try {
+                        laf = new com.sun.java.swing.plaf.motif.MotifLookAndFeel();
+                        javax.swing.UIManager.setLookAndFeel(laf);
+                    } catch (java.lang.IllegalAccessError e)
+                    {
+                        // Motif not available ? Whatever.
+                        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+                        {
+                            if ("Nimbus".equals(info.getName()))
+                            {
+                                UIManager.setLookAndFeel(info.getClassName());
+                                break;
+                            }
+                        }
+                    }
 
                     shared.GuiUtils.setCrossPlatformFonts(true);
                     //shared.GuiUtils.setBackgroundColour(java.awt.Color.CYAN);

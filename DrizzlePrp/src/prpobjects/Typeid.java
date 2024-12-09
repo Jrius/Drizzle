@@ -175,6 +175,7 @@ public enum Typeid implements compilable, java.io.Serializable
     plLightDiffuseApplicator,
     plPointControllerChannel,
     plLightSpecularApplicator,
+    plOmniApplicator,
     plOmniSqApplicator,
     plRidingAnimatedPhysicalDetector,
     plGrassShaderMod,
@@ -568,6 +569,7 @@ public enum Typeid implements compilable, java.io.Serializable
         tri( 0x30B, 0x310, 0x28C, -2, plLightDiffuseApplicator ), //3rd code from myst5
         tri( 0x306, 0x30B, 0x287, -2, plPointControllerChannel ), //3rd code from myst5
         tri( 0x30D, 0x312, -2, -2, plLightSpecularApplicator ),
+        tri( -2, 0x313, -2, -2, plOmniApplicator ), //moul-only
         tri( -2, 0x22A, -2, -2, plOmniSqApplicator ), //moul-only
         tri( -2, 0x13A, -2, -2, plRidingAnimatedPhysicalDetector ), //moul-only
         tri( -2, 0x138, 0x23, -2, plGrassShaderMod ), //moul-only

@@ -54,7 +54,12 @@ public class x0003Bitmap extends uruobj
         {
             xtexel_size = data.readByte(); //bytes per 4x4 texel.
         }
-        subtype = data.readByte(); e.ensureflags(subtype,0,1,5); //1=DXT1, 2=DXT2, ... 5=DXT5
+        subtype = data.readByte();
+        if (type == 1)
+            e.ensureflags(subtype,0,1,5); //1=DXT1, 2=DXT2, ... 5=DXT5
+        // MOULa fan ages have crap data in their envmaps here... don't check the subtype.
+        //else
+        //    e.ensureflags(subtype,0); //0=RGB8888, 1=RGB4444, 2=RGB1555, 3=Inten8, 4=AInten88
         u1 = data.readInt();
         u2 = data.readInt();
     }
@@ -69,7 +74,10 @@ public class x0003Bitmap extends uruobj
         {
             deque.writeByte(xtexel_size);
         }
-        deque.writeByte(subtype);
+        if (type == 0)
+            deque.writeByte((byte)0);
+        else
+            deque.writeByte(subtype);
         deque.writeInt(u1);
         deque.writeInt(u2);
     }
